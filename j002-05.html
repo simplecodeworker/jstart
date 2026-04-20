@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Naming Conventions Reference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        .code { font-family: 'Fira Code', monospace; }
+
+        .mnemonic-card:hover .icon-animate {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <div class="max-w-6xl mx-auto px-4 py-8 md:py-16">
+        <!-- Header -->
+        <header class="text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
+                <i data-lucide="check-square" class="w-4 h-4"></i>
+                Clean Code Standard
+            </div>
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight text-slate-900 mb-4">
+                Java <span class="text-indigo-600">Naming</span> Conventions
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto text-lg">
+                The essential guide to writing readable, maintainable, and professional Java code.
+            </p>
+        </header>
+
+    		<div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
+    		  <p class="text-sm">
+    			Vibe-coded and re-interpreted based on SP Java OOP Notes
+    		  </p>
+    		</div>
+      
+        <!-- Core Reference Table -->
+        <section class="mb-16">
+            <div class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-900 text-white">
+                                <th class="p-6 font-bold text-sm uppercase tracking-widest">Element</th>
+                                <th class="p-6 font-bold text-sm uppercase tracking-widest">Convention</th>
+                                <th class="p-6 font-bold text-sm uppercase tracking-widest">Rule</th>
+                                <th class="p-6 font-bold text-sm uppercase tracking-widest">Example</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Class</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded font-mono text-xs font-bold">PascalCase</span></td>
+                                <td class="p-6 text-sm text-slate-500">Noun; start with Uppercase.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">UserAccount</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Interface</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-blue-100 text-blue-700 rounded font-mono text-xs font-bold">PascalCase</span></td>
+                                <td class="p-6 text-sm text-slate-500">Adjective/Noun; start with Uppercase.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">Serializable</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Method</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-amber-100 text-amber-700 rounded font-mono text-xs font-bold">camelCase</span></td>
+                                <td class="p-6 text-sm text-slate-500">Verb; start with lowercase.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">calculateTotal()</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Variable</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-amber-100 text-amber-700 rounded font-mono text-xs font-bold">camelCase</span></td>
+                                <td class="p-6 text-sm text-slate-500">Noun; start with lowercase.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">retryCount</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Constant</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-rose-100 text-rose-700 rounded font-mono text-xs font-bold">SNAKE_CASE</span></td>
+                                <td class="p-6 text-sm text-slate-500">Uppercase with underscores.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">MAX_WIDTH</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-6 font-bold text-slate-800">Source File</td>
+                                <td class="p-6"><span class="px-2 py-1 bg-slate-100 text-slate-700 rounded font-mono text-xs font-bold">PascalCase</span></td>
+                                <td class="p-6 text-sm text-slate-500">Must match public class name.</td>
+                                <td class="p-6 font-mono text-sm text-indigo-600 font-bold">MyApp.java</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visual Mnemonics Section -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-8 flex items-center gap-2">
+                <i data-lucide="sparkles" class="text-yellow-500"></i> Visual Mnemonics
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- PascalCase -->
+                <div class="mnemonic-card bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-6 icon-animate">
+                        <i data-lucide="mountain" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">PascalCase</h3>
+                    <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-4">The Mountain Range</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        High peaks at the start of <span class="font-bold">every</span> word. Every word stands tall like a mountain peak.
+                    </p>
+                    <div class="mt-6 p-3 bg-slate-50 rounded-xl font-mono text-sm border border-slate-100 text-center">
+                        MountainRange
+                    </div>
+                </div>
+
+                <!-- camelCase -->
+                <div class="mnemonic-card bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-6 icon-animate">
+                        <i data-lucide="git-commit" class="w-8 h-8 rotate-90"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">camelCase</h3>
+                    <p class="text-xs font-bold text-amber-600 uppercase tracking-widest mb-4">The Dromedary Camel</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Starts flat (lowercase) then humps up at the next word. Only one hump in the middle.
+                    </p>
+                    <div class="mt-6 p-3 bg-slate-50 rounded-xl font-mono text-sm border border-slate-100 text-center">
+                        camelHump
+                    </div>
+                </div>
+
+                <!-- UPPER_SNAKE_CASE -->
+                <div class="mnemonic-card bg-white p-8 rounded-3xl shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-rose-50 text-rose-600 rounded-2xl flex items-center justify-center mb-6 icon-animate">
+                        <i data-lucide="spline" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">SNAKE_CASE</h3>
+                    <p class="text-xs font-bold text-rose-600 uppercase tracking-widest mb-4">The Hissing Snake</p>
+                    <p class="text-slate-500 text-sm leading-relaxed">
+                        Long, flat shape punctuated by underscores, written in "LOUD" caps.
+                    </p>
+                    <div class="mt-6 p-3 bg-slate-50 rounded-xl font-mono text-sm border border-slate-100 text-center">
+                        LOUD_SNAKE
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Sandbox -->
+        <section class="mb-16">
+            <div class="bg-indigo-900 rounded-[2.5rem] p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-black mb-4 flex items-center gap-2">
+                            <i data-lucide="keyboard" class="text-indigo-400"></i> Naming Playground
+                        </h2>
+                        <p class="text-indigo-200 mb-8">Type a phrase to see how it looks in various Java casing formats.</p>
+                        
+                        <div class="space-y-4">
+                            <label class="block text-xs font-bold uppercase tracking-widest text-indigo-300">Input Phrase</label>
+                            <input 
+                                type="text" 
+                                id="sandboxInput" 
+                                placeholder="e.g. user account processor"
+                                class="w-full bg-indigo-800/50 border border-indigo-700 rounded-2xl px-6 py-4 text-xl font-medium focus:ring-4 focus:ring-indigo-500 outline-none transition-all placeholder:text-indigo-400"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 group hover:bg-white/15 transition-all">
+                            <div class="text-[10px] uppercase font-black tracking-widest text-indigo-300 mb-1">PascalCase (Class)</div>
+                            <div id="outPascal" class="text-xl font-mono text-white">ExampleClass</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 group hover:bg-white/15 transition-all">
+                            <div class="text-[10px] uppercase font-black tracking-widest text-indigo-300 mb-1">camelCase (Method/Var)</div>
+                            <div id="outCamel" class="text-xl font-mono text-white">exampleMethod</div>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/10 group hover:bg-white/15 transition-all">
+                            <div class="text-[10px] uppercase font-black tracking-widest text-indigo-300 mb-1">SNAKE_CASE (Constant)</div>
+                            <div id="outSnake" class="text-xl font-mono text-white">EXAMPLE_CONSTANT</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Background Decoration -->
+                <div class="absolute -bottom-10 -right-10 opacity-10 pointer-events-none rotate-12">
+                    <i data-lucide="code-2" style="width: 300px; height: 300px;"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Summary Rules -->
+        <footer class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start bg-slate-100 p-8 rounded-3xl border border-slate-200">
+            <div>
+                <h4 class="font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i data-lucide="info" class="text-indigo-600"></i> The Golden Rule
+                </h4>
+                <p class="text-sm text-slate-600 leading-relaxed italic">
+                    "Classes are what things <b>are</b> (Nouns), methods are what things <b>do</b> (Verbs)."
+                </p>
+                <div class="mt-4 flex gap-4">
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <div class="w-2 h-2 rounded-full bg-green-500"></div> Case Sensitivity
+                    </div>
+                    <div class="flex items-center gap-2 text-xs font-bold text-slate-500">
+                        <div class="w-2 h-2 rounded-full bg-blue-500"></div> One Public Class
+                    </div>
+                </div>
+            </div>
+            <div class="text-right flex flex-col items-end">
+                <div class="w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center mb-4">
+                    <i data-lucide="java" class="text-slate-800"></i>
+                </div>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Java Standards Documentation</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        const input = document.getElementById('sandboxInput');
+        const outPascal = document.getElementById('outPascal');
+        const outCamel = document.getElementById('outCamel');
+        const outSnake = document.getElementById('outSnake');
+
+        input.addEventListener('input', (e) => {
+            const val = e.target.value.trim();
+            if (!val) {
+                outPascal.innerText = "ExampleClass";
+                outCamel.innerText = "exampleMethod";
+                outSnake.innerText = "EXAMPLE_CONSTANT";
+                return;
+            }
+
+            const words = val.split(/[\s_-]+/).filter(w => w);
+
+            // PascalCase
+            outPascal.innerText = words.map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join('');
+
+            // camelCase
+            outCamel.innerText = words.map((w, i) => {
+                if (i === 0) return w.toLowerCase();
+                return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
+            }).join('');
+
+            // SNAKE_CASE
+            outSnake.innerText = words.map(w => w.toUpperCase()).join('_');
+        });
+    </script>
+</body>
+</html>
