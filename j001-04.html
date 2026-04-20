@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Input & Format Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-mono {
+            font-family: 'Fira Code', monospace;
+        }
+        .pointer-transition {
+            transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Custom scrollbar for logs */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen">
+
+    <div class="max-w-5xl mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="mb-8 border-b border-slate-200 pb-6 flex items-center gap-4">
+            <div class="bg-indigo-600 p-3 rounded-xl text-white shadow-lg shadow-indigo-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            </div>
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-slate-800">Java I/O Playground</h1>
+                <p class="text-slate-500 text-sm md:text-base">Interactive guide to Scanner streams and printf() formatting.</p>
+            </div>
+        </header>
+
+        <div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
+    		  <p class="text-sm">
+    			Vibe-coded and re-interpreted based on SP Java OOP Notes
+    		  </p>
+    		</div>
+      
+        <!-- Tab Navigation -->
+        <nav class="flex gap-2 mb-6 p-1 bg-slate-200/50 rounded-xl w-fit">
+            <button id="tabScanner" onclick="switchTab('scanner')" class="px-6 py-2 rounded-lg font-semibold transition-all bg-white text-indigo-600 shadow-sm">
+                Scanner Buffer
+            </button>
+            <button id="tabPrintf" onclick="switchTab('printf')" class="px-6 py-2 rounded-lg font-semibold transition-all text-slate-600 hover:text-slate-800">
+                printf() Lab
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden min-h-[600px]">
+            
+            <!-- SECTION: SCANNER -->
+            <div id="viewScanner" class="grid lg:grid-cols-2 h-full">
+                <!-- Left: Controls -->
+                <div class="p-6 md:p-8 border-r border-slate-100 space-y-8">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">1. Source Input Stream</label>
+                        <input type="text" id="scannerInput" value="John 25 1.75 Hello World" 
+                               class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl font-mono text-sm outline-none focus:ring-2 ring-indigo-500/20 transition-all"
+                               placeholder="Type sample input here...">
+                        <p class="text-[10px] text-slate-400 mt-2 italic">Note: Editing is disabled once the stream starts.</p>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">2. Buffer Visualization</label>
+                        <div class="bg-slate-900 rounded-xl p-6 font-mono text-xl md:text-2xl overflow-x-auto relative flex items-center min-h-[100px]">
+                            <div class="relative text-slate-300">
+                                <span id="bufferText" class="whitespace-pre">John 25 1.75 Hello World</span>
+                                <div id="bufferPointer" class="absolute -bottom-8 pointer-transition flex flex-col items-center" style="left: 0ch">
+                                    <div class="w-0.5 h-5 bg-indigo-400 animate-pulse"></div>
+                                    <span class="text-[9px] text-indigo-400 font-bold bg-indigo-950 px-1 rounded">POINTER</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <button onclick="runScanner('next')" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
+                            <div class="font-mono text-indigo-600 font-bold text-sm mb-1 group-hover:scale-105 transition-transform">next()</div>
+                            <div class="text-[10px] text-slate-500 leading-tight">Reads the next token (string).</div>
+                        </button>
+                        <button onclick="runScanner('nextInt')" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
+                            <div class="font-mono text-indigo-600 font-bold text-sm mb-1 group-hover:scale-105 transition-transform">nextInt()</div>
+                            <div class="text-[10px] text-slate-500 leading-tight">Parses next token as int.</div>
+                        </button>
+                        <button onclick="runScanner('nextDouble')" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
+                            <div class="font-mono text-indigo-600 font-bold text-sm mb-1 group-hover:scale-105 transition-transform">nextDouble()</div>
+                            <div class="text-[10px] text-slate-500 leading-tight">Parses next token as double.</div>
+                        </button>
+                        <button onclick="runScanner('nextLine')" class="p-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-500 hover:bg-indigo-50 transition-all text-left group">
+                            <div class="font-mono text-indigo-600 font-bold text-sm mb-1 group-hover:scale-105 transition-transform">nextLine()</div>
+                            <div class="text-[10px] text-slate-500 leading-tight">Reads until end of line.</div>
+                        </button>
+                    </div>
+
+                    <button onclick="resetScanner()" class="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>
+                        RESET STREAM
+                    </button>
+                </div>
+
+                <!-- Right: Console Log -->
+                <div class="bg-slate-50 p-6 md:p-8 flex flex-col h-[500px] lg:h-auto">
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+                            Console Output
+                        </label>
+                        <span id="logCount" class="text-[10px] font-mono text-slate-400">0 entries</span>
+                    </div>
+                    <div id="scannerLog" class="flex-1 space-y-3 overflow-y-auto custom-scrollbar pr-2">
+                        <!-- Logs injected here -->
+                        <div class="h-full flex flex-col items-center justify-center text-slate-300 opacity-60 text-sm italic text-center">
+                            <svg class="mb-2 opacity-20" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                            Call a method to begin...
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: PRINTF -->
+            <div id="viewPrintf" class="hidden grid lg:grid-cols-2 h-full">
+                <!-- Left: Controls -->
+                <div class="p-6 md:p-8 border-r border-slate-100 space-y-8">
+                    <div>
+                        <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Formatter Config</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="updatePrintf({type: 'double'})" id="btnTypeDouble" class="py-3 rounded-xl text-sm font-bold border-2 border-indigo-600 bg-indigo-50 text-indigo-700 transition-all">
+                                Double (%f)
+                            </button>
+                            <button onclick="updatePrintf({type: 'int'})" id="btnTypeInt" class="py-3 rounded-xl text-sm font-bold border-2 border-slate-100 text-slate-400 transition-all">
+                                Integer (%d)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-3">Input Value</label>
+                        <input type="number" id="printfValue" value="1234.5678" oninput="updatePrintf({val: this.value})"
+                               class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl font-mono outline-none focus:ring-2 ring-indigo-500/20">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase">Width</label>
+                                <span id="widthVal" class="text-[10px] font-mono font-bold text-indigo-600">10</span>
+                            </div>
+                            <input type="range" id="rangeWidth" min="0" max="20" value="10" oninput="updatePrintf({width: this.value})" class="w-full accent-indigo-600">
+                        </div>
+                        <div id="precisionControl">
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase">Precision</label>
+                                <span id="precVal" class="text-[10px] font-mono font-bold text-indigo-600">2</span>
+                            </div>
+                            <input type="range" id="rangePrecision" min="0" max="10" value="2" oninput="updatePrintf({prec: this.value})" class="w-full accent-indigo-600">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Flags</label>
+                        <div class="flex flex-wrap gap-2">
+                            <button data-flag="-" onclick="setFlag('-')" class="flag-btn px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-slate-600 hover:border-indigo-300 transition-all">Left Align (-)</button>
+                            <button data-flag="0" onclick="setFlag('0')" class="flag-btn px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-slate-600 hover:border-indigo-300 transition-all">Zero Pad (0)</button>
+                            <button data-flag="+" onclick="setFlag('+')" class="flag-btn px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-slate-600 hover:border-indigo-300 transition-all">Show Sign (+)</button>
+                            <button data-flag="," onclick="setFlag(',')" class="flag-btn px-4 py-2 rounded-lg text-xs font-bold border border-slate-200 text-slate-600 hover:border-indigo-300 transition-all">Grouping (,)</button>
+                            <button data-flag="" onclick="setFlag('')" class="flag-btn px-4 py-2 rounded-lg text-xs font-bold bg-slate-900 text-white border-slate-900">None</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Visualizer -->
+                <div class="bg-slate-900 p-8 flex flex-col justify-center min-h-[450px]">
+                    <div class="mb-12">
+                        <p class="text-indigo-400 text-[10px] font-bold uppercase mb-4 tracking-widest">Java Source</p>
+                        <div class="bg-slate-800 p-6 rounded-xl font-mono text-sm border border-slate-700 leading-relaxed shadow-2xl relative overflow-hidden group">
+                            <div class="absolute top-0 left-0 w-1 h-full bg-indigo-500"></div>
+                            <span class="text-indigo-300">System</span>.<span class="text-indigo-300">out</span>.<span class="text-yellow-400">printf</span>(
+                            <span id="codeFormat" class="text-emerald-400">"%10.2f"</span>, <span id="codeValue">1234.5678</span>);
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-indigo-400 text-[10px] font-bold uppercase mb-4 tracking-widest">Result visualization</p>
+                        <div class="inline-block relative">
+                            <div id="printfResult" class="bg-slate-800 px-5 py-8 rounded-xl border-2 border-indigo-500/40 font-mono text-3xl tracking-tight text-white whitespace-pre shadow-xl">
+                                <!-- Formatted text with visible dots -->
+                            </div>
+                            <div class="mt-4 flex items-center gap-2 text-[10px] text-slate-500 italic">
+                                <span class="w-2 h-2 rounded-full bg-white/20"></span>
+                                "·" characters represent reserved space (padding).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer / Knowledge Cards -->
+        <footer class="mt-8 grid md:grid-cols-2 gap-4">
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex gap-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-indigo-600 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-1">Scanner Tokens</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        The Scanner uses whitespace (spaces, tabs, newlines) as default delimiters. <code>nextInt()</code> only reads the digits—the newline character remains in the buffer!
+                    </p>
+                </div>
+            </div>
+            <div class="bg-white p-5 rounded-2xl border border-slate-200 flex gap-4 shadow-sm hover:shadow-md transition-shadow">
+                <div class="text-emerald-600 shrink-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"></path></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-800 text-sm mb-1">Format Precision</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">
+                        In <code>printf</code>, precision rounds numbers to the nearest value. <code>%.2f</code> rounds <code>1.555</code> to <code>1.56</code>, not <code>1.55</code>.
+                    </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- GLOBAL STATE ---
+        let state = {
+            activeTab: 'scanner',
+            // Scanner State
+            bufferIndex: 0,
+            inputText: "John 25 1.75 Hello World",
+            // Printf State
+            pType: 'double',
+            pValue: 1234.5678,
+            pWidth: 10,
+            pPrec: 2,
+            pFlag: ''
+        };
+
+        // --- TAB LOGIC ---
+        function switchTab(tab) {
+            state.activeTab = tab;
+            document.getElementById('viewScanner').classList.toggle('hidden', tab !== 'scanner');
+            document.getElementById('viewPrintf').classList.toggle('hidden', tab !== 'printf');
+            
+            // UI Update
+            const btnS = document.getElementById('tabScanner');
+            const btnP = document.getElementById('tabPrintf');
+            
+            if (tab === 'scanner') {
+                btnS.classList.add('bg-white', 'text-indigo-600', 'shadow-sm');
+                btnS.classList.remove('text-slate-600');
+                btnP.classList.remove('bg-white', 'text-indigo-600', 'shadow-sm');
+                btnP.classList.add('text-slate-600');
+            } else {
+                btnP.classList.add('bg-white', 'text-indigo-600', 'shadow-sm');
+                btnP.classList.remove('text-slate-600');
+                btnS.classList.remove('bg-white', 'text-indigo-600', 'shadow-sm');
+                btnS.classList.add('text-slate-600');
+                updatePrintf(); // Ensure printf view is fresh
+            }
+        }
+
+        // --- SCANNER LOGIC ---
+        const scannerInput = document.getElementById('scannerInput');
+        const bufferText = document.getElementById('bufferText');
+        const bufferPointer = document.getElementById('bufferPointer');
+        const scannerLog = document.getElementById('scannerLog');
+
+        function runScanner(method) {
+            // Freeze input once started
+            if (state.bufferIndex === 0) {
+                state.inputText = scannerInput.value;
+                bufferText.innerText = state.inputText;
+                scannerInput.disabled = true;
+            }
+
+            const remaining = state.inputText.slice(state.bufferIndex);
+            
+            if (!remaining.trim() && method !== 'nextLine') {
+                addLog('error', method, 'NoSuchElementException: End of stream');
+                return;
+            }
+
+            let result = "";
+            let consumed = 0;
+
+            if (method === 'nextLine') {
+                // Find next newline or just end of string
+                result = remaining;
+                consumed = remaining.length;
+            } else {
+                // Find first non-whitespace match
+                const match = remaining.match(/\S+/);
+                if (!match) {
+                    addLog('error', method, 'NoSuchElementException: No token found');
+                    return;
+                }
+
+                const token = match[0];
+                const startIdx = match.index;
+
+                // Validation logic
+                if (method === 'nextInt') {
+                    if (isNaN(token) || token.includes('.')) {
+                        addLog('error', method, `InputMismatchException: "${token}" is not an int`);
+                        return;
+                    }
+                }
+                if (method === 'nextDouble') {
+                    if (isNaN(token)) {
+                        addLog('error', method, `InputMismatchException: "${token}" is not a double`);
+                        return;
+                    }
+                }
+
+                result = token;
+                // Move pointer to end of token
+                consumed = startIdx + token.length;
+            }
+
+            addLog('success', method, result);
+            state.bufferIndex += consumed;
+            updateBufferUI();
+        }
+
+        function updateBufferUI() {
+            // Using 'ch' unit works well with monospaced fonts
+            bufferPointer.style.left = `${state.bufferIndex}ch`;
+        }
+
+        function addLog(type, method, msg) {
+            const entry = document.createElement('div');
+            entry.className = `p-4 rounded-xl border animate-in slide-in-from-right-4 duration-300 ${
+                type === 'error' ? 'bg-red-50 border-red-200 text-red-700' : 'bg-white border-slate-200 shadow-sm'
+            }`;
+            
+            entry.innerHTML = `
+                <div class="flex justify-between items-start mb-1">
+                    <span class="text-[9px] font-bold opacity-50 font-mono tracking-tighter">${method}()</span>
+                    <span class="text-[8px] px-1.5 py-0.5 rounded font-bold uppercase ${type === 'error' ? 'bg-red-100' : 'bg-green-100 text-green-700'}">
+                        ${type === 'error' ? 'EXCEPTION' : 'RETURNED'}
+                    </span>
+                </div>
+                <div class="font-mono font-bold text-sm overflow-hidden text-ellipsis">${type === 'error' ? msg : `"${msg}"`}</div>
+            `;
+
+            // Clear empty message
+            if (scannerLog.children.length === 1 && scannerLog.children[0].classList.contains('italic')) {
+                scannerLog.innerHTML = '';
+            }
+
+            scannerLog.prepend(entry);
+            document.getElementById('logCount').innerText = `${scannerLog.children.length} entries`;
+        }
+
+        function resetScanner() {
+            state.bufferIndex = 0;
+            scannerLog.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-slate-300 opacity-60 text-sm italic text-center">
+                <svg class="mb-2 opacity-20" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                Call a method to begin...
+            </div>`;
+            scannerInput.disabled = false;
+            document.getElementById('logCount').innerText = `0 entries`;
+            updateBufferUI();
+        }
+
+        // --- PRINTF LOGIC ---
+        function updatePrintf(updates = {}) {
+            if (updates.type) state.pType = updates.type;
+            if (updates.val !== undefined) state.pValue = updates.val;
+            if (updates.width !== undefined) state.pWidth = parseInt(updates.width);
+            if (updates.prec !== undefined) state.pPrec = parseInt(updates.prec);
+
+            // UI Elements
+            const btnDouble = document.getElementById('btnTypeDouble');
+            const btnInt = document.getElementById('btnTypeInt');
+            const codeFormat = document.getElementById('codeFormat');
+            const codeValue = document.getElementById('codeValue');
+            const resultBox = document.getElementById('printfResult');
+            const precCtrl = document.getElementById('precisionControl');
+
+            // Toggle UI Mode
+            btnDouble.className = state.pType === 'double' ? 'py-3 rounded-xl text-sm font-bold border-2 border-indigo-600 bg-indigo-50 text-indigo-700' : 'py-3 rounded-xl text-sm font-bold border-2 border-slate-100 text-slate-400';
+            btnInt.className = state.pType === 'int' ? 'py-3 rounded-xl text-sm font-bold border-2 border-indigo-600 bg-indigo-50 text-indigo-700' : 'py-3 rounded-xl text-sm font-bold border-2 border-slate-100 text-slate-400';
+            precCtrl.style.opacity = state.pType === 'double' ? '1' : '0.3';
+            precCtrl.style.pointerEvents = state.pType === 'double' ? 'auto' : 'none';
+
+            // Generate Format String
+            const typeChar = state.pType === 'double' ? 'f' : 'd';
+            const widthStr = state.pWidth > 0 ? state.pWidth : '';
+            const precStr = state.pType === 'double' ? `.${state.pPrec}` : '';
+            const formatStr = `%${state.pFlag}${widthStr}${precStr}${typeChar}`;
+
+            // Update Snippet
+            codeFormat.innerText = `"${formatStr}"`;
+            codeValue.innerText = state.pValue;
+            document.getElementById('widthVal').innerText = state.pWidth;
+            document.getElementById('precVal').innerText = state.pPrec;
+
+            // Compute result
+            let formatted = computeJavaFormatting();
+            
+            // Render result with visible dots for spaces
+            resultBox.innerHTML = formatted.split('').map(char => {
+                if (char === ' ') return `<span class="bg-white/10 rounded mx-[1px]">·</span>`;
+                return `<span>${char}</span>`;
+            }).join('');
+        }
+
+        function setFlag(f) {
+            state.pFlag = f;
+            document.querySelectorAll('.flag-btn').forEach(btn => {
+                const isActive = btn.getAttribute('data-flag') === f;
+                btn.className = `flag-btn px-4 py-2 rounded-lg text-xs font-bold border transition-all ${
+                    isActive ? 'bg-slate-900 text-white border-slate-900 shadow-md' : 'bg-white text-slate-600 border-slate-200'
+                }`;
+            });
+            updatePrintf();
+        }
+
+        function computeJavaFormatting() {
+            let val = Number(state.pValue);
+            let res = "";
+
+            // Precision and Grouping
+            if (state.pType === 'double') {
+                res = val.toLocaleString('en-US', {
+                    minimumFractionDigits: state.pPrec,
+                    maximumFractionDigits: state.pPrec,
+                    useGrouping: state.pFlag === ','
+                });
+            } else {
+                res = Math.floor(val).toLocaleString('en-US', { useGrouping: state.pFlag === ',' });
+            }
+
+            // Handle Sign flag
+            if (state.pFlag === '+' && val >= 0) {
+                res = '+' + res;
+            }
+
+            // Handle Width and Padding
+            if (state.pWidth > res.length) {
+                const diff = state.pWidth - res.length;
+                const padChar = (state.pFlag === '0' && state.pFlag !== '-') ? '0' : ' ';
+                const padding = padChar.repeat(diff);
+
+                if (state.pFlag === '-') {
+                    res = res + padding; // Left align
+                } else if (state.pFlag === '0') {
+                    // Zero padding logic: if there is a sign, 0 goes after sign
+                    if (res.startsWith('+') || res.startsWith('-')) {
+                        res = res[0] + padding + res.slice(1);
+                    } else {
+                        res = padding + res;
+                    }
+                } else {
+                    res = padding + res; // Right align
+                }
+            }
+
+            return res;
+        }
+
+        // Initialize UI
+        window.onload = () => {
+            updateBufferUI();
+            updatePrintf();
+        };
+    </script>
+</body>
+</html>
