@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JOptionPane.showMessageDialog Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        
+        .swing-in {
+            animation: swing-in-top-fwd 0.4s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        }
+
+        @keyframes swing-in-top-fwd {
+            0% { transform: rotateX(-100deg); transform-origin: top; opacity: 0; }
+            100% { transform: rotateX(0deg); transform-origin: top; opacity: 1; }
+        }
+
+        .java-window {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #cbd5e1;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10">
+            <h1 class="text-3xl font-black text-slate-800 mb-2">
+                <i class="fa-solid fa-window-maximize text-blue-600 mr-2"></i>
+                JOptionPane <span class="text-slate-500 font-light">Visual Guide</span>
+            </h1>
+            <p class="text-slate-600">A detailed breakdown of the <code class="bg-slate-200 px-1 rounded text-sm font-bold">showMessageDialog()</code> method parameters.</p>
+        </header>
+
+  		<div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
+  		  <p class="text-sm">
+  			Vibe-coded and re-interpreted based on SP Java OOP Notes
+  		  </p>
+  		</div>
+      
+        <!-- Method Signature Section -->
+        <section class="bg-slate-900 rounded-xl p-6 mb-10 shadow-lg overflow-x-auto">
+            <div class="flex items-center gap-2 mb-4">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                <span class="ml-2 text-slate-500 text-xs font-bold uppercase tracking-widest">Method Signature</span>
+            </div>
+            <code class="text-blue-300 text-lg md:text-xl code-font block whitespace-nowrap">
+                <span class="text-purple-400">JOptionPane</span>.<span class="text-yellow-200">showMessageDialog</span>(
+            </code>
+            <div class="pl-12 space-y-2 mt-2">
+                <div class="group relative inline-block">
+                    <code class="text-emerald-400 text-lg md:text-xl code-font">parentComponent</code><span class="text-slate-400">,</span>
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-slate-800 text-white text-xs p-3 rounded shadow-xl z-20 border border-slate-700">
+                        The frame in which the dialog is displayed. If <code class="text-emerald-400">null</code>, a default frame is used.
+                    </div>
+                </div><br>
+                <div class="group relative inline-block">
+                    <code class="text-emerald-400 text-lg md:text-xl code-font">message</code><span class="text-slate-400">,</span>
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-slate-800 text-white text-xs p-3 rounded shadow-xl z-20 border border-slate-700">
+                        The Object to display. Usually a <code class="text-emerald-400">String</code>, but can be an Icon or Component.
+                    </div>
+                </div><br>
+                <div class="group relative inline-block">
+                    <code class="text-emerald-400 text-lg md:text-xl code-font">title</code><span class="text-slate-400">,</span>
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-slate-800 text-white text-xs p-3 rounded shadow-xl z-20 border border-slate-700">
+                        The title string for the dialog window title bar.
+                    </div>
+                </div><br>
+                <div class="group relative inline-block">
+                    <code class="text-emerald-400 text-lg md:text-xl code-font">messageType</code>
+                    <div class="hidden group-hover:block absolute top-full left-0 mt-2 w-64 bg-slate-800 text-white text-xs p-3 rounded shadow-xl z-20 border border-slate-700">
+                        The style of the message (ERROR, INFORMATION, WARNING, etc.). Defines the default icon.
+                    </div>
+                </div>
+            </div>
+            <code class="text-blue-300 text-lg md:text-xl code-font block mt-2">);</code>
+        </section>
+
+        <!-- Interactive Sandbox -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            
+            <!-- Controls -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <h3 class="font-bold text-slate-800 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-blue-500"></i> Configure Parameters
+                </h3>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Parent Component</label>
+                        <select id="parentComp" class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-sm">
+                            <option value="null">null (Centered on screen)</option>
+                            <option value="this">this (Centered on parent frame)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">2. Message (Object)</label>
+                        <input type="text" id="messageInput" value="Operation completed successfully!" 
+                               class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">3. Title (String)</label>
+                        <input type="text" id="titleInput" value="System Message" 
+                               class="w-full p-2 bg-slate-100 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">4. Message Type (int Constant)</label>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="updateType(1)" class="type-btn p-2 rounded border text-xs font-medium text-center bg-blue-50 border-blue-200 text-blue-700" data-type="1">INFORMATION_MESSAGE</button>
+                            <button onclick="updateType(0)" class="type-btn p-2 rounded border text-xs font-medium text-center bg-white border-slate-200 text-slate-600" data-type="0">ERROR_MESSAGE</button>
+                            <button onclick="updateType(2)" class="type-btn p-2 rounded border text-xs font-medium text-center bg-white border-slate-200 text-slate-600" data-type="2">WARNING_MESSAGE</button>
+                            <button onclick="updateType(3)" class="type-btn p-2 rounded border text-xs font-medium text-center bg-white border-slate-200 text-slate-600" data-type="3">QUESTION_MESSAGE</button>
+                            <button onclick="updateType(-1)" class="type-btn p-2 rounded border text-xs font-medium text-center bg-white border-slate-200 text-slate-600 col-span-2" data-type="-1">PLAIN_MESSAGE (No Icon)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Preview -->
+            <div class="flex flex-col items-center">
+                <h3 class="font-bold text-slate-400 mb-6 uppercase text-xs tracking-widest self-start">Visual Preview (Swing Look & Feel)</h3>
+                
+                <div id="dialogWindow" class="java-window bg-[#f0f0f0] rounded w-full max-w-sm overflow-hidden swing-in">
+                    <!-- Title Bar -->
+                    <div id="dialogTitleBar" class="bg-white px-3 py-1 flex justify-between items-center border-b border-slate-300">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 bg-slate-200 rounded-sm flex items-center justify-center">
+                                <i id="titleIcon" class="fa-solid fa-circle-info text-[10px] text-blue-500"></i>
+                            </div>
+                            <span id="previewTitle" class="text-xs font-medium text-slate-700">System Message</span>
+                        </div>
+                        <div class="flex gap-1">
+                            <div class="w-5 h-5 flex items-center justify-center hover:bg-red-500 hover:text-white rounded transition-colors cursor-pointer">
+                                <i class="fa-solid fa-xmark text-[10px]"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Content -->
+                    <div class="p-6 flex items-start gap-4 bg-[#f0f0f0]">
+                        <div id="iconContainer" class="flex-shrink-0 w-10 h-10 flex items-center justify-center">
+                            <i id="previewIcon" class="fa-solid fa-circle-info text-4xl text-blue-500"></i>
+                        </div>
+                        <div class="flex-grow pt-1">
+                            <p id="previewMessage" class="text-sm text-slate-800 leading-tight">Operation completed successfully!</p>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="px-4 pb-4 flex justify-center bg-[#f0f0f0]">
+                        <button class="px-6 py-1 bg-[#e1e1e1] border border-[#adadad] rounded shadow-sm text-sm hover:bg-[#d5d5d5] active:bg-[#bcbcbc]">OK</button>
+                    </div>
+                </div>
+
+                <!-- Explanation Box -->
+                <div class="mt-10 w-full bg-blue-900 text-blue-100 p-6 rounded-2xl">
+                    <h4 class="font-bold mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-yellow-400"></i> Key Logic
+                    </h4>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>• <span class="font-bold">Modal:</span> This dialog is "modal", meaning it blocks interaction with the parent until closed.</li>
+                        <li>• <span class="font-bold">Icon Behavior:</span> The icon changes automatically based on the <code class="bg-blue-800 px-1 rounded">messageType</code> integer.</li>
+                        <li>• <span class="font-bold">Return:</span> This specific method returns <code class="text-emerald-300">void</code>. Use <code class="text-emerald-300">showConfirmDialog</code> if you need user input.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reference Table -->
+        <section class="mt-16">
+            <h3 class="text-xl font-bold text-slate-800 mb-6">Constants Reference</h3>
+            <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 text-slate-500 border-b border-slate-200">
+                        <tr>
+                            <th class="p-4 font-bold">Constant Name</th>
+                            <th class="p-4 font-bold">Value</th>
+                            <th class="p-4 font-bold">Standard Icon</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-4 font-mono text-red-600">ERROR_MESSAGE</td>
+                            <td class="p-4">0</td>
+                            <td class="p-4"><i class="fa-solid fa-circle-xmark text-red-500 mr-2"></i> Red X</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-blue-600">INFORMATION_MESSAGE</td>
+                            <td class="p-4">1</td>
+                            <td class="p-4"><i class="fa-solid fa-circle-info text-blue-500 mr-2"></i> Blue i</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-amber-600">WARNING_MESSAGE</td>
+                            <td class="p-4">2</td>
+                            <td class="p-4"><i class="fa-solid fa-triangle-exclamation text-amber-500 mr-2"></i> Yellow !</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-emerald-600">QUESTION_MESSAGE</td>
+                            <td class="p-4">3</td>
+                            <td class="p-4"><i class="fa-solid fa-circle-question text-emerald-500 mr-2"></i> Green ?</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-mono text-slate-600">PLAIN_MESSAGE</td>
+                            <td class="p-4">-1</td>
+                            <td class="p-4">No Icon</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const messageInput = document.getElementById('messageInput');
+        const titleInput = document.getElementById('titleInput');
+        const previewMessage = document.getElementById('previewMessage');
+        const previewTitle = document.getElementById('previewTitle');
+        const previewIcon = document.getElementById('previewIcon');
+        const titleIcon = document.getElementById('titleIcon');
+        const dialogWindow = document.getElementById('dialogWindow');
+
+        let currentType = 1;
+
+        const iconMap = {
+            '0': { icon: 'fa-circle-xmark', color: 'text-red-500' },
+            '1': { icon: 'fa-circle-info', color: 'text-blue-500' },
+            '2': { icon: 'fa-triangle-exclamation', color: 'text-amber-500' },
+            '3': { icon: 'fa-circle-question', color: 'text-emerald-500' },
+            '-1': { icon: '', color: '' }
+        };
+
+        function refreshPreview() {
+            previewMessage.innerText = messageInput.value || " ";
+            previewTitle.innerText = titleInput.value || "Message";
+            
+            const config = iconMap[currentType.toString()];
+            
+            if (currentType === -1) {
+                previewIcon.className = 'hidden';
+                titleIcon.className = 'fa-solid fa-message text-[10px] text-slate-400';
+            } else {
+                previewIcon.className = `fa-solid ${config.icon} text-4xl ${config.color}`;
+                titleIcon.className = `fa-solid ${config.icon} text-[10px] ${config.color}`;
+            }
+
+            // Trigger animation
+            dialogWindow.classList.remove('swing-in');
+            void dialogWindow.offsetWidth; // trigger reflow
+            dialogWindow.classList.add('swing-in');
+        }
+
+        function updateType(type) {
+            currentType = type;
+            
+            // Update buttons
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                if (parseInt(btn.dataset.type) === type) {
+                    btn.classList.add('bg-blue-50', 'border-blue-200', 'text-blue-700');
+                    btn.classList.remove('bg-white', 'border-slate-200', 'text-slate-600');
+                } else {
+                    btn.classList.remove('bg-blue-50', 'border-blue-200', 'text-blue-700');
+                    btn.classList.add('bg-white', 'border-slate-200', 'text-slate-600');
+                }
+            });
+
+            refreshPreview();
+        }
+
+        messageInput.addEventListener('input', refreshPreview);
+        titleInput.addEventListener('input', refreshPreview);
+
+        // Initial render
+        window.onload = refreshPreview;
+    </script>
+</body>
+</html>
