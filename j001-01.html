@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Paradigms Infographic</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-800 font-sans selection:bg-indigo-100">
+
+    <!-- Header section -->
+    <header class="bg-indigo-900 text-white py-16 px-6 text-center shadow-lg relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <!-- Abstract background pattern -->
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+        
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="flex justify-center mb-4">
+                <i data-lucide="network" class="w-16 h-16 text-indigo-300"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+                Programming Paradigms
+            </h1>
+            <p class="text-xl md:text-2xl text-indigo-200 font-light max-w-2xl mx-auto">
+                A Beginner's Guide to the "Styles" of Writing Code
+            </p>
+            <p class="mt-6 text-indigo-100 max-w-3xl mx-auto text-sm md:text-base leading-relaxed">
+                A <strong>paradigm</strong> isn't a specific language; it's a way of thinking about and structuring your code. 
+                Most modern languages let you mix and match these styles. Let's break them down!
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+
+		<div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
+		  <p class="text-sm">
+			Vibe-coded and re-interpreted based on SP Java OOP Notes
+		  </p>
+		</div>
+      
+        <!-- The Core Paradigms -->
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-8">
+                <i data-lucide="zap" class="w-8 h-8 text-amber-500"></i>
+                <h2 class="text-3xl font-bold text-slate-800">The 4 Core Paradigms</h2>
+            </div>
+            
+            <div id="paradigms-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Paradigms will be injected here via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Timeline Evolution -->
+        <section>
+            <div class="flex items-center gap-3 mb-10">
+                <i data-lucide="network" class="w-8 h-8 text-indigo-500"></i>
+                <h2 class="text-3xl font-bold text-slate-800">Evolution: 1980s to Today</h2>
+            </div>
+            
+            <div id="timeline-container" class="relative border-l-4 border-indigo-100 ml-4 md:ml-8 space-y-12 pb-12">
+                <!-- Timeline items will be injected here via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Summary Footer -->
+        <section class="mt-12 bg-slate-800 rounded-3xl p-8 text-center text-white shadow-xl">
+            <h2 class="text-2xl font-bold mb-4">The Modern Takeaway</h2>
+            <p class="text-slate-300 max-w-2xl mx-auto text-lg leading-relaxed">
+                As a beginner today, you don't need to pick just one! You will likely write <strong class="text-blue-300">Object-Oriented</strong> code to structure your data, use <strong class="text-green-300">Functional</strong> methods to manipulate arrays, and use a <strong class="text-purple-300">Declarative</strong> framework (like React or HTML) to show it on screen.
+            </p>
+        </section>
+    </main>
+
+    <script>
+        // Data Structures
+        const paradigms = [
+            {
+                id: 'imperative',
+                name: 'Imperative',
+                icon: 'terminal',
+                color: 'bg-orange-100 text-orange-700 border-orange-300',
+                iconBg: 'bg-orange-500',
+                description: 'Telling the computer exactly HOW to do something, step-by-step.',
+                analogy: 'Following a strict recipe: "Crack egg, whisk egg, heat pan, pour egg."',
+                languages: ['C', 'Pascal', 'Assembly']
+            },
+            {
+                id: 'declarative',
+                name: 'Declarative',
+                icon: 'code-2',
+                color: 'bg-purple-100 text-purple-700 border-purple-300',
+                iconBg: 'bg-purple-500',
+                description: 'Telling the computer WHAT you want, not how to get it.',
+                analogy: 'Ordering at a restaurant: "I want an omelet." (You don\'t care how the chef makes it).',
+                languages: ['SQL', 'HTML', 'CSS']
+            },
+            {
+                id: 'oop',
+                name: 'Object-Oriented (OOP)',
+                icon: 'blocks',
+                color: 'bg-blue-100 text-blue-700 border-blue-300',
+                iconBg: 'bg-blue-500',
+                description: 'Organizing code into "Objects" that hold both data (state) and behaviors (methods).',
+                analogy: 'A digital factory where a "Car" object has properties (color, speed) and actions (drive, brake).',
+                languages: ['Java', 'C++', 'C#']
+            },
+            {
+                id: 'functional',
+                name: 'Functional (FP)',
+                icon: 'workflow',
+                color: 'bg-green-100 text-green-700 border-green-300',
+                iconBg: 'bg-green-500',
+                description: 'Building software by composing pure mathematical functions. Avoids changing data (mutation).',
+                analogy: 'An assembly line pipeline: raw materials go in, finished goods come out, and nothing in the factory is altered.',
+                languages: ['Haskell', 'Clojure', 'Elixir']
+            }
+        ];
+
+        const timeline = [
+            {
+                era: '1980s',
+                title: 'The Object-Oriented Revolution',
+                icon: 'cpu',
+                content: 'As software grew more complex, step-by-step Imperative code became hard to manage. Object-Oriented Programming (OOP) emerged to organize messy code into reusable "objects".',
+                tags: ['oop', 'imperative'],
+                notable: 'C++, Smalltalk, Objective-C'
+            },
+            {
+                era: '1990s',
+                title: 'The Web & Enterprise Boom',
+                icon: 'globe',
+                content: 'OOP goes mainstream. Java dominates the enterprise with "Write Once, Run Anywhere". Meanwhile, the early web introduces Declarative languages (HTML) and scripting (JavaScript).',
+                tags: ['oop', 'declarative'],
+                notable: 'Java, Python, JavaScript, HTML/SQL'
+            },
+            {
+                era: '2000s',
+                title: 'The Multi-Paradigm Shift',
+                icon: 'layers',
+                content: 'Developers realize no single paradigm is perfect. Languages start adopting features from multiple paradigms. Web frameworks begin to abstract away tedious imperative tasks.',
+                tags: ['oop', 'imperative', 'functional'],
+                notable: 'C#, Ruby (on Rails), Scala'
+            },
+            {
+                era: '2010s',
+                title: 'Functional Resurgence & Reactive UIs',
+                icon: 'monitor-play',
+                content: 'With multi-core processors and massive data, managing "state" in OOP became buggy. Functional concepts (like avoiding data mutation) become hugely popular. Declarative UIs take over the front-end.',
+                tags: ['functional', 'declarative'],
+                notable: 'React, Rust, Go, Swift'
+            },
+            {
+                era: '2020s+',
+                title: 'Modern Synthesis',
+                icon: 'sparkles',
+                content: 'Today, the best languages are highly Multi-Paradigm. You might use OOP to structure your app, Functional pipelines to process data, and Declarative code to build your UI.',
+                tags: ['oop', 'functional', 'declarative', 'imperative'],
+                notable: 'TypeScript, Rust, Kotlin, AI-Assisted Code'
+            }
+        ];
+
+        // Helper function for Paradigm Badges
+        function getBadgeHtml(type) {
+            const paradigm = paradigms.find(p => p.id === type);
+            if (!paradigm) return '';
+            return `<span class="text-xs font-bold px-2 py-1 rounded-full border ${paradigm.color}">${paradigm.name}</span>`;
+        }
+
+        // Render Core Paradigms
+        const paradigmsGrid = document.getElementById('paradigms-grid');
+        paradigmsGrid.innerHTML = paradigms.map(p => `
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
+                <div class="p-6">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="${p.iconBg} p-3 rounded-xl text-white shadow-sm">
+                            <i data-lucide="${p.icon}" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800">${p.name}</h3>
+                    </div>
+                    
+                    <p class="text-slate-600 mb-4 text-lg font-medium">
+                        ${p.description}
+                    </p>
+                    
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-100 mb-4">
+                        <p class="text-sm text-slate-500 font-bold uppercase tracking-wider mb-1">Analogy</p>
+                        <p class="text-slate-700 italic">"${p.analogy}"</p>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <span class="text-sm text-slate-500 font-bold uppercase tracking-wider mr-2">Classic Examples:</span>
+                        ${p.languages.map(lang => `
+                            <span class="bg-slate-100 text-slate-700 px-3 py-1 rounded-md text-sm font-medium border border-slate-200">
+                                ${lang}
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Render Timeline
+        const timelineContainer = document.getElementById('timeline-container');
+        timelineContainer.innerHTML = timeline.map(item => `
+            <div class="relative pl-8 md:pl-12">
+                <!-- Timeline Dot -->
+                <div class="absolute -left-[22px] bg-white border-4 border-indigo-500 rounded-full w-10 h-10 flex items-center justify-center text-indigo-600 shadow-sm">
+                    <i data-lucide="${item.icon}" class="w-5 h-5"></i>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4">
+                        <div>
+                            <span class="text-indigo-600 font-black text-xl tracking-tight block mb-1">
+                                ${item.era}
+                            </span>
+                            <h3 class="text-2xl font-bold text-slate-800">
+                                ${item.title}
+                            </h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2 md:justify-end">
+                            ${item.tags.map(tag => getBadgeHtml(tag)).join('')}
+                        </div>
+                    </div>
+                    
+                    <p class="text-slate-600 text-lg mb-6 leading-relaxed">
+                        ${item.content}
+                    </p>
+                    
+                    <div class="bg-indigo-50 text-indigo-900 p-4 rounded-xl border border-indigo-100 flex items-start gap-3">
+                        <i data-lucide="code-2" class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5"></i>
+                        <div>
+                            <span class="font-bold block text-sm uppercase tracking-wider text-indigo-500 mb-1">Notable Tech of the Era</span>
+                            <span class="font-medium">${item.notable}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        // Initialize Lucide Icons after the DOM has been updated
+        lucide.createIcons();
+    </script>
+</body>
+</html>
