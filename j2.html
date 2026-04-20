@@ -1,638 +1,637 @@
-import React, { useState } from 'react';
-import { 
-  BookOpen, 
-  Database, 
-  Type, 
-  FileEdit, 
-  ArrowRightLeft, 
-  PlayCircle,
-  CheckCircle2,
-  XCircle,
-  AlertTriangle,
-  Info
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Fundamentals</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom scrollbar hide utility */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen">
 
-// --- Data Models ---
-
-const TABS = [
-  { id: 'identifiers', icon: BookOpen, label: 'Identifiers & Variables' },
-  { id: 'primitives', icon: Database, label: 'Primitives' },
-  { id: 'literals', icon: Type, label: 'Literals' },
-  { id: 'declaring', icon: FileEdit, label: 'Declaring Variables' },
-  { id: 'assignment', icon: ArrowRightLeft, label: 'Assignment' },
-  { id: 'initialization', icon: PlayCircle, label: 'Initialization' },
-];
-
-const QUIZZES = {
-  identifiers: [
-    {
-      question: "Which of the following is a VALID Java identifier?",
-      options: ["1stVariable", "item#Cost", "$myVariable", "class"],
-      correct: 2,
-      explanation: "Identifiers cannot start with a digit, cannot contain '#', and cannot be reserved keywords like 'class'. '$' is allowed."
-    },
-    {
-      question: "What keyword is used to declare a constant whose value cannot be changed?",
-      options: ["const", "final", "static", "immutable"],
-      correct: 1,
-      explanation: "In Java, the 'final' keyword is used to make a variable's value unchangeable after initialization."
-    },
-    {
-      question: "Why is 'item-Cost' an invalid identifier?",
-      options: ["It starts with a lowercase letter.", "It contains a hyphen (-).", "It is too long.", "It is a keyword."],
-      correct: 1,
-      explanation: "Identifiers cannot contain spaces or hyphens (mathematical minus sign). Underscores (_) are used instead."
-    }
-  ],
-  primitives: [
-    {
-      question: "Which primitive data type requires the most memory?",
-      options: ["int", "float", "double", "long"],
-      correct: 2,
-      explanation: "Both 'double' and 'long' take 64 bits, but if comparing against 32-bit types, double/long are the largest. (Note: long and double are both 64-bit)."
-    },
-    {
-      question: "What is the default value of a boolean variable declared at the class level?",
-      options: ["true", "false", "null", "0"],
-      correct: 1,
-      explanation: "Uninitialized class-level boolean variables default to 'false'."
-    },
-    {
-      question: "Do variables declared inside a method (local variables) get default values?",
-      options: ["Yes, always", "No, they must be explicitly initialized", "Only numeric types do"],
-      correct: 1,
-      explanation: "Local variables do not get default values. Using an uninitialized local variable causes a compile-time error."
-    }
-  ],
-  literals: [
-    {
-      question: "What type of literal is 'A' (enclosed in single quotes)?",
-      options: ["String literal", "Character literal", "Variable name"],
-      correct: 1,
-      explanation: "Single quotes denote a 'char' literal. Double quotes denote a String literal."
-    },
-    {
-      question: "Which of these is a valid way to write thirty thousand in Java to make it more readable?",
-      options: ["30,000", "30_000", "30 000"],
-      correct: 1,
-      explanation: "Java allows using underscores (_) in numeric literals to improve readability."
-    },
-    {
-      question: "What prefix is used to indicate a binary literal?",
-      options: ["0x", "0b", "bin-"],
-      correct: 1,
-      explanation: "The prefix '0b' or '0B' is used for binary literals (e.g., 0b1001)."
-    }
-  ],
-  declaring: [
-    {
-      question: "Which statement correctly declares an integer variable?",
-      options: ["integer age;", "int age;", "age = int;"],
-      correct: 1,
-      explanation: "'int' is the correct keyword for the integer primitive type."
-    },
-    {
-      question: "What happens if you declare 'int x;' and then 'double x;' in the same scope?",
-      options: ["x becomes a double", "Compile-time error", "Runtime error"],
-      correct: 1,
-      explanation: "A variable can only be declared ONCE within its scope. Redeclaring it causes a compile-time error."
-    },
-    {
-      question: "Can you declare multiple variables of the same type on a single line?",
-      options: ["Yes (e.g., int i, j, k;)", "No, they must be on separate lines"],
-      correct: 0,
-      explanation: "Java allows declaring multiple variables of the same type in a comma-separated list."
-    }
-  ],
-  assignment: [
-    {
-      question: "What is the primary difference between '=' and '==' in Java?",
-      options: [
-        "'=' assigns a value, '==' checks for equality",
-        "'=' checks for equality, '==' assigns a value",
-        "There is no difference"
-      ],
-      correct: 0,
-      explanation: "'=' is the assignment operator (stores a value). '==' is a relational operator (compares values)."
-    },
-    {
-      question: "If 'byte b;' is declared, what happens with 'b = 130;'?",
-      options: ["b becomes 130", "Compile-time error", "b wraps around to a negative number"],
-      correct: 1,
-      explanation: "Compile-time error. The maximum value for a byte is 127. 130 is too large and causes a type mismatch/overflow error during compilation."
-    },
-    {
-      question: "In the statement 'double d = x + 5;', what is 'x + 5' called?",
-      options: ["A variable", "An operator", "An expression"],
-      correct: 2,
-      explanation: "'x + 5' is an expression that evaluates to a value, which is then assigned to the variable."
-    }
-  ],
-  initialization: [
-    {
-      question: "Why might you write 'float t = 4.0f;' instead of 'float t = 4.0;'?",
-      options: [
-        "To make the code run faster",
-        "Because floating-point literals default to double type",
-        "'f' stands for 'final'"
-      ],
-      correct: 1,
-      explanation: "By default, decimal literals (like 4.0) are treated as 'double'. You must add 'f' to explicitly make it a 'float'."
-    },
-    {
-      question: "Which of the following demonstrates initializing a variable AFTER it has been declared?",
-      options: ["int y = 10;", "int y; y = 10;", "y = 10; int y;"],
-      correct: 1,
-      explanation: "The variable is first declared ('int y;'), and then initialized in a separate step ('y = 10;')."
-    },
-    {
-      question: "If you declare 'int count;' inside a method and try to print it immediately, what happens?",
-      options: ["It prints 0", "It prints null", "Compile-time error"],
-      correct: 2,
-      explanation: "Variables declared inside methods (local variables) DO NOT get default values and must be initialized before use."
-    }
-  ]
-};
-
-// --- Reusable Components ---
-
-const CodeSnippet = ({ code, isError, title }) => (
-  <div className={`rounded-md overflow-hidden border ${isError ? 'border-red-200' : 'border-slate-200'} my-3 bg-slate-50`}>
-    {title && (
-      <div className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 ${isError ? 'bg-red-100 text-red-800' : 'bg-slate-200 text-slate-700'}`}>
-        {isError ? <XCircle size={14} /> : <CheckCircle2 size={14} />}
-        {title}
-      </div>
-    )}
-    <pre className="p-4 text-sm font-mono text-slate-800 overflow-x-auto whitespace-pre-wrap">
-      {code}
-    </pre>
-  </div>
-);
-
-const QuizSection = ({ questions }) => {
-  const [selectedAnswers, setSelectedAnswers] = useState({});
-
-  const handleSelect = (qIndex, oIndex) => {
-    setSelectedAnswers(prev => ({ ...prev, [qIndex]: oIndex }));
-  };
-
-  return (
-    <div className="mt-12 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-      <h3 className="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
-        <CheckCircle2 className="text-indigo-600" /> Knowledge Check
-      </h3>
-      <div className="space-y-8">
-        {questions.map((q, qIndex) => {
-          const hasAnswered = selectedAnswers[qIndex] !== undefined;
-          const isCorrect = selectedAnswers[qIndex] === q.correct;
-
-          return (
-            <div key={qIndex} className="space-y-3">
-              <p className="font-medium text-slate-800">{qIndex + 1}. {q.question}</p>
-              <div className="space-y-2">
-                {q.options.map((opt, oIndex) => {
-                  let btnClass = "w-full text-left px-4 py-3 rounded-lg border transition-all duration-200 text-sm ";
-                  
-                  if (!hasAnswered) {
-                    btnClass += "border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700";
-                  } else if (oIndex === q.correct) {
-                    btnClass += "border-green-500 bg-green-50 text-green-800 font-medium";
-                  } else if (oIndex === selectedAnswers[qIndex]) {
-                    btnClass += "border-red-500 bg-red-50 text-red-800";
-                  } else {
-                    btnClass += "border-slate-200 bg-slate-50 text-slate-400 opacity-50 cursor-not-allowed";
-                  }
-
-                  return (
-                    <button
-                      key={oIndex}
-                      disabled={hasAnswered}
-                      onClick={() => handleSelect(qIndex, oIndex)}
-                      className={btnClass}
-                    >
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-              {hasAnswered && (
-                <div className={`p-3 rounded-lg text-sm flex gap-2 items-start mt-2 ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-700'}`}>
-                  <Info size={18} className="shrink-0 mt-0.5" />
-                  <p>{q.explanation}</p>
-                </div>
-              )}
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
+            <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                J
             </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-};
-
-// --- Tab Content Components ---
-
-const IdentifiersTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">Identifiers, Variables & Constants</h2>
-    
-    <div className="grid md:grid-cols-2 gap-6">
-      <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-        <h3 className="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Identifiers</h3>
-        <p className="text-slate-600 mb-4 text-sm">
-          Technical term for a name in a programming language used to name classes, methods, variables, etc.
-        </p>
-        <ul className="list-disc pl-5 text-sm text-slate-700 space-y-1 mb-4">
-          <li>Cannot start with a digit.</li>
-          <li>Cannot contain spaces.</li>
-          <li>Cannot be a reserved keyword (like <code className="bg-slate-100 px-1 rounded">class</code>, <code className="bg-slate-100 px-1 rounded">int</code>).</li>
-        </ul>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <span className="text-xs font-bold text-green-600 uppercase">Valid</span>
-            <ul className="text-sm font-mono space-y-1 mt-1 text-slate-700">
-              <li>itemCost</li>
-              <li>_itemCost</li>
-              <li>item$Cost</li>
-              <li>itemCost2</li>
-            </ul>
-          </div>
-          <div>
-             <span className="text-xs font-bold text-red-600 uppercase">Invalid</span>
-             <ul className="text-sm font-mono space-y-1 mt-1 text-slate-700">
-              <li className="line-through decoration-red-400">item#Cost <span className="text-xs no-underline text-red-500">(no #)</span></li>
-              <li className="line-through decoration-red-400">item-Cost <span className="text-xs no-underline text-red-500">(no -)</span></li>
-              <li className="line-through decoration-red-400">2itemCost <span className="text-xs no-underline text-red-500">(starts w/ digit)</span></li>
-              <li className="line-through decoration-red-400">abstract <span className="text-xs no-underline text-red-500">(keyword)</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-6">
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Variables</h3>
-          <p className="text-slate-600 text-sm mb-3">
-            The name of a memory location used to store data. Its value <strong>may change</strong> during execution.
-          </p>
-          <CodeSnippet 
-            title="Variable Reassignment"
-            code={`double radius = 20.0; // radius holds 20.0\nradius = 100.0;     // value changes to 100.0`} 
-          />
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Constants</h3>
-          <p className="text-slate-600 text-sm mb-3">
-            Declared with the keyword <code className="text-indigo-600 font-bold bg-indigo-50 px-1 rounded">final</code>. Its value <strong>cannot be changed</strong> once assigned.
-          </p>
-          <CodeSnippet 
-            title="Constant Declaration"
-            code={`final double PI = 3.14;\n// PI is now a constant`} 
-          />
-          <CodeSnippet 
-            title="Compile Error"
-            isError={true}
-            code={`PI = 3.14159; // ERROR: Cannot assign a value to final variable PI`} 
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const PrimitivesTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">8 Primitive Data Types</h2>
-    <p className="text-slate-600">
-      Java has 8 built-in primitive data types. They are the most basic data types available in the language.
-    </p>
-
-    <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
-      <table className="w-full text-sm text-left text-slate-600 bg-white">
-        <thead className="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
-          <tr>
-            <th className="px-4 py-3">Category</th>
-            <th className="px-4 py-3">Type</th>
-            <th className="px-4 py-3">Size</th>
-            <th className="px-4 py-3">Min / Max</th>
-            <th className="px-4 py-3 bg-indigo-50 text-indigo-800">Default*</th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-slate-100 font-mono text-xs md:text-sm">
-          {/* Integers */}
-          <tr className="hover:bg-slate-50">
-            <td rowSpan="4" className="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Integer</td>
-            <td className="px-4 py-3 font-bold text-indigo-600">byte</td>
-            <td className="px-4 py-3">8-bit</td>
-            <td className="px-4 py-3">-128 to 127</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0</td>
-          </tr>
-          <tr className="hover:bg-slate-50">
-            <td className="px-4 py-3 font-bold text-indigo-600">short</td>
-            <td className="px-4 py-3">16-bit</td>
-            <td className="px-4 py-3">-32,768 to 32,767</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0</td>
-          </tr>
-          <tr className="hover:bg-slate-50">
-            <td className="px-4 py-3 font-bold text-indigo-600 text-base">int</td>
-            <td className="px-4 py-3">32-bit</td>
-            <td className="px-4 py-3">-2<sup>31</sup> to 2<sup>31</sup>-1</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0</td>
-          </tr>
-          <tr className="hover:bg-slate-50 border-b-2 border-slate-200">
-            <td className="px-4 py-3 font-bold text-indigo-600 text-base">long</td>
-            <td className="px-4 py-3">64-bit</td>
-            <td className="px-4 py-3">-2<sup>63</sup> to 2<sup>63</sup>-1</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0L</td>
-          </tr>
-          
-          {/* Floating Point */}
-          <tr className="hover:bg-slate-50">
-            <td rowSpan="2" className="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Floating<br/>Point</td>
-            <td className="px-4 py-3 font-bold text-indigo-600">float</td>
-            <td className="px-4 py-3">32-bit</td>
-            <td className="px-4 py-3">±3.4E38 (6-7 sig figs)</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0.0F</td>
-          </tr>
-          <tr className="hover:bg-slate-50 border-b-2 border-slate-200">
-            <td className="px-4 py-3 font-bold text-indigo-600 text-base">double</td>
-            <td className="px-4 py-3">64-bit</td>
-            <td className="px-4 py-3">±1.7E308 (14-15 sig figs)</td>
-            <td className="px-4 py-3 bg-indigo-50/30">0.0</td>
-          </tr>
-
-          {/* Others */}
-          <tr className="hover:bg-slate-50 border-b border-slate-100">
-            <td className="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Character</td>
-            <td className="px-4 py-3 font-bold text-indigo-600">char</td>
-            <td className="px-4 py-3">16-bit</td>
-            <td className="px-4 py-3 font-sans text-xs">Single Character (e.g. 'A')</td>
-            <td className="px-4 py-3 bg-indigo-50/30">'\u0000' (null)</td>
-          </tr>
-          <tr className="hover:bg-slate-50">
-            <td className="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Boolean</td>
-            <td className="px-4 py-3 font-bold text-indigo-600">boolean</td>
-            <td className="px-4 py-3">8-bit</td>
-            <td className="px-4 py-3 font-sans text-xs">true or false</td>
-            <td className="px-4 py-3 bg-indigo-50/30">false</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3 text-amber-800 text-sm">
-      <AlertTriangle className="shrink-0 mt-0.5" size={20}/>
-      <div>
-        <strong>* Important Note on Default Values:</strong>
-        <p className="mt-1">
-          Default values are <strong>ONLY</strong> applied to variables declared at the class level (Instance or Static variables). 
-          Variables declared inside methods (<strong>Local variables</strong>) do <em>not</em> get a default value and must be manually initialized before use.
-        </p>
-      </div>
-    </div>
-  </div>
-);
-
-const LiteralsTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">Literals</h2>
-    <p className="text-slate-600">
-      Literals are fixed values directly written into the code. They are the constant values assigned to variables.
-    </p>
-
-    <div className="bg-slate-800 text-slate-200 p-6 rounded-xl font-mono text-sm leading-relaxed shadow-lg">
-      <div className="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
-        <span className="text-purple-400">int</span> x = y + <span className="text-orange-400 font-bold">30_000</span>;
-        <span className="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// int literal (underscores allowed for readability)</span>
-      </div>
-      
-      <div className="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
-        System.out.println(<span className="text-green-400 font-bold">'A'</span>);
-        <span className="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// char literal (MUST use single quotes)</span>
-      </div>
-
-      <div className="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
-        <span className="text-purple-400">boolean</span> finished = <span className="text-blue-400 font-bold">false</span>;
-        <span className="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// boolean literal</span>
-      </div>
-
-      <div className="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
-        <span className="text-purple-400">long</span> g = <span className="text-orange-400 font-bold">9</span>;
-        <span className="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// long literal (implicit cast from int literal 9)</span>
-      </div>
-
-      <div className="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
-        <span className="text-purple-400">int</span> binary = <span className="text-orange-400 font-bold">0b1001</span>;
-        <span className="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// binary literal (prefix with 0b)</span>
-      </div>
-    </div>
-    <p className="text-sm text-center text-slate-500 italic">Hover over the lines of code to see explanations.</p>
-  </div>
-);
-
-const DeclaringTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">Declaring Variables</h2>
-    <p className="text-slate-600">
-      Before using a variable, you must declare it by specifying its <strong>data type</strong> and its <strong>name</strong>.
-    </p>
-
-    <div className="bg-indigo-50 border border-indigo-100 p-4 rounded-lg flex items-center justify-center font-mono text-lg text-indigo-900 shadow-inner">
-      dataType variableName;
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-6">
-      <div>
-        <h3 className="font-semibold text-green-700 flex items-center gap-2 mb-3">
-          <CheckCircle2 size={18}/> Correct Usage
-        </h3>
-        <CodeSnippet 
-          code={`// Basic declaration\nint age;\n\n// Declaring multiple variables of same type\nint i, j, k;\n\n// Declaring a constant\nfinal double PI;`}
-        />
-      </div>
-
-      <div>
-         <h3 className="font-semibold text-red-700 flex items-center gap-2 mb-3">
-          <XCircle size={18}/> Compile-Time Errors
-        </h3>
-        <CodeSnippet 
-          isError={true}
-          code={`int i; \n\n// ERROR: Variable 'i' is already defined\ndouble i;`}
-        />
-        <div className="bg-red-50 text-red-800 text-sm p-3 rounded border border-red-100">
-          <strong>Crucial Rule:</strong> You can only declare a variable <strong>ONCE</strong> within its scope.
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const AssignmentTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">Assignment Statements</h2>
-    
-    <div className="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-lg mb-6">
-      <h4 className="font-bold text-rose-900 flex items-center gap-2">
-        <AlertTriangle size={18} /> The Biggest Beginner Mistake
-      </h4>
-      <p className="text-rose-800 mt-1 text-sm">
-        In Java, <code className="bg-white px-1 rounded border border-rose-200 font-bold">=</code> does <strong>NOT</strong> mean mathematical equality. <br/>
-        It is the <strong>assignment operator</strong>. It means "calculate the expression on the right, and store it in the variable on the left."
-      </p>
-    </div>
-
-    <div className="bg-slate-100 p-4 rounded-lg flex items-center justify-center font-mono text-lg text-slate-800 shadow-inner">
-      variable <span className="text-indigo-600 font-bold mx-2">=</span> expression;
-    </div>
-
-    <div className="grid md:grid-cols-2 gap-6 mt-6">
-      <div className="bg-white p-5 rounded-xl border border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">Expressions</h3>
-        <p className="text-sm text-slate-600 mb-4">An expression can be a value, a variable, or a computation.</p>
-        <CodeSnippet 
-          code={`double x = 4.0; // 4.0 is an expression\n\ndouble d = x + 5; // x + 5 is an expression`}
-        />
-      </div>
-
-      <div className="bg-white p-5 rounded-xl border border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-2">Type Matching constraint</h3>
-        <p className="text-sm text-slate-600 mb-4">The data type of the variable <strong>must match</strong> (or be able to safely hold) the expression's type.</p>
-        <CodeSnippet 
-          title="Valid"
-          code={`int x = 7;`}
-        />
-        <CodeSnippet 
-          title="Invalid (Compile Errors)"
-          isError={true}
-          code={`byte b;\n\nb = 1.0;  // Error: Cannot convert double to byte\n\nb = 1004; // Error: 1004 is too big for byte (-128 to 127)`}
-        />
-      </div>
-    </div>
-  </div>
-);
-
-const InitializationTab = () => (
-  <div className="space-y-6 animate-fadeIn">
-    <h2 className="text-2xl font-bold text-slate-800">Initializing Variables</h2>
-    <p className="text-slate-600">
-      Initialization is the process of giving a variable its very first value.
-    </p>
-
-    <div className="grid md:grid-cols-2 gap-6">
-      <div className="bg-white p-5 rounded-xl border border-slate-200">
-        <h3 className="text-lg font-semibold text-slate-800 mb-4">Approaches</h3>
-        
-        <h4 className="font-medium text-sm text-slate-500 uppercase tracking-wider mb-2">1. In One Step</h4>
-        <CodeSnippet 
-          code={`// Declare & initialize simultaneously\nfloat t = 4.0f;\n\n// Note: 'f' is required. Without it, 4.0 is \n// assumed to be a double, causing a mismatch.`}
-        />
-
-        <h4 className="font-medium text-sm text-slate-500 uppercase tracking-wider mt-6 mb-2">2. After Declaring (Two Steps)</h4>
-        <CodeSnippet 
-          code={`float t;          // Declare\n\n// ... later in code ...\n\nt = 4.0f;         // Initialize`}
-        />
-      </div>
-
-      <div className="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-center">
-        <h3 className="text-lg font-semibold text-slate-800 mb-4">The Golden Rules of Initialization</h3>
-        
-        <ul className="space-y-4">
-          <li className="flex gap-3 bg-red-50 p-3 rounded-lg border border-red-100">
-            <XCircle className="text-red-500 shrink-0 mt-0.5"/>
             <div>
-              <strong className="text-red-900 block">Method Variables (Local)</strong>
-              <span className="text-red-800 text-sm">Variables declared inside a method <strong>MUST</strong> be explicitly assigned a value before you try to use them, otherwise the code will not compile.</span>
+                <h1 class="text-xl font-bold text-slate-800 leading-tight">Java Fundamentals</h1>
+                <p class="text-xs text-slate-500 font-medium">Variables, Data Types & Syntax</p>
             </div>
-          </li>
-          
-          <li className="flex gap-3 bg-green-50 p-3 rounded-lg border border-green-100">
-            <CheckCircle2 className="text-green-600 shrink-0 mt-0.5"/>
-            <div>
-              <strong className="text-green-900 block">Class Variables (Fields)</strong>
-              <span className="text-green-800 text-sm">Variables declared outside of methods automatically get default values (like 0, false, null) if you don't initialize them.</span>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-);
-
-// --- Main App Component ---
-
-export default function App() {
-  const [activeTab, setActiveTab] = useState(TABS[0].id);
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case 'identifiers': return <IdentifiersTab />;
-      case 'primitives': return <PrimitivesTab />;
-      case 'literals': return <LiteralsTab />;
-      case 'declaring': return <DeclaringTab />;
-      case 'assignment': return <AssignmentTab />;
-      case 'initialization': return <InitializationTab />;
-      default: return <IdentifiersTab />;
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
-      {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
-          <div className="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-inner">
-            J
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-slate-800 leading-tight">Java Fundamentals</h1>
-            <p className="text-xs text-slate-500 font-medium">Variables, Data Types & Syntax</p>
-          </div>
         </div>
 
-        {/* Tab Navigation */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex space-x-1 overflow-x-auto pb-2 scrollbar-hide">
-            {TABS.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap
-                    ${isActive 
-                      ? 'bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600' 
-                      : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100 border-b-2 border-transparent'
-                    }`}
-                >
-                  <Icon size={16} className={isActive ? 'text-indigo-600' : 'text-slate-400'} />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </nav>
+        <!-- Tab Navigation (Injected via JS) -->
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav id="tabs-nav" class="flex space-x-1 overflow-x-auto pb-2 scrollbar-hide"></nav>
         </div>
-      </header>
+    </header>
 
-      {/* Main Content Area */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 min-h-[400px]">
-          {renderContent()}
+    <!-- Main Content Area -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Tab Content -->
+        <div id="tab-content" class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 min-h-[400px]">
         </div>
 
-        {/* Dynamic Quiz Section based on active tab */}
-        <QuizSection 
-          key={activeTab} // Force remount on tab change to reset state
-          questions={QUIZZES[activeTab]} 
-        />
-      </main>
-      
-      {/* Footer */}
-      <footer className="text-center py-8 text-sm text-slate-400">
+        <!-- Quiz Section -->
+        <div id="quiz-container"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-sm text-slate-400">
         Interactive Java Learning Module
-      </footer>
-    </div>
-  );
-}
+    </footer>
+
+    <script>
+        // --- Data Models ---
+        const TABS = [
+            { id: 'identifiers', icon: 'book-open', label: 'Identifiers & Variables' },
+            { id: 'primitives', icon: 'database', label: 'Primitives' },
+            { id: 'literals', icon: 'type', label: 'Literals' },
+            { id: 'declaring', icon: 'file-edit', label: 'Declaring Variables' },
+            { id: 'assignment', icon: 'arrow-right-left', label: 'Assignment' },
+            { id: 'initialization', icon: 'play-circle', label: 'Initialization' },
+        ];
+
+        const QUIZZES = {
+            identifiers: [
+                {
+                    question: "Which of the following is a VALID Java identifier?",
+                    options: ["1stVariable", "item#Cost", "$myVariable", "class"],
+                    correct: 2,
+                    explanation: "Identifiers cannot start with a digit, cannot contain '#', and cannot be reserved keywords like 'class'. '$' is allowed."
+                },
+                {
+                    question: "What keyword is used to declare a constant whose value cannot be changed?",
+                    options: ["const", "final", "static", "immutable"],
+                    correct: 1,
+                    explanation: "In Java, the 'final' keyword is used to make a variable's value unchangeable after initialization."
+                },
+                {
+                    question: "Why is 'item-Cost' an invalid identifier?",
+                    options: ["It starts with a lowercase letter.", "It contains a hyphen (-).", "It is too long.", "It is a keyword."],
+                    correct: 1,
+                    explanation: "Identifiers cannot contain spaces or hyphens (mathematical minus sign). Underscores (_) are used instead."
+                }
+            ],
+            primitives: [
+                {
+                    question: "Which primitive data type requires the most memory?",
+                    options: ["int", "float", "double", "long"],
+                    correct: 2,
+                    explanation: "Both 'double' and 'long' take 64 bits, but if comparing against 32-bit types, double/long are the largest. (Note: long and double are both 64-bit)."
+                },
+                {
+                    question: "What is the default value of a boolean variable declared at the class level?",
+                    options: ["true", "false", "null", "0"],
+                    correct: 1,
+                    explanation: "Uninitialized class-level boolean variables default to 'false'."
+                },
+                {
+                    question: "Do variables declared inside a method (local variables) get default values?",
+                    options: ["Yes, always", "No, they must be explicitly initialized", "Only numeric types do"],
+                    correct: 1,
+                    explanation: "Local variables do not get default values. Using an uninitialized local variable causes a compile-time error."
+                }
+            ],
+            literals: [
+                {
+                    question: "What type of literal is 'A' (enclosed in single quotes)?",
+                    options: ["String literal", "Character literal", "Variable name"],
+                    correct: 1,
+                    explanation: "Single quotes denote a 'char' literal. Double quotes denote a String literal."
+                },
+                {
+                    question: "Which of these is a valid way to write thirty thousand in Java to make it more readable?",
+                    options: ["30,000", "30_000", "30 000"],
+                    correct: 1,
+                    explanation: "Java allows using underscores (_) in numeric literals to improve readability."
+                },
+                {
+                    question: "What prefix is used to indicate a binary literal?",
+                    options: ["0x", "0b", "bin-"],
+                    correct: 1,
+                    explanation: "The prefix '0b' or '0B' is used for binary literals (e.g., 0b1001)."
+                }
+            ],
+            declaring: [
+                {
+                    question: "Which statement correctly declares an integer variable?",
+                    options: ["integer age;", "int age;", "age = int;"],
+                    correct: 1,
+                    explanation: "'int' is the correct keyword for the integer primitive type."
+                },
+                {
+                    question: "What happens if you declare 'int x;' and then 'double x;' in the same scope?",
+                    options: ["x becomes a double", "Compile-time error", "Runtime error"],
+                    correct: 1,
+                    explanation: "A variable can only be declared ONCE within its scope. Redeclaring it causes a compile-time error."
+                },
+                {
+                    question: "Can you declare multiple variables of the same type on a single line?",
+                    options: ["Yes (e.g., int i, j, k;)", "No, they must be on separate lines"],
+                    correct: 0,
+                    explanation: "Java allows declaring multiple variables of the same type in a comma-separated list."
+                }
+            ],
+            assignment: [
+                {
+                    question: "What is the primary difference between '=' and '==' in Java?",
+                    options: [
+                        "'=' assigns a value, '==' checks for equality",
+                        "'=' checks for equality, '==' assigns a value",
+                        "There is no difference"
+                    ],
+                    correct: 0,
+                    explanation: "'=' is the assignment operator (stores a value). '==' is a relational operator (compares values)."
+                },
+                {
+                    question: "If 'byte b;' is declared, what happens with 'b = 130;'?",
+                    options: ["b becomes 130", "Compile-time error", "b wraps around to a negative number"],
+                    correct: 1,
+                    explanation: "Compile-time error. The maximum value for a byte is 127. 130 is too large and causes a type mismatch/overflow error during compilation."
+                },
+                {
+                    question: "In the statement 'double d = x + 5;', what is 'x + 5' called?",
+                    options: ["A variable", "An operator", "An expression"],
+                    correct: 2,
+                    explanation: "'x + 5' is an expression that evaluates to a value, which is then assigned to the variable."
+                }
+            ],
+            initialization: [
+                {
+                    question: "Why might you write 'float t = 4.0f;' instead of 'float t = 4.0;'?",
+                    options: [
+                        "To make the code run faster",
+                        "Because floating-point literals default to double type",
+                        "'f' stands for 'final'"
+                    ],
+                    correct: 1,
+                    explanation: "By default, decimal literals (like 4.0) are treated as 'double'. You must add 'f' to explicitly make it a 'float'."
+                },
+                {
+                    question: "Which of the following demonstrates initializing a variable AFTER it has been declared?",
+                    options: ["int y = 10;", "int y; y = 10;", "y = 10; int y;"],
+                    correct: 1,
+                    explanation: "The variable is first declared ('int y;'), and then initialized in a separate step ('y = 10;')."
+                },
+                {
+                    question: "If you declare 'int count;' inside a method and try to print it immediately, what happens?",
+                    options: ["It prints 0", "It prints null", "Compile-time error"],
+                    correct: 2,
+                    explanation: "Variables declared inside methods (local variables) DO NOT get default values and must be initialized before use."
+                }
+            ]
+        };
+
+        // --- State ---
+        let activeTab = 'identifiers';
+        let selectedAnswers = {};
+
+        // --- Helper Components (HTML Generators) ---
+        function getCodeSnippet(code, isError = false, title = '') {
+            const escapedCode = code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            let titleHtml = '';
+            
+            if (title) {
+                const bgClass = isError ? 'bg-red-100 text-red-800' : 'bg-slate-200 text-slate-700';
+                const iconName = isError ? 'x-circle' : 'check-circle-2';
+                titleHtml = `
+                    <div class="px-3 py-1.5 text-xs font-semibold uppercase tracking-wider flex items-center gap-2 ${bgClass}">
+                        <i data-lucide="${iconName}" class="w-3.5 h-3.5"></i>
+                        ${title}
+                    </div>`;
+            }
+
+            const borderClass = isError ? 'border-red-200' : 'border-slate-200';
+            
+            return `
+                <div class="rounded-md overflow-hidden border ${borderClass} my-3 bg-slate-50">
+                    ${titleHtml}
+                    <pre class="p-4 text-sm font-mono text-slate-800 overflow-x-auto whitespace-pre-wrap">${escapedCode}</pre>
+                </div>
+            `;
+        }
+
+        // --- Tab Content Generators ---
+        function getIdentifiersTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">Identifiers, Variables & Constants</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Identifiers</h3>
+                            <p class="text-slate-600 mb-4 text-sm">Technical term for a name in a programming language used to name classes, methods, variables, etc.</p>
+                            <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1 mb-4">
+                                <li>Cannot start with a digit.</li>
+                                <li>Cannot contain spaces.</li>
+                                <li>Cannot be a reserved keyword (like <code class="bg-slate-100 px-1 rounded">class</code>, <code class="bg-slate-100 px-1 rounded">int</code>).</li>
+                            </ul>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <span class="text-xs font-bold text-green-600 uppercase">Valid</span>
+                                    <ul class="text-sm font-mono space-y-1 mt-1 text-slate-700">
+                                        <li>itemCost</li>
+                                        <li>_itemCost</li>
+                                        <li>item$Cost</li>
+                                        <li>itemCost2</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <span class="text-xs font-bold text-red-600 uppercase">Invalid</span>
+                                    <ul class="text-sm font-mono space-y-1 mt-1 text-slate-700">
+                                        <li class="line-through decoration-red-400">item#Cost <span class="text-xs no-underline text-red-500">(no #)</span></li>
+                                        <li class="line-through decoration-red-400">item-Cost <span class="text-xs no-underline text-red-500">(no -)</span></li>
+                                        <li class="line-through decoration-red-400">2itemCost <span class="text-xs no-underline text-red-500">(starts w/ digit)</span></li>
+                                        <li class="line-through decoration-red-400">abstract <span class="text-xs no-underline text-red-500">(keyword)</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                                <h3 class="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Variables</h3>
+                                <p class="text-slate-600 text-sm mb-3">The name of a memory location used to store data. Its value <strong>may change</strong> during execution.</p>
+                                ${getCodeSnippet("double radius = 20.0; // radius holds 20.0\nradius = 100.0;     // value changes to 100.0", false, "Variable Reassignment")}
+                            </div>
+                            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                                <h3 class="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Constants</h3>
+                                <p class="text-slate-600 text-sm mb-3">Declared with the keyword <code class="text-indigo-600 font-bold bg-indigo-50 px-1 rounded">final</code>. Its value <strong>cannot be changed</strong> once assigned.</p>
+                                ${getCodeSnippet("final double PI = 3.14;\n// PI is now a constant", false, "Constant Declaration")}
+                                ${getCodeSnippet("PI = 3.14159; // ERROR: Cannot assign a value to final variable PI", true, "Compile Error")}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getPrimitivesTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">8 Primitive Data Types</h2>
+                    <p class="text-slate-600">Java has 8 built-in primitive data types. They are the most basic data types available in the language.</p>
+                    <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
+                        <table class="w-full text-sm text-left text-slate-600 bg-white">
+                            <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
+                                <tr>
+                                    <th class="px-4 py-3">Category</th>
+                                    <th class="px-4 py-3">Type</th>
+                                    <th class="px-4 py-3">Size</th>
+                                    <th class="px-4 py-3">Min / Max</th>
+                                    <th class="px-4 py-3 bg-indigo-50 text-indigo-800">Default*</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-mono text-xs md:text-sm">
+                                <tr class="hover:bg-slate-50">
+                                    <td rowspan="4" class="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Integer</td>
+                                    <td class="px-4 py-3 font-bold text-indigo-600">byte</td>
+                                    <td class="px-4 py-3">8-bit</td>
+                                    <td class="px-4 py-3">-128 to 127</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-bold text-indigo-600">short</td>
+                                    <td class="px-4 py-3">16-bit</td>
+                                    <td class="px-4 py-3">-32,768 to 32,767</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-bold text-indigo-600 text-base">int</td>
+                                    <td class="px-4 py-3">32-bit</td>
+                                    <td class="px-4 py-3">-2<sup>31</sup> to 2<sup>31</sup>-1</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b-2 border-slate-200">
+                                    <td class="px-4 py-3 font-bold text-indigo-600 text-base">long</td>
+                                    <td class="px-4 py-3">64-bit</td>
+                                    <td class="px-4 py-3">-2<sup>63</sup> to 2<sup>63</sup>-1</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0L</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td rowspan="2" class="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Floating<br/>Point</td>
+                                    <td class="px-4 py-3 font-bold text-indigo-600">float</td>
+                                    <td class="px-4 py-3">32-bit</td>
+                                    <td class="px-4 py-3">±3.4E38 (6-7 sig figs)</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0.0F</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b-2 border-slate-200">
+                                    <td class="px-4 py-3 font-bold text-indigo-600 text-base">double</td>
+                                    <td class="px-4 py-3">64-bit</td>
+                                    <td class="px-4 py-3">±1.7E308 (14-15 sig figs)</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">0.0</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50 border-b border-slate-100">
+                                    <td class="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Character</td>
+                                    <td class="px-4 py-3 font-bold text-indigo-600">char</td>
+                                    <td class="px-4 py-3">16-bit</td>
+                                    <td class="px-4 py-3 font-sans text-xs">Single Character (e.g. 'A')</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">'\\u0000' (null)</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 font-sans font-semibold text-slate-800 bg-slate-50 border-r border-slate-100">Boolean</td>
+                                    <td class="px-4 py-3 font-bold text-indigo-600">boolean</td>
+                                    <td class="px-4 py-3">8-bit</td>
+                                    <td class="px-4 py-3 font-sans text-xs">true or false</td>
+                                    <td class="px-4 py-3 bg-indigo-50/30">false</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 flex gap-3 text-amber-800 text-sm">
+                        <i data-lucide="alert-triangle" class="shrink-0 mt-0.5 w-5 h-5"></i>
+                        <div>
+                            <strong>* Important Note on Default Values:</strong>
+                            <p class="mt-1">Default values are <strong>ONLY</strong> applied to variables declared at the class level (Instance or Static variables). Variables declared inside methods (<strong>Local variables</strong>) do <em>not</em> get a default value and must be manually initialized before use.</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getLiteralsTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">Literals</h2>
+                    <p class="text-slate-600">Literals are fixed values directly written into the code. They are the constant values assigned to variables.</p>
+                    <div class="bg-slate-800 text-slate-200 p-6 rounded-xl font-mono text-sm leading-relaxed shadow-lg">
+                        <div class="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
+                            <span class="text-purple-400">int</span> x = y + <span class="text-orange-400 font-bold">30_000</span>;
+                            <span class="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// int literal (underscores allowed)</span>
+                        </div>
+                        <div class="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
+                            System.out.println(<span class="text-green-400 font-bold">'A'</span>);
+                            <span class="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// char literal (MUST use single quotes)</span>
+                        </div>
+                        <div class="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
+                            <span class="text-purple-400">boolean</span> finished = <span class="text-blue-400 font-bold">false</span>;
+                            <span class="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// boolean literal</span>
+                        </div>
+                        <div class="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
+                            <span class="text-purple-400">long</span> g = <span class="text-orange-400 font-bold">9</span>;
+                            <span class="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// long literal (implicit cast)</span>
+                        </div>
+                        <div class="group relative py-1 hover:bg-slate-700 px-2 rounded -mx-2 transition-colors">
+                            <span class="text-purple-400">int</span> binary = <span class="text-orange-400 font-bold">0b1001</span>;
+                            <span class="absolute right-2 opacity-0 group-hover:opacity-100 text-slate-400 text-xs">// binary literal (prefix with 0b)</span>
+                        </div>
+                    </div>
+                    <p class="text-sm text-center text-slate-500 italic">Hover over the lines of code to see explanations.</p>
+                </div>
+            `;
+        }
+
+        function getDeclaringTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">Declaring Variables</h2>
+                    <p class="text-slate-600">Before using a variable, you must declare it by specifying its <strong>data type</strong> and its <strong>name</strong>.</p>
+                    <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-lg flex items-center justify-center font-mono text-lg text-indigo-900 shadow-inner">
+                        dataType variableName;
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="font-semibold text-green-700 flex items-center gap-2 mb-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i> Correct Usage
+                            </h3>
+                            ${getCodeSnippet("// Basic declaration\nint age;\n\n// Declaring multiple variables\nint i, j, k;\n\n// Declaring a constant\nfinal double PI;")}
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-red-700 flex items-center gap-2 mb-3">
+                                <i data-lucide="x-circle" class="w-5 h-5"></i> Compile-Time Errors
+                            </h3>
+                            ${getCodeSnippet("int i; \n\n// ERROR: Variable 'i' is already defined\ndouble i;", true)}
+                            <div class="bg-red-50 text-red-800 text-sm p-3 rounded border border-red-100 mt-3">
+                                <strong>Crucial Rule:</strong> You can only declare a variable <strong>ONCE</strong> within its scope.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getAssignmentTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">Assignment Statements</h2>
+                    <div class="bg-rose-50 border-l-4 border-rose-500 p-4 rounded-r-lg mb-6">
+                        <h4 class="font-bold text-rose-900 flex items-center gap-2">
+                            <i data-lucide="alert-triangle" class="w-5 h-5"></i> The Biggest Beginner Mistake
+                        </h4>
+                        <p class="text-rose-800 mt-1 text-sm">
+                            In Java, <code class="bg-white px-1 rounded border border-rose-200 font-bold">=</code> does <strong>NOT</strong> mean mathematical equality. <br/>
+                            It is the <strong>assignment operator</strong>. It means "calculate the expression on the right, and store it in the variable on the left."
+                        </p>
+                    </div>
+                    <div class="bg-slate-100 p-4 rounded-lg flex items-center justify-center font-mono text-lg text-slate-800 shadow-inner">
+                        variable <span class="text-indigo-600 font-bold mx-2">=</span> expression;
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Expressions</h3>
+                            <p class="text-sm text-slate-600 mb-4">An expression can be a value, a variable, or a computation.</p>
+                            ${getCodeSnippet("double x = 4.0; // 4.0 is an expression\n\ndouble d = x + 5; // x + 5 is an expression")}
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-2">Type Matching constraint</h3>
+                            <p class="text-sm text-slate-600 mb-4">The data type of the variable <strong>must match</strong> the expression's type.</p>
+                            ${getCodeSnippet("int x = 7;", false, "Valid")}
+                            ${getCodeSnippet("byte b;\n\nb = 1.0;  // Error: Cannot convert double to byte\n\nb = 1004; // Error: 1004 is too big for byte", true, "Invalid")}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getInitializationTab() {
+            return `
+                <div class="space-y-6 animate-fadeIn">
+                    <h2 class="text-2xl font-bold text-slate-800">Initializing Variables</h2>
+                    <p class="text-slate-600">Initialization is the process of giving a variable its very first value.</p>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-xl border border-slate-200">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-4">Approaches</h3>
+                            <h4 class="font-medium text-sm text-slate-500 uppercase tracking-wider mb-2">1. In One Step</h4>
+                            ${getCodeSnippet("// Declare & initialize simultaneously\nfloat t = 4.0f;\n// 'f' is required to explicitly make it a float")}
+                            <h4 class="font-medium text-sm text-slate-500 uppercase tracking-wider mt-6 mb-2">2. After Declaring</h4>
+                            ${getCodeSnippet("float t;          // Declare\n// ... later ...\nt = 4.0f;         // Initialize")}
+                        </div>
+                        <div class="bg-white p-5 rounded-xl border border-slate-200 flex flex-col justify-center">
+                            <h3 class="text-lg font-semibold text-slate-800 mb-4">Golden Rules</h3>
+                            <ul class="space-y-4">
+                                <li class="flex gap-3 bg-red-50 p-3 rounded-lg border border-red-100">
+                                    <i data-lucide="x-circle" class="text-red-500 shrink-0 mt-0.5 w-5 h-5"></i>
+                                    <div>
+                                        <strong class="text-red-900 block">Method Variables (Local)</strong>
+                                        <span class="text-red-800 text-sm">Must be explicitly assigned a value before use, or the code won't compile.</span>
+                                    </div>
+                                </li>
+                                <li class="flex gap-3 bg-green-50 p-3 rounded-lg border border-green-100">
+                                    <i data-lucide="check-circle-2" class="text-green-600 shrink-0 mt-0.5 w-5 h-5"></i>
+                                    <div>
+                                        <strong class="text-green-900 block">Class Variables (Fields)</strong>
+                                        <span class="text-green-800 text-sm">Automatically get default values (0, false, null) if not initialized.</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // --- Render Functions ---
+
+        function renderNavigation() {
+            const navContainer = document.getElementById('tabs-nav');
+            let navHtml = '';
+            
+            TABS.forEach(tab => {
+                const isActive = activeTab === tab.id;
+                const activeClasses = isActive 
+                    ? 'bg-indigo-50 text-indigo-700 border-b-2 border-indigo-600' 
+                    : 'text-slate-500 hover:text-slate-700 hover:bg-slate-100 border-b-2 border-transparent';
+                const iconColor = isActive ? 'text-indigo-600' : 'text-slate-400';
+
+                navHtml += `
+                    <button onclick="switchTab('${tab.id}')" class="flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-t-lg transition-colors whitespace-nowrap ${activeClasses}">
+                        <i data-lucide="${tab.icon}" class="w-4 h-4 ${iconColor}"></i>
+                        ${tab.label}
+                    </button>
+                `;
+            });
+            
+            navContainer.innerHTML = navHtml;
+            lucide.createIcons();
+        }
+
+        function renderTabContent() {
+            const contentContainer = document.getElementById('tab-content');
+            let contentHtml = '';
+            
+            switch(activeTab) {
+                case 'identifiers': contentHtml = getIdentifiersTab(); break;
+                case 'primitives': contentHtml = getPrimitivesTab(); break;
+                case 'literals': contentHtml = getLiteralsTab(); break;
+                case 'declaring': contentHtml = getDeclaringTab(); break;
+                case 'assignment': contentHtml = getAssignmentTab(); break;
+                case 'initialization': contentHtml = getInitializationTab(); break;
+                default: contentHtml = getIdentifiersTab();
+            }
+            
+            contentContainer.innerHTML = contentHtml;
+            lucide.createIcons();
+        }
+
+        function renderQuiz() {
+            const quizContainer = document.getElementById('quiz-container');
+            const questions = QUIZZES[activeTab];
+            
+            let questionsHtml = questions.map((q, qIndex) => {
+                const hasAnswered = selectedAnswers[qIndex] !== undefined;
+                const isCorrect = selectedAnswers[qIndex] === q.correct;
+                
+                let optionsHtml = q.options.map((opt, oIndex) => {
+                    let btnClass = "w-full text-left px-4 py-3 rounded-lg border transition-all duration-200 text-sm ";
+                    
+                    if (!hasAnswered) {
+                        btnClass += "border-slate-200 hover:border-indigo-400 hover:bg-indigo-50 text-slate-700";
+                    } else if (oIndex === q.correct) {
+                        btnClass += "border-green-500 bg-green-50 text-green-800 font-medium";
+                    } else if (oIndex === selectedAnswers[qIndex]) {
+                        btnClass += "border-red-500 bg-red-50 text-red-800";
+                    } else {
+                        btnClass += "border-slate-200 bg-slate-50 text-slate-400 opacity-50 cursor-not-allowed";
+                    }
+                    
+                    return `
+                        <button 
+                            ${hasAnswered ? 'disabled' : ''} 
+                            onclick="handleQuizSelect(${qIndex}, ${oIndex})" 
+                            class="${btnClass}">
+                            ${opt}
+                        </button>
+                    `;
+                }).join('');
+
+                let explanationHtml = '';
+                if (hasAnswered) {
+                    const explainClass = isCorrect ? 'bg-green-100 text-green-800' : 'bg-slate-100 text-slate-700';
+                    explanationHtml = `
+                        <div class="p-3 rounded-lg text-sm flex gap-2 items-start mt-2 ${explainClass}">
+                            <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
+                            <p>${q.explanation}</p>
+                        </div>
+                    `;
+                }
+
+                return `
+                    <div class="space-y-3">
+                        <p class="font-medium text-slate-800">${qIndex + 1}. ${q.question}</p>
+                        <div class="space-y-2">
+                            ${optionsHtml}
+                        </div>
+                        ${explanationHtml}
+                    </div>
+                `;
+            }).join('');
+
+            const html = `
+                <div class="mt-12 bg-white rounded-xl shadow-sm border border-slate-200 p-6 animate-fadeIn">
+                    <h3 class="text-xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+                        <i data-lucide="check-circle-2" class="text-indigo-600 w-6 h-6"></i> Knowledge Check
+                    </h3>
+                    <div class="space-y-8">
+                        ${questionsHtml}
+                    </div>
+                </div>
+            `;
+            
+            quizContainer.innerHTML = html;
+            lucide.createIcons();
+        }
+
+        // --- Interaction Handlers ---
+
+        window.switchTab = function(tabId) {
+            if (activeTab === tabId) return;
+            activeTab = tabId;
+            selectedAnswers = {}; // Reset quiz for new tab
+            
+            renderNavigation();
+            renderTabContent();
+            renderQuiz();
+        };
+
+        window.handleQuizSelect = function(qIndex, oIndex) {
+            selectedAnswers[qIndex] = oIndex;
+            renderQuiz(); // Re-render quiz area to show result
+        };
+
+        // --- Initial Bootstrap ---
+        renderNavigation();
+        renderTabContent();
+        renderQuiz();
+
+    </script>
+</body>
+</html>
