@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Fundamentals</title>
+    <title>OOP With Java - L2 Part 1</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -31,15 +31,21 @@
     <!-- Header -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center gap-3">
-            <div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-inner">
+            <div onclick="location.href='/'" class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-inner">
                 J
             </div>
             <div>
-                <h1 class="text-xl font-bold text-slate-800 leading-tight">Java Fundamentals</h1>
+                <h1 class="text-xl font-bold text-slate-800 leading-tight">OOP with Java - Lesson 2 Part 1</h1>
                 <p class="text-xs text-slate-500 font-medium">Variables, Data Types & Syntax</p>
             </div>
         </div>
 
+		<div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
+		  <p class="text-sm">
+			Vibe-coded and re-interpreted based on SP-ET0885 OOP Notes
+		  </p>
+		</div>
+				
         <!-- Tab Navigation (Injected via JS) -->
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav id="tabs-nav" class="flex space-x-1 overflow-x-auto pb-2 scrollbar-hide"></nav>
@@ -242,10 +248,12 @@
                             <h3 class="text-lg font-semibold text-slate-800 mb-3 border-b pb-2">Identifiers</h3>
                             <p class="text-slate-600 mb-4 text-sm">Technical term for a name in a programming language used to name classes, methods, variables, etc.</p>
                             <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1 mb-4">
-                                <li>Cannot start with a digit.</li>
-                                <li>Cannot contain spaces.</li>
-                                <li>Cannot be a reserved keyword (like <code class="bg-slate-100 px-1 rounded">class</code>, <code class="bg-slate-100 px-1 rounded">int</code>).</li>
+                                <li>Cannot start with a digit <code class="bg-slate-100 px-1 rounded">e.g. 1value</code></li>
+                                <li>Cannot contain spaces <code class="bg-slate-100 px-1 rounded">e.g. total price</code></li>
+								<li>Can use letters, digits, _, $ (but $ is discouraged)</li>
+                                <li>Cannot be a reserved keyword (like <code class="bg-slate-100 px-1 rounded">class</code>, <code class="bg-slate-100 px-1 rounded">int</code>). <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html" target="_blank" style="font-weight: bold; text-decoration: underline">See examples of Java &raquo; keywords</a></li>							
                             </ul>
+							<div class="mt-4">&nbsp;</div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
                                     <span class="text-xs font-bold text-green-600 uppercase">Valid</span>
@@ -291,7 +299,7 @@
                     <h2 class="text-2xl font-bold text-slate-800">8 Primitive Data Types</h2>
                     <p class="text-slate-600">Java has 8 built-in primitive data types. They are the most basic data types available in the language.</p>
                     <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm">
-                        <table class="w-full text-sm text-left text-slate-600 bg-white">
+                        <table class="w-full text-sm text-left text-slate-600 bg-white border border-collapse border-gray-300">
                             <thead class="text-xs text-slate-700 uppercase bg-slate-50 border-b border-slate-200">
                                 <tr>
                                     <th class="px-4 py-3">Category</th>
@@ -404,7 +412,7 @@
             return `
                 <div class="space-y-6 animate-fadeIn">
                     <h2 class="text-2xl font-bold text-slate-800">Declaring Variables</h2>
-                    <p class="text-slate-600">Before using a variable, you must declare it by specifying its <strong>data type</strong> and its <strong>name</strong>.</p>
+                    <p class="text-slate-600"><b>Before using a variable</b>, you must declare it by specifying its <strong>data type</strong> and its <strong>name</strong>.</p>
                     <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-lg flex items-center justify-center font-mono text-lg text-indigo-900 shadow-inner">
                         dataType variableName;
                     </div>
@@ -482,14 +490,14 @@
                                     <i data-lucide="x-circle" class="text-red-500 shrink-0 mt-0.5 w-5 h-5"></i>
                                     <div>
                                         <strong class="text-red-900 block">Method Variables (Local)</strong>
-                                        <span class="text-red-800 text-sm">Must be explicitly assigned a value before use, or the code won't compile.</span>
+                                        <span class="text-red-800 text-sm">Variables declared in a method must be explicitly assigned a value before use, or the code won't compile.</span>
                                     </div>
                                 </li>
                                 <li class="flex gap-3 bg-green-50 p-3 rounded-lg border border-green-100">
                                     <i data-lucide="check-circle-2" class="text-green-600 shrink-0 mt-0.5 w-5 h-5"></i>
                                     <div>
                                         <strong class="text-green-900 block">Class Variables (Fields)</strong>
-                                        <span class="text-green-800 text-sm">Automatically get default values (0, false, null) if not initialized.</span>
+                                        <span class="text-green-800 text-sm">Variables declared outside methods automatically get default values (0, false, null) if not initialized.</span>
                                     </div>
                                 </li>
                             </ul>
