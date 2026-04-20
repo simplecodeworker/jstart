@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Primitive & Casting Visualizer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Fira+Code:wght@400;500&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; }
+        .code { font-family: 'Fira Code', monospace; }
+
+        .container-box {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+        }
+
+        @keyframes pour {
+            0% { transform: translateY(-20px); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        .animate-pour { animation: pour 0.5s ease-out forwards; }
+        
+        /* Glass shine effect */
+        .glass-shine {
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 pb-20">
+
+    <div class="max-w-6xl mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-black text-slate-800 mb-2 tracking-tight">
+                Java <span class="text-blue-600">Type Casting</span> Visualizer
+            </h1>
+            <p class="text-slate-500 max-w-2xl mx-auto">
+                Visualizing data capacity. Liquid volume is based on <b>bit-size</b>, while casting rules are based on <b>value range</b>.
+            </p>
+        </header>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Left: Interactive Sandbox -->
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-flask text-blue-500"></i> Casting Sandbox
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <!-- Controls -->
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">From (Source Type)</label>
+                                <div id="sourceTypes" class="grid grid-cols-3 gap-2"></div>
+                            </div>
+                            <div class="flex justify-center py-2">
+                                <i class="fa-solid fa-arrow-down text-slate-300 text-2xl"></i>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">To (Target Type)</label>
+                                <div id="targetTypes" class="grid grid-cols-3 gap-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Result Visual -->
+                        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100 flex flex-col items-center justify-center min-h-[400px]">
+                            <div id="visualizerDisplay" class="relative flex flex-col items-center">
+                                <div id="targetBucket" class="w-32 h-40 border-4 border-slate-300 rounded-b-2xl relative flex items-end justify-center overflow-hidden bg-white shadow-inner">
+                                    <!-- Liquid -->
+                                    <div id="liquid" class="w-full bg-blue-500 transition-all duration-700 ease-in-out relative" style="height: 0%">
+                                        <div class="absolute inset-0 glass-shine"></div>
+                                    </div>
+                                    <!-- Overflow/Warning Indicator -->
+                                    <div id="overflowMsg" class="absolute inset-0 flex flex-col items-center justify-center bg-red-500/80 text-white font-black text-[10px] uppercase text-center p-2 opacity-0 transition-opacity duration-300">
+                                        <i class="fa-solid fa-triangle-exclamation text-lg mb-1"></i>
+                                        <span id="warningText">Potential Data Loss!</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 text-[10px] font-bold text-slate-400 uppercase">Target Capacity: <span id="targetLabel">int</span></div>
+                                <div id="sourceLabel" class="mt-4 font-mono font-bold text-blue-600 text-lg">byte</div>
+                            </div>
+                            
+                            <div id="statusAlert" class="mt-6 w-full p-4 rounded-xl text-center text-sm font-bold min-h-[60px] flex items-center justify-center">
+                                Select types to test casting logic.
+                            </div>
+
+                            <div class="mt-4 w-full">
+                                <code id="codeSnippet" class="block bg-slate-800 text-blue-300 p-4 rounded-lg text-xs font-mono leading-relaxed">
+                                    // Java Code
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Casting Hierarchy Map -->
+                <div class="bg-white rounded-3xl p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-route text-emerald-500"></i> The Widening Path (Safe)
+                    </h3>
+                    <div class="flex flex-wrap items-center justify-between gap-4 py-4 overflow-x-auto">
+                        <div class="flex items-center gap-3">
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">byte</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">short</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">int</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">long</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">float</span>
+                            <i class="fa-solid fa-chevron-right text-slate-300"></i>
+                            <span class="px-3 py-1 bg-slate-100 rounded-lg font-mono text-xs font-bold text-slate-600">double</span>
+                        </div>
+                    </div>
+                    <p class="mt-4 text-xs text-slate-400">
+                        In Java, you can always move "forward" along this line without an explicit cast.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right: Type Reference -->
+            <div class="space-y-6">
+                <div class="bg-slate-900 text-white rounded-3xl p-8 shadow-xl">
+                    <h3 class="text-lg font-bold mb-6 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-blue-400"></i> Bit-Size Reference
+                    </h3>
+                    <div id="typeReference" class="space-y-4"></div>
+                </div>
+
+                <div class="bg-indigo-600 text-white rounded-3xl p-8 shadow-xl">
+                    <h4 class="font-bold mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-blue-200"></i> Precision vs. Range
+                    </h4>
+                    <p class="text-xs opacity-90 leading-relaxed">
+                        Notice that <code class="bg-white/10 px-1">long</code> (64-bit) can be cast to <code class="bg-white/10 px-1">float</code> (32-bit) automatically. This is because <code class="bg-white/10">float</code> has a much larger <b>range</b>, even if it has less <b>precision</b> (liquid overflows but is technically "allowed").
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // weights represent the widening order in Java (byte -> ... -> double)
+        // bitSize represents physical memory footprint
+        const types = [
+            { name: 'byte', bitSize: 8, weight: 1, range: '-128 to 127', color: 'bg-slate-400', isFloat: false },
+            { name: 'short', bitSize: 16, weight: 2, range: '-32,768 to 32,767', color: 'bg-slate-500', isFloat: false },
+            { name: 'int', bitSize: 32, weight: 3, range: '±2.1B', color: 'bg-blue-500', isFloat: false },
+            { name: 'long', bitSize: 64, weight: 4, range: '±9.22 Quintillion', color: 'bg-indigo-600', isFloat: false },
+            { name: 'float', bitSize: 32, weight: 5, range: '±3.4e38', color: 'bg-cyan-500', isFloat: true },
+            { name: 'double', bitSize: 64, weight: 6, range: '±1.7e308', color: 'bg-purple-600', isFloat: true }
+        ];
+
+        let source = types[0];
+        let target = types[2];
+
+        function init() {
+            renderControls();
+            renderReference();
+            updateVisuals();
+        }
+
+        function renderControls() {
+            const sourceCont = document.getElementById('sourceTypes');
+            const targetCont = document.getElementById('targetTypes');
+            sourceCont.innerHTML = '';
+            targetCont.innerHTML = '';
+
+            types.forEach(t => {
+                const sBtn = document.createElement('button');
+                sBtn.className = `p-2 rounded-lg font-mono text-xs font-bold transition-all border-2 ${source.name === t.name ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300'}`;
+                sBtn.innerText = t.name;
+                sBtn.onclick = () => { source = t; updateVisuals(); renderControls(); };
+                sourceCont.appendChild(sBtn);
+
+                const tBtn = document.createElement('button');
+                tBtn.className = `p-2 rounded-lg font-mono text-xs font-bold transition-all border-2 ${target.name === t.name ? 'border-blue-500 bg-blue-50 text-blue-700 shadow-sm' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300'}`;
+                tBtn.innerText = t.name;
+                tBtn.onclick = () => { target = t; updateVisuals(); renderControls(); };
+                targetCont.appendChild(tBtn);
+            });
+        }
+
+        function renderReference() {
+            const ref = document.getElementById('typeReference');
+            ref.innerHTML = types.map(t => `
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-xl border border-white/10">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-mono font-bold text-blue-400">${t.name}</span>
+                            <span class="text-[10px] text-slate-500 uppercase font-black">${t.bitSize}-BIT</span>
+                        </div>
+                        <div class="text-[10px] text-slate-400 truncate max-w-[150px]">${t.range}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateVisuals() {
+            const liquid = document.getElementById('liquid');
+            const status = document.getElementById('statusAlert');
+            const code = document.getElementById('codeSnippet');
+            const sourceLabel = document.getElementById('sourceLabel');
+            const targetLabel = document.getElementById('targetLabel');
+            const bucket = document.getElementById('targetBucket');
+            const overflow = document.getElementById('overflowMsg');
+            const warningText = document.getElementById('warningText');
+
+            const isImplicit = target.weight >= source.weight;
+            const isSame = target.name === source.name;
+
+            sourceLabel.innerText = source.name;
+            sourceLabel.className = `mt-4 font-mono font-bold ${source.color.replace('bg-', 'text-')} text-lg`;
+            targetLabel.innerText = `${target.name} (${target.bitSize}-bit)`;
+
+            // fillPercent is now strictly based on BIT SIZE
+            const fillPercent = (source.bitSize / target.bitSize) * 100;
+            
+            liquid.style.height = `${Math.min(fillPercent, 100)}%`;
+            liquid.className = `w-full transition-all duration-700 ${source.color}`;
+            
+            // Logic for warnings
+            if (isSame) {
+                overflow.style.opacity = "0";
+                status.innerText = "Identity Assignment: No casting required.";
+                status.className = "mt-6 w-full p-4 rounded-xl text-center text-sm font-bold bg-slate-100 text-slate-600";
+                code.innerHTML = `<span class="text-blue-400 font-bold">${target.name}</span> val = ...;<br><span class="text-blue-400 font-bold">${target.name}</span> copy = val;`;
+            } else if (isImplicit) {
+                // If it's implicit but overflowing (like long to float), show a special warning
+                if (fillPercent > 100) {
+                    overflow.style.opacity = "1";
+                    warningText.innerText = "Possible Precision Loss";
+                    status.innerHTML = `<i class="fa-solid fa-circle-exclamation mr-2"></i> IMPLICIT (WIDE) BUT PRECISION RISK`;
+                    status.className = "mt-6 w-full p-4 rounded-xl text-center text-sm font-bold bg-blue-100 text-blue-700";
+                } else {
+                    overflow.style.opacity = "0";
+                    status.innerHTML = `<i class="fa-solid fa-check-circle mr-2"></i> WIDENING (IMPLICIT) ALLOWED`;
+                    status.className = "mt-6 w-full p-4 rounded-xl text-center text-sm font-bold bg-emerald-100 text-emerald-700";
+                }
+                code.innerHTML = `<span class="text-slate-400">${source.name}</span> s = ...;<br><span class="text-blue-400 font-bold">${target.name}</span> t = s; <span class="text-slate-500 italic">// Automatic</span>`;
+            } else {
+                overflow.style.opacity = "1";
+                warningText.innerText = "Truncation / Overflow!";
+                status.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> NARROWING (EXPLICIT) REQUIRED`;
+                status.className = "mt-6 w-full p-4 rounded-xl text-center text-sm font-bold bg-amber-100 text-amber-700";
+                code.innerHTML = `<span class="text-slate-400">${source.name}</span> s = ...;<br><span class="text-blue-400 font-bold">${target.name}</span> t = <span class="text-white font-bold bg-slate-700 px-1 rounded">( ${target.name} )</span> s; <span class="text-slate-500 italic">// Manual</span>`;
+            }
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
