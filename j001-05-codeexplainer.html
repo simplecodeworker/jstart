@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Beginner: JOptionPane Explainer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        
+        :root {
+            --code-bg: #1e1e1e;
+            --java-keyword: #569cd6;
+            --java-comment: #6a9955;
+            --java-string: #ce9178;
+            --java-class: #4ec9b0;
+            --java-func: #dcdcaa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .code-block {
+            background-color: var(--code-bg);
+            color: #d4d4d4;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .highlight-line {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: block;
+            padding: 0 1rem;
+        }
+
+        .highlight-line:hover {
+            background-color: #37373d;
+        }
+
+        .active-line {
+            background-color: #264f78 !important;
+            border-left: 4px solid #007acc;
+        }
+
+        .keyword { color: var(--java-keyword); }
+        .comment { color: var(--java-comment); }
+        .string { color: var(--java-string); }
+        .class-name { color: var(--java-class); }
+        .function { color: var(--java-func); }
+
+        .explanation-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Tooltip style */
+        .tooltip {
+            position: absolute;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            display: none;
+            z-index: 50;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-800">
+
+    <nav class="bg-indigo-600 text-white p-4 shadow-lg sticky top-0 z-40">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-mug-hot"></i> Java Beginner Guide
+            </h1>
+            <span class="text-sm opacity-80 hidden sm:inline">Module: Message Dialogs</span>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto p-4 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left Column: Code Editor View -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+            <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex items-center justify-between">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">WelcomeInMessageDialogBox.java</span>
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                </div>
+                
+                <div class="code-block py-4 code-font text-sm md:text-base relative">
+                    <!-- Lines with IDs for interaction -->
+                    <span class="highlight-line" id="line-1" onclick="explain(1)"><span class="keyword">import</span> javax.swing.*; <span class="comment">//or</span></span>
+                    <span class="highlight-line" id="line-2" onclick="explain(1)"><span class="comment">//import javax.swing.JOptionPane; //specific import</span></span>
+                    <br>
+                    <span class="highlight-line" id="line-3" onclick="explain(2)"><span class="comment">/* Example WelcomeInMessageDialogBox.java:</span></span>
+                    <span class="highlight-line" id="line-4" onclick="explain(2)"><span class="comment">&nbsp;&nbsp;&nbsp;This application program displays Welcome to Java!</span></span>
+                    <span class="highlight-line" id="line-5" onclick="explain(2)"><span class="comment">&nbsp;&nbsp;&nbsp;in a message dialog box. */</span></span>
+                    <br>
+                    <span class="highlight-line" id="line-6" onclick="explain(3)"><span class="keyword">public class</span> <span class="class-name">WelcomeInMessageDialogBox</span> {</span>
+                    <span class="highlight-line" id="line-7" onclick="explain(4)">&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public static void</span> <span class="function">main</span>(String[] b) {</span>
+                    <span class="highlight-line" id="line-8" onclick="explain(5)">&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Display Welcome to Java! in a message dialog box</span></span>
+                    <span class="highlight-line" id="line-9" onclick="explain(5)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="class-name">JOptionPane</span>.<span class="function">showMessageDialog</span>(<span class="keyword">null</span>, <span class="string">"Welcome ET0885-B...all of you!\nDon't be late"</span>);</span>
+                    <span class="highlight-line" id="line-10" onclick="explain(6)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="class-name">JOptionPane</span>.<span class="function">showMessageDialog</span>(<span class="keyword">null</span>, <span class="string">"Have you finished downloading IDE?"</span>);</span>
+                    <br>
+                    <span class="highlight-line" id="line-11" onclick="explain(7)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// below is another way to display message with more customized info</span></span>
+                    <span class="highlight-line" id="line-12" onclick="explain(7)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// JOptionPane.showMessageDialog(null, "Hello", "Welcome", JOptionPane.INFORMATION_MESSAGE);</span></span>
+                    <br>
+                    <span class="highlight-line" id="line-13" onclick="explain(8)">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="class-name">System</span>.<span class="function">exit</span>(<span class="number">0</span>); <span class="comment">/* needed to release resources when exiting GUI */</span></span>
+                    <span class="highlight-line" id="line-14" onclick="explain(3)">&nbsp;&nbsp;&nbsp;&nbsp;}</span>
+                    <span class="highlight-line" id="line-15" onclick="explain(3)">}</span>
+                </div>
+            </div>
+            
+            <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-xl flex items-start gap-4">
+                <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-lightbulb"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-indigo-900">Pro Tip</h3>
+                    <p class="text-sm text-indigo-700">Click any line of code above to see a detailed explanation of what it does!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Explanations -->
+        <div class="lg:col-span-5">
+            <div id="explanation-container" class="sticky top-24 space-y-4">
+                
+                <!-- Initial State -->
+                <div id="default-msg" class="explanation-card bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                    <h2 class="text-xl font-bold mb-3 text-slate-800">How this program works</h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed">
+                        This Java program uses the <strong>Swing Library</strong> to create visual pop-up windows instead of just printing text to the console.
+                    </p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <i class="fa-solid fa-check text-green-500"></i> Easy Graphical Interface
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <i class="fa-solid fa-check text-green-500"></i> User Interaction Basics
+                        </div>
+                        <div class="flex items-center gap-2 text-sm text-slate-500">
+                            <i class="fa-solid fa-check text-green-500"></i> Memory Management
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation Templates (Hidden initially) -->
+                <div id="exp-1" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-500">
+                    <span class="text-xs font-bold text-indigo-500 uppercase">Step 1: Importing Packages</span>
+                    <h2 class="text-lg font-bold mt-1">Bringing in Tools</h2>
+                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                        Before we can use <code>JOptionPane</code>, we need to tell Java where to find it. 
+                    </p>
+                    <ul class="mt-3 space-y-2 text-sm">
+                        <li class="bg-slate-50 p-2 rounded"><code>import javax.swing.*</code>: The asterisk (*) means "import everything in this toolbox".</li>
+                        <li class="bg-slate-50 p-2 rounded">It's common to import the whole library for GUI apps.</li>
+                    </ul>
+                </div>
+
+                <div id="exp-2" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-emerald-500">
+                    <span class="text-xs font-bold text-emerald-500 uppercase">Step 2: Comments</span>
+                    <h2 class="text-lg font-bold mt-1">Documentation</h2>
+                    <p class="text-slate-600 text-sm mt-2">
+                        Text between <code>/* ... */</code> is ignored by the computer. It is meant for humans to read so they understand the purpose of the program.
+                    </p>
+                </div>
+
+                <div id="exp-3" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-amber-500">
+                    <span class="text-xs font-bold text-amber-500 uppercase">Step 3: Class Definition</span>
+                    <h2 class="text-lg font-bold mt-1">The Program Container</h2>
+                    <p class="text-slate-600 text-sm mt-2">
+                        Everything in Java lives inside a <strong>class</strong>. 
+                    </p>
+                    <p class="text-slate-600 text-sm mt-2">
+                        The name <code>WelcomeInMessageDialogBox</code> must exactly match the filename.
+                    </p>
+                </div>
+
+                <div id="exp-4" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500">
+                    <span class="text-xs font-bold text-purple-500 uppercase">Step 4: Main Method</span>
+                    <h2 class="text-lg font-bold mt-1">The Starting Point</h2>
+                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                        This is the "engine" of your program. When you hit run, Java looks for this exact line to begin execution.
+                    </p>
+                </div>
+
+                <div id="exp-5" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-blue-500">
+                    <span class="text-xs font-bold text-blue-500 uppercase">Step 5: Dialog Box 1</span>
+                    <h2 class="text-lg font-bold mt-1">Creating a Pop-up</h2>
+                    <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+                        <code>JOptionPane.showMessageDialog</code> is a built-in function that creates a window.
+                    </p>
+                    <div class="mt-3 bg-slate-800 text-white p-3 rounded-lg text-xs space-y-1">
+                        <div><span class="text-indigo-300">null</span>: Standard window placement</div>
+                        <div><span class="text-orange-300">"..."</span>: The text to display</div>
+                        <div><span class="text-green-300">\n</span>: Creates a new line!</div>
+                    </div>
+                </div>
+
+                <div id="exp-6" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-rose-500">
+                    <span class="text-xs font-bold text-rose-500 uppercase">Step 6: Sequence</span>
+                    <h2 class="text-lg font-bold mt-1">One after another</h2>
+                    <p class="text-slate-600 text-sm mt-2">
+                        Java runs code line by line. The second dialog box will <strong>only</strong> appear after the user clicks "OK" on the first one.
+                    </p>
+                </div>
+
+                <div id="exp-7" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-slate-500">
+                    <span class="text-xs font-bold text-slate-500 uppercase">Step 7: Customization</span>
+                    <h2 class="text-lg font-bold mt-1">Advanced Options</h2>
+                    <p class="text-slate-600 text-sm mt-2">
+                        You can customize the title bar and icon. <code>INFORMATION_MESSAGE</code> adds a little "i" icon to the window.
+                    </p>
+                </div>
+
+                <div id="exp-8" class="explanation-card hidden bg-white p-6 rounded-xl shadow-md border-l-4 border-red-600">
+                    <span class="text-xs font-bold text-red-600 uppercase">Step 8: System Exit</span>
+                    <h2 class="text-lg font-bold mt-1">Cleaning Up</h2>
+                    <p class="text-slate-600 text-sm mt-2">
+                        In GUI programming, the program might keep running in the background even if the window is closed. 
+                    </p>
+                    <p class="font-semibold text-slate-700 text-sm mt-2">
+                        <code>System.exit(0)</code> ensures the program stops completely and frees up your computer's memory.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 py-8 bg-slate-900 text-slate-400 text-center">
+        <p class="text-sm">Created for CS Beginners &bull; Java Fundamentals 101</p>
+    </footer>
+
+    <script>
+        function explain(step) {
+            // Remove active classes from all lines
+            document.querySelectorAll('.highlight-line').forEach(line => {
+                line.classList.remove('active-line');
+            });
+
+            // Highlight relevant lines based on step
+            switch(step) {
+                case 1: 
+                    document.getElementById('line-1').classList.add('active-line'); 
+                    document.getElementById('line-2').classList.add('active-line'); 
+                    break;
+                case 2: 
+                    document.getElementById('line-3').classList.add('active-line'); 
+                    document.getElementById('line-4').classList.add('active-line'); 
+                    document.getElementById('line-5').classList.add('active-line'); 
+                    break;
+                case 3: 
+                    document.getElementById('line-6').classList.add('active-line'); 
+                    document.getElementById('line-14').classList.add('active-line'); 
+                    document.getElementById('line-15').classList.add('active-line'); 
+                    break;
+                case 4: document.getElementById('line-7').classList.add('active-line'); break;
+                case 5: 
+                    document.getElementById('line-8').classList.add('active-line'); 
+                    document.getElementById('line-9').classList.add('active-line'); 
+                    break;
+                case 6: document.getElementById('line-10').classList.add('active-line'); break;
+                case 7: 
+                    document.getElementById('line-11').classList.add('active-line'); 
+                    document.getElementById('line-12').classList.add('active-line'); 
+                    break;
+                case 8: document.getElementById('line-13').classList.add('active-line'); break;
+            }
+
+            // Hide all explanations
+            document.getElementById('default-msg').classList.add('hidden');
+            for(let i=1; i<=8; i++) {
+                document.getElementById('exp-'+i).classList.add('hidden');
+            }
+
+            // Show current explanation with a simple animation
+            const target = document.getElementById('exp-'+step);
+            target.classList.remove('hidden');
+            target.style.opacity = 0;
+            target.style.transform = 'translateY(10px)';
+            
+            requestAnimationFrame(() => {
+                target.style.transition = 'all 0.3s ease';
+                target.style.opacity = 1;
+                target.style.transform = 'translateY(0)';
+            });
+        }
+    </script>
+</body>
+</html>
