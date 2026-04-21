@@ -30,16 +30,16 @@
 
                 <!-- Lesson 1-->
                 <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <div class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
+                    <button onclick="toggleModule('mod1')" class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
                         <div class="flex items-center gap-4">
                             <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">01</span>
                             <div class="text-left">
                                 <h3 class="font-bold text-slate-900 text-lg">Lesson 1</h3>
                             </div>
                         </div>
-                    </div>
+                    </button>
                     
-                    <div class="p-2 space-y-1">
+                    <div id="mod1" class="p-2 space-y-1">
                         <a href="j001-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
                             <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
@@ -82,16 +82,16 @@
 					
                 <!--Lesson 2 -->
                 <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <div class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
+                    <button onclick="toggleModule('mod2')"  class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
                         <div class="flex items-center gap-4">
                             <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">01</span>
                             <div class="text-left">
                                 <h3 class="font-bold text-slate-900 text-lg">Lesson 2</h3>
                             </div>
                         </div>
-                    </div>
+                    </button>
                     
-                    <div class="p-2 space-y-1">
+                    <div id="mod2" class="p-2 space-y-1">
                         <a href="j002-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
                             <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
@@ -147,6 +147,26 @@
             </div>
         </div>
     </main>
+    <script>
+        function toggleModule(id) {
+            const content = document.getElementById(id);
+            const icon = document.getElementById('icon-' + id);
+            
+            // If the section is currently open (has max-height set)
+            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                content.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                // Set max-height to its scrollHeight to animate opening
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
 
+        // Initialize with the module open by default
+        window.onload = () => {
+            toggleModule('mod1');
+        };
+    </script>
 </body>
 </html>
