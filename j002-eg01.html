@@ -219,11 +219,19 @@
                 const codeSpan = document.createElement('pre');
                 codeSpan.className = 'flex-1';
                 
-                // Simple syntax highlighting for display
-                let highlightedText = line.text
-                    .replace(/\/\/.*/g, '<span class="text-slate-500 italic">$&</span>')
-                    //.replace(/\b(public|class|static|void|import|double|int|new|String)\b/g, `<span class="text-blue-400">$1</span>`)
-                    .replace(/".*?"/g, '<span class="text-amber-300">$&</span>');
+                // FIXED SYNTAX HIGHLIGHTING LOGIC
+                // 1. Escape basic HTML entities first
+                let escapedText = line.text
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+
+                // 2. Perform highlighting
+                // We use a negative lookahead (?![^<]*>) to ensure we don't match words inside already-created HTML tags
+                let highlightedText = escapedText
+                    .replace(/".*?"/g, '<span class="text-amber-300">$&</span>') // Strings first
+                    .replace(/\/\/.*/g, '<span class="text-slate-500 italic">$&</span>') // Comments second
+                    .replace(/\b(public|class|static|void|import|double|int|new|String)\b(?![^<]*>)/g, '<span class="text-blue-400">$1</span>'); // Keywords last, skipping inside tags
                 
                 codeSpan.innerHTML = highlightedText;
 
