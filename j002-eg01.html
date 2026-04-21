@@ -222,7 +222,7 @@
                 // Simple syntax highlighting for display
                 let highlightedText = line.text
                     .replace(/\/\/.*/g, '<span class="text-slate-500 italic">$&</span>')
-                    .replace(/\b(public|class|static|void|import|double|int|new|String)\b/g, '<span class="text-blue-400">$1</span>')
+                    .replace(/\b(public|class|static|void|import|double|int|new|String)\b/g, `<span class="text-blue-400">$1</span>`)
                     .replace(/".*?"/g, '<span class="text-amber-300">$&</span>');
                 
                 codeSpan.innerHTML = highlightedText;
