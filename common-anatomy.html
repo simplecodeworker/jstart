@@ -74,7 +74,8 @@
                 title: "Variable",
                 icon: "fa-box-open",
                 color: "blue",
-                desc: "A named container that stores data values. Think of it as a labeled storage locker.",
+                desc: "A named container that stores data values.",
+                metaphor: "A labeled cardboard box in a warehouse. You can put things in, take them out, or replace them.",
                 code: "int score = 100;"
             },
             {
@@ -83,6 +84,7 @@
                 icon: "fa-calculator",
                 color: "emerald",
                 desc: "A fragment of code that evaluates to a single value. It's the calculation itself.",
+                metaphor: "A math problem on a chalkboard. It hasn't been solved yet, but it represents the answer.",
                 code: "score + 50"
             },
             {
@@ -91,6 +93,7 @@
                 icon: "fa-plus-minus",
                 color: "amber",
                 desc: "Symbols that perform operations on variables and values (+, -, *, /, ==).",
+                metaphor: "The buttons on a remote control or a microwave that trigger a specific action.",
                 code: "a + b"
             },
             {
@@ -99,6 +102,7 @@
                 icon: "fa-terminal",
                 color: "indigo",
                 desc: "A complete action or instruction ending with a semicolon. A full 'sentence' of code.",
+                metaphor: "A full sentence in a book ending with a period. It tells the story what to do next.",
                 code: "System.out.println(\"Hi\");"
             },
             {
@@ -107,6 +111,7 @@
                 icon: "fa-code-branch",
                 color: "rose",
                 desc: "A question that results in a Boolean (true/false). The gatekeeper of logic.",
+                metaphor: "A security guard at a club checking IDs. You're either in (True) or out (False).",
                 code: "if (age >= 18)"
             },
             {
@@ -115,6 +120,7 @@
                 icon: "fa-layer-group",
                 color: "cyan",
                 desc: "A group of statements between curly braces { }. They are treated as one single unit.",
+                metaphor: "A shipping container full of different items. Move the container, and you move everything inside.",
                 code: "{\n  // code here\n}"
             },
             {
@@ -123,6 +129,7 @@
                 icon: "fa-folder-tree",
                 color: "violet",
                 desc: "Placing one structure inside another (like a loop inside an if-statement).",
+                metaphor: "Russian Nesting Dolls (Matryoshka). You open one only to find another inside it.",
                 code: "if(x) { while(y){...} }"
             },
             {
@@ -131,6 +138,7 @@
                 icon: "fa-rotate",
                 color: "orange",
                 desc: "A structure that repeats a block of code while a condition is true.",
+                metaphor: "A record player needle going around the same track until the song ends.",
                 code: "for(int i=0; i<5; i++)"
             },
             {
@@ -139,6 +147,7 @@
                 icon: "fa-gears",
                 color: "teal",
                 desc: "A reusable block of code that performs a specific task. Like a recipe.",
+                metaphor: "A light switch. You don't care how the wires work; you just 'call' the switch to turn on the light.",
                 code: "void sayHello() { ... }"
             },
             {
@@ -147,6 +156,7 @@
                 icon: "fa-brackets-curly",
                 color: "fuchsia",
                 desc: "The variable placeholders defined in a method signature (the empty slots).",
+                metaphor: "Empty slots in a coin sorter. They determine what type of input the machine accepts.",
                 code: "void add(int a, int b)"
             },
             {
@@ -155,6 +165,7 @@
                 icon: "fa-paper-plane",
                 color: "sky",
                 desc: "The actual values you pass into a method when you call it.",
+                metaphor: "The actual coins you drop into the slot. They fill the placeholders with real data.",
                 code: "add(10, 20);"
             },
             {
@@ -163,6 +174,7 @@
                 icon: "fa-comment-dots",
                 color: "slate",
                 desc: "Notes for humans that the computer ignores. Starts with // or /*.",
+                metaphor: "A 'Post-it' note on a blueprint explaining a design choice to others.",
                 code: "// I am a comment"
             }
         ];
@@ -198,16 +210,28 @@
         const grid = document.getElementById('concepts-grid');
         concepts.forEach(item => {
             const card = document.createElement('div');
-            card.className = "concept-card bg-white border border-slate-200 rounded-xl p-6 flex flex-col h-full";
+            card.className = "concept-card bg-white border border-slate-200 rounded-xl p-6 flex flex-col h-full shadow-sm";
             card.innerHTML = `
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-${item.color}-100 text-${item.color}-600 rounded-lg flex items-center justify-center text-xl mr-4">
-                        <i class="fa-solid ${item.icon}"></i>
+                <div class="flex-grow">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-${item.color}-100 text-${item.color}-600 rounded-lg flex items-center justify-center text-xl mr-4">
+                            <i class="fa-solid ${item.icon}"></i>
+                        </div>
+                        <h3 class="font-bold text-xl">${item.title}</h3>
                     </div>
-                    <h3 class="font-bold text-xl">${item.title}</h3>
+                    
+                    <div class="mb-4">
+                        <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Definition</p>
+                        <p class="text-slate-700 text-sm leading-relaxed">${item.desc}</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <p class="text-slate-500 text-xs font-bold uppercase tracking-wider mb-1">Metaphor</p>
+                        <p class="text-slate-600 text-xs italic leading-relaxed border-l-2 border-${item.color}-200 pl-3">${item.metaphor}</p>
+                    </div>
                 </div>
-                <p class="text-slate-600 mb-6 flex-grow leading-relaxed">${item.desc}</p>
-                <div class="bg-slate-900 rounded-lg p-3 overflow-x-auto">
+
+                <div class="bg-slate-900 rounded-lg p-3 overflow-x-auto mt-auto">
                     <code class="code-font text-emerald-400 text-sm whitespace-nowrap">${item.code}</code>
                 </div>
             `;
@@ -235,7 +259,7 @@
 
             qDiv.innerHTML = `
                 <h3 class="text-xl font-semibold mb-6 flex items-start">
-                    <span class="bg-indigo-600 text-white w-7 h-7 rounded-md flex items-center justify-center text-sm mr-3 mt-0.5">${qIndex + 1}</span>
+                    <span class="bg-indigo-600 text-white w-7 h-7 rounded-md flex items-center justify-center text-sm mr-3 mt-0.5 shrink-0">${qIndex + 1}</span>
                     ${q.question}
                 </h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
