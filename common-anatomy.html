@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Anatomy Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .concept-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .correct-answer {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .wrong-answer {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white py-12 px-4 shadow-lg">
+        <div class="max-w-5xl mx-auto text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">The Anatomy of a Java Program</h1>
+            <p class="text-indigo-100 text-lg max-w-2xl mx-auto">Master the 12 fundamental building blocks of code. Think of this as learning the grammar before writing a novel.</p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-12">
+        <!-- The 12 Terms Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20" id="concepts-grid">
+            <!-- Cards will be injected here by JS -->
+        </div>
+
+        <!-- Quiz Section -->
+        <section class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-slate-200">
+            <div class="text-center mb-10">
+                <span class="bg-indigo-100 text-indigo-700 px-4 py-1 rounded-full text-sm font-semibold uppercase tracking-wide">Knowledge Check</span>
+                <h2 class="text-3xl font-bold mt-4">Can you identify the parts?</h2>
+                <p class="text-slate-500 mt-2">Test your understanding with these 3 questions.</p>
+            </div>
+
+            <div id="quiz-container" class="space-y-12">
+                <!-- Quiz items will be injected here -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 px-4 mt-20 text-center">
+        <p>© 2024 Java Anatomy Guide • Built for Beginners</p>
+    </footer>
+
+    <script>
+        const concepts = [
+            {
+                id: "variable",
+                title: "Variable",
+                icon: "fa-box-open",
+                color: "blue",
+                desc: "A named container that stores data values. Think of it as a labeled storage locker.",
+                code: "int score = 100;"
+            },
+            {
+                id: "expression",
+                title: "Expression",
+                icon: "fa-calculator",
+                color: "emerald",
+                desc: "A fragment of code that evaluates to a single value. It's the calculation itself.",
+                code: "score + 50"
+            },
+            {
+                id: "operator",
+                title: "Operator",
+                icon: "fa-plus-minus",
+                color: "amber",
+                desc: "Symbols that perform operations on variables and values (+, -, *, /, ==).",
+                code: "a + b"
+            },
+            {
+                id: "statement",
+                title: "Statement",
+                icon: "fa-terminal",
+                color: "indigo",
+                desc: "A complete action or instruction ending with a semicolon. A full 'sentence' of code.",
+                code: "System.out.println(\"Hi\");"
+            },
+            {
+                id: "condition",
+                title: "Condition",
+                icon: "fa-code-branch",
+                color: "rose",
+                desc: "A question that results in a Boolean (true/false). The gatekeeper of logic.",
+                code: "if (age >= 18)"
+            },
+            {
+                id: "block",
+                title: "Block",
+                icon: "fa-layer-group",
+                color: "cyan",
+                desc: "A group of statements between curly braces { }. They are treated as one single unit.",
+                code: "{\n  // code here\n}"
+            },
+            {
+                id: "nesting",
+                title: "Nesting",
+                icon: "fa-folder-tree",
+                color: "violet",
+                desc: "Placing one structure inside another (like a loop inside an if-statement).",
+                code: "if(x) { while(y){...} }"
+            },
+            {
+                id: "loop",
+                title: "Loop",
+                icon: "fa-rotate",
+                color: "orange",
+                desc: "A structure that repeats a block of code while a condition is true.",
+                code: "for(int i=0; i<5; i++)"
+            },
+            {
+                id: "method",
+                title: "Method / Function",
+                icon: "fa-gears",
+                color: "teal",
+                desc: "A reusable block of code that performs a specific task. Like a recipe.",
+                code: "void sayHello() { ... }"
+            },
+            {
+                id: "parameters",
+                title: "Parameters",
+                icon: "fa-brackets-curly",
+                color: "fuchsia",
+                desc: "The variable placeholders defined in a method signature (the empty slots).",
+                code: "void add(int a, int b)"
+            },
+            {
+                id: "arguments",
+                title: "Arguments",
+                icon: "fa-paper-plane",
+                color: "sky",
+                desc: "The actual values you pass into a method when you call it.",
+                code: "add(10, 20);"
+            },
+            {
+                id: "comment",
+                title: "Comment",
+                icon: "fa-comment-dots",
+                color: "slate",
+                desc: "Notes for humans that the computer ignores. Starts with // or /*.",
+                code: "// I am a comment"
+            }
+        ];
+
+        const quizQuestions = [
+            {
+                question: "In the code 'int age = 25;', what is 'age'?",
+                options: [
+                    { text: "An Operator", correct: false, feedback: "Incorrect. Operators are symbols like + or =." },
+                    { text: "A Variable", correct: true, feedback: "Correct! 'age' is the name of the container holding the value 25." },
+                    { text: "A Block", correct: false, feedback: "Incorrect. A block is code grouped in curly braces." }
+                ]
+            },
+            {
+                question: "Which of the following is an example of an Expression?",
+                options: [
+                    { text: "5 + 10", correct: true, feedback: "Correct! It's a piece of code that evaluates to the value 15." },
+                    { text: "System.out.println(\"Hello\");", correct: false, feedback: "Incorrect. That is a full Statement, not just an expression." },
+                    { text: "{ int x = 5; }", correct: false, feedback: "Incorrect. This is a code Block." }
+                ]
+            },
+            {
+                question: "When you run 'calculate(10, 5)', what are the numbers 10 and 5 called?",
+                options: [
+                    { text: "Parameters", correct: false, feedback: "Incorrect. Parameters are the placeholders in the definition, not the real values." },
+                    { text: "Arguments", correct: true, feedback: "Correct! Arguments are the actual values passed during a call." },
+                    { text: "Loops", correct: false, feedback: "Incorrect. A loop is for repeating code." }
+                ]
+            }
+        ];
+
+        // Render Concepts
+        const grid = document.getElementById('concepts-grid');
+        concepts.forEach(item => {
+            const card = document.createElement('div');
+            card.className = "concept-card bg-white border border-slate-200 rounded-xl p-6 flex flex-col h-full";
+            card.innerHTML = `
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-${item.color}-100 text-${item.color}-600 rounded-lg flex items-center justify-center text-xl mr-4">
+                        <i class="fa-solid ${item.icon}"></i>
+                    </div>
+                    <h3 class="font-bold text-xl">${item.title}</h3>
+                </div>
+                <p class="text-slate-600 mb-6 flex-grow leading-relaxed">${item.desc}</p>
+                <div class="bg-slate-900 rounded-lg p-3 overflow-x-auto">
+                    <code class="code-font text-emerald-400 text-sm whitespace-nowrap">${item.code}</code>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+
+        // Render Quiz
+        const quizContainer = document.getElementById('quiz-container');
+        quizQuestions.forEach((q, qIndex) => {
+            const qDiv = document.createElement('div');
+            qDiv.className = "quiz-item";
+            
+            let optionsHtml = '';
+            q.options.forEach((opt, oIndex) => {
+                optionsHtml += `
+                    <button 
+                        onclick="handleAnswer(this, ${qIndex}, ${oIndex})"
+                        class="w-full text-left p-4 border-2 border-slate-100 rounded-xl hover:border-indigo-300 hover:bg-indigo-50 transition-all flex items-center group"
+                    >
+                        <span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center mr-4 group-hover:bg-indigo-200 text-sm font-bold">${String.fromCharCode(65 + oIndex)}</span>
+                        <span class="text-slate-700 font-medium">${opt.text}</span>
+                    </button>
+                `;
+            });
+
+            qDiv.innerHTML = `
+                <h3 class="text-xl font-semibold mb-6 flex items-start">
+                    <span class="bg-indigo-600 text-white w-7 h-7 rounded-md flex items-center justify-center text-sm mr-3 mt-0.5">${qIndex + 1}</span>
+                    ${q.question}
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    ${optionsHtml}
+                </div>
+                <div id="feedback-${qIndex}" class="hidden p-4 rounded-lg text-sm font-medium animate-pulse"></div>
+            `;
+            quizContainer.appendChild(qDiv);
+        });
+
+        function handleAnswer(btn, qIndex, oIndex) {
+            const question = quizQuestions[qIndex];
+            const option = question.options[oIndex];
+            const feedbackDiv = document.getElementById(`feedback-${qIndex}`);
+            
+            // Clear previous styles from this question's buttons
+            const buttons = btn.parentElement.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.classList.remove('correct-answer', 'wrong-answer', 'opacity-50');
+                b.disabled = true; // Disable after choice
+            });
+
+            // Show result
+            if (option.correct) {
+                btn.classList.add('correct-answer');
+                feedbackDiv.className = "p-4 rounded-lg text-sm font-medium bg-green-100 text-green-700 mt-2 block border border-green-200";
+            } else {
+                btn.classList.add('wrong-answer');
+                feedbackDiv.className = "p-4 rounded-lg text-sm font-medium bg-red-100 text-red-700 mt-2 block border border-red-200";
+            }
+            
+            feedbackDiv.innerHTML = `<i class="fa-solid ${option.correct ? 'fa-check-circle' : 'fa-circle-xmark'} mr-2"></i> ${option.feedback}`;
+            feedbackDiv.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
