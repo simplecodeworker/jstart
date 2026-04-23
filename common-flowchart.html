@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowChart Academy - Master the Basics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        .shape-preview {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .shape-preview:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Flowchart Shapes */
+        .terminator { border-radius: 50px; }
+        .process { border-radius: 4px; }
+        .input-output { transform: skewX(-15deg); border-radius: 4px; }
+        .input-output-text { transform: skewX(15deg); }
+        .decision { transform: rotate(45deg); border-radius: 4px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; }
+        .decision-text { transform: rotate(-45deg); }
+
+        .hidden-section { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .correct-answer { background-color: #dcfce7; border-color: #22c55e; }
+        .wrong-answer { background-color: #fee2e2; border-color: #ef4444; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">F</div>
+                <span class="font-bold text-xl tracking-tight">FlowChart <span class="text-indigo-600">Academy</span></span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#shapes" class="hover:text-indigo-600 transition">The Shapes</a>
+                <a href="#flow" class="hover:text-indigo-600 transition">Logic & Flow</a>
+                <a href="#quiz" class="px-4 py-2 bg-indigo-600 text-white rounded-full hover:bg-indigo-700 transition">Take Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight">
+                Visualizing Logic, <br><span class="text-indigo-600">Step by Step.</span>
+            </h1>
+            <p class="text-lg text-slate-600 mb-8 max-w-2xl mx-auto">
+                Flowcharts are the blueprints of programming. Learn the universal symbols used to map out processes, decisions, and loops.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="#shapes" class="px-8 py-3 bg-slate-900 text-white font-semibold rounded-xl hover:bg-slate-800 transition shadow-lg">Start Learning</a>
+                <button onclick="scrollToQuiz()" class="px-8 py-3 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 transition">Jump to Quiz</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 pb-24">
+        
+        <!-- The Shapes Section -->
+        <section id="shapes" class="mb-24 scroll-mt-20">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold mb-2">1. The Basic Building Blocks</h2>
+                <p class="text-slate-500">Every shape has a specific meaning. Using the right one is key to clarity.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Start/End -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                        <div class="terminator w-32 h-12 border-2 border-indigo-500 bg-indigo-50 flex items-center justify-center font-bold text-indigo-700">START / END</div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Terminator</h3>
+                    <p class="text-slate-600 text-sm">Used at the very beginning and the very end of every flowchart. It marks the entry and exit points.</p>
+                </div>
+
+                <!-- Processing -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                        <div class="process w-32 h-12 border-2 border-emerald-500 bg-emerald-50 flex items-center justify-center font-bold text-emerald-700">PROCESS</div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Processing Block</h3>
+                    <p class="text-slate-600 text-sm">Represents an action or a calculation. Examples: "Add 1 to Score" or "Bake the Cake for 20 mins".</p>
+                </div>
+
+                <!-- Input/Output -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                        <div class="input-output w-32 h-12 border-2 border-amber-500 bg-amber-50 flex items-center justify-center font-bold text-amber-700">
+                            <span class="input-output-text text-xs">DATA I/O</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Input / Output</h3>
+                    <p class="text-slate-600 text-sm">Used for getting data from a user or displaying results. Examples: "Get User Name" or "Print Message".</p>
+                </div>
+
+                <!-- Decision -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                        <div class="decision border-2 border-rose-500 bg-rose-50 font-bold text-rose-700 text-[10px]">
+                            <span class="decision-text">IS X > 10?</span>
+                        </div>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Decision</h3>
+                    <p class="text-slate-600 text-sm">A diamond shape used for questions (Yes/No). It creates branches in your logic flow.</p>
+                </div>
+
+                <!-- Flow Direction -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                        <svg width="60" height="40" viewBox="0 0 60 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10 20H50M50 20L40 10M50 20L40 30" stroke="#64748b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Flow Lines</h3>
+                    <p class="text-slate-600 text-sm">Arrows that show the path of logic. They guide the reader from one step to the next.</p>
+                </div>
+
+                <!-- Loop (Mental Model) -->
+                <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm shape-preview">
+                    <div class="h-20 flex items-center justify-center mb-6">
+                         <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/>
+                            <path d="M21 3v5h-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">The Loop</h3>
+                    <p class="text-slate-600 text-sm">Loops aren't a single shape; they are formed when a flow line points back to an earlier step, usually after a Decision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logic Section -->
+        <section id="flow" class="mb-24 scroll-mt-20">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-12 text-white overflow-hidden relative">
+                <div class="relative z-10">
+                    <h2 class="text-3xl font-bold mb-6">2. Putting it together: The Coffee Maker</h2>
+                    <p class="text-slate-300 mb-8 max-w-xl">Let's look at a simple real-world logic loop. Notice how the arrows dictate the sequence.</p>
+                    
+                    <div class="flex flex-col items-center gap-6 py-8">
+                        <div class="terminator px-6 py-2 border-2 border-white/30 bg-white/10">Start</div>
+                        <div class="text-2xl">↓</div>
+                        <div class="input-output px-6 py-2 border-2 border-white/30 bg-white/10"><span class="input-output-text">Is Mug under spout?</span></div>
+                        <div class="text-2xl">↓</div>
+                        <div class="decision border-2 border-white/30 bg-white/10 text-[8px]"><span class="decision-text">YES?</span></div>
+                        <div class="text-2xl">↓</div>
+                        <div class="process px-6 py-2 border-2 border-white/30 bg-white/10">Dispense Coffee</div>
+                        <div class="text-2xl">↓</div>
+                        <div class="terminator px-6 py-2 border-2 border-white/30 bg-white/10">End</div>
+                    </div>
+                </div>
+                <!-- Abstract BG Pattern -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="scroll-mt-20">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Assessment</span>
+                    <h2 class="text-3xl font-bold">Test Your Knowledge</h2>
+                    <p class="text-slate-500">How well did you grasp the symbols?</p>
+                </div>
+
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Question 1 -->
+                    <div class="quiz-card bg-white p-8 rounded-2xl border border-slate-200 shadow-sm" data-question="1">
+                        <h3 class="text-lg font-bold mb-4">1. Which shape would you use to represent "Show the user their total score"?</h3>
+                        <div class="grid gap-3">
+                            <button onclick="checkAnswer(1, 'A', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">A.</span> Rectangle (Process)
+                            </button>
+                            <button onclick="checkAnswer(1, 'B', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">B.</span> Parallelogram (Input/Output)
+                            </button>
+                            <button onclick="checkAnswer(1, 'C', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">C.</span> Diamond (Decision)
+                            </button>
+                        </div>
+                        <div id="feedback-1" class="mt-4 text-sm font-medium hidden-section fade-in"></div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="quiz-card bg-white p-8 rounded-2xl border border-slate-200 shadow-sm" data-question="2">
+                        <h3 class="text-lg font-bold mb-4">2. If you need to check if a user is older than 18, which shape do you need?</h3>
+                        <div class="grid gap-3">
+                            <button onclick="checkAnswer(2, 'A', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">A.</span> Diamond
+                            </button>
+                            <button onclick="checkAnswer(2, 'B', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">B.</span> Oval
+                            </button>
+                            <button onclick="checkAnswer(2, 'C', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">C.</span> Rectangle
+                            </button>
+                        </div>
+                        <div id="feedback-2" class="mt-4 text-sm font-medium hidden-section fade-in"></div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="quiz-card bg-white p-8 rounded-2xl border border-slate-200 shadow-sm" data-question="3">
+                        <h3 class="text-lg font-bold mb-4">3. What is a "Loop" in a flowchart?</h3>
+                        <div class="grid gap-3">
+                            <button onclick="checkAnswer(3, 'A', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">A.</span> A special circle shape used to start the program.
+                            </button>
+                            <button onclick="checkAnswer(3, 'B', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">B.</span> When a flow line redirects back to a previous step to repeat it.
+                            </button>
+                            <button onclick="checkAnswer(3, 'C', this)" class="option-btn text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50 transition group">
+                                <span class="font-bold mr-2">C.</span> A line that leads straight to the end of the flowchart.
+                            </button>
+                        </div>
+                        <div id="feedback-3" class="mt-4 text-sm font-medium hidden-section fade-in"></div>
+                    </div>
+                </div>
+
+                <div id="quiz-summary" class="mt-12 text-center hidden-section fade-in bg-indigo-600 text-white p-8 rounded-3xl">
+                    <h3 class="text-2xl font-bold mb-2">Great Job!</h3>
+                    <p class="opacity-90">You've completed the FlowChart Academy basics course.</p>
+                    <button onclick="location.reload()" class="mt-6 px-6 py-2 bg-white text-indigo-600 rounded-full font-bold hover:bg-slate-50 transition">Restart Lesson</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 py-12 text-center text-slate-500 text-sm border-t border-slate-800">
+        <p>&copy; 2024 FlowChart Academy. Designed for visual thinkers.</p>
+    </footer>
+
+    <script>
+        const quizData = {
+            1: {
+                correct: 'B',
+                explanation: 'Correct! Displaying information (Output) always uses the parallelogram.'
+            },
+            2: {
+                correct: 'A',
+                explanation: 'Exactly! Diamonds are used for branching logic and questions.'
+            },
+            3: {
+                correct: 'B',
+                explanation: 'Spot on! Loops occur when arrows create a cycle back to an earlier instruction.'
+            }
+        };
+
+        const score = { 1: false, 2: false, 3: false };
+
+        function checkAnswer(questionId, selection, element) {
+            const feedbackDiv = document.getElementById(`feedback-${questionId}`);
+            const questionCard = element.closest('.quiz-card');
+            const buttons = questionCard.querySelectorAll('.option-btn');
+            
+            // Prevent re-clicking if already correct
+            if (score[questionId]) return;
+
+            // Clear previous styles from this question's buttons
+            buttons.forEach(btn => {
+                btn.classList.remove('correct-answer', 'wrong-answer', 'border-indigo-500', 'bg-indigo-50');
+                btn.classList.add('border-slate-200');
+            });
+
+            const isCorrect = selection === quizData[questionId].correct;
+            
+            if (isCorrect) {
+                element.classList.add('correct-answer');
+                feedbackDiv.textContent = `✅ ${quizData[questionId].explanation}`;
+                feedbackDiv.className = "mt-4 text-sm font-bold text-emerald-600 fade-in block";
+                score[questionId] = true;
+                
+                // Disable other buttons for this question
+                buttons.forEach(btn => btn.style.cursor = 'default');
+            } else {
+                element.classList.add('wrong-answer');
+                feedbackDiv.textContent = "❌ Not quite! Try looking at the shapes guide again.";
+                feedbackDiv.className = "mt-4 text-sm font-bold text-rose-600 fade-in block";
+            }
+
+            checkCompletion();
+        }
+
+        function checkCompletion() {
+            if (Object.values(score).every(s => s === true)) {
+                setTimeout(() => {
+                    document.getElementById('quiz-summary').classList.remove('hidden-section');
+                    document.getElementById('quiz-summary').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            }
+        }
+
+        function scrollToQuiz() {
+            document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
