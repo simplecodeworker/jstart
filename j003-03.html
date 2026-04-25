@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Java Loops - Comprehensive Interactive Lesson</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+        .pro-tip {
+            border-left: 4px solid #f59e0b;
+            background-color: #fffbeb;
+        }
+        .warning-box {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50">
+        <div id="progress-bar" class="h-full bg-blue-600 w-0 transition-all duration-150"></div>
+    </div>
+
+    <!-- Header Section -->
+    <header class="gradient-bg text-white py-24 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Mastering Java Loops</h1>
+            <p class="text-xl text-slate-300">A Deep Dive into Iteration and Control Flow</p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
+                <span class="bg-blue-600/20 border border-blue-400/30 px-4 py-1 rounded-full text-xs font-semibold uppercase">The "Vibes" of Loops</span>
+                <span class="bg-purple-600/20 border border-purple-400/30 px-4 py-1 rounded-full text-xs font-semibold uppercase">Advanced Control</span>
+                <span class="bg-emerald-600/20 border border-emerald-400/30 px-4 py-1 rounded-full text-xs font-semibold uppercase">Modern Java</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12">
+
+        <!-- 1. The while Loop -->
+        <section id="while-loop" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-door-open"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">1. The <code class="text-blue-600 bg-blue-50 px-2 rounded">while</code> Loop</h2>
+                    <p class="text-slate-500">"Check then Act" Logic</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <p class="text-slate-700 leading-relaxed">The <code class="font-bold">while</code> loop is the gatekeeper. It checks a condition <strong>before</strong> allowing any code inside to execute. If the condition starts false, the code never runs.</p>
+                    
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold mb-3 text-slate-800">Flow & Logic:</h4>
+                        <ul class="space-y-3 text-sm">
+                            <li class="flex gap-3"><i class="fas fa-circle-check text-green-500 mt-1"></i> <span><strong>Condition:</strong> A boolean expression (true/false).</span></li>
+                            <li class="flex gap-3"><i class="fas fa-circle-check text-green-500 mt-1"></i> <span><strong>Body:</strong> Runs repeatedly as long as condition stays true.</span></li>
+                            <li class="flex gap-3"><i class="fas fa-triangle-exclamation text-amber-500 mt-1"></i> <span><strong>Zero-Execution Risk:</strong> If condition is false initially, the body is skipped.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="pro-tip p-5 rounded-r-xl">
+                        <p class="text-amber-800 text-sm"><strong>Pro Tip:</strong> Curly braces <code>{}</code> are optional for single statements, but using them is <strong>best practice</strong> to avoid bugs during future edits.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl">
+                        <div class="bg-slate-800 px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-mono">WHILE_SYNTAX.JAVA</div>
+                        <div class="p-6">
+                            <pre class="code-font text-blue-300 text-sm leading-relaxed">
+<span class="text-purple-400">while</span> (condition) {
+    <span class="text-slate-500">// loop body executes 
+    // while condition is true</span>
+}</pre>
+                        </div>
+                    </div>
+                    <!-- Live Simulation -->
+                    <div class="bg-white rounded-xl border border-slate-200 p-6">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-4 tracking-widest">Logic Visualization</h4>
+                        <div id="while-sim" class="flex flex-col items-center gap-2">
+                            <div class="bg-blue-100 border-2 border-blue-600 p-2 rounded w-40 text-center font-bold text-blue-700 text-sm">i < 3 ?</div>
+                            <i class="fas fa-arrow-down text-slate-300"></i>
+                            <div class="bg-slate-100 p-2 rounded w-48 text-center text-xs italic">System.out.println(i)</div>
+                            <div class="bg-slate-100 p-2 rounded w-48 text-center text-xs italic">i++</div>
+                            <i class="fas fa-redo text-blue-600 mt-2"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. The do-while Loop -->
+        <section id="do-while" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-purple-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-rotate-right"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">2. The <code class="text-purple-600 bg-purple-50 px-2 rounded">do-while</code> Loop</h2>
+                    <p class="text-slate-500">"Act then Check" Logic</p>
+                </div>
+            </div>
+
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-8 rounded-r-2xl mb-10">
+                <h3 class="text-xl font-bold text-purple-900 mb-2">Guaranteed Execution</h3>
+                <p class="text-purple-800">Unlike the while loop, the <strong>do-while</strong> loop executes the body <strong>at least once</strong>, regardless of the condition, because the check happens at the bottom (Post-test Loop).</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <h4 class="font-bold text-slate-800">Practical Example: Summing User Input</h4>
+                    <p class="text-slate-600 text-sm">A classic use case where you need to perform an action (ask for a number) before you can check if you should stop (is it zero?).</p>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                        <ol class="space-y-4 text-sm text-slate-700">
+                            <li class="flex gap-4 items-center"><span class="bg-purple-100 text-purple-700 w-6 h-6 flex items-center justify-center rounded-full font-bold">1</span> Read the number from user.</li>
+                            <li class="flex gap-4 items-center"><span class="bg-purple-100 text-purple-700 w-6 h-6 flex items-center justify-center rounded-full font-bold">2</span> Add to sum.</li>
+                            <li class="flex gap-4 items-center"><span class="bg-purple-100 text-purple-700 w-6 h-6 flex items-center justify-center rounded-full font-bold">3</span> Check if number is 0. If not, repeat.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl self-start">
+                    <div class="bg-slate-800 px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-mono">DO_WHILE.JAVA</div>
+                    <div class="p-6">
+                        <pre class="code-font text-purple-300 text-sm leading-relaxed">
+<span class="text-purple-400">do</span> {
+    System.out.print("Enter number (0 to quit): ");
+    number = input.nextInt();
+    sum += number;
+} <span class="text-purple-400">while</span> (number != 0);</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. The for Loop -->
+        <section id="for-loop" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-indigo-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-gauge-high"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">3. The <code class="text-indigo-600 bg-indigo-50 px-2 rounded">for</code> Loop</h2>
+                    <p class="text-slate-500">The "Compact" Efficiency Loop</p>
+                </div>
+            </div>
+
+            <p class="text-slate-700 mb-8 max-w-2xl">Use the for loop when you know <strong>exactly</strong> how many times to repeat. It bundles initialization, testing, and updating into a single line.</p>
+
+            <!-- Table 1: while vs for features -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm mb-12">
+                <table class="w-full text-left bg-white">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-400">Feature</th>
+                            <th class="p-4 font-bold text-blue-600">While Loop</th>
+                            <th class="p-4 font-bold text-indigo-600">For Loop</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-slate-100">
+                            <td class="p-4 font-semibold bg-slate-50/50">Best Used When...</td>
+                            <td class="p-4">Number of iterations is <strong>unknown</strong>.</td>
+                            <td class="p-4">Number of iterations is <strong>known</strong>.</td>
+                        </tr>
+                        <tr class="border-b border-slate-100">
+                            <td class="p-4 font-semibold bg-slate-50/50">Readability</td>
+                            <td class="p-4">Spread out over multiple lines.</td>
+                            <td class="p-4">Compact; logic is in one header.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold bg-slate-50/50">Initialization</td>
+                            <td class="p-4">Happens before the loop starts.</td>
+                            <td class="p-4">Happens inside the loop header.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <h4 class="font-bold text-sm text-slate-400 uppercase tracking-widest">Logic Analysis</h4>
+                    <div class="bg-white p-6 rounded-xl border border-slate-200">
+                        <ul class="space-y-4 text-sm text-slate-700">
+                            <li><strong class="text-indigo-600">Initialization:</strong> Runs once at start (e.g. <code>int i = 0</code>).</li>
+                            <li><strong class="text-indigo-600">Condition:</strong> Checked before <em>every</em> iteration.</li>
+                            <li><strong class="text-indigo-600">Update:</strong> Runs <em>after</em> each loop body execution.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl">
+                    <div class="bg-slate-800 px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-mono">FOR_EXAMPLE.JAVA</div>
+                    <div class="p-6">
+                        <pre class="code-font text-indigo-300 text-sm leading-relaxed">
+<span class="text-purple-400">for</span> (int i = 0; i < 5; i++) {
+    System.out.println((i + 1) + " Welcome!");
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Nested Loops -->
+        <section id="nested-loops" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-emerald-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-layer-group"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">4. Nested Loops: "Loops Within Loops"</h2>
+                    <p class="text-slate-500">Managing Dimensions</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <p class="text-slate-700">A nested loop is simply a loop inside another. For <strong>every one iteration</strong> of the outer loop, the inner loop completes <strong>all</strong> of its iterations.</p>
+                    
+                    <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-r-xl">
+                        <h4 class="font-bold text-emerald-900 mb-2">Common Use Case: Grids</h4>
+                        <p class="text-emerald-800 text-sm">Think of a multiplication table or a coordinate grid. The outer loop handles the <strong>rows</strong>, while the inner loop handles the <strong>columns</strong>.</p>
+                    </div>
+                </div>
+                <div class="bg-slate-900 rounded-xl overflow-hidden shadow-xl">
+                    <div class="bg-slate-800 px-4 py-2 border-b border-slate-700 text-slate-400 text-xs font-mono">MULTIPLICATION_TABLE.JAVA</div>
+                    <div class="p-6">
+                        <pre class="code-font text-emerald-300 text-sm leading-relaxed">
+<span class="text-purple-400">for</span> (int i = 1; i <= 3; i++) { <span class="text-slate-500">// Rows</span>
+    <span class="text-purple-400">for</span> (int j = 1; j <= 3; j++) { <span class="text-slate-500">// Cols</span>
+        System.out.print(i * j + " ");
+    }
+    System.out.println();
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. break vs continue -->
+        <section id="control-flow" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-red-600 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-hand"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">5. Controlling Flow: <code class="text-red-600 bg-red-50 px-2 rounded">break</code> vs <code class="text-amber-600 bg-amber-50 px-2 rounded">continue</code></h2>
+                    <p class="text-slate-500">The "Emergency Exit" and the "Skip Button"</p>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-red-100 text-red-600 p-2 rounded-lg"><i class="fas fa-stop"></i></div>
+                        <h3 class="text-xl font-bold">The break Statement</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Immediately terminates the innermost loop and moves the program to the line after the loop body.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl font-mono text-xs text-slate-800 border">
+                        <p class="text-slate-400 mb-2">// If sum reaches 6, loop STOPS</p>
+                        if (sum >= 6) <span class="text-red-600 font-bold">break</span>;
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="bg-amber-100 text-amber-600 p-2 rounded-lg"><i class="fas fa-forward-step"></i></div>
+                        <h3 class="text-xl font-bold">The continue Statement</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-6">Immediately ends the current iteration and jumps back to the header to check the condition for the next round.</p>
+                    <div class="bg-slate-50 p-4 rounded-xl font-mono text-xs text-slate-800 border">
+                        <p class="text-slate-400 mb-2">// If item is 2, line below is SKIPPED</p>
+                        if (item == 2) <span class="text-amber-600 font-bold">continue</span>;
+                        sum = sum + item;
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Enhanced For Loop -->
+        <section id="enhanced-for" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-blue-500 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-bolt"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">6. Modern Java: Enhanced For-Loop</h2>
+                    <p class="text-slate-500">Cleaner, Faster Iteration</p>
+                </div>
+            </div>
+
+            <!-- Table 2: Standard vs Enhanced -->
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm mb-12">
+                <table class="w-full text-left bg-white">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200">
+                            <th class="p-4 text-xs font-bold uppercase tracking-wider text-slate-400">Feature</th>
+                            <th class="p-4 font-bold text-slate-700">Standard for Loop</th>
+                            <th class="p-4 font-bold text-blue-600">Enhanced for Loop</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-slate-100">
+                            <td class="p-4 font-semibold bg-slate-50/50">Focus</td>
+                            <td class="p-4 text-slate-600">Uses an <strong>index (i)</strong> to access elements.</td>
+                            <td class="p-4 text-blue-700">Accesses the <strong>element itself</strong> directly.</td>
+                        </tr>
+                        <tr class="border-b border-slate-100">
+                            <td class="p-4 font-semibold bg-slate-50/50">Complexity</td>
+                            <td class="p-4 text-slate-600">More "boilerplate" code (<code>i=0; i&lt;len; i++</code>).</td>
+                            <td class="p-4 text-blue-700 font-medium">Much cleaner syntax.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold bg-slate-50/50">Best For</td>
+                            <td class="p-4 text-slate-600">When you need the index or need to <strong>modify</strong> the array.</td>
+                            <td class="p-4 text-blue-700">When you just need to <strong>read</strong> every item in order.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-2xl p-8">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h5 class="text-xs font-bold text-slate-500 uppercase mb-4 tracking-widest">Syntax Logic</h5>
+                        <p class="text-slate-300 text-sm mb-4">Declare a temporary variable that represents the current item in the array as the loop progresses.</p>
+                        <div class="bg-slate-800 p-4 rounded-xl text-blue-300 code-font text-sm">
+                            <span class="text-purple-400">for</span> (String name <span class="text-white">:</span> names) {<br>
+                            &nbsp;&nbsp;System.out.println(name);<br>
+                            }
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <div class="text-slate-400 text-center italic border border-slate-700 p-6 rounded-2xl border-dashed">
+                            "Instead of numbers[i], use int index directly."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Summary Table -->
+        <section id="summary" class="mb-32">
+            <h2 class="text-3xl font-bold mb-8 text-center text-slate-800">Summary Quick-Reference</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-indigo-600 mb-2">for loop</h4>
+                    <p class="text-xs text-slate-600">Use when the number of repetitions is <strong>known</strong>.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-red-600 mb-2">break</h4>
+                    <p class="text-xs text-slate-600">Exit the loop entirely <strong>right now</strong>.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-amber-600 mb-2">continue</h4>
+                    <p class="text-xs text-slate-600">Stop <strong>this round</strong> and start the next one.</p>
+                </div>
+                <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold text-blue-600 mb-2">Enhanced for</h4>
+                    <p class="text-xs text-slate-600">Iterate through every item in a collection <strong>easily</strong>.</p>
+                </div>
+            </div>
+            
+            <div class="warning-box p-6 mt-8 rounded-2xl">
+                <h4 class="font-bold text-red-800 mb-2"><i class="fas fa-triangle-exclamation mr-2"></i> The Infinite Loop Warning</h4>
+                <p class="text-red-700 text-sm">Regardless of the loop you choose, always ensure your condition will eventually become false. Otherwise, you create an <strong>Infinite Loop</strong>, which will cause the program to hang or crash.</p>
+            </div>
+        </section>
+
+        <!-- Final MCQ Quiz -->
+        <section id="quiz" class="mb-32">
+            <h2 class="text-4xl font-bold mb-12 text-center text-slate-800">Knowledge Check</h2>
+            <div id="quiz-container" class="space-y-8 max-w-3xl mx-auto">
+                <!-- Q1 -->
+                <div class="bg-white p-8 rounded-3xl shadow-md border border-slate-200 transition-all hover:shadow-lg">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">Question 1</span>
+                    <p class="text-xl font-bold mt-2 mb-6">If you need to iterate through every item in an array but do NOT need the index, which loop is the "cleanest" choice?</p>
+                    <div class="grid gap-4">
+                        <button onclick="reveal(1, 'A', 'While loops are too verbose for simple array traversal.', false)" class="quiz-option-1 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">A) while loop</button>
+                        <button onclick="reveal(1, 'B', 'Standard for loops work, but they require index boilerplate (i++).', false)" class="quiz-option-1 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">B) Standard for loop</button>
+                        <button onclick="reveal(1, 'C', 'Correct! It removes the boilerplate code and accesses elements directly.', true)" class="quiz-option-1 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">C) Enhanced for loop</button>
+                    </div>
+                    <div id="exp-1" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white p-8 rounded-3xl shadow-md border border-slate-200 transition-all hover:shadow-lg">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">Question 2</span>
+                    <p class="text-xl font-bold mt-2 mb-6">In a nested loop (Row & Column grid), what happens for every ONE iteration of the outer loop?</p>
+                    <div class="grid gap-4">
+                        <button onclick="reveal(2, 'A', 'Correct! The inner loop must fully finish all steps before the outer loop advances.', true)" class="quiz-option-2 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">A) The inner loop completes ALL of its iterations.</button>
+                        <button onclick="reveal(2, 'B', 'Incorrect. They don\'t alternate 1-for-1; the inner one finishes first.', false)" class="quiz-option-2 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">B) The inner loop runs only once.</button>
+                        <button onclick="reveal(2, 'C', 'Incorrect. The outer loop waits for the inner loop to finish.', false)" class="quiz-option-2 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">C) The entire program stops.</button>
+                    </div>
+                    <div id="exp-2" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white p-8 rounded-3xl shadow-md border border-slate-200 transition-all hover:shadow-lg">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">Question 3</span>
+                    <p class="text-xl font-bold mt-2 mb-6">Which keyword is the "emergency exit" that terminates the loop entirely?</p>
+                    <div class="grid gap-4">
+                        <button onclick="reveal(3, 'A', 'Continue just skips the current round.', false)" class="quiz-option-3 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">A) continue</button>
+                        <button onclick="reveal(3, 'B', 'Correct! Break stops the innermost loop immediately.', true)" class="quiz-option-3 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">B) break</button>
+                        <button onclick="reveal(3, 'C', 'Return exits the method, but break is the keyword for loop termination.', false)" class="quiz-option-3 text-left p-4 rounded-xl border border-slate-100 hover:border-blue-500 hover:bg-blue-50 transition-all">C) exit</button>
+                    </div>
+                    <div id="exp-3" class="hidden mt-6 p-4 rounded-xl text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-20 border-t border-slate-200 text-center bg-white">
+        <div class="max-w-2xl mx-auto px-6">
+            <p class="text-slate-400 text-sm mb-4">Java Mastery Series: Lesson Plan #1 & #2 Integration</p>
+            <div class="flex justify-center gap-6 text-slate-300">
+                <i class="fab fa-java fa-2x"></i>
+                <i class="fas fa-terminal fa-2x"></i>
+                <i class="fas fa-code fa-2x"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        });
+
+        // Quiz Result Logic
+        function reveal(questionNum, choice, explanation, isCorrect) {
+            const feedback = document.getElementById(`exp-${questionNum}`);
+            const buttons = document.querySelectorAll(`.quiz-option-${questionNum}`);
+            
+            // Hide previous state
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            
+            // Disable buttons to prevent multi-clicking
+            buttons.forEach(btn => btn.classList.add('pointer-events-none', 'opacity-50'));
+
+            if (isCorrect) {
+                feedback.classList.add('bg-green-100', 'text-green-800');
+                feedback.innerHTML = `<strong>Correct!</strong> ${explanation}`;
+            } else {
+                feedback.classList.add('bg-red-100', 'text-red-800');
+                feedback.innerHTML = `<strong>Not quite.</strong> ${explanation}`;
+            }
+            feedback.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
