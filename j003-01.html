@@ -105,7 +105,7 @@
             <p class="text-xl text-slate-300">Mastering Decision Making & Logic Paths</p>
             <div class="mt-8 flex justify-center gap-4">
                 <span class="bg-blue-600 px-4 py-2 rounded-full text-sm font-semibold">Beginner Friendly</span>
-                <span class="bg-emerald-600 px-4 py-2 rounded-full text-sm font-semibold">Module 1 - 5</span>
+                <span class="bg-emerald-600 px-4 py-2 rounded-full text-sm font-semibold">Updated: Ternary & Multi-Branch</span>
             </div>
         </div>
     </header>
@@ -303,10 +303,76 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
             </div>
         </section>
 
-        <!-- Module 5 -->
-        <section id="module5" class="mb-24 scroll-mt-10">
+        <!-- NEW Module 5: Ternary Operator -->
+        <section id="ternary" class="mb-24 scroll-mt-10">
             <div class="flex items-center gap-3 mb-6">
-                <div class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">5</div>
+                <div class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">5</div>
+                <h2 class="text-3xl font-bold">The Shortcut: Ternary Operator</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-slate-600 mb-6">Want to write an if-else in just <strong>one line</strong>? Use the Ternary Operator. It's perfect for assigning values based on a condition.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-400 uppercase text-xs tracking-widest">Long Way (Standard)</h4>
+                        <pre class="code-font text-xs">
+<span class="keyword">String</span> result;
+<span class="keyword">if</span> (age >= 18) {
+    result = <span class="string">"Adult"</span>;
+} <span class="keyword">else</span> {
+    result = <span class="string">"Minor"</span>;
+}</pre>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-slate-400 uppercase text-xs tracking-widest">Short Way (Ternary)</h4>
+                        <pre class="code-font text-xs">
+<span class="keyword">String</span> result = (age >= 18) ? <span class="string">"Adult"</span> : <span class="string">"Minor"</span>;</pre>
+                        <div class="p-4 bg-orange-50 border border-orange-200 rounded-xl text-xs space-y-2">
+                            <p><strong>How to read it:</strong></p>
+                            <ol class="list-decimal list-inside space-y-1">
+                                <li>Check the condition in <code>( )</code></li>
+                                <li><code>?</code> means "If True, use this"</li>
+                                <li><code>:</code> means "Otherwise, use this"</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW Module 6: if-else if -->
+        <section id="elseif" class="mb-24 scroll-mt-10">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-cyan-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">6</div>
+                <h2 class="text-3xl font-bold">Multi-Branching: if-else if</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-slate-600 mb-6">What if you have more than two choices? Use <code>else if</code> to check multiple conditions in a row. The program stops at the <strong>first</strong> true condition it finds.</p>
+                
+                <pre class="code-font text-sm leading-relaxed mb-6">
+<span class="keyword">if</span> (score >= 90) {
+    System.out.println(<span class="string">"Grade: A"</span>);
+} <span class="keyword">else if</span> (score >= 80) {
+    System.out.println(<span class="string">"Grade: B"</span>);
+} <span class="keyword">else if</span> (score >= 70) {
+    System.out.println(<span class="string">"Grade: C"</span>);
+} <span class="keyword">else</span> {
+    System.out.println(<span class="string">"Grade: F"</span>);
+}</pre>
+                
+                <div class="flex items-center gap-4 p-4 bg-cyan-50 rounded-xl border border-cyan-100">
+                    <div class="text-cyan-500"><i class="fas fa-info-circle fa-2x"></i></div>
+                    <p class="text-sm text-cyan-800 italic">"Think of it as a ladder. You step on each rung until you find one that holds you (is true), then you stop climbing."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Module 7 (Formerly 5) -->
+        <section id="module7" class="mb-24 scroll-mt-10">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">7</div>
                 <h2 class="text-3xl font-bold">Advanced Logic: Nesting</h2>
             </div>
 
@@ -370,21 +436,22 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
 
                 <!-- Q2 -->
                 <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-200 quiz-card">
-                    <p class="font-semibold text-lg mb-4">2. Is an <code>else</code> statement required for every <code>if</code> statement?</p>
+                    <p class="font-semibold text-lg mb-4">2. In the ternary operator <code>(score > 50) ? "A" : "B"</code>, when is "B" chosen?</p>
                     <div class="grid gap-3">
-                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(2, 0)">A) Yes, it's mandatory.</div>
-                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(2, 1)">B) No, an if statement can exist alone.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(2, 0)">A) When the score is exactly 50.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(2, 1)">B) When the condition (score > 50) is false.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(2, 2)">C) Only if the score is zero.</div>
                     </div>
                     <div id="feedback2" class="mt-4 p-3 rounded-lg hidden"></div>
                 </div>
 
                 <!-- Q3 -->
                 <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-200 quiz-card">
-                    <p class="font-semibold text-lg mb-4">3. When can you safely omit the curly braces <code>{ }</code> in an if-else block?</p>
+                    <p class="font-semibold text-lg mb-4">3. When using <code>if-else if-else</code>, how many blocks will actually execute?</p>
                     <div class="grid gap-3">
-                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 0)">A) Only when there is exactly one statement in that block.</div>
-                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 1)">B) Never, it always causes an error in Java.</div>
-                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 2)">C) When the code is less than 50 characters.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 0)">A) All blocks that are true.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 1)">B) Only the first block that evaluates to true.</div>
+                        <div class="mcq-option p-4 border rounded-xl" onclick="checkAnswer(3, 2)">C) All of them, from top to bottom.</div>
                     </div>
                     <div id="feedback3" class="mt-4 p-3 rounded-lg hidden"></div>
                 </div>
@@ -429,16 +496,17 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
             {
                 correct: 1,
                 explanations: [
-                    "Incorrect. If you don't need a fallback action, you can skip the else.",
-                    "Correct! An 'if' can stand alone if no alternative action is needed."
+                    "Incorrect. Being exactly 50 makes the condition false, but 'B' is chosen for ANY false result.",
+                    "Correct! The part after the ':' is the 'else' or 'false' result.",
+                    "Incorrect. It's chosen whenever the condition is false, not just for zero."
                 ]
             },
             {
-                correct: 0,
+                correct: 1,
                 explanations: [
-                    "Correct! But remember, using braces is still safer for readability.",
-                    "Incorrect. Java allows omitting braces for single statements.",
-                    "Incorrect. The number of characters doesn't matter, only the number of statements."
+                    "Incorrect. Java exits the chain after the first true condition.",
+                    "Correct! This is why the order of your conditions matters.",
+                    "Incorrect. That would be a huge waste of processing; it stops once it finds a match."
                 ]
             }
         ];
