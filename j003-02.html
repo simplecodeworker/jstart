@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Java Switch Statements</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        pre, code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .flowchart-node {
+            transition: all 0.3s ease;
+        }
+
+        /* Updated highlight effect to red for better visibility */
+        .active-node {
+            border-color: #ff2222; /* red-500 */
+            background-color: #ff6262; /* red-50 */
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 1.0);
+        }
+
+        .step-card {
+            transition: transform 0.2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-blue-600 text-white p-1.5 rounded-lg">
+                    <i class="fa-solid fa-code"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight">Java Switch Statements</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
+                <a href="#intro" class="hover:text-blue-600 transition">Introduction</a>
+                <a href="#flow" class="hover:text-blue-600 transition">Control Flow</a>
+                <a href="#examples" class="hover:text-blue-600 transition">Examples</a>
+                <a href="#comparison" class="hover:text-blue-600 transition">VS If-Else</a>
+                <a href="#quiz" class="hover:text-blue-600 transition">Quiz</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- Hero Section -->
+        <section id="intro" class="text-center space-y-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight">
+                The <span class="text-blue-600">Switch</span> Statement
+            </h1>
+            <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                Transition from simple conditional logic to efficient multi-way branching in Java.
+            </p>
+            <div class="flex justify-center gap-4 text-sm font-semibold">
+                <div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full">Objective: Logic & Syntax</div>
+                <div class="bg-green-100 text-green-700 px-4 py-2 rounded-full">Level: Beginner</div>
+            </div>
+        </section>
+
+        <!-- Section 1: Introduction -->
+        <section class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-blue-500 pl-6">
+                <h2 class="text-3xl font-bold">Section 1: Introduction</h2>
+                <p class="text-slate-600 mt-2">A selection statement that tests a variable against a list of values (cases).</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-900 rounded-xl p-6 shadow-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-slate-400 text-xs font-mono uppercase tracking-widest">Syntax Guide</span>
+                        <div class="flex space-x-1.5">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                    </div>
+                    <pre class="text-blue-400 text-sm leading-relaxed"><code><span class="text-purple-400">switch</span> (expression) {
+    <span class="text-purple-400">case</span> value1:
+        <span class="text-slate-500">// code if expression == value1</span>
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">case</span> value2:
+        <span class="text-slate-500">// code if expression == value2</span>
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">default</span>:
+        <span class="text-slate-500">// catch-all code</span>
+}</code></pre>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-blue-500"></i> Core Rules
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
+                            <span class="text-blue-500 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                            <div>
+                                <strong class="block text-slate-800">Supported Types</strong>
+                                <span class="text-sm text-slate-600">int, short, byte, char, String (since JDK 7), and enums.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 p-3 bg-white border border-slate-200 rounded-lg shadow-sm">
+                            <span class="text-blue-500 mt-1"><i class="fa-solid fa-circle-check"></i></span>
+                            <div>
+                                <strong class="block text-slate-800">Exact Matches Only</strong>
+                                <span class="text-sm text-slate-600">It checks for equality. Boolean expressions like <code>age > 10</code> are invalid!</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Enum Addition with Clarification -->
+            <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-8 space-y-6 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="bg-indigo-600 text-white p-2 rounded-lg">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-indigo-900">Pro Tip: Using Enums</h3>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <p class="text-indigo-800 leading-relaxed">
+                            An <strong>Enum</strong> (Enumeration) is a special data type used to define a collection of constants. Using enums with <code>switch</code> makes your code <strong>type-safe</strong> and much easier to read.
+                        </p>
+                        <div class="bg-white/60 p-4 rounded-lg border border-indigo-200 text-sm text-indigo-700">
+                            <p class="mb-2"><strong>Do we need to define RED as "red" or 1?</strong></p>
+                            <p class="font-medium italic">No! In Java, the enum constant itself is the value. You don't need to manually map them to strings or numbers; the compiler handles the unique identification for you.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-900 rounded-xl p-6 shadow-lg overflow-x-auto">
+                        <pre class="text-indigo-300 text-xs md:text-sm leading-relaxed"><code><span class="text-purple-400">enum</span> TrafficLight { RED, YELLOW, GREEN }
+
+TrafficLight light = TrafficLight.RED;
+
+<span class="text-purple-400">switch</span> (light) {
+    <span class="text-purple-400">case</span> RED: 
+        System.out.println(<span class="text-orange-300">"STOP"</span>); 
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">case</span> GREEN: 
+        System.out.println(<span class="text-orange-300">"GO"</span>); 
+        <span class="text-purple-400">break</span>;
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Flow Simulator -->
+        <section id="flow" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-amber-500 pl-6">
+                <h2 class="text-3xl font-bold">Section 2: Managing Control Flow</h2>
+                <p class="text-slate-600 mt-2">Visualizing the <code>break</code> and <code>default</code> logic.</p>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+                <div class="bg-slate-50 p-6 border-b border-slate-200">
+                    <h3 class="font-bold text-lg mb-4">Interactive Flowchart Simulator</h3>
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <label class="text-sm font-medium">Input Value:</label>
+                        <select id="simInput" class="bg-white border border-slate-300 rounded px-3 py-1 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="1">Case 1</option>
+                            <option value="2">Case 2</option>
+                            <option value="3">Something Else (Default)</option>
+                        </select>
+                        <div class="flex items-center gap-2 ml-4">
+                            <input type="checkbox" id="simBreak" checked class="w-4 h-4 text-blue-600">
+                            <label for="simBreak" class="text-sm font-medium">Include <code>break</code> statements?</label>
+                        </div>
+                        <button onclick="runSimulation()" class="bg-blue-600 text-white px-6 py-1.5 rounded-lg hover:bg-blue-700 transition font-semibold ml-auto shadow-md">Run Trace</button>
+                    </div>
+                </div>
+
+                <div class="p-8 flex flex-col items-center space-y-4 bg-slate-50/50">
+                    <!-- Flowchart visualization -->
+                    <div id="node-start" class="flowchart-node w-48 p-3 border-2 border-slate-300 rounded-full text-center font-bold bg-white">START</div>
+                    <i class="fa-solid fa-arrow-down text-slate-300"></i>
+                    <div id="node-expr" class="flowchart-node w-48 p-4 border-2 border-slate-300 text-center bg-white flex items-center justify-center">
+                        <span class="font-bold">EXPRESSION</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-3 gap-8 w-full mt-8">
+                        <div class="flex flex-col items-center space-y-4">
+                            <div id="node-case1" class="flowchart-node w-full p-3 border-2 border-slate-300 rounded-lg text-center bg-white text-sm font-mono italic">case 1</div>
+                            <div id="node-break1" class="flowchart-node w-24 p-2 border-2 border-slate-300 rounded-lg text-center bg-white text-xs font-bold">BREAK</div>
+                        </div>
+                        <div class="flex flex-col items-center space-y-4">
+                            <div id="node-case2" class="flowchart-node w-full p-3 border-2 border-slate-300 rounded-lg text-center bg-white text-sm font-mono italic">case 2</div>
+                            <div id="node-break2" class="flowchart-node w-24 p-2 border-2 border-slate-300 rounded-lg text-center bg-white text-xs font-bold">BREAK</div>
+                        </div>
+                        <div class="flex flex-col items-center space-y-4">
+                            <div id="node-default" class="flowchart-node w-full p-3 border-2 border-slate-300 rounded-lg text-center bg-white text-sm font-mono italic">default</div>
+                        </div>
+                    </div>
+                    
+                    <i class="fa-solid fa-arrow-down text-slate-300"></i>
+                    <div id="node-end" class="flowchart-node w-48 p-3 border-2 border-slate-300 rounded-full text-center font-bold bg-white">EXIT SWITCH</div>
+                </div>
+
+                <div class="p-4 bg-slate-900 text-slate-300 font-mono text-sm min-h-[80px]" id="simConsole">
+                    > Click 'Run Trace' to see code execution path...
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Examples -->
+        <section id="examples" class="space-y-12 scroll-mt-20">
+            <div class="border-l-4 border-green-500 pl-6">
+                <h2 class="text-3xl font-bold">Section 3: Practical Examples</h2>
+                <p class="text-slate-600 mt-2">Common real-world uses for the <code>switch</code> statement.</p>
+            </div>
+
+            <!-- Example 1 -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold flex items-center gap-2 text-slate-800">
+                    <span class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+                    Numeric Logic: Even or Odd
+                </h3>
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="p-6 bg-slate-900 text-blue-400 text-sm leading-relaxed">
+                        <pre><code><span class="text-purple-400">int</span> number = sc.nextInt();
+<span class="text-purple-400">switch</span> (number % 2) {
+    <span class="text-purple-400">case</span> 0: 
+        System.out.println(number + <span class="text-orange-300">" is even."</span>);
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">case</span> 1: 
+        System.out.println(number + <span class="text-orange-300">" is odd."</span>);
+        <span class="text-purple-400">break</span>;
+}</code></pre>
+                    </div>
+                    <div class="p-4 bg-green-50 text-green-800 text-sm italic">
+                        <strong>Teacher's Note:</strong> The remainder operator <code>%</code> reduces any number to just two possible outcomes: 0 or 1.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Example 2 -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-semibold flex items-center gap-2 text-slate-800">
+                    <span class="bg-green-100 text-green-700 w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+                    String Logic: Weekly Planner
+                </h3>
+                <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                    <div class="p-6 bg-slate-900 text-blue-400 text-sm leading-relaxed">
+                        <pre><code><span class="text-purple-400">String</span> day = <span class="text-orange-300">"Monday"</span>;
+<span class="text-purple-400">switch</span>(day) {
+    <span class="text-purple-400">case</span> <span class="text-orange-300">"Monday"</span>:
+        System.out.println(<span class="text-orange-300">"Jogging at 5pm"</span>);
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">case</span> <span class="text-orange-300">"Tuesday"</span>:
+        System.out.println(<span class="text-orange-300">"Ballet at 6pm"</span>);
+        <span class="text-purple-400">break</span>;
+    <span class="text-purple-400">default</span>:
+        System.out.println(<span class="text-orange-300">"Free activity"</span>);
+}</code></pre>
+                    </div>
+                    <div class="p-4 bg-green-50 text-green-800 text-sm italic">
+                        <strong>Teacher's Note:</strong> String comparisons in <code>switch</code> are case-sensitive. "Monday" != "monday".
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Comparison -->
+        <section id="comparison" class="space-y-8 scroll-mt-20">
+            <div class="border-l-4 border-indigo-500 pl-6">
+                <h2 class="text-3xl font-bold">Section 4: If-Else vs Switch</h2>
+                <p class="text-slate-600 mt-2">When to use which tool for the job.</p>
+            </div>
+
+            <div class="overflow-x-auto rounded-xl border border-slate-200 shadow-sm bg-white">
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-slate-50 border-b border-slate-200">
+                        <tr>
+                            <th class="p-4 font-bold text-slate-800">Feature</th>
+                            <th class="p-4 font-bold text-blue-700 bg-blue-50/30">If-Else</th>
+                            <th class="p-4 font-bold text-indigo-700 bg-indigo-50/30">Switch</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-4 font-semibold text-sm">Best For</td>
+                            <td class="p-4 text-sm text-slate-600">Value ranges (<code>score > 90</code>)</td>
+                            <td class="p-4 text-sm text-slate-600">Discrete values (<code>day == 1</code>)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-sm">Data Types</td>
+                            <td class="p-4 text-sm text-slate-600">Any (specializing in <code>boolean</code>)</td>
+                            <td class="p-4 text-sm text-slate-600">Restricted (int, String, char)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-sm">Complexity</td>
+                            <td class="p-4 text-sm text-slate-600">Can be messy with many branches</td>
+                            <td class="p-4 text-sm text-slate-600">Clean, readable, and faster to read</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-red-50 border border-red-100 rounded-xl p-6 flex gap-4">
+                <div class="text-red-500 text-2xl mt-1"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div>
+                    <h4 class="font-bold text-red-900 mb-1 text-lg">Critical Limitation</h4>
+                    <p class="text-red-800 leading-relaxed">
+                        If you need to test if a value is <strong>within a range</strong> (e.g., checking if a temperature is between 30 and 40), you <strong>cannot</strong> use a <code>switch</code>. Use <code>if-else</code> instead.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="space-y-8 py-12 scroll-mt-20">
+            <div class="text-center space-y-2">
+                <h2 class="text-3xl font-bold">Check for Understanding</h2>
+                <p class="text-slate-600 italic">Select the best answer for each scenario.</p>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Question 1 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <p class="font-semibold text-lg mb-4">1. Scenario: You remove the <code>break</code> from <code>case 0</code> in the Even/Odd example. If the input is <code>4</code>, what happens?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(1, 0, 'Wrong! Since 4 is even, it enters case 0.')" class="q-btn-1 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">It prints "4 is odd." only.</button>
+                        <button onclick="checkAnswer(1, 1, 'Correct! Without a break, the execution "falls through" to the next statement.')" class="q-btn-1 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">It prints "4 is even." followed by "4 is odd."</button>
+                        <button onclick="checkAnswer(1, 2, 'Wrong! Fall-through only moves downward, not to default unless it follows.')" class="q-btn-1 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">The program crashes immediately.</button>
+                    </div>
+                    <div id="feedback-1" class="hidden mt-4 p-3 rounded-lg text-sm font-medium"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <p class="font-semibold text-lg mb-4">2. Syntax Check: Why is <code>switch (totalScore >= 50)</code> invalid in Java?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(2, 0, 'Wrong! Score is numeric, but the comparison result is what matters.')" class="q-btn-2 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">Because totalScore must be a String.</button>
+                        <button onclick="checkAnswer(2, 1, 'Correct! Java switch expressions cannot result in a boolean value.')" class="q-btn-2 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">Because the expression results in a boolean (true/false).</button>
+                        <button onclick="checkAnswer(2, 2, 'Wrong! You can use variables inside the expression parentheses.')" class="q-btn-2 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">Because parentheses are only for if-statements.</button>
+                    </div>
+                    <div id="feedback-2" class="hidden mt-4 p-3 rounded-lg text-sm font-medium"></div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="bg-white border border-slate-200 rounded-xl p-6 shadow-sm">
+                    <p class="font-semibold text-lg mb-4">3. Application: Which construct should you use for a Vending Machine menu (choices 1-5)?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(3, 0, 'Correct! Since the menu has exact integer values, a switch is cleaner and more efficient.')" class="q-btn-3 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">Switch - because you are matching exact integer values.</button>
+                        <button onclick="checkAnswer(3, 1, 'Wrong! While if-else works, a switch is better practice for discrete constant values.')" class="q-btn-3 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">If-Else - because 1 to 5 is a range.</button>
+                        <button onclick="checkAnswer(3, 2, 'Wrong! Loops are for repeating, not for selecting between options.')" class="q-btn-3 text-left p-4 border border-slate-200 rounded-lg hover:bg-slate-50 transition">A For-Loop - because there are 5 options.</button>
+                    </div>
+                    <div id="feedback-3" class="hidden mt-4 p-3 rounded-lg text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-200 pt-12 pb-24 text-center text-slate-500 text-sm">
+            <p>Ready to code? Open your IDE and try building a simple calculator using <code>switch</code>!</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Quiz Logic
+        function checkAnswer(qNum, choiceIdx, message) {
+            const feedback = document.getElementById(`feedback-${qNum}`);
+            const buttons = document.querySelectorAll(`.q-btn-${qNum}`);
+            
+            // Highlight selected button
+            buttons.forEach((btn, idx) => {
+                btn.classList.remove('bg-blue-50', 'border-blue-500', 'bg-red-50', 'border-red-500', 'bg-green-50', 'border-green-500');
+                if (idx === choiceIdx) {
+                    if (message.includes('Correct')) {
+                        btn.classList.add('bg-green-50', 'border-green-500');
+                    } else {
+                        btn.classList.add('bg-red-50', 'border-red-500');
+                    }
+                }
+            });
+
+            // Show feedback
+            feedback.innerHTML = message;
+            feedback.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
+            
+            if (message.includes('Correct')) {
+                feedback.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                feedback.classList.add('bg-red-100', 'text-red-700');
+            }
+        }
+
+        // Simulation Logic
+        async function runSimulation() {
+            const inputVal = document.getElementById('simInput').value;
+            const hasBreak = document.getElementById('simBreak').checked;
+            const consoleEl = document.getElementById('simConsole');
+            const nodes = ['node-start', 'node-expr', 'node-case1', 'node-break1', 'node-case2', 'node-break2', 'node-default', 'node-end'];
+            
+            // Reset nodes
+            nodes.forEach(id => document.getElementById(id)?.classList.remove('active-node'));
+            consoleEl.innerHTML = "> Starting execution trace...";
+
+            const step = async (id, msg) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.classList.add('active-node');
+                    if (msg) consoleEl.innerHTML += `<br>> ${msg}`;
+                    await new Promise(r => setTimeout(r, 600));
+                }
+            };
+
+            await step('node-start', "Starting Program...");
+            await step('node-expr', `Evaluating expression... Result: ${inputVal}`);
+
+            if (inputVal == "1") {
+                await step('node-case1', "Match found for case 1! Executing block.");
+                if (hasBreak) {
+                    await step('node-break1', "Encountered 'break'. Exiting switch.");
+                } else {
+                    consoleEl.innerHTML += "<br>> <span class='text-red-400 font-bold'>Warning: No break! Falling through...</span>";
+                    await step('node-case2', "Falling into case 2 block...");
+                    if (hasBreak) {
+                        await step('node-break2', "Encountered 'break'. Exiting switch.");
+                    } else {
+                        await step('node-default', "Falling into default block...");
+                    }
+                }
+            } else if (inputVal == "2") {
+                await step('node-case2', "Match found for case 2! Executing block.");
+                if (hasBreak) {
+                    await step('node-break2', "Encountered 'break'. Exiting switch.");
+                } else {
+                    consoleEl.innerHTML += "<br>> <span class='text-red-400 font-bold'>Warning: No break! Falling through...</span>";
+                    await step('node-default', "Falling into default block...");
+                }
+            } else {
+                await step('node-default', "No match found. Executing default block.");
+            }
+
+            await step('node-end', "Execution finished.");
+        }
+    </script>
+</body>
+</html>
