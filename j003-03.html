@@ -146,6 +146,84 @@
             </div>
         </section>
 
+        <!-- New Section: Why Both? -->
+        <section id="why-both" class="mb-32">
+            <div class="flex items-center gap-4 mb-8">
+                <div class="bg-slate-800 text-white w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"><i class="fas fa-code-compare"></i></div>
+                <div>
+                    <h2 class="text-3xl font-bold">The Big Choice: <code class="text-blue-600">while</code> vs. <code class="text-purple-600">do-while</code></h2>
+                    <p class="text-slate-500">Understanding "Pre-test" vs. "Post-test"</p>
+                </div>
+            </div>
+
+            <p class="text-slate-700 mb-8 max-w-3xl leading-relaxed">
+                Beginners often ask: <em>"If they both repeat code, why do we need two different versions?"</em> The answer lies in <strong>timing</strong> and <strong>intent</strong>.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Comparison 1 -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Pre-test</span>
+                        <h3 class="font-bold text-lg">The <code>while</code> Approach</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Think of this as <strong>Asking Permission</strong>. You don't take a single step until you know the path is clear.</p>
+                    <ul class="space-y-3 text-sm text-slate-700 mb-6">
+                        <li class="flex gap-2"><i class="fas fa-shield-halved text-blue-500"></i> <strong>Safe:</strong> Prevents invalid data from ever being processed.</li>
+                        <li class="flex gap-2"><i class="fas fa-ban text-blue-500"></i> <strong>0+ Iterations:</strong> Can run zero times.</li>
+                    </ul>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs italic text-slate-500">
+                        Example: "If you have money, buy coffee." (If no money, you never even enter the shop).
+                    </div>
+                </div>
+
+                <!-- Comparison 2 -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-8 hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Post-test</span>
+                        <h3 class="font-bold text-lg">The <code>do-while</code> Approach</h3>
+                    </div>
+                    <p class="text-sm text-slate-600 mb-4">Think of this as <strong>Trying it Out</strong>. You perform the action first, then decide if you want to keep going.</p>
+                    <ul class="space-y-3 text-sm text-slate-700 mb-6">
+                        <li class="flex gap-2"><i class="fas fa-play text-purple-500"></i> <strong>Direct:</strong> Avoids duplicating code before the loop starts.</li>
+                        <li class="flex gap-2"><i class="fas fa-check-double text-purple-500"></i> <strong>1+ Iterations:</strong> Always runs at least once.</li>
+                    </ul>
+                    <div class="bg-slate-50 p-3 rounded-lg text-xs italic text-slate-500">
+                        Example: "Taste the soup, then add salt if it's bland." (You must taste it at least once to know).
+                    </div>
+                </div>
+            </div>
+
+            <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+                <table class="w-full text-left bg-white">
+                    <thead class="bg-slate-900 text-white text-xs uppercase tracking-widest">
+                        <tr>
+                            <th class="p-4">Criteria</th>
+                            <th class="p-4">while Loop</th>
+                            <th class="p-4">do-while Loop</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-slate-700">
+                        <tr class="border-b">
+                            <td class="p-4 font-bold bg-slate-50 w-1/4">Logic Timing</td>
+                            <td class="p-4">Condition checked <strong>Before</strong> body execution.</td>
+                            <td class="p-4">Condition checked <strong>After</strong> body execution.</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="p-4 font-bold bg-slate-50">Minimum Runs</td>
+                            <td class="p-4 text-blue-600 font-semibold">0 (May never run)</td>
+                            <td class="p-4 text-purple-600 font-semibold">1 (Always runs once)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-bold bg-slate-50">Best Real Use</td>
+                            <td class="p-4">Reading from a file (file might be empty).</td>
+                            <td class="p-4">Displaying a Menu (user must see the menu first).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <!-- 3. The for Loop -->
         <section id="for-loop" class="mb-32">
             <div class="flex items-center gap-4 mb-8">
