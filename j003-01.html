@@ -105,7 +105,7 @@
             <p class="text-xl text-slate-300">Mastering Decision Making & Logic Paths</p>
             <div class="mt-8 flex justify-center gap-4">
                 <span class="bg-blue-600 px-4 py-2 rounded-full text-sm font-semibold">Beginner Friendly</span>
-                <span class="bg-emerald-600 px-4 py-2 rounded-full text-sm font-semibold">Updated: Ternary & Multi-Branch</span>
+                <span class="bg-emerald-600 px-4 py-2 rounded-full text-sm font-semibold">Live Examples</span>
             </div>
         </div>
     </header>
@@ -303,7 +303,7 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
             </div>
         </section>
 
-        <!-- NEW Module 5: Ternary Operator -->
+        <!-- Module 5: Ternary Operator -->
         <section id="ternary" class="mb-24 scroll-mt-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="bg-orange-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">5</div>
@@ -311,37 +311,59 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
             </div>
 
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-                <p class="text-slate-600 mb-6">Want to write an if-else in just <strong>one line</strong>? Use the Ternary Operator. It's perfect for assigning values based on a condition.</p>
+                <p class="text-slate-600 mb-6">Want to write an if-else in just <strong>one line</strong>? Use the Ternary Operator. It's perfect for assigning values or returning strings based on a condition.</p>
                 
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="space-y-4">
-                        <h4 class="font-bold text-slate-400 uppercase text-xs tracking-widest">Long Way (Standard)</h4>
-                        <pre class="code-font text-xs">
+                <!-- Example 1 -->
+                <div class="mb-10">
+                    <h4 class="font-bold text-slate-500 text-sm mb-4">Example 1: Assigning a Status</h4>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest">Standard if-else</h5>
+                            <pre class="code-font text-xs">
 <span class="keyword">String</span> result;
 <span class="keyword">if</span> (age >= 18) {
     result = <span class="string">"Adult"</span>;
 } <span class="keyword">else</span> {
     result = <span class="string">"Minor"</span>;
 }</pre>
-                    </div>
-                    <div class="space-y-4">
-                        <h4 class="font-bold text-slate-400 uppercase text-xs tracking-widest">Short Way (Ternary)</h4>
-                        <pre class="code-font text-xs">
+                        </div>
+                        <div class="space-y-2">
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest">Ternary Shorthand</h5>
+                            <pre class="code-font text-xs">
 <span class="keyword">String</span> result = (age >= 18) ? <span class="string">"Adult"</span> : <span class="string">"Minor"</span>;</pre>
-                        <div class="p-4 bg-orange-50 border border-orange-200 rounded-xl text-xs space-y-2">
-                            <p><strong>How to read it:</strong></p>
-                            <ol class="list-decimal list-inside space-y-1">
-                                <li>Check the condition in <code>( )</code></li>
-                                <li><code>?</code> means "If True, use this"</li>
-                                <li><code>:</code> means "Otherwise, use this"</li>
-                            </ol>
+                            <div class="p-3 bg-orange-50 border border-orange-200 rounded-lg text-xs space-y-1">
+                                <p><strong>Structure:</strong> <code>(condition) ? trueValue : falseValue;</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example 2 -->
+                <div>
+                    <h4 class="font-bold text-slate-500 text-sm mb-4">Example 2: Inline Calculation (Even or Odd)</h4>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest">Standard if-else</h5>
+                            <pre class="code-font text-xs">
+<span class="keyword">if</span> (number % 2 == 0) 
+    System.out.println(number + <span class="string">" is even."</span>);
+<span class="keyword">else</span> 
+    System.out.println(number + <span class="string">" is odd."</span>);</pre>
+                        </div>
+                        <div class="space-y-2">
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest">Ternary Shorthand</h5>
+                            <pre class="code-font text-xs">
+System.out.println(number + ((number % 2 == 0) ? <span class="string">" is even."</span> : <span class="string">" is odd."</span>));</pre>
+                            <div class="p-3 bg-slate-50 border border-slate-200 rounded-lg text-[11px] text-slate-500 italic">
+                                Note how the ternary expression can be placed directly inside a print statement!
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- NEW Module 6: if-else if -->
+        <!-- Module 6: if-else if -->
         <section id="elseif" class="mb-24 scroll-mt-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="bg-cyan-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">6</div>
@@ -362,14 +384,47 @@ System.out.println(<span class="string">"Go to sleep"</span>);</pre>
     System.out.println(<span class="string">"Grade: F"</span>);
 }</pre>
                 
-                <div class="flex items-center gap-4 p-4 bg-cyan-50 rounded-xl border border-cyan-100">
+                <div class="flex items-center gap-4 p-4 bg-cyan-50 rounded-xl border border-cyan-100 mb-8">
                     <div class="text-cyan-500"><i class="fas fa-info-circle fa-2x"></i></div>
                     <p class="text-sm text-cyan-800 italic">"Think of it as a ladder. You step on each rung until you find one that holds you (is true), then you stop climbing."</p>
+                </div>
+
+                <!-- User Input Examples Sub-section -->
+                <div class="border-t border-slate-100 pt-8 mt-4">
+                    <h4 class="font-bold text-slate-700 text-lg mb-4"><i class="fas fa-keyboard mr-2 text-cyan-600"></i> Practice: User Input Examples</h4>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest mb-2">Example: Reading & Checking Even/Odd</h5>
+                            <pre class="code-font text-xs">
+Scanner sc = <span class="keyword">new</span> Scanner(System.in);
+<span class="keyword">int</span> number = sc.nextInt(); <span class="comment">// read a number from keyboard</span>
+
+<span class="keyword">if</span> (number % <span class="operator">2</span> == <span class="operator">0</span>) {
+    System.out.println(number + <span class="string">" is even."</span>);
+} <span class="keyword">else</span> {
+    System.out.println(number + <span class="string">" is odd."</span>);
+}</pre>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-slate-400 uppercase text-[10px] tracking-widest mb-2">Example: Determining Number Sign</h5>
+                            <pre class="code-font text-xs">
+Scanner sc = <span class="keyword">new</span> Scanner(System.in);
+<span class="keyword">int</span> number = sc.nextInt(); <span class="comment">// read a number from keyboard</span>
+
+<span class="keyword">if</span> (number > <span class="operator">0</span>) {
+    System.out.println(number + <span class="string">" is positive."</span>);
+} <span class="keyword">else if</span> (number < <span class="operator">0</span>) {
+    System.out.println(number + <span class="string">" is negative."</span>);
+} <span class="keyword">else</span> { <span class="comment">// the rest of the condition</span>
+    System.out.println(number + <span class="string">" is 0."</span>);
+}</pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Module 7 (Formerly 5) -->
+        <!-- Module 7 -->
         <section id="module7" class="mb-24 scroll-mt-10">
             <div class="flex items-center gap-3 mb-6">
                 <div class="bg-purple-500 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-xl">7</div>
