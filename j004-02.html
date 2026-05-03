@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Methods: In-Practice Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .step-highlight {
+            background-color: rgba(234, 179, 8, 0.2);
+            border-left: 4px solid #eab308;
+            transition: all 0.3s ease;
+        }
+        .glow-box {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-blue-600 flex items-center gap-2">
+                <i class="fas fa-code"></i> Java Methods 101
+            </h1>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#section5" class="hover:text-blue-600">Invocation</a>
+                <a href="#section6" class="hover:text-blue-600">Tracing</a>
+                <a href="#section7" class="hover:text-blue-600">Return Phase</a>
+                <a href="#section8" class="hover:text-blue-600">Rules</a>
+                <a href="#quiz" class="hover:text-blue-600 bg-blue-100 px-3 py-1 rounded-full text-blue-700">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-blue-700 to-indigo-900 text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Using Methods in Practice</h2>
+            <p class="text-lg text-blue-100 opacity-90">Master the flow of data, parameter matching, and execution logic in Java methods.</p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- SECTION 5: METHOD INVOCATION -->
+        <section id="section5" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">5</span>
+                <h2 class="text-3xl font-bold">Method Invocation & Data Flow</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+                            <i class="fas fa-paper-plane text-blue-500"></i> The Concept
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed mb-4">
+                            Calling a method (invocation) triggers a jump in execution. Think of it as pausing your current task to let someone else handle a specific job, then waiting for them to bring back the result.
+                        </p>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Invocation:</strong> <code>k = max(i, j)</code> triggers the method.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-green-500 mt-1"></i>
+                                <span><strong>Data Type Consistency:</strong> The returned <code>result</code> type MUST match the <code>returnValueType</code> in the header.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-xl p-6 shadow-xl text-white">
+                    <div class="flex items-center gap-2 mb-4 text-xs font-mono text-slate-400">
+                        <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                        <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                        <span>Main.java</span>
+                    </div>
+                    <pre class="code-font text-sm leading-relaxed">
+<span class="text-purple-400">public static void</span> <span class="text-blue-400">main</span>(String[] args) {
+  <span class="text-purple-400">int</span> i = <span class="text-orange-400">5</span>;
+  <span class="text-purple-400">int</span> j = <span class="text-orange-400">2</span>;
+  <span class="text-purple-400">int</span> k = <span class="text-yellow-400">max</span>(i, j); <span class="text-slate-500">// Invocation</span>
+
+  System.out.println(<span class="text-green-400">"Max is "</span> + k);
+}
+
+<span class="text-purple-400">public static int</span> <span class="text-blue-400">max</span>(<span class="text-purple-400">int</span> num1, <span class="text-purple-400">int</span> num2) {
+  <span class="text-purple-400">int</span> result = (num1 > num2) ? num1 : num2;
+  <span class="text-purple-400">return</span> result; <span class="text-slate-500">// Must be int!</span>
+}</pre>
+                </div>
+            </div>
+
+            <!-- SVG Data Flow Visualization -->
+            <div class="mt-12 bg-blue-50 p-8 rounded-2xl border border-blue-100 overflow-x-auto">
+                <h4 class="text-center font-bold text-blue-800 mb-8">Data Flow Visualization</h4>
+                <div class="min-w-[600px] flex justify-center">
+                    <svg width="600" height="200" viewBox="0 0 600 200">
+                        <!-- Boxes -->
+                        <rect x="50" y="50" width="150" height="100" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                        <text x="125" y="80" text-anchor="middle" font-weight="bold" fill="#1e40af">main()</text>
+                        <text x="125" y="110" text-anchor="middle" font-size="12" fill="#64748b">i=5, j=2</text>
+                        
+                        <rect x="400" y="50" width="150" height="100" rx="10" fill="#ffffff" stroke="#2563eb" stroke-width="2"/>
+                        <text x="475" y="80" text-anchor="middle" font-weight="bold" fill="#1e40af">max()</text>
+                        <text x="475" y="110" text-anchor="middle" font-size="12" fill="#64748b">num1=?, num2=?</text>
+
+                        <!-- Arrows -->
+                        <path d="M 200 80 L 390 80" stroke="#2563eb" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        <text x="295" y="70" text-anchor="middle" font-size="12" fill="#2563eb" font-weight="bold">Arguments (i, j)</text>
+                        
+                        <path d="M 390 120 L 200 120" stroke="#10b981" stroke-width="3" fill="none" marker-end="url(#arrowhead-green)"/>
+                        <text x="295" y="145" text-anchor="middle" font-size="12" fill="#059669" font-weight="bold">Return Value (result)</text>
+
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#2563eb" />
+                            </marker>
+                            <marker id="arrowhead-green" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#10b981" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 & 7: EXECUTION TRACER SIMULATOR -->
+        <section id="section6" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-indigo-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">6/7</span>
+                <h2 class="text-3xl font-bold">Execution Tracing & Logic</h2>
+            </div>
+
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xl">
+                <div class="bg-slate-800 p-4 flex justify-between items-center">
+                    <div class="text-indigo-300 font-bold text-sm uppercase tracking-wider">Method Execution Simulator</div>
+                    <div class="flex gap-2">
+                        <button onclick="resetTracer()" class="text-xs bg-slate-700 hover:bg-slate-600 text-white px-3 py-1 rounded">Reset</button>
+                        <button onclick="nextStep()" id="nextBtn" class="text-xs bg-indigo-500 hover:bg-indigo-400 text-white px-3 py-1 rounded">Next Step <i class="fas fa-chevron-right ml-1"></i></button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2">
+                    <!-- Code Panel -->
+                    <div class="p-6 bg-slate-900 text-slate-300 code-font text-sm leading-relaxed border-r border-slate-700">
+                        <div id="line-1">public static void main(...) {</div>
+                        <div id="line-2" class="pl-4">  int i = 5;</div>
+                        <div id="line-3" class="pl-4">  int j = 2;</div>
+                        <div id="line-4" class="pl-4">  int k = max(i, j);</div>
+                        <div id="line-5" class="pl-4">  System.out.println(k);</div>
+                        <div id="line-6">}</div>
+                        <div class="my-4 border-t border-slate-700"></div>
+                        <div id="line-7">public static int max(int num1, int num2) {</div>
+                        <div id="line-8" class="pl-4">  int result = 0;</div>
+                        <div id="line-9" class="pl-4">  if (num1 > num2) {</div>
+                        <div id="line-10" class="pl-8">    result = num1;</div>
+                        <div id="line-11" class="pl-4">  } else {</div>
+                        <div id="line-12" class="pl-8">    result = num2;</div>
+                        <div id="line-13" class="pl-4">  }</div>
+                        <div id="line-14" class="pl-4 text-orange-300">  return result;</div>
+                        <div id="line-15">}</div>
+                    </div>
+
+                    <!-- Step Explanation Panel -->
+                    <div class="p-8 bg-slate-50">
+                        <h4 class="font-bold text-indigo-900 mb-4" id="step-title">Welcome to the Tracer</h4>
+                        <p class="text-slate-600 text-sm mb-6 leading-relaxed" id="step-desc">
+                            Click "Next Step" to follow the execution from <code>main</code> into <code>max</code>.
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-sm">
+                                <span class="text-xs font-bold text-slate-400 uppercase">Memory State</span>
+                                <div class="mt-2 grid grid-cols-2 gap-2 text-sm">
+                                    <div class="bg-slate-100 p-2 rounded">i: <span id="mem-i" class="font-bold">-</span></div>
+                                    <div class="bg-slate-100 p-2 rounded">j: <span id="mem-j" class="font-bold">-</span></div>
+                                    <div class="bg-indigo-100 p-2 rounded">num1: <span id="mem-n1" class="font-bold text-indigo-700">-</span></div>
+                                    <div class="bg-indigo-100 p-2 rounded">num2: <span id="mem-n2" class="font-bold text-indigo-700">-</span></div>
+                                    <div class="bg-green-100 p-2 rounded col-span-2 text-center">result / k: <span id="mem-k" class="font-bold text-green-700">-</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-8 p-6 bg-amber-50 rounded-xl border border-amber-200">
+                <h4 class="font-bold text-amber-800 mb-2">Signature Matching Rules</h4>
+                <p class="text-sm text-amber-700">
+                    Communication between call and definition must be precise. Match must be consistent in: 
+                    <span class="font-bold">1. Number</span>, 
+                    <span class="font-bold">2. Data Types</span>, and 
+                    <span class="font-bold">3. Order</span>.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION 8: PRACTICAL RULES -->
+        <section id="section8" class="scroll-mt-24">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-emerald-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">8</span>
+                <h2 class="text-3xl font-bold">Practical Rules & Pitfalls</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Rule: Proper Invocation -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 1: Calling Syntax</h3>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
+                            <span class="text-green-700 font-bold block mb-1">CORRECT</span>
+                            <code class="text-sm">int k = max(i, 2);</code>
+                        </div>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                            <span class="text-red-700 font-bold block mb-1">WRONG</span>
+                            <code class="text-sm">int k = max(int i, int j);</code>
+                            <p class="text-xs text-red-600 mt-1">Don't include data types in the call.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rule: Return Values -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 2: Using the Result</h3>
+                    <p class="text-sm text-slate-600">If a method returns a value, capture it or use it! Otherwise, it is "lost" in memory.</p>
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 code-font text-sm">
+                        <div class="text-blue-600 mb-2">// Captured</div>
+                        <div class="mb-4">int k = max(5, 10);</div>
+                        <div class="text-red-500 mb-2">// Result is lost!</div>
+                        <div>max(5, 10);</div>
+                    </div>
+                </div>
+
+                <!-- Rule: Void vs Non-Void -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 3: Void Methods</h3>
+                    <div class="bg-slate-100 p-4 rounded-xl space-y-2">
+                        <p class="text-sm"><i class="fas fa-info-circle mr-1"></i> Void methods do <strong>not</strong> return data. They perform an action (like printing).</p>
+                        <ul class="text-xs space-y-1 text-slate-700 list-disc pl-4">
+                            <li>Cannot be assigned to a variable.</li>
+                            <li><code>return;</code> is allowed to exit early.</li>
+                            <li><code>return 0;</code> is a compilation error.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Rule: Pass-by-Value -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 4: Pass-by-Value</h3>
+                    <div class="relative bg-white p-6 rounded-xl shadow-md border-t-4 border-emerald-500 overflow-hidden">
+                        <p class="text-sm text-slate-700 leading-relaxed">
+                            Java passes <strong>copies</strong> of values. If <code>max</code> changes <code>num1</code>, the original <code>i</code> in <code>main</code> <strong>remains unchanged</strong>.
+                        </p>
+                        <div class="mt-4 flex items-center justify-center gap-4">
+                            <div class="text-center p-2 border rounded bg-slate-50">
+                                <div class="text-[10px] uppercase font-bold text-slate-400">Original (i)</div>
+                                <div class="text-xl font-bold">5</div>
+                            </div>
+                            <i class="fas fa-long-arrow-alt-right text-slate-300 text-2xl"></i>
+                            <div class="text-center p-2 border rounded bg-emerald-50 border-emerald-200">
+                                <div class="text-[10px] uppercase font-bold text-emerald-400">Copy (num1)</div>
+                                <div class="text-xl font-bold">5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section id="quiz" class="scroll-mt-24 pt-12 border-t border-slate-200">
+            <div class="max-w-2xl mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-2">Check Your Knowledge</h2>
+                    <p class="text-slate-500">Test what you've learned about method invocation and rules.</p>
+                </div>
+
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Question 1 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <p class="font-bold text-lg mb-4">1. In the call <code class="bg-slate-100 p-1 rounded">int k = max(i, j);</code>, what are i and j called?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkAnswer(1, 0, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">A) Formal Parameters</button>
+                            <button onclick="checkAnswer(1, 1, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">B) Actual Parameters (Arguments)</button>
+                            <button onclick="checkAnswer(1, 2, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">C) Void Parameters</button>
+                        </div>
+                        <div id="fb-1" class="mt-4 hidden text-sm font-medium p-3 rounded"></div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <p class="font-bold text-lg mb-4">2. Which of the following is WRONG syntax when calling a method?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkAnswer(2, 0, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">A) <code class="text-sm">int k = max(5, 10);</code></button>
+                            <button onclick="checkAnswer(2, 1, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">B) <code class="text-sm">System.out.println(max(3, 4));</code></button>
+                            <button onclick="checkAnswer(2, 2, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">C) <code class="text-sm">int k = max(int i, int j);</code></button>
+                        </div>
+                        <div id="fb-2" class="mt-4 hidden text-sm font-medium p-3 rounded"></div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <p class="font-bold text-lg mb-4">3. What happens if you call a non-void method without assigning it to a variable?</p>
+                        <div class="space-y-2">
+                            <button onclick="checkAnswer(3, 0, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">A) It causes a Compilation Error</button>
+                            <button onclick="checkAnswer(3, 1, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">B) The returned value is lost</button>
+                            <button onclick="checkAnswer(3, 2, this)" class="w-full text-left p-3 rounded-lg border hover:bg-blue-50 transition">C) The program crashes during execution</button>
+                        </div>
+                        <div id="fb-3" class="mt-4 hidden text-sm font-medium p-3 rounded"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center text-sm">
+        <p>© 2024 Java Beginner Series | Interactive Lesson Module</p>
+    </footer>
+
+    <script>
+        // TRACER LOGIC
+        let currentStep = 0;
+        const steps = [
+            { 
+                lines: [2], 
+                title: "Initialize Variable i", 
+                desc: "The main method starts. We assign 5 to the local variable 'i'.", 
+                mem: { i: 5, j: '-', n1: '-', n2: '-', k: '-' } 
+            },
+            { 
+                lines: [3], 
+                title: "Initialize Variable j", 
+                desc: "We assign 2 to the local variable 'j'. Both variables are now ready to be passed.", 
+                mem: { i: 5, j: 2, n1: '-', n2: '-', k: '-' } 
+            },
+            { 
+                lines: [4, 7], 
+                title: "Method Invocation (Jump)", 
+                desc: "Control transfers to the max() method. The value of 'i' (5) is passed to 'num1', and 'j' (2) to 'num2'.", 
+                mem: { i: 5, j: 2, n1: 5, n2: 2, k: '-' } 
+            },
+            { 
+                lines: [8], 
+                title: "Initialize Result", 
+                desc: "Inside max(), we initialize a local 'result' variable to 0.", 
+                mem: { i: 5, j: 2, n1: 5, n2: 2, k: 0 } 
+            },
+            { 
+                lines: [9, 10], 
+                title: "Evaluation & Assignment", 
+                desc: "The condition (5 > 2) is true. The 'result' variable is assigned the value 5 (num1).", 
+                mem: { i: 5, j: 2, n1: 5, n2: 2, k: 5 } 
+            },
+            { 
+                lines: [14], 
+                title: "Return Phase", 
+                desc: "The method returns the 'result' (5) back to the caller. Control will now return to main.", 
+                mem: { i: 5, j: 2, n1: 5, n2: 2, k: 5 } 
+            },
+            { 
+                lines: [4, 5], 
+                title: "Back to main()", 
+                desc: "The returned value 5 is assigned to 'k'. The max() scope is now cleared from memory.", 
+                mem: { i: 5, j: 2, n1: '-', n2: '-', k: 5 } 
+            }
+        ];
+
+        function nextStep() {
+            if (currentStep >= steps.length) return;
+            
+            const step = steps[currentStep];
+            
+            // Clear previous highlights
+            document.querySelectorAll('.step-highlight').forEach(el => el.classList.remove('step-highlight'));
+            
+            // Highlight current lines
+            step.lines.forEach(lineNum => {
+                document.getElementById('line-' + lineNum).classList.add('step-highlight');
+            });
+
+            // Update Text
+            document.getElementById('step-title').innerText = step.title;
+            document.getElementById('step-desc').innerText = step.desc;
+
+            // Update Memory
+            document.getElementById('mem-i').innerText = step.mem.i;
+            document.getElementById('mem-j').innerText = step.mem.j;
+            document.getElementById('mem-n1').innerText = step.mem.n1;
+            document.getElementById('mem-n2').innerText = step.mem.n2;
+            document.getElementById('mem-k').innerText = step.mem.k;
+
+            currentStep++;
+            if(currentStep === steps.length) {
+                document.getElementById('nextBtn').innerText = "End of Trace";
+                document.getElementById('nextBtn').classList.replace('bg-indigo-500', 'bg-slate-500');
+            }
+        }
+
+        function resetTracer() {
+            currentStep = 0;
+            document.querySelectorAll('.step-highlight').forEach(el => el.classList.remove('step-highlight'));
+            document.getElementById('step-title').innerText = "Welcome to the Tracer";
+            document.getElementById('step-desc').innerText = "Click 'Next Step' to follow the execution from main into max.";
+            document.getElementById('mem-i').innerText = '-';
+            document.getElementById('mem-j').innerText = '-';
+            document.getElementById('mem-n1').innerText = '-';
+            document.getElementById('mem-n2').innerText = '-';
+            document.getElementById('mem-k').innerText = '-';
+            document.getElementById('nextBtn').innerText = "Next Step";
+            document.getElementById('nextBtn').classList.replace('bg-slate-500', 'bg-indigo-500');
+        }
+
+        // QUIZ LOGIC
+        const answers = {
+            1: { correct: 1, text: "Correct! These are the actual values or variables being passed in the call." },
+            2: { correct: 2, text: "Correct! When calling, you only provide values or variables, not their type declarations." },
+            3: { correct: 1, text: "Correct! If not assigned or printed, the CPU finishes the work but the result is discarded." }
+        };
+
+        function checkAnswer(qId, choice, btn) {
+            const fb = document.getElementById('fb-' + qId);
+            const isCorrect = choice === answers[qId].correct;
+            
+            fb.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            
+            if (isCorrect) {
+                fb.innerText = answers[qId].text;
+                fb.classList.add('bg-green-100', 'text-green-800');
+                btn.classList.add('border-green-500', 'bg-green-50');
+            } else {
+                fb.innerText = "Try again! Think about the specific rules we discussed.";
+                fb.classList.add('bg-red-100', 'text-red-800');
+                btn.classList.add('border-red-500', 'bg-red-50');
+            }
+        }
+    </script>
+</body>
+</html>
