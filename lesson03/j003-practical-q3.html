@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Q3.3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .highlight-warn {
+            background-color: rgba(234, 179, 8, 0.2);
+            border-left: 4px solid #eab308;
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+
+        .keyword { color: #f472b6; }
+        .type { color: #38bdf8; }
+        .string { color: #4ade80; }
+        .comment { color: #94a3b8; }
+        .number { color: #fbbf24; }
+        .method { color: #818cf8; }
+
+        .beginner-alert {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-2">Practical Q3.3</h1>
+            <p class="text-slate-600">Loops, Conditionals, and Formatting in Java</p>
+        </header>
+
+        <!-- Question Part (a) -->
+        <section class="mb-12 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-100 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-800">Part (a)</h2>
+                <p class="text-slate-700 mt-2 italic">"Display all the odd numbers between 1 to 9—use if-else and for loop"</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="code-block mb-4">
+                    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i <= <span class="number">9</span>; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>) { <span class="comment">// Check if odd</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + <span class="string">" "</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} <span class="keyword">else</span> {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Even numbers - do nothing or handle else</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    }
+                </div>
+
+                <div class="beginner-alert p-4 rounded-r-lg">
+                    <h3 class="font-bold text-red-700 mb-2">Beginner Watch-outs:</h3>
+                    <ul class="list-disc ml-5 text-slate-700 space-y-1">
+                        <li><span class="font-semibold">The Modulo Operator (%):</span> Beginners often forget that <code class="bg-slate-200 px-1 rounded">i % 2</code> returns the remainder. <code class="bg-slate-200 px-1 rounded">!= 0</code> ensures we catch odd numbers.</li>
+                        <li><span class="font-semibold">Loop Boundaries:</span> Using <code class="bg-slate-200 px-1 rounded"><= 9</code> includes 9. Using <code class="bg-slate-200 px-1 rounded">< 9</code> would exclude it.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Part (b) -->
+        <section class="mb-12 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-100 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-800">Part (b)</h2>
+                <p class="text-slate-700 mt-2 italic">"Modify your code to display all the odd number between 1-99 in 10 rows, with 5 numbers on each row. —use nested for loop"</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="code-block mb-4">
+                    <span class="type">int</span> currentOdd = <span class="number">1</span>;<br>
+                    <span class="keyword">for</span> (<span class="type">int</span> row = <span class="number">0</span>; row < <span class="number">10</span>; row++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> (<span class="type">int</span> col = <span class="number">0</span>; col < <span class="number">5</span>; col++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(currentOdd + <span class="string">"\t"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;currentOdd += <span class="number">2</span>;<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;System.out.println(); <span class="comment">// Move to next row</span><br>
+                    }
+                </div>
+
+                <div class="beginner-alert p-4 rounded-r-lg">
+                    <h3 class="font-bold text-red-700 mb-2">Beginner Watch-outs:</h3>
+                    <ul class="list-disc ml-5 text-slate-700 space-y-1">
+                        <li><span class="font-semibold">Println vs Print:</span> Beginners often use <code class="bg-slate-200 px-1 rounded">println</code> inside the inner loop, which puts every number on a new line. Use <code class="bg-slate-200 px-1 rounded">print</code> for the row and <code class="bg-slate-200 px-1 rounded">println()</code> only after the inner loop finishes.</li>
+                        <li><span class="font-semibold">Nested Logic:</span> The outer loop represents the "vertical" movement (rows) and the inner loop represents the "horizontal" movement (columns).</li>
+                        <li><span class="font-semibold">Formatting:</span> Using <code class="bg-slate-200 px-1 rounded">\t</code> (tab) keeps the numbers aligned even when they change from 1-digit to 2-digits.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Part (c) -->
+        <section class="mb-12 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-100 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-800">Part (c)</h2>
+                <p class="text-slate-700 mt-2 italic">"Modify your code to display times table for even No. between 1 and 9, e.g. 2*2=4 ….8*8=64 in 4 rows and 4 columns."</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="code-block mb-4">
+                    <span class="comment">// We target even numbers: 2, 4, 6, 8</span><br>
+                    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">2</span>; i <= <span class="number">8</span>; i += <span class="number">2</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">2</span>; j <= <span class="number">8</span>; j += <span class="number">2</span>) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + <span class="string">"*"</span> + j + <span class="string">"="</span> + (i * j) + <span class="string">"\t"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;System.out.println();<br>
+                    }
+                </div>
+
+                <div class="beginner-alert p-4 rounded-r-lg">
+                    <h3 class="font-bold text-red-700 mb-2">Beginner Watch-outs:</h3>
+                    <ul class="list-disc ml-5 text-slate-700 space-y-1">
+                        <li><span class="font-semibold">Iteration Step:</span> Note <code class="bg-slate-200 px-1 rounded">i += 2</code>. This is more efficient than checking <code class="bg-slate-200 px-1 rounded">if (i % 2 == 0)</code> inside a standard loop, though both work.</li>
+                        <li><span class="font-semibold">Order of Operations:</span> When printing <code class="bg-slate-200 px-1 rounded">i * j</code>, Java calculates the multiplication before concatenating with the string. However, wrapping math in parentheses <code class="bg-slate-200 px-1 rounded">(i * j)</code> is a safe habit for beginners to ensure correct results.</li>
+                        <li><span class="font-semibold">The 4x4 Grid:</span> Since there are exactly 4 even numbers (2,4,6,8) between 1 and 9, the nested loop naturally creates a 4x4 grid.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question Part (c) Alternative -->
+        <section class="mb-12 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="p-6 border-b border-slate-100 bg-slate-50">
+                <h2 class="text-xl font-bold text-slate-800">Part (c) Alternative</h2>
+                <p class="text-slate-700 mt-2 italic">"Display times table for even No. between 1 and 9 by looping 1 to 9 and using the 'continue' keyword."</p>
+            </div>
+            
+            <div class="p-6">
+                <div class="code-block mb-4">
+                    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">1</span>; i <= <span class="number">9</span>; i++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (i % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">continue</span>; <span class="comment">// Skip odd i</span><br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">1</span>; j <= <span class="number">9</span>; j++) {<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (j % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">continue</span>; <span class="comment">// Skip odd j</span><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(i + <span class="string">"*"</span> + j + <span class="string">"="</span> + (i * j) + <span class="string">"\t"</span>);<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;System.out.println();<br>
+                    }
+                </div>
+
+                <div class="beginner-alert p-4 rounded-r-lg">
+                    <h3 class="font-bold text-red-700 mb-2">Beginner Watch-outs:</h3>
+                    <ul class="list-disc ml-5 text-slate-700 space-y-1">
+                        <li><span class="font-semibold">The 'continue' Keyword:</span> It immediately jumps to the next iteration of the loop. Any code below it inside the loop block is ignored for that iteration.</li>
+                        <li><span class="font-semibold">Nesting 'continue':</span> A `continue` inside the inner loop only affects that inner loop. It does not skip to the next row of the outer loop.</li>
+                        <li><span class="font-semibold">Logic Flow:</span> Ensure the check happens before the print statement, or the odd number will be printed before the skip occurs!</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Footer -->
+        <footer class="text-center text-slate-500 text-sm pb-10">
+            <p>Generated for Java Beginners • Use tabs for alignment in console apps!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Optional: Add simple console simulation logic or interaction here
+        console.log("Java Guide Loaded Successfully");
+    </script>
+</body>
+</html>
