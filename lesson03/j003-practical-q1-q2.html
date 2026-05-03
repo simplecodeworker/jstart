@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical 3.1 and 3.2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+        
+        .code-font {
+            font-family: 'Fira+Code', monospace;
+        }
+
+        .pitfall-highlight {
+            border-left: 4px solid #ef4444;
+            background-color: #fef2f2;
+        }
+
+        .java-keyword { color: #d946ef; font-weight: bold; }
+        .java-type { color: #3b82f6; }
+        .java-string { color: #10b981; }
+        .java-comment { color: #94a3b8; font-style: italic; }
+        .java-number { color: #f59e0b; }
+        
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans leading-relaxed">
+
+    <!-- Header -->
+    <header class="bg-indigo-700 text-white py-8 px-4 shadow-lg">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold">Java Practical Q3.1 and Q3.2</h1>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8 space-y-12">
+
+        <!-- Question 3.1 Section -->
+        <section id="q3-1">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q3.1</span>
+                <h2 class="text-2xl font-bold text-slate-800">Lucky Number Guessing</h2>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Part A: if-else -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(a) Using If-Else</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base"><span class="java-keyword">import</span> java.util.Scanner;
+
+<span class="java-keyword">public class</span> LuckyGuess {
+    <span class="java-keyword">public static void</span> main(String[] args) {
+        Scanner input = <span class="java-keyword">new</span> Scanner(System.in);
+        <span class="java-keyword">int</span> luckyNo = <span class="java-number">7</span>; <span class="java-comment">// Hardcoded</span>
+        
+        System.out.print(<span class="java-string">"Guess my lucky number: "</span>);
+        <span class="java-keyword">int</span> guess = input.nextInt();
+        
+        <span class="java-keyword">if</span> (guess == luckyNo) {
+            System.out.println(<span class="java-string">"Congratulations!"</span>);
+        } <span class="java-keyword">else</span> {
+            System.out.println(<span class="java-string">"Thank You"</span>);
+        }
+    }
+}</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                Notice the use of <strong>==</strong> (double equals). Beginners often use a single <strong>=</strong>, which is for <em>assignment</em>, not comparison. This will cause a compilation error in Java inside an 'if' condition for integers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part B: switch -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(b) Using Switch</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base"><span class="java-keyword">switch</span> (guess) {
+    <span class="java-keyword">case</span> <span class="java-number">7</span>:
+        System.out.println(<span class="java-string">"Congratulations!"</span>);
+        <span class="java-keyword">break</span>;
+    <span class="java-keyword">default</span>:
+        System.out.println(<span class="java-string">"Thank You"</span>);
+}</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                Never forget the <strong>break;</strong> statement! Without it, Java will "fall through" and execute the next case (the default), meaning even if you guess correctly, you'd see "Thank You" right after the congrats message.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part C: Shorthand -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(c) Ternary Operator</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base">String message = (guess == luckyNo) ? <span class="java-string">"Congratulations!"</span> : <span class="java-string">"Thank You"</span>;
+System.out.println(message);</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                The ternary operator <strong>? :</strong> is great for simple assignments, but don't over-nest them. If your logic gets complex, go back to <code>if-else</code> for readability.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Question 3.2 Section -->
+        <section id="q3-2" class="pb-12">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q3.2</span>
+                <h2 class="text-2xl font-bold text-slate-800">Quiz Mark Grading</h2>
+            </div>
+
+            <!-- Grade Logic & Validation -->
+            <div class="space-y-8">
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(a & b) If-Else-If with Validation</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base"><span class="java-keyword">if</span> (mark &lt; <span class="java-number">0</span> || mark &gt; <span class="java-number">100</span>) {
+    System.out.println(<span class="java-string">"Invalid mark! Must be 0-100."</span>);
+} <span class="java-keyword">else if</span> (mark &gt;= <span class="java-number">80</span>) {
+    System.out.println(<span class="java-string">"Grade: A"</span>);
+} <span class="java-keyword">else if</span> (mark &gt;= <span class="java-number">70</span>) {
+    System.out.println(<span class="java-string">"Grade: B"</span>);
+} <span class="java-keyword">else if</span> (mark &gt;= <span class="java-number">60</span>) {
+    System.out.println(<span class="java-string">"Grade: C"</span>);
+} <span class="java-keyword">else if</span> (mark &gt;= <span class="java-number">50</span>) {
+    System.out.println(<span class="java-string">"Grade: D"</span>);
+} <span class="java-keyword">else</span> {
+    System.out.println(<span class="java-string">"Grade: F"</span>);
+}</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                <strong>Order matters!</strong> When using <code>else if</code> for ranges, start from the highest (80, 70, 60...) or the lowest. If you check <code>mark >= 50</code> first, a score of 95 would match the first block and display "D".
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part C1: While Loop -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(c1) Loop until -1 (While)</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base">System.out.print(<span class="java-string">"Enter mark (-1 to quit): "</span>);
+<span class="java-keyword">int</span> mark = input.nextInt();
+
+<span class="java-keyword">while</span> (mark != <span class="java-number">-1</span>) {
+    <span class="java-keyword">if</span> (mark &gt;= <span class="java-number">0</span> && mark &lt;= <span class="java-number">100</span>) {
+        <span class="java-comment">// ... Grade logic from above ...</span>
+    } <span class="java-keyword">else</span> {
+        System.out.println(<span class="java-string">"Invalid mark!"</span>);
+    }
+    System.out.print(<span class="java-string">"Enter mark (-1 to quit): "</span>);
+    mark = input.nextInt(); <span class="java-comment">// Re-ask inside loop</span>
+}</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                <strong>Infinite Loops:</strong> Beginners often forget to re-ask for input inside the <code>while</code> loop. If you don't update <code>mark</code> inside the brackets, the condition will never change, and the program will run forever!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Part C2: Do-While Loop -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center">
+                        <span class="text-slate-300 text-sm font-medium">(c2) Loop until -1 (Do-While)</span>
+                        <span class="text-xs text-slate-500 uppercase">Java</span>
+                    </div>
+                    <div class="p-4 md:p-6">
+<pre class="code-font text-sm md:text-base"><span class="java-keyword">int</span> mark;
+<span class="java-keyword">do</span> {
+    System.out.print(<span class="java-string">"Enter mark (-1 to quit): "</span>);
+    mark = input.nextInt();
+    
+    <span class="java-keyword">if</span> (mark == <span class="java-number">-1</span>) <span class="java-keyword">break</span>; <span class="java-comment">// Exit if -1</span>
+    
+    <span class="java-keyword">if</span> (mark &gt;= <span class="java-number">0</span> && mark &lt;= <span class="java-number">100</span>) {
+        <span class="java-comment">// ... Grade logic ...</span>
+    } <span class="java-keyword">else</span> {
+        System.out.println(<span class="java-string">"Invalid mark!"</span>);
+    }
+} <span class="java-keyword">while</span> (mark != <span class="java-number">-1</span>);</pre>
+                        <div class="mt-6 pitfall-highlight p-4 rounded-r-lg">
+                            <h4 class="text-red-700 font-bold flex items-center gap-2">
+                                ⚠️ Beginner Watch-out
+                            </h4>
+                            <p class="text-slate-700 text-sm mt-1">
+                                <strong>The Semicolon:</strong> Unlike a standard <code>while</code> loop, a <code>do-while</code> loop <strong>must</strong> end with a semicolon after the <code>while(...)</code> condition. 
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-200 text-slate-600 py-6 text-center text-sm border-t border-slate-300 mt-12">
+        <p>© 2024 Java Beginner's Lab. Keep coding!</p>
+    </footer>
+
+    <script>
+        // Simple interactive script if needed in future
+        console.log("Java Guide App Loaded Successfully");
+    </script>
+</body>
+</html>
