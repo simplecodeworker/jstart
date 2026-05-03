@@ -3,325 +3,365 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OOP With Java</title>
+    <title>OOP With Java | Learning Path</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth;
+        }
+
+        /* Smooth Accordion Logic */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.3s ease-out;
+        }
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+        }
+        .accordion-inner {
+            overflow: hidden;
+        }
+
+        /* Glassmorphism effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Hover Transitions */
+        .lesson-card {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .lesson-card:hover {
+            transform: translateX(4px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
+<body class="bg-[#f8fafc] text-slate-900 min-h-screen selection:bg-indigo-100 selection:text-indigo-700">
 
-    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div class="space-y-6">
-            <!-- Header -->
-            <div class="border-b border-slate-200 pb-6">
-                <h2 class="text-2xl font-bold text-slate-900">OOP With Java</h2>
+    <!-- Decorative Background Elements -->
+    <div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-50 blur-[120px]"></div>
+        <div class="absolute bottom-[-5%] left-[-5%] w-[30%] h-[30%] rounded-full bg-blue-50 blur-[100px]"></div>
+    </div>
+
+    <main class="max-w-3xl mx-auto px-6 py-16 lg:py-24">
+        
+        <!-- Header Section -->
+        <header class="mb-12 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-wider">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                Course Portal
             </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+                OOP with <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">Java</span>
+            </h1>
+            <p class="text-lg text-slate-500 max-w-xl leading-relaxed">
+                A structured guide to mastering Object-Oriented Programming concepts, from fundamentals to advanced method implementation.
+            </p>
+        </header>
 
-			<div class="max-w-4xl mx-auto mb-4 px-4 sm:px-6 lg:px-8 bg-orange-50 border border-orange-200 text-orange-800 py-3 rounded-md">
-			  <p class="text-sm">
-				Vibe-coded and re-interpreted based on SP Java OOP Notes
-			  </p>
-			  <p style="font-size: 1.2em; margin-top: 5px; margin-bottom: 10px">
-				  https://simplecodeworker.github.io/jstart/
-			  </p>
-			</div>
-
-            <!-- Curriculum List -->
-            <div class="space-y-4" id="curriculum">
-                <!-- Lesson 1-->
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <button onclick="toggleModule('mod0')" class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">00</span>
-                            <div class="text-left">
-                                <h3 class="font-bold text-slate-900 text-lg">Common Concepts</h3>
-                            </div>
-                        </div>
-						<svg id="icon-mod0" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="mod0" class="module-content p-2 space-y-1" style="max-height: 0px;">
-                        <a href="common-anatomy.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Anatomical Terms of a Java Program</h4>
-                            </div>
-                        </a>
-
-                        <a href="common-flowchart.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Common Flowchart Symbols</h4>
-                            </div>
-                        </a>
-
-						<a href="common-debugging.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Debugging for Beginners</h4>
-                            </div>
-                        </a>
-
-                        <a href="j002-05.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Java Naming Conventions</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-
-						 <a href="https://www.sciencebuddies.org/science-fair-projects/references/ascii-table" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Reference: ASCII table</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-                    </div>
-				</div>
-				
-                <!-- Lesson 1-->
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <button onclick="toggleModule('mod1')" class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">01</span>
-                            <div class="text-left">
-                                <h3 class="font-bold text-slate-900 text-lg">Lesson 1: Introducing Java</h3>
-                            </div>
-                        </div>
-						<svg id="icon-mod1" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="mod1" class="module-content p-2 space-y-1" style="max-height: 0px;">
-                        <a href="j001-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">#1: Programming Paradigms and History of Programming Paradigms</h4>
-                            </div>
-                        </a>
-
-                        <a href="j001-02.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">#2: What's next after Java Standard Edition?</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-
-                        <a href="j001-04.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Reference: JOptionPane Visual Guide</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-						
-                        <a href="j001-05-codeexplainer.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Example: WelcomeInMessageDialogBox.java - Code Explainer</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-                    </div>
-				</div>
-					
-                <!--Lesson 2 -->
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <button onclick="toggleModule('mod2')"  class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">02</span>
-                            <div class="text-left">
-                                <h3 class="font-bold text-slate-900 text-lg">Lesson 2: Variables, Data Types and Reading/Displaying Values</h3>
-                            </div>
-                        </div>
-						<svg id="icon-mod2" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="mod2" class="module-content p-2 space-y-1" style="max-height: 0px;">
-                        <a href="j002-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">#1: Variables, Data Types & Syntax</h4>
-                            </div>
-                        </a>
-
-                        <a href="j002-03.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">#2: Java Type Casting Visualizer</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-
-                        <a href="j002-04.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">#3: Scanner and Printf I/O Playground</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-
-                        <a href="j002-eg01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Example: ComputeArea.java - Code Explainer</h4>
-                                <!-- <p class="text-xs text-slate-400">Implicit and explicit casting</p> -->
-                            </div>
-                        </a>
-                    </div>
-					
-                </div>
-				
-                <!-- Lesson 3-->
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <button onclick="toggleModule('mod3')" class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">03</span>
-                            <div class="text-left">
-                                <h3 class="font-bold text-slate-900 text-lg">Lesson 3: Control Statements</h3>
-                            </div>
-                        </div>
-						<svg id="icon-mod3" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="mod3" class="module-content p-2 space-y-1" style="max-height: 0px;">
-						<!-- j003-review-q2_2.html -->
-                        <a href="j003-review-q2_2.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Review on Practical Q2_2</h4>
-                            </div>
-                        </a>
-						<a href="j003-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Introduction to Control Flow and If..Else </h4>
-                            </div>
-                        </a>
-                        <a href="j003-02.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Switch Statements </h4>
-                            </div>
-                        </a>
-                        <a href="j003-03.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Loops: While, Do while, For, Enhanced For </h4>
-                            </div>
-                        </a>
-                    </div>
-				</div> <!-- end of lesson -->
-
-                <!-- Lesson 4-->
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
-                    <button onclick="toggleModule('mod4')" class="w-full px-6 py-5 flex items-center justify-between bg-slate-50/50 border-b border-slate-100">
-                        <div class="flex items-center gap-4">
-                            <span class="flex-shrink-0 w-8 h-8 bg-white border border-slate-200 rounded-lg flex items-center justify-center text-xs font-bold text-slate-500">04</span>
-                            <div class="text-left">
-                                <h3 class="font-bold text-slate-900 text-lg">Lesson 4: Methods</h3>
-                            </div>
-                        </div>
-						<svg id="icon-mod4" class="w-5 h-5 text-slate-400 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="mod4" class="module-content p-2 space-y-1" style="max-height: 0px;">
-						<a href="j004-01.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Introduction to Methods</h4>
-                            </div>
-                        </a>
-						<a href="j004-02.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Method Invocation</h4>
-                            </div>
-                        </a>
-						<a href="j004-03.html" target="_blank" class="lesson-link flex items-center gap-4 p-4 rounded-xl hover:bg-blue-50 group transition-all">
-                            <div class="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-blue-600 group-hover:border-blue-200 group-hover:shadow-sm">
-                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
-                            </div>
-                            <div class="flex-1 text-left">
-                                <h4 class="text-sm font-semibold text-slate-800 group-hover:text-blue-700">Advanced Concepts: Overloading, Scope and others</h4>
-                            </div>
-                        </a>
-                    </div>
-				</div> <!-- end of lesson -->
-				
+        <!-- Attribution Box -->
+        <div class="mb-10 p-5 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+                <p class="text-sm font-medium text-slate-600">Based on SP Java OOP Notes</p>
+                <a href="https://simplecodeworker.github.io/jstart/" target="_blank" class="text-indigo-600 hover:text-indigo-700 text-sm font-semibold break-all flex items-center gap-1 group">
+                    simplecodeworker.github.io/jstart/
+                    <svg class="w-3 h-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+            </div>
+            <div class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-400 font-mono">
+                vibe-coded v2.0
             </div>
         </div>
+
+        <!-- Curriculum Grid -->
+        <div class="space-y-4" id="curriculum">
+            
+            <!-- Module 0 -->
+            <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:border-indigo-200">
+                <button onclick="toggleModule('mod0')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-slate-200">00</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">Common Concepts</h3>
+                            <p class="text-xs text-slate-400 font-medium">5 Resources • Prerequisites</p>
+                        </div>
+                    </div>
+                    <svg id="icon-mod0" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div id="mod0" class="accordion-content">
+                    <div class="accordion-inner px-2 pb-2 space-y-1">
+                        <div class="h-px bg-slate-100 mx-4 mb-2"></div>
+                        <a href="common-anatomy.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white group-hover/item:shadow-sm transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Anatomical Terms of a Java Program</span>
+                        </a>
+                        <a href="common-flowchart.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Common Flowchart Symbols</span>
+                        </a>
+                        <a href="common-debugging.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-rose-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center text-rose-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-rose-700">Debugging for Beginners</span>
+                        </a>
+                        <a href="j002-05.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Java Naming Conventions</span>
+                        </a>
+                        <a href="https://www.sciencebuddies.org/science-fair-projects/references/ascii-table" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-amber-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center text-amber-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16m-7 6h7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-amber-700">Reference: ASCII Table</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 1 -->
+            <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:border-indigo-200">
+                <button onclick="toggleModule('mod1')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-indigo-100">01</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">Lesson 1: Introducing Java</h3>
+                            <p class="text-xs text-slate-400 font-medium">4 Lessons • Introduction</p>
+                        </div>
+                    </div>
+                    <svg id="icon-mod1" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div id="mod1" class="accordion-content">
+                    <div class="accordion-inner px-2 pb-2 space-y-1">
+                        <div class="h-px bg-slate-100 mx-4 mb-2"></div>
+                        <a href="j001-01.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#1</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700 leading-tight">Programming Paradigms and History</span>
+                        </a>
+                        <a href="j001-02.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#2</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700 leading-tight">What's next after Java SE?</span>
+                        </a>
+                        <a href="j001-04.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-amber-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-width="2"/><path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-amber-700 leading-tight">Reference: JOptionPane Visual Guide</span>
+                        </a>
+                        <a href="j001-05-codeexplainer.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-emerald-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-emerald-700 leading-tight">Example: WelcomeInMessageDialogBox.java</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:border-indigo-200">
+                <button onclick="toggleModule('mod2')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-indigo-100">02</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">Lesson 2: Data & I/O</h3>
+                            <p class="text-xs text-slate-400 font-medium">4 Lessons • Variables & Types</p>
+                        </div>
+                    </div>
+                    <svg id="icon-mod2" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div id="mod2" class="accordion-content">
+                    <div class="accordion-inner px-2 pb-2 space-y-1">
+                        <div class="h-px bg-slate-100 mx-4 mb-2"></div>
+                        <a href="j002-01.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#1</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Variables, Data Types & Syntax</span>
+                        </a>
+                        <a href="j002-03.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#2</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Java Type Casting Visualizer</span>
+                        </a>
+                        <a href="j002-04.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#3</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Scanner and Printf I/O Playground</span>
+                        </a>
+                        <a href="j002-eg01.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-emerald-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-emerald-700">Example: ComputeArea.java</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:border-indigo-200">
+                <button onclick="toggleModule('mod3')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-indigo-100">03</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">Lesson 3: Control Statements</h3>
+                            <p class="text-xs text-slate-400 font-medium">4 Lessons • Logic & Loops</p>
+                        </div>
+                    </div>
+                    <svg id="icon-mod3" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div id="mod3" class="accordion-content">
+                    <div class="accordion-inner px-2 pb-2 space-y-1">
+                        <div class="h-px bg-slate-100 mx-4 mb-2"></div>
+                        <a href="j003-review-q2_2.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-violet-100 flex items-center justify-center text-violet-600 group-hover/item:bg-white transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-violet-700">Review on Practical Q2_2</span>
+                        </a>
+                        <a href="j003-01.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#1</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Intro to Control Flow & If..Else</span>
+                        </a>
+                        <a href="j003-02.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#2</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Switch Statements</span>
+                        </a>
+                        <a href="j003-03.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#3</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Loops: While, For, Enhanced For</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="group bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all hover:border-indigo-200">
+                <button onclick="toggleModule('mod4')" class="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors">
+                    <div class="flex items-center gap-5">
+                        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-indigo-100">04</div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-slate-800 text-lg group-hover:text-indigo-600 transition-colors">Lesson 4: Methods</h3>
+                            <p class="text-xs text-slate-400 font-medium">3 Lessons • Functions & Scope</p>
+                        </div>
+                    </div>
+                    <svg id="icon-mod4" class="w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div id="mod4" class="accordion-content">
+                    <div class="accordion-inner px-2 pb-2 space-y-1">
+                        <div class="h-px bg-slate-100 mx-4 mb-2"></div>
+                        <a href="j004-01.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#1</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Introduction to Methods</span>
+                        </a>
+                        <a href="j004-02.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#2</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700">Method Invocation</span>
+                        </a>
+                        <a href="j004-03.html" target="_blank" class="lesson-card flex items-center gap-4 p-4 rounded-xl hover:bg-indigo-50 group/item">
+                            <div class="w-10 h-10 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover/item:bg-white transition-all">
+                                <span class="text-xs font-bold">#3</span>
+                            </div>
+                            <span class="text-sm font-semibold text-slate-700 group-hover/item:text-indigo-700 leading-tight">Advanced: Overloading & Scope</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-20 pt-8 border-t border-slate-200 text-center">
+            <p class="text-slate-400 text-sm">
+                Designed for optimal learning flow. Stay curious.
+            </p>
+        </footer>
     </main>
+
     <script>
+        /**
+         * Toggles the accordion with a smooth height animation
+         * @param {string} id - The ID of the content element
+         */
         function toggleModule(id) {
             const content = document.getElementById(id);
             const icon = document.getElementById('icon-' + id);
-            
-            // If the section is currently open (has max-height set)
-            if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                content.style.maxHeight = '0px';
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                // Set max-height to its scrollHeight to animate opening
-                content.style.maxHeight = content.scrollHeight + 'px';
+            const isOpening = !content.classList.contains('open');
+
+            if (isOpening) {
+                content.classList.add('open');
                 icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.remove('open');
+                icon.style.transform = 'rotate(0deg)';
             }
         }
 
-        // Initialize with the module open by default
+        // Initialize state (all collapsed)
         window.onload = () => {
-            // toggleModule('mod1');
+            // Automatic toggles removed to keep everything collapsed initially
         };
     </script>
 </body>
