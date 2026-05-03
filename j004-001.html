@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Methods: A Beginner's Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .step-active {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+        .method-part:hover {
+            outline: 2px solid #3b82f6;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Navigation Progress Bar -->
+    <nav class="fixed top-0 left-0 w-full h-1 bg-slate-200 z-50">
+        <div id="scroll-progress" class="h-full bg-blue-600 w-0 transition-all duration-100"></div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-slate-900 text-white py-12 px-4 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Lecture 4: Introducing Methods</h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">Mastering the building blocks of modular programming in Java.</p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="#section1" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-full font-semibold transition">Start Lesson</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12 space-y-32">
+
+        <!-- SECTION 1: INTRODUCTION -->
+        <section id="section1" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">1</span>
+                <h2 class="text-3xl font-bold">Introduction & Objectives</h2>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                <p class="text-lg leading-relaxed text-slate-600 mb-8">
+                    Methods are the foundation of <span class="font-semibold text-slate-900">modular programming</span>. 
+                    Instead of writing one giant wall of code, we break complex tasks into smaller, manageable, and reusable blocks.
+                </p>
+                
+                <h3 class="text-xl font-semibold mb-6">Learning Milestones</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
+                        <div class="text-blue-600 mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <p>Create and invoke methods</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
+                        <div class="text-blue-600 mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <p>Pass parameters to methods</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
+                        <div class="text-blue-600 mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <p>Learn method overloading</p>
+                    </div>
+                    <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-lg">
+                        <div class="text-blue-600 mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <p>Understand local variable scope</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BENEFITS -->
+        <section id="section2" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">2</span>
+                <h2 class="text-3xl font-bold">Understanding Methods</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Tidy Code</h4>
+                    <p class="text-slate-600 text-sm">Organizes code into logical units, making it easier to read and debug.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Reusability</h4>
+                    <p class="text-slate-600 text-sm">Write once, call many times. Reduces redundancy across your program.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h4 class="font-bold text-lg mb-2">Encapsulation</h4>
+                    <p class="text-slate-600 text-sm">Hides complex internal logic. Users only need to know how to call the method.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 bg-blue-50 p-8 rounded-2xl border-l-4 border-blue-500">
+                <p class="italic text-blue-900 font-medium">"A method resides inside a class and represents a collection of statements that execute together to perform an operation."</p>
+            </div>
+        </section>
+
+        <!-- SECTION 3: STRUCTURE & SIMULATOR -->
+        <section id="section3" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">3</span>
+                <h2 class="text-3xl font-bold">Structure & Syntax</h2>
+            </div>
+
+            <div class="bg-slate-900 rounded-2xl overflow-hidden shadow-xl mb-12">
+                <div class="bg-slate-800 px-6 py-3 flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="ml-4 text-slate-400 text-sm code-font">MethodExample.java</span>
+                </div>
+                <div class="p-8 text-slate-300 code-font text-lg leading-relaxed">
+                    <div><span class="text-blue-400">public static int</span> <span class="text-yellow-400">max</span>(<span class="text-blue-400">int</span> num1, <span class="text-blue-400">int</span> num2) <span class="text-slate-500">// Header</span></div>
+                    <div>{ <span class="text-slate-500">// Body starts</span></div>
+                    <div class="pl-8">  <span class="text-blue-400">int</span> result = <span class="text-purple-400">0</span>;</div>
+                    <div class="pl-8">  <span class="text-pink-400">if</span> (num1 > num2)</div>
+                    <div class="pl-12">    result = num1;</div>
+                    <div class="pl-8">  <span class="text-pink-400">else</span></div>
+                    <div class="pl-12">    result = num2;</div>
+                    <div class="pl-8">  <span class="text-pink-400">return</span> result;</div>
+                    <div>}</div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-blue-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    Interactive Logic Simulator: max()
+                </h3>
+                <p class="mb-8 text-slate-600">Input two numbers to see how the logic flows inside the method body.</p>
+                
+                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div class="space-y-4 w-full md:w-1/3">
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">num1 (Input)</label>
+                            <input type="number" id="sim-num1" value="15" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">num2 (Input)</label>
+                            <input type="number" id="sim-num2" value="24" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                        </div>
+                        <button onclick="runSimulation()" class="w-full bg-slate-900 text-white py-3 rounded-lg font-bold hover:bg-slate-800 transition">Execute Method</button>
+                    </div>
+
+                    <div class="w-full md:w-2/3 bg-slate-50 p-6 rounded-xl border border-slate-200 relative overflow-hidden">
+                        <div class="space-y-3 code-font text-sm">
+                            <div id="step-1" class="p-2 rounded border border-transparent transition-colors">1. Comparing: <span class="val1">15</span> > <span class="val2">24</span> ?</div>
+                            <div id="step-2" class="p-2 rounded border border-transparent transition-colors">2. Result: <span id="sim-logic">...</span></div>
+                            <div id="step-3" class="p-2 rounded border border-transparent font-bold transition-colors">3. Returning: <span id="sim-return" class="text-blue-600">?</span></div>
+                        </div>
+                        <!-- Simple visual indicator -->
+                        <div class="mt-6 flex items-center justify-center h-20 bg-white rounded border border-dashed border-slate-300">
+                            <span id="sim-status" class="text-slate-400 font-medium">Ready to run...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: HEADER BREAKDOWN -->
+        <section id="section4" class="scroll-mt-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold">4</span>
+                <h2 class="text-3xl font-bold">Breaking Down the Header</h2>
+            </div>
+
+            <p class="text-lg text-slate-600 mb-8">Click each part of the method header to understand its role.</p>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+                <div class="flex flex-wrap justify-center gap-2 mb-12 py-8 bg-slate-50 rounded-xl">
+                    <span onclick="inspectHeader('modifier')" class="method-part px-4 py-2 bg-blue-100 text-blue-700 rounded-lg code-font font-bold text-xl transition-all">public static</span>
+                    <span onclick="inspectHeader('return')" class="method-part px-4 py-2 bg-green-100 text-green-700 rounded-lg code-font font-bold text-xl transition-all">int</span>
+                    <span onclick="inspectHeader('name')" class="method-part px-4 py-2 bg-yellow-100 text-yellow-700 rounded-lg code-font font-bold text-xl transition-all">max</span>
+                    <span onclick="inspectHeader('params')" class="method-part px-4 py-2 bg-purple-100 text-purple-700 rounded-lg code-font font-bold text-xl transition-all">(int num1, int num2)</span>
+                </div>
+
+                <div id="inspector-box" class="min-h-[200px] border-t pt-8">
+                    <h4 id="inspector-title" class="text-2xl font-bold mb-4 text-slate-800 italic">Select a component above...</h4>
+                    <div id="inspector-content" class="text-slate-600 leading-relaxed text-lg">
+                        Learning points will appear here as you click.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 grid md:grid-cols-2 gap-8">
+                <div class="bg-slate-900 text-white p-8 rounded-2xl">
+                    <h4 class="text-blue-400 font-bold mb-4 uppercase tracking-widest text-xs">Knowledge Drop: Signatures</h4>
+                    <p class="text-lg mb-4">A <span class="text-white font-bold underline decoration-blue-500">Method Signature</span> consists ONLY of:</p>
+                    <div class="p-4 bg-slate-800 rounded border border-slate-700 code-font">
+                        methodName (formalParameterList)
+                    </div>
+                    <p class="mt-4 text-slate-400 text-sm">Note: This does not include modifiers or return types!</p>
+                </div>
+                <div class="bg-white border border-slate-200 p-8 rounded-2xl">
+                    <h4 class="text-green-600 font-bold mb-4 uppercase tracking-widest text-xs">The Void Rule</h4>
+                    <p class="text-slate-700 mb-4">If a method performs an action (like printing) but gives nothing back to the caller, use the keyword <span class="code-font font-bold">void</span>.</p>
+                    <div class="p-4 bg-slate-50 rounded border border-slate-200 code-font text-sm">
+                        public static <span class="text-red-600 font-bold">void</span> sayHello() { ... }
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- QUIZ SECTION -->
+        <section id="quiz" class="scroll-mt-20 border-t pt-20 pb-40">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Final Check!</h2>
+                <p class="text-slate-600">Test your knowledge before finishing the lesson.</p>
+            </div>
+
+            <div class="space-y-8 max-w-2xl mx-auto">
+                <!-- Q1 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <p class="text-lg font-bold mb-6">1. Which part of the header defines the data type sent back to the caller?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkQuiz(1, 'A', 'Correct! It specifies if you get an int, double, etc.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">A. Return Value Type</button>
+                        <button onclick="checkQuiz(1, 'B', 'Incorrect. The modifier (like public) defines access level, not data types.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">B. Modifier</button>
+                        <button onclick="checkQuiz(1, 'C', 'Incorrect. The signature is the name and parameters combined.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">C. Method Signature</button>
+                    </div>
+                    <div id="q1-feedback" class="mt-4 hidden p-3 rounded-lg font-medium"></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <p class="text-lg font-bold mb-6">2. If a method doesn't return anything, which keyword must be used?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkQuiz(2, 'A', 'Incorrect. null is a value, void is a keyword indicating no return.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">A. null</button>
+                        <button onclick="checkQuiz(2, 'B', 'Correct! void tells Java this method has no return value.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">B. void</button>
+                        <button onclick="checkQuiz(2, 'C', 'Incorrect. static determines if you need an object to call it.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">C. static</button>
+                    </div>
+                    <div id="q2-feedback" class="mt-4 hidden p-3 rounded-lg font-medium"></div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                    <p class="text-lg font-bold mb-6">3. What is the benefit of Encapsulation in methods?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkQuiz(3, 'A', 'Correct! It hides complex logic so the user only cares about the result.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">A. Information hiding and simplified usage</button>
+                        <button onclick="checkQuiz(3, 'B', 'Incorrect. Making code tidy is related, but the specific benefit of hiding logic is encapsulation.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">B. It makes the computer run faster</button>
+                        <button onclick="checkQuiz(3, 'C', 'Incorrect. Reusability is a separate benefit.')" class="quiz-btn text-left p-4 rounded-xl border border-slate-200 hover:border-blue-500 hover:bg-blue-50 transition">C. It allows the method to be used multiple times</button>
+                    </div>
+                    <div id="q3-feedback" class="mt-4 hidden p-3 rounded-lg font-medium"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 px-4 text-center border-t border-slate-800">
+        <p>© 2025 Java Beginners Curriculum - Module 4</p>
+    </footer>
+
+    <script>
+        // Scroll Progress Handler
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+        };
+
+        // Section 3: Simulator Logic
+        function runSimulation() {
+            const n1 = parseInt(document.getElementById('sim-num1').value);
+            const n2 = parseInt(document.getElementById('sim-num2').value);
+            
+            const s1 = document.getElementById('step-1');
+            const s2 = document.getElementById('step-2');
+            const s3 = document.getElementById('step-3');
+            const status = document.getElementById('sim-status');
+            const logicTxt = document.getElementById('sim-logic');
+            const returnTxt = document.getElementById('sim-return');
+
+            // Reset
+            [s1, s2, s3].forEach(el => el.classList.remove('step-active'));
+            status.textContent = "Processing...";
+            status.className = "text-blue-600 font-bold animate-pulse";
+
+            setTimeout(() => {
+                s1.classList.add('step-active');
+                s1.querySelector('.val1').textContent = n1;
+                s1.querySelector('.val2').textContent = n2;
+            }, 500);
+
+            setTimeout(() => {
+                s2.classList.add('step-active');
+                if (n1 > n2) {
+                    logicTxt.textContent = `${n1} is larger. Setting result to ${n1}.`;
+                    returnTxt.textContent = n1;
+                } else if (n2 > n1) {
+                    logicTxt.textContent = `${n2} is larger. Setting result to ${n2}.`;
+                    returnTxt.textContent = n2;
+                } else {
+                    logicTxt.textContent = "They are equal. Setting result to " + n1;
+                    returnTxt.textContent = n1;
+                }
+            }, 1500);
+
+            setTimeout(() => {
+                s3.classList.add('step-active');
+                status.textContent = "Success! Value returned.";
+                status.className = "text-green-600 font-bold";
+            }, 2500);
+        }
+
+        // Section 4: Inspector Logic
+        const headerInfo = {
+            'modifier': {
+                title: 'Modifiers (public static)',
+                text: '<ul class="list-disc pl-5 space-y-2"><li><b>public:</b> The method can be accessed from any class in your project.</li><li><b>static:</b> The method belongs to the class itself. You can call it without creating an object!</li></ul>'
+            },
+            'return': {
+                title: 'Return Value Type (int)',
+                text: '<p>Defines the type of data the method sends back to whoever called it.</p><p class="mt-2">Examples: <code>int</code>, <code>double</code>, <code>char</code>, or <code>boolean</code>. Use <code>void</code> if nothing is returned.</p>'
+            },
+            'name': {
+                title: 'Method Name (max)',
+                text: '<p>The identifier used to invoke (call) the method. Names should be verbs or phrases that describe the action.</p><p class="mt-2 italic">Standard: camelCase (e.g., computeAverage, printDetails).</p>'
+            },
+            'params': {
+                title: 'Formal Parameter List',
+                text: '<p>Act as placeholders for incoming data. Each parameter needs a type and a name.</p><p class="mt-2">Example: <code>(int num1, int num2)</code> tells Java to expect two integers when the method is used.</p>'
+            }
+        };
+
+        function inspectHeader(part) {
+            const info = headerInfo[part];
+            document.getElementById('inspector-title').innerHTML = info.title;
+            document.getElementById('inspector-content').innerHTML = info.text;
+            
+            // Visual feedback on the buttons
+            document.querySelectorAll('.method-part').forEach(el => el.classList.remove('ring-4', 'ring-blue-400'));
+            event.target.classList.add('ring-4', 'ring-blue-400');
+        }
+
+        // Quiz Logic
+        function checkQuiz(qNum, choice, explanation) {
+            const feedback = document.getElementById(`q${qNum}-feedback`);
+            feedback.classList.remove('hidden', 'bg-green-100', 'text-green-800', 'bg-red-100', 'text-red-800');
+            
+            const isCorrect = explanation.startsWith('Correct');
+            feedback.classList.add(isCorrect ? 'bg-green-100' : 'bg-red-100');
+            feedback.classList.add(isCorrect ? 'text-green-800' : 'text-red-800');
+            feedback.textContent = (isCorrect ? '✅ ' : '❌ ') + explanation;
+        }
+    </script>
+</body>
+</html>
