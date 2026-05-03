@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Masterclass: Advanced Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .lesson-section {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 1rem;
+            scroll-margin-top: 4rem;
+        }
+
+        .correct-answer {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+        }
+
+        .wrong-answer {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .scope-box {
+            transition: all 0.3s ease;
+        }
+
+        .scope-active {
+            border: 2px solid #3b82f6;
+            background-color: #eff6ff;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 text-white p-1.5 rounded-lg">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight">JavaMethods<span class="text-blue-600">Pro</span></span>
+            </div>
+            <div class="hidden md:flex gap-6 text-sm font-medium text-slate-600">
+                <a href="#section9" class="hover:text-blue-600 transition">Overloading</a>
+                <a href="#section10" class="hover:text-blue-600 transition">Scope</a>
+                <a href="#section11" class="hover:text-blue-600 transition">Math API</a>
+                <a href="#section12" class="hover:text-blue-600 transition">System Out</a>
+                <a href="#quiz" class="hover:text-blue-600 transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Header -->
+    <header class="pt-32 pb-16 px-4 text-center bg-gradient-to-b from-blue-50 to-slate-50">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-4">Advanced Concepts on Methods</h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">Master method overloading, variable scope, and the power of the Java API Math class.</p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="#section9" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Start Learning</a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4">
+
+        <!-- SECTION 9: METHOD OVERLOADING -->
+        <section id="section9" class="lesson-section border-b border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-bold uppercase">Section 9</span>
+                <h2 class="text-3xl font-bold">Method Overloading</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <p class="text-slate-600 leading-relaxed text-lg">
+                        Method overloading allows multiple methods to share the <span class="font-semibold text-blue-600 underline">same name</span> but have a <span class="font-semibold text-blue-600 underline">different signature</span>.
+                    </p>
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                        <h4 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> What Counts?</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Different number of parameters</li>
+                            <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Different types of parameters</li>
+                        </ul>
+                        <h4 class="font-bold mt-4 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-500"></i> What DOESN'T?</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex gap-2 text-slate-500"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> Changing just the Return Type</li>
+                            <li class="flex gap-2 text-slate-500"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> Changing just Modifiers (public/static)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interactive Overloading Simulator -->
+                <div class="bg-slate-900 rounded-xl p-6 shadow-2xl overflow-hidden text-white">
+                    <h3 class="text-blue-400 font-bold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-flask"></i> Simulator: The Compiler Choice
+                    </h3>
+                    <p class="text-xs text-slate-400 mb-4 italic">The compiler picks the "best match" signature.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="text-xs space-y-2 mb-6 border-b border-slate-700 pb-4">
+                            <div class="text-green-400"># Available Methods:</div>
+                            <div class="code-font bg-slate-800 p-2 rounded">1. max(int a, int b)</div>
+                            <div class="code-font bg-slate-800 p-2 rounded">2. max(char a, char b)</div>
+                            <div class="code-font bg-slate-800 p-2 rounded">3. max(int a, int b, int c)</div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs text-slate-400">Simulate calling:</label>
+                            <select id="overload-select" class="w-full bg-slate-800 border border-slate-700 rounded p-2 code-font text-sm">
+                                <option value="int">max(10, 20)</option>
+                                <option value="char">max('A', 'Z')</option>
+                                <option value="triple">max(5, 15, 10)</option>
+                                <option value="error">max(5.5, 2.1) // WRONG</option>
+                            </select>
+                        </div>
+                        
+                        <div id="compiler-output" class="mt-4 p-3 rounded bg-blue-900/30 border border-blue-500/30 text-sm italic">
+                            Compiler: Waiting for call...
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Code Examples Breakdown</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-3 bg-red-50 border-l-4 border-red-500 rounded text-sm">
+                        <span class="font-bold text-red-700">INVALID</span>
+                        <pre class="code-font mt-2">public static int max(int n1, int n2) { ... }
+public static float max(int n1, int n2) { ... }</pre>
+                        <p class="mt-2 text-red-600">Error: Signatures (int, int) are identical! Return type doesn't matter.</p>
+                    </div>
+                    <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded text-sm">
+                        <span class="font-bold text-green-700">VALID</span>
+                        <pre class="code-font mt-2">public static int max(int n1, int n2) { ... }
+public static int max(int n1, int n2, int n3) { ... }</pre>
+                        <p class="mt-2 text-green-600">Success: Different parameter counts make unique signatures.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10: SCOPE OF VARIABLES -->
+        <section id="section10" class="lesson-section border-b border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-bold uppercase">Section 10</span>
+                <h2 class="text-3xl font-bold">Scope of Variables</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 mb-8">
+                <div>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Scope defines where a variable is "alive" and accessible. In Java, local variables are bound by their containing <span class="bg-yellow-100 px-1 font-semibold">{ brackets }</span>.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 items-start p-4 bg-white rounded-lg shadow-sm">
+                            <div class="bg-purple-100 p-2 rounded"><i class="fa-solid fa-eye text-purple-600"></i></div>
+                            <div>
+                                <h4 class="font-bold">Visibility</h4>
+                                <p class="text-sm text-slate-500">Variables declared inside a method (like max) aren't visible to main.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 items-start p-4 bg-white rounded-lg shadow-sm">
+                            <div class="bg-orange-100 p-2 rounded"><i class="fa-solid fa-ghost text-orange-600"></i></div>
+                            <div>
+                                <h4 class="font-bold">Variable Hiding</h4>
+                                <p class="text-sm text-slate-500">Outer variables are hidden if an inner block re-declares the same name.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scope Visualizer -->
+                <div class="bg-white rounded-xl p-6 border border-slate-200">
+                    <h4 class="font-bold mb-4 text-slate-800">Scope Life-Cycle Interactive</h4>
+                    <div class="space-y-2">
+                        <div id="scope-main" class="scope-box p-4 rounded-lg border-2 border-dashed border-slate-300 text-xs code-font">
+                            public static void main(...) {
+                                <div class="my-2 py-1 px-2 bg-blue-100 rounded inline-block text-blue-800">int x = 5;</div>
+                                <div id="scope-block" class="scope-box p-4 mt-2 border-2 border-dashed border-slate-300 rounded-lg">
+                                    if(true) {
+                                        <div class="my-1 py-1 px-2 bg-purple-100 rounded inline-block text-purple-800">int y = 10;</div>
+                                        <div class="mt-1 opacity-50">// y is alive here</div>
+                                    }
+                                </div>
+                                <div class="mt-2 opacity-50">// y is DEAD here!</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 mt-4">
+                            <button onclick="highlightScope('main')" class="bg-blue-50 text-blue-600 border border-blue-200 px-3 py-1 rounded-md text-sm hover:bg-blue-600 hover:text-white transition">Main Scope</button>
+                            <button onclick="highlightScope('block')" class="bg-purple-50 text-purple-600 border border-purple-200 px-3 py-1 rounded-md text-sm hover:bg-purple-600 hover:text-white transition">Inner Block</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Added Code Examples for Scope -->
+            <div class="bg-white p-6 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Practical Scope Examples</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase">1. Method Isolation</span>
+                            <pre class="code-font text-xs mt-2 text-slate-700">
+public static void main(String[] args) {
+    int x = 10;
+    anotherMethod();
+    // System.out.println(y); // ERROR!
+}
+
+public static void anotherMethod() {
+    int y = 20; 
+    // y is only visible here
+}</pre>
+                            <p class="mt-2 text-xs text-slate-500">Variables like <code class="bg-slate-200 px-1 rounded text-slate-800">y</code> cannot be accessed outside the method they were declared in.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
+                            <span class="text-xs font-bold text-slate-400 uppercase">2. Variable Hiding (Nested)</span>
+                            <pre class="code-font text-xs mt-2 text-slate-700">
+public static void main(String[] args) {
+    int i = 1;
+    for (int k = 0; k < 5; k++) {
+        // int i = 2; // COMPILER ERROR
+        // Cannot re-declare 'i' in same scope
+    }
+}</pre>
+                            <p class="mt-2 text-xs text-slate-500">You cannot declare a variable with the same name if it's already "visible" in an outer block.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+                    <p class="text-sm text-blue-700">
+                        <i class="fa-solid fa-lightbulb mr-2"></i><strong>Important Rule:</strong> Local variables must be <strong>initialized</strong> before use. If you declare <code class="bg-blue-100 px-1 rounded">int x;</code> and try to print it without giving it a value, Java will throw a compilation error.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 11: JAVA API AND THE MATH CLASS -->
+        <section id="section11" class="lesson-section border-b border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-bold uppercase">Section 11</span>
+                <h2 class="text-3xl font-bold">Java API & Math Class</h2>
+            </div>
+
+            <div class="bg-blue-900 text-white p-8 rounded-2xl mb-8 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-4">The `java.lang.Math` Class</h3>
+                    <p class="text-blue-100 mb-6">All methods in Math are <span class="font-bold underline text-white">static</span>. No need to create an object!</p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm text-center">
+                            <div class="text-blue-300 text-xs mb-1">Trig</div>
+                            <code class="font-bold">sin()</code>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm text-center">
+                            <div class="text-blue-300 text-xs mb-1">Exponent</div>
+                            <code class="font-bold">pow()</code>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm text-center">
+                            <div class="text-blue-300 text-xs mb-1">Rounding</div>
+                            <code class="font-bold">round()</code>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-lg backdrop-blur-sm text-center">
+                            <div class="text-blue-300 text-xs mb-1">Constants</div>
+                            <code class="font-bold">PI, E</code>
+                        </div>
+                    </div>
+
+                    <!-- Live Math Runner -->
+                    <div class="bg-slate-800/80 p-4 rounded-xl border border-white/20">
+                        <h4 class="text-sm font-bold text-blue-400 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-calculator"></i> Interactive Math Playground
+                        </h4>
+                        <div class="flex flex-wrap gap-4 items-end">
+                            <div>
+                                <label class="text-[10px] uppercase block mb-1">Select Method</label>
+                                <select id="math-method" class="bg-slate-900 text-sm p-2 rounded border border-slate-700 outline-none">
+                                    <option value="sqrt">Math.sqrt(x)</option>
+                                    <option value="pow">Math.pow(x, 2)</option>
+                                    <option value="abs">Math.abs(x)</option>
+                                    <option value="random">Math.random()</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="text-[10px] uppercase block mb-1">Value (x)</label>
+                                <input type="number" id="math-input" value="16" class="bg-slate-900 w-24 text-sm p-2 rounded border border-slate-700 outline-none">
+                            </div>
+                            <button onclick="runMathSim()" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded text-sm font-bold transition">Calculate</button>
+                            <div class="flex-grow text-right pr-4">
+                                <span class="text-xs text-slate-400">Result:</span>
+                                <div id="math-result" class="text-2xl font-bold text-green-400">4.0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="https://docs.oracle.com/javase/10/docs/api/java/lang/Math.html" target="_blank" class="flex items-center justify-between p-4 bg-white rounded-xl border border-slate-200 hover:border-blue-300 transition group">
+                <div class="flex items-center gap-4">
+                    <div class="bg-slate-100 p-3 rounded group-hover:bg-blue-50 transition"><i class="fa-solid fa-book text-slate-600 group-hover:text-blue-600"></i></div>
+                    <div>
+                        <h5 class="font-bold text-slate-800">Official Java API Documentation</h5>
+                        <p class="text-xs text-slate-500">Explore the field summary and method signatures for java.lang.Math</p>
+                    </div>
+                </div>
+                <i class="fa-solid fa-arrow-up-right-from-square text-slate-300 group-hover:text-blue-500"></i>
+            </a>
+        </section>
+
+        <!-- SECTION 12: SYSTEM OUTPUT AND OVERLOADING -->
+        <section id="section12" class="lesson-section border-b border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-bold uppercase">Section 12</span>
+                <h2 class="text-3xl font-bold">System.out & Overloading</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-lg font-bold mb-4">Did you know?</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        `System.out.println()` is actually a collection of many <strong>overloaded</strong> methods in the `PrintStream` class!
+                    </p>
+                    <div class="space-y-2 text-xs code-font bg-slate-50 p-4 rounded-lg">
+                        <div class="text-blue-600">println(int i)</div>
+                        <div class="text-blue-600">println(double d)</div>
+                        <div class="text-blue-600">println(String s)</div>
+                        <div class="text-blue-600">println(Object obj)</div>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-2xl p-6 text-white">
+                    <h3 class="text-lg font-bold mb-4 flex items-center gap-2"><i class="fa-solid fa-terminal text-green-400"></i> String Concatenation Trap</h3>
+                    <div class="space-y-3">
+                        <div class="bg-slate-800 p-3 rounded">
+                            <div class="text-xs text-slate-500">Code:</div>
+                            <div class="text-sm code-font">"I got " + 9*10+9 + "."</div>
+                            <div class="text-xs text-slate-500 mt-2">Output:</div>
+                            <div class="text-sm font-bold text-green-400">"I got 909."</div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded">
+                            <div class="text-xs text-slate-500">Code:</div>
+                            <div class="text-sm code-font">"I got " + (9*10+9) + "."</div>
+                            <div class="text-xs text-slate-500 mt-2">Output:</div>
+                            <div class="text-sm font-bold text-green-400">"I got 99."</div>
+                        </div>
+                        <p class="text-[10px] text-slate-400 italic mt-2">* Multiplication happens before addition. Concatenation happens left-to-right unless parentheses are used.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 13: COMPREHENSION CHECKS -->
+        <section id="quiz" class="lesson-section">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold mb-2">Comprehension Check</h2>
+                <p class="text-slate-500">Test your mastery of the concepts covered today.</p>
+            </div>
+
+            <div id="quiz-container" class="space-y-12">
+                <!-- Question 1 -->
+                <div class="quiz-item glass-card p-8 rounded-3xl" data-id="1">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">1</span>
+                        <h4 class="text-lg font-bold">What is the return type of <code class="bg-slate-100 px-2 rounded">public static void setName(String n)</code>?</h4>
+                    </div>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(1, 'A', 'Wrong. The word before the name is void, not String.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">A. String</button>
+                        <button onclick="checkAnswer(1, 'B', 'Wrong. Method headers specify the return type explicitly.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">B. int</button>
+                        <button onclick="checkAnswer(1, 'C', 'Correct! "void" means the method does not return any value.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">C. void</button>
+                        <button onclick="checkAnswer(1, 'D', 'Technically true, but the data type placeholder is "void".')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">D. There is no return value.</button>
+                    </div>
+                    <div class="explanation mt-4 hidden p-4 rounded-lg text-sm font-medium"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-item glass-card p-8 rounded-3xl" data-id="2">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">2</span>
+                        <h4 class="text-lg font-bold">Which is the correct way to call <code class="bg-slate-100 px-2 rounded">Math.random()</code>?</h4>
+                    </div>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(2, 'A', 'Correct! Math.random() returns a double, which can be printed directly.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">A. System.out.print(Math.random());</button>
+                        <button onclick="checkAnswer(2, 'B', 'Wrong. You cannot assign a double to an int without explicit casting.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">B. int s = Math.random();</button>
+                        <button onclick="checkAnswer(2, 'C', 'Wrong. random() is static and requires the "Math." prefix.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">C. double d = random();</button>
+                    </div>
+                    <div class="explanation mt-4 hidden p-4 rounded-lg text-sm font-medium"></div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-item glass-card p-8 rounded-3xl" data-id="3">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">3</span>
+                        <h4 class="text-lg font-bold">What method is called by <code class="bg-slate-100 px-2 rounded">System.out.print(3 + 4.0);</code>?</h4>
+                    </div>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(3, 'A', 'Wrong. int + double promotes the whole result to 7.0 (double).')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">A. print(int i)</button>
+                        <button onclick="checkAnswer(3, 'B', 'Correct! The result 7.0 is a double, so the compiler selects the double signature.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">B. print(double d)</button>
+                        <button onclick="checkAnswer(3, 'C', 'Wrong. println is a different method that adds a new line.')" class="option-btn text-left p-4 rounded-xl border-2 border-slate-100 hover:border-blue-200 transition">C. println(double d)</button>
+                    </div>
+                    <div class="explanation mt-4 hidden p-4 rounded-lg text-sm font-medium"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 14: ADDITIONAL RESOURCES -->
+        <section class="lesson-section border-t border-slate-200">
+            <h2 class="text-3xl font-bold mb-8 text-center">Section 14: Deepen Your Learning</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-10-intro.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">Introduction</h4>
+                    <p class="text-xs text-slate-500">The basics of Java methods.</p>
+                </a>
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-15-arguments.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">Method Arguments</h4>
+                    <p class="text-xs text-slate-500">Passing data into methods.</p>
+                </a>
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-20-define.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">Defining Methods</h4>
+                    <p class="text-xs text-slate-500">Building custom method headers.</p>
+                </a>
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-35-3examples.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">3 Practical Examples</h4>
+                    <p class="text-xs text-slate-500">Real-world usage cases.</p>
+                </a>
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-45-overloading.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">Method Overloading</h4>
+                    <p class="text-xs text-slate-500">Advanced signature matching.</p>
+                </a>
+                <a href="http://www.leepoint.net/JavaBasics/methods/methods-22-local-variables.html" target="_blank" class="p-6 bg-white rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <h4 class="font-bold mb-2">Local Variables</h4>
+                    <p class="text-xs text-slate-500">Deep dive into scope rules.</p>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-4 mt-20">
+        <div class="max-w-7xl mx-auto text-center">
+            <p class="text-sm">Designed for Java Beginners &bull; Interactive Lesson App</p>
+        </div>
+    </footer>
+
+    <script>
+        // Overloading Simulator
+        const overloadSelect = document.getElementById('overload-select');
+        const compilerOutput = document.getElementById('compiler-output');
+
+        overloadSelect.addEventListener('change', (e) => {
+            const val = e.target.value;
+            let result = "";
+            switch(val) {
+                case 'int': 
+                    result = "Compiler: Match found! Invoking max(int, int).";
+                    compilerOutput.className = "mt-4 p-3 rounded bg-green-900/30 border border-green-500/30 text-sm text-green-300 italic";
+                    break;
+                case 'char':
+                    result = "Compiler: Match found! Invoking max(char, char).";
+                    compilerOutput.className = "mt-4 p-3 rounded bg-green-900/30 border border-green-500/30 text-sm text-green-300 italic";
+                    break;
+                case 'triple':
+                    result = "Compiler: Match found! Invoking max(int, int, int).";
+                    compilerOutput.className = "mt-4 p-3 rounded bg-green-900/30 border border-green-500/30 text-sm text-green-300 italic";
+                    break;
+                case 'error':
+                    result = "Compiler ERROR: No method found for max(double, double).";
+                    compilerOutput.className = "mt-4 p-3 rounded bg-red-900/30 border border-red-500/30 text-sm text-red-300 italic";
+                    break;
+            }
+            compilerOutput.innerText = result;
+        });
+
+        // Scope Highlighter
+        function highlightScope(type) {
+            document.querySelectorAll('.scope-box').forEach(el => el.classList.remove('scope-active'));
+            if(type === 'main') {
+                document.getElementById('scope-main').classList.add('scope-active');
+            } else {
+                document.getElementById('scope-block').classList.add('scope-active');
+            }
+        }
+
+        // Math Simulator
+        function runMathSim() {
+            const method = document.getElementById('math-method').value;
+            const input = parseFloat(document.getElementById('math-input').value);
+            const resultDisplay = document.getElementById('math-result');
+            
+            let res;
+            if(method === 'sqrt') res = Math.sqrt(input);
+            if(method === 'pow') res = Math.pow(input, 2);
+            if(method === 'abs') res = Math.abs(input);
+            if(method === 'random') res = Math.random();
+
+            resultDisplay.innerText = res.toFixed(3);
+        }
+
+        // Quiz Logic
+        function checkAnswer(questionId, choice, explanationText) {
+            const container = document.querySelector(`.quiz-item[data-id="${questionId}"]`);
+            const buttons = container.querySelectorAll('.option-btn');
+            const explanation = container.querySelector('.explanation');
+            
+            // Disable buttons after answer
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            });
+
+            const isCorrect = explanationText.startsWith('Correct');
+            explanation.innerText = explanationText;
+            explanation.classList.remove('hidden');
+            
+            if(isCorrect) {
+                explanation.className = "explanation mt-4 p-4 rounded-lg text-sm font-medium bg-green-100 text-green-800 border border-green-200";
+            } else {
+                explanation.className = "explanation mt-4 p-4 rounded-lg text-sm font-medium bg-red-100 text-red-800 border border-red-200";
+            }
+        }
+    </script>
+</body>
+</html>
