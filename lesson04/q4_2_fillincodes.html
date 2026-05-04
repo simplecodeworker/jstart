@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill In the Codes - Java Loops</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .blank-input {
+            background-color: #fefce8; /* yellow-50 (Lighter Yellow) */
+            color: #020617;           /* slate-950 (Darker Font) */
+            border: none;
+            border-radius: 4px;
+            padding: 2px 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            min-width: 60px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .blank-input:focus {
+            outline: 2px solid #eab308;
+            background-color: #fef9c3; /* yellow-100 */
+        }
+
+        .blank-input::placeholder {
+            color: #64748b;
+            opacity: 0.6;
+            font-weight: 400;
+        }
+
+        .keyword { color: #c678dd; }
+        .class-name { color: #e5c07b; }
+        .method-name { color: #61afef; }
+        .comment { color: #7f848e; font-style: italic; }
+        .string { color: #98c379; }
+        .type { color: #e5c07b; }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8">
+
+    <header class="max-w-4xl mx-auto w-full mb-8 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Fill In the Codes</h1>
+        <p class="text-slate-400">Master Java control flow by completing the loop implementations below.</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto w-full bg-[#1e293b] rounded-xl shadow-2xl overflow-hidden border border-slate-700">
+        <!-- Toolbar -->
+        <div class="bg-slate-800/50 px-4 py-2 border-b border-slate-700 flex items-center justify-between">
+            <div class="flex space-x-2">
+                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+            </div>
+            <span class="text-xs text-slate-500 font-mono">Test.java</span>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- Code Area -->
+        <div class="p-6 md:p-8 overflow-x-auto custom-scrollbar code-font text-sm md:text-base leading-relaxed whitespace-pre">
+<span class="keyword">public class</span> <span class="class-name">Test</span> {
+
+    <span class="comment">// (A) Using FOR loop</span>
+    <span class="keyword">public static void</span> <span class="method-name">displayMessageFor</span>(<span class="class-name">String</span> message, <span class="type">int</span> nTimes) {
+        <input type="text" id="blank1" class="blank-input" placeholder="Implement for loop..." style="width: 480px;">
+    }
+
+    <span class="comment">// (B) Using WHILE loop</span>
+    <span class="keyword">public static void</span> <span class="method-name">displayMessageWhile</span>(<span class="class-name">String</span> message, <span class="type">int</span> nTimes) {
+        <input type="text" id="blank2" class="blank-input" placeholder="Implement while loop..." style="width: 480px;">
+    }
+
+    <span class="comment">// (C) Using DO-WHILE loop</span>
+    <span class="keyword">public static void</span> <span class="method-name">displayMessageDoWhile</span>(<span class="class-name">String</span> message, <span class="type">int</span> nTimes) {
+        <input type="text" id="blank3" class="blank-input" placeholder="Implement do-while loop..." style="width: 480px;">
+    }
+
+    <span class="keyword">public static void</span> <span class="method-name">main</span>(<span class="class-name">String</span>[] args) {
+
+        <span class="class-name">System</span>.out.println(<span class="string">"Using for loop:"</span>);
+        <span class="method-name">displayMessageFor</span>(<span class="string">"Hello"</span>, 3);
+
+        <span class="class-name">System</span>.out.println(<span class="string">"\nUsing while loop:"</span>);
+        <span class="method-name">displayMessageWhile</span>(<span class="string">"Hello"</span>, 3);
+
+        <span class="class-name">System</span>.out.println(<span class="string">"\nUsing do-while loop:"</span>);
+        <span class="method-name">displayMessageDoWhile</span>(<span class="string">"Hello"</span>, 3);
+    }
+}</div>
+    </main>
+
+    <footer class="max-w-4xl mx-auto w-full mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <!--
+      
+        <button id="checkBtn" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-all shadow-lg active:scale-95 w-full md:w-auto">
+            Check Answers
+        </button>
+        <div id="feedback" class="text-sm font-medium hidden"></div>
+        <button id="resetBtn" class="text-slate-400 hover:text-white px-4 py-2 transition-all">
+            Reset All
+        </button>
+      -->
+    </footer>
+
+    <script>
+        // Defined expected standard implementations for validation
+        const blanks = {
+            blank1: "for (int i = 0; i < nTimes; i++) { System.out.println(message); }",
+            blank2: "int i = 0; while (i < nTimes) { System.out.println(message); i++; }",
+            blank3: "int i = 0; do { System.out.println(message); i++; } while (i < nTimes);"
+        };
+
+        const checkBtn = document.getElementById('checkBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const feedback = document.getElementById('feedback');
+
+        checkBtn.addEventListener('click', () => {
+            let correctCount = 0;
+            const total = Object.keys(blanks).length;
+
+            Object.keys(blanks).forEach(id => {
+                const input = document.getElementById(id);
+                // Basic normalization: remove extra spaces and compare
+                const val = input.value.trim().replace(/\s+/g, ' ');
+                const target = blanks[id].replace(/\s+/g, ' ');
+                
+                if (val === target) {
+                    input.style.backgroundColor = '#86efac'; 
+                    input.style.color = '#064e3b';
+                    correctCount++;
+                } else {
+                    input.style.backgroundColor = '#fca5a5';
+                    input.style.color = '#7f1d1d';
+                }
+            });
+
+            feedback.classList.remove('hidden', 'text-green-400', 'text-red-400', 'text-yellow-400');
+            if (correctCount === total) {
+                feedback.textContent = "🎉 Excellent! All loops are implemented correctly.";
+                feedback.classList.add('text-green-400');
+            } else if (correctCount > 0) {
+                feedback.textContent = `Progress: ${correctCount} / ${total} correct. Check your syntax!`;
+                feedback.classList.add('text-yellow-400');
+            } else {
+                feedback.textContent = "Try again! Ensure you're using the correct loop syntax.";
+                feedback.classList.add('text-red-400');
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            Object.keys(blanks).forEach(id => {
+                const input = document.getElementById(id);
+                input.value = '';
+                input.style.backgroundColor = '#fefce8';
+                input.style.color = '#020617';
+            });
+            feedback.classList.add('hidden');
+        });
+
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const minWidth = parseInt(this.style.width);
+                const tmp = document.createElement('span');
+                tmp.style.visibility = 'hidden';
+                tmp.style.whiteSpace = 'pre';
+                tmp.style.font = window.getComputedStyle(this).font;
+                tmp.textContent = this.value || this.placeholder;
+                document.body.appendChild(tmp);
+                const newWidth = Math.max(minWidth, tmp.getBoundingClientRect().width + 24);
+                this.style.width = newWidth + 'px';
+                document.body.removeChild(tmp);
+            });
+        });
+    </script>
+</body>
+</html>
