@@ -240,9 +240,30 @@
                     </div>
                 </div>
 
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 2: Arguments Must Match Parameters</h3>
+                    <p class="text-sm text-slate-600">Arguments must match parameters in terms of number of parameters, types and order.</p>
+                    <div class="bg-white border border-slate-200 rounded-xl p-4 code-font text-sm">
+                        <div class="p-4 bg-green-50 border-l-4 border-green-500 rounded-r-lg">
+                            <span class="text-green-700 font-bold block mb-1">CORRECT</span>
+                            <code class="text-sm">int k = max(i, 2);</code>
+                        </div>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                            <span class="text-red-700 font-bold block mb-1">WRONG</span>
+                            <code class="text-sm">int k = max(i, j, k);</code>
+                            <p class="text-xs text-red-600 mt-1">Must match number of parameters</p>
+                        </div>
+                        <div class="p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+                            <span class="text-red-700 font-bold block mb-1">WRONG</span>
+                            <code class="text-sm">int k = max(2.0, 3.0);</code>
+                            <p class="text-xs text-red-600 mt-1">Must match parameter type</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Rule: Return Values -->
                 <div class="space-y-4">
-                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 2: Using the Result</h3>
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 3: Using the Result</h3>
                     <p class="text-sm text-slate-600">If a method returns a value, capture it or use it! Otherwise, it is "lost" in memory.</p>
                     <div class="bg-white border border-slate-200 rounded-xl p-4 code-font text-sm">
                         <div class="text-blue-600 mb-2">// Captured</div>
@@ -254,7 +275,7 @@
 
                 <!-- Rule: Void vs Non-Void -->
                 <div class="space-y-4">
-                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 3: Void Methods</h3>
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 4: Void Methods</h3>
                     <div class="bg-slate-100 p-4 rounded-xl space-y-2">
                         <p class="text-sm"><i class="fas fa-info-circle mr-1"></i> Void methods do <strong>not</strong> return data. They perform an action (like printing).</p>
                         <ul class="text-xs space-y-1 text-slate-700 list-disc pl-4">
@@ -267,7 +288,7 @@
 
                 <!-- Rule: Pass-by-Value -->
                 <div class="space-y-4">
-                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 4: Pass-by-Value</h3>
+                    <h3 class="text-xl font-semibold text-slate-800 border-b pb-2">Rule 5: Pass-by-Value</h3>
                     <div class="relative bg-white p-6 rounded-xl shadow-md border-t-4 border-emerald-500 overflow-hidden">
                         <p class="text-sm text-slate-700 leading-relaxed">
                             Java passes <strong>copies</strong> of values. If <code>max</code> changes <code>num1</code>, the original <code>i</code> in <code>main</code> <strong>remains unchanged</strong>.
