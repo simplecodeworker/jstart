@@ -97,15 +97,15 @@
             <div class="grid md:grid-cols-2 gap-8 mb-8">
                 <div class="space-y-4">
                     <p class="text-slate-600 leading-relaxed text-lg">
-                        Method overloading allows multiple methods to share the <span class="font-semibold text-blue-600 underline">same name</span> but have a <span class="font-semibold text-blue-600 underline">different signature</span>.
+                        Method overloading allows multiple methods to share the <span class="font-semibold text-blue-600 underline">same name</span> but have a <span class="font-semibold text-blue-600 underline">different signature</span>. <b>There cannot be two methods with the same name and signature.</b>
                     </p>
                     <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
-                        <h4 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> What Counts?</h4>
+                        <h4 class="font-bold mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-check text-green-500"></i> What Counts in method signature?</h4>
                         <ul class="space-y-2 text-sm">
                             <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Different number of parameters</li>
                             <li class="flex gap-2"><i class="fa-solid fa-check text-green-500 mt-1"></i> Different types of parameters</li>
                         </ul>
-                        <h4 class="font-bold mt-4 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-500"></i> What DOESN'T?</h4>
+                        <h4 class="font-bold mt-4 mb-3 flex items-center gap-2"><i class="fa-solid fa-circle-xmark text-red-500"></i> What DOESN'T count in method signature?</h4>
                         <ul class="space-y-2 text-sm">
                             <li class="flex gap-2 text-slate-500"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> Changing just the Return Type</li>
                             <li class="flex gap-2 text-slate-500"><i class="fa-solid fa-xmark text-red-400 mt-1"></i> Changing just Modifiers (public/static)</li>
@@ -152,7 +152,7 @@
                         <span class="font-bold text-red-700">INVALID</span>
                         <pre class="code-font mt-2">public static int max(int n1, int n2) { ... }
 public static float max(int n1, int n2) { ... }</pre>
-                        <p class="mt-2 text-red-600">Error: Signatures (int, int) are identical! Return type doesn't matter.</p>
+                        <p class="mt-2 text-red-600">Error: Signatures (int, int) are identical! Return type doesn't matter. There cannot be two methods with the same name and signature.</p>
                     </div>
                     <div class="p-3 bg-green-50 border-l-4 border-green-500 rounded text-sm">
                         <span class="font-bold text-green-700">VALID</span>
