@@ -188,7 +188,7 @@ public static int max(int n1, int n2, int n3) { ... }</pre>
                             <div class="bg-orange-100 p-2 rounded"><i class="fa-solid fa-ghost text-orange-600"></i></div>
                             <div>
                                 <h4 class="font-bold">Variable Hiding</h4>
-                                <p class="text-sm text-slate-500">Outer variables are hidden if an inner block re-declares the same name.</p>
+                                <p class="text-sm text-slate-500">Outer <b>field</b> variables are hidden when a <b>local</b> variable with the same name is declared within a method or inner block. However, Java does not allow local variables to be redeclared with the same name in overlapping scopes within the same method; attempting to do so results in a compilation error.</p>
                             </div>
                         </div>
                         <div class="flex gap-4 items-start p-4 bg-white rounded-lg shadow-sm">
