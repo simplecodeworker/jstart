@@ -249,6 +249,7 @@ public static void anotherMethod() {
                     <div class="space-y-4">
                         <div class="p-4 bg-slate-50 rounded-lg border border-slate-200">
                             <span class="text-xs font-bold text-slate-400 uppercase">2. Variable Hiding (Nested)</span>
+                            <p style="color:red"><b>ERROR</b></p>
                             <pre class="code-font text-xs mt-2 text-slate-700">
 public static void main(String[] args) {
     int i = 1;
@@ -258,6 +259,26 @@ public static void main(String[] args) {
     }
 }</pre>
                             <p class="mt-2 text-xs text-slate-500">You cannot declare a variable with the same name if it's already "visible" in an outer block.</p>
+        <p class="mt-4" style="color:red"><b>ALLOWED</b></p>
+                            <pre class="code-font text-xs mt-2 text-slate-700">
+class Test {
+    int y = 5; // outer field
+
+    void method() {
+        if (true) {
+            int y = 10; // hides the field y within this block
+            System.out.println("Inner block y = " + y); // 10
+        }
+
+        System.out.println("Field y = " + this.y); // 5
+    }
+
+    public static void main(String[] args) {
+        Test t = new Test();
+        t.method();
+    }
+}</pre>
+                            <p class="mt-2 text-xs text-slate-500">You can declare a local variable within a method or inner block using the same name as a field, which hides the outer field variable within that scope.</p>
                         </div>
                     </div>
                 </div>
