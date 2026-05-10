@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Array Copying: A Deep Dive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .array-slot {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .moving-val {
+            animation: move-value 0.8s forwards ease-in-out;
+        }
+
+        @keyframes move-value {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Header (Sticky classes removed) -->
+    <header class="gradient-bg text-white py-16 px-6 text-center shadow-2xl">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight">Java Array Copying</h1>
+        <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">Master the correct (and avoid the wrong) ways to duplicate data in Java arrays.</p>
+        <div class="mt-8 flex justify-center gap-4">
+            <a href="#section-1" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg font-semibold transition">Begin Lesson</a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-24">
+
+        <!-- SECTION 1: MANUAL COPYING -->
+        <section id="section-1" class="scroll-mt-12">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 section-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-blue-100 text-blue-700 font-bold px-4 py-1 rounded-full text-sm uppercase">Section 1</span>
+                    <h2 class="text-3xl font-bold">Manual Element-by-Element Copying</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-slate-600 leading-relaxed">
+                            The most fundamental method involves using a <code class="bg-slate-100 px-1 rounded">for</code> loop to visit every index. You manually take a value from the source and place it into the target.
+                        </p>
+                        <div class="bg-slate-900 rounded-xl p-6 text-blue-300 code-font text-sm shadow-inner overflow-x-auto">
+<pre>
+for(int i=0; i < sourceArray.length; i++){
+    targetArray[i] = sourceArray[i];
+}
+</pre>
+                        </div>
+                        <div class="p-4 bg-blue-50 border-l-4 border-blue-500 rounded-r-xl">
+                            <h4 class="font-bold text-blue-800 mb-1">Key Takeaway</h4>
+                            <p class="text-blue-700 text-sm">Full control over the process. Requires manual instantiation of the target array first. The arrays remain independent.</p>
+                        </div>
+                    </div>
+
+                    <!-- Simulator 1 -->
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                        <h4 class="font-bold mb-4 text-center">Interactive Simulator</h4>
+                        <div class="flex flex-col items-center gap-8">
+                            <div class="flex gap-2" id="sim1-source">
+                                <!-- Source Slots -->
+                                <div class="w-10 h-10 bg-blue-500 text-white rounded flex items-center justify-center font-bold">10</div>
+                                <div class="w-10 h-10 bg-blue-500 text-white rounded flex items-center justify-center font-bold">20</div>
+                                <div class="w-10 h-10 bg-blue-500 text-white rounded flex items-center justify-center font-bold">30</div>
+                                <div class="w-10 h-10 bg-blue-500 text-white rounded flex items-center justify-center font-bold">40</div>
+                            </div>
+                            <div class="text-slate-400 text-xs flex flex-col items-center">
+                                <span id="sim1-pointer" class="transition-all duration-500">⬇️ i = 0</span>
+                                <span>Copying...</span>
+                            </div>
+                            <div class="flex gap-2" id="sim1-target">
+                                <!-- Target Slots -->
+                                <div class="w-10 h-10 bg-slate-200 border-2 border-dashed border-slate-300 rounded flex items-center justify-center font-bold text-slate-400">?</div>
+                                <div class="w-10 h-10 bg-slate-200 border-2 border-dashed border-slate-300 rounded flex items-center justify-center font-bold text-slate-400">?</div>
+                                <div class="w-10 h-10 bg-slate-200 border-2 border-dashed border-slate-300 rounded flex items-center justify-center font-bold text-slate-400">?</div>
+                                <div class="w-10 h-10 bg-slate-200 border-2 border-dashed border-slate-300 rounded flex items-center justify-center font-bold text-slate-400">?</div>
+                            </div>
+                            <button onclick="runSim1()" class="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition font-medium">Run For-Loop</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz 1 -->
+                <div class="mt-12 pt-12 border-t border-slate-100">
+                    <h3 class="text-xl font-bold mb-6">Test Your Knowledge</h3>
+                    <div class="space-y-6" id="quiz-1">
+                        <div class="quiz-block">
+                            <p class="font-medium mb-3">1. What must you do before running the for-loop to copy an array?</p>
+                            <div class="grid gap-2">
+                                <button onclick="checkAns(this, true, 'Correct! You must allocate memory for the target array first.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50">Instantiate the target array with the same length</button>
+                                <button onclick="checkAns(this, false, 'Wrong. Simply declaring it is not enough; you need to initialize it with new.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50">Just declare the variable without initialization</button>
+                                <button onclick="checkAns(this, false, 'Wrong. The for-loop expects targetArray to exist.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-blue-400 hover:bg-blue-50">Nothing, Java handles it automatically</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SYSTEM.ARRAYCOPY -->
+        <section id="section-2" class="scroll-mt-12">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 section-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-emerald-100 text-emerald-700 font-bold px-4 py-1 rounded-full text-sm uppercase">Section 2</span>
+                    <h2 class="text-3xl font-bold text-slate-800">High-Performance: System.arraycopy</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-slate-600 leading-relaxed">
+                            Java provides a <span class="font-semibold text-emerald-600 italic">native</span> method for copying. It is faster for large arrays and allows copying specific segments.
+                        </p>
+                        <div class="bg-slate-900 rounded-xl p-6 text-emerald-300 code-font text-xs shadow-inner overflow-x-auto">
+<pre>
+System.arraycopy(
+  sourceArray,  // From where?
+  src_pos,      // Starting at?
+  targetArray,  // To where?
+  dst_pos,      // Ending at?
+  nElements     // How many?
+);
+</pre>
+                        </div>
+                        <div class="p-4 bg-emerald-50 border-l-4 border-emerald-500 rounded-r-xl">
+                            <h4 class="font-bold text-emerald-800 mb-1">Key Takeaway</h4>
+                            <p class="text-emerald-700 text-sm">Best for large arrays and partial copies. Highly efficient because it uses low-level system calls.</p>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart visualization -->
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200 flex flex-col">
+                        <h4 class="font-bold mb-6 text-center">System.arraycopy Parameters</h4>
+                        <div class="relative h-64 w-full flex flex-col justify-center gap-8">
+                           <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm border">
+                                <span class="text-xs font-bold text-slate-400">SOURCE</span>
+                                <div class="flex gap-1">
+                                    <div class="w-6 h-6 bg-slate-200 rounded"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded ring-2 ring-emerald-300 ring-offset-2"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded"></div>
+                                    <div class="w-6 h-6 bg-slate-200 rounded"></div>
+                                </div>
+                                <span class="text-[10px] text-emerald-600">src_pos = 1</span>
+                           </div>
+                           
+                           <div class="text-center text-xl text-emerald-500">⬇️ nElements = 3 ⬇️</div>
+
+                           <div class="flex justify-between items-center bg-white p-3 rounded shadow-sm border">
+                                <span class="text-xs font-bold text-slate-400">TARGET</span>
+                                <div class="flex gap-1">
+                                    <div class="w-6 h-6 bg-slate-200 rounded"></div>
+                                    <div class="w-6 h-6 bg-slate-200 rounded"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded ring-2 ring-emerald-300 ring-offset-2"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded"></div>
+                                    <div class="w-6 h-6 bg-emerald-500 rounded"></div>
+                                </div>
+                                <span class="text-[10px] text-emerald-600">dst_pos = 2</span>
+                           </div>
+                        </div>
+                        <p class="text-xs text-center text-slate-500 mt-4 italic">Visualizing a partial copy of 3 elements starting from index 1 to target index 2.</p>
+                    </div>
+                </div>
+
+                <!-- Quiz 2 -->
+                <div class="mt-12 pt-12 border-t border-slate-100">
+                    <h3 class="text-xl font-bold mb-6">Test Your Knowledge</h3>
+                    <div class="space-y-6">
+                        <div class="quiz-block">
+                            <p class="font-medium mb-3">2. Why is System.arraycopy usually preferred over a manual for-loop for large datasets?</p>
+                            <div class="grid gap-2">
+                                <button onclick="checkAns(this, true, 'Correct! Native methods are highly optimized by the JVM.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50">It uses native system calls which are much faster</button>
+                                <button onclick="checkAns(this, false, 'Wrong. It requires a lot of parameters.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50">It requires less code to write</button>
+                                <button onclick="checkAns(this, false, 'Wrong. Both create independent copies.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-emerald-400 hover:bg-emerald-50">It uses less memory than a for-loop</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CLONE METHOD -->
+        <section id="section-3" class="scroll-mt-12">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-100 section-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-purple-100 text-purple-700 font-bold px-4 py-1 rounded-full text-sm uppercase">Section 3</span>
+                    <h2 class="text-3xl font-bold text-slate-800">Concise Duplication: .clone()</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-slate-600 leading-relaxed">
+                            Need a total copy in one line? The <code class="bg-slate-100 px-1 rounded">clone()</code> method creates a brand new object and copies everything for you.
+                        </p>
+                        <div class="bg-slate-900 rounded-xl p-6 text-purple-300 code-font text-sm shadow-inner overflow-x-auto">
+<pre>
+targetArray = sourceArray.clone();
+</pre>
+                        </div>
+                        <div class="p-4 bg-purple-50 border-l-4 border-purple-500 rounded-r-xl">
+                            <h4 class="font-bold text-purple-800 mb-1">Key Takeaway</h4>
+                            <p class="text-purple-700 text-sm">Simplest syntax. Automatically creates the target array object. Performs a "shallow" copy.</p>
+                        </div>
+                    </div>
+
+                    <!-- Simulator 3 -->
+                    <div class="bg-slate-50 rounded-2xl p-6 border border-slate-200">
+                        <h4 class="font-bold mb-6 text-center">How .clone() works</h4>
+                        <div class="flex flex-col items-center gap-4">
+                            <div class="flex flex-col items-center p-4 bg-white rounded shadow-sm border w-full">
+                                <span class="text-xs font-bold text-slate-400 mb-2">SOURCE OBJECT</span>
+                                <div class="flex gap-2" id="sim3-src">
+                                    <div class="w-8 h-8 bg-purple-500 rounded text-white text-xs flex items-center justify-center">A</div>
+                                    <div class="w-8 h-8 bg-purple-500 rounded text-white text-xs flex items-center justify-center">B</div>
+                                    <div class="w-8 h-8 bg-purple-500 rounded text-white text-xs flex items-center justify-center">C</div>
+                                </div>
+                            </div>
+                            
+                            <div id="sim3-action" class="h-8 transition-all flex items-center text-purple-600 font-bold">
+                                <span>Wait...</span>
+                            </div>
+
+                            <div id="sim3-dest-container" class="opacity-0 flex flex-col items-center p-4 bg-white rounded shadow-sm border w-full transition-opacity duration-1000">
+                                <span class="text-xs font-bold text-slate-400 mb-2">NEW TARGET OBJECT</span>
+                                <div class="flex gap-2">
+                                    <div class="w-8 h-8 bg-purple-600 rounded text-white text-xs flex items-center justify-center">A</div>
+                                    <div class="w-8 h-8 bg-purple-600 rounded text-white text-xs flex items-center justify-center">B</div>
+                                    <div class="w-8 h-8 bg-purple-600 rounded text-white text-xs flex items-center justify-center">C</div>
+                                </div>
+                            </div>
+                            
+                            <button onclick="runSim3()" class="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 transition font-medium mt-4">Execute .clone()</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz 3 -->
+                <div class="mt-12 pt-12 border-t border-slate-100">
+                    <h3 class="text-xl font-bold mb-6">Test Your Knowledge</h3>
+                    <div class="space-y-6">
+                        <div class="quiz-block">
+                            <p class="font-medium mb-3">3. What is unique about using .clone() compared to for-loops or System.arraycopy?</p>
+                            <div class="grid gap-2">
+                                <button onclick="checkAns(this, true, 'Correct! clone() returns a new array object, so you don\'t need to use the \'new\' keyword yourself.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-purple-400 hover:bg-purple-50">It creates the new array object for you automatically</button>
+                                <button onclick="checkAns(this, false, 'Wrong. It actually copies everything.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-purple-400 hover:bg-purple-50">It only copies the memory address</button>
+                                <button onclick="checkAns(this, false, 'Wrong. arraycopy is usually faster for specific cases.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-purple-400 hover:bg-purple-50">It is the most efficient method for large data</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: WRONG WAY -->
+        <section id="section-4" class="scroll-mt-12">
+            <div class="bg-red-50 rounded-3xl p-8 md:p-12 shadow-xl border border-red-100 section-card">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-red-200 text-red-700 font-bold px-4 py-1 rounded-full text-sm uppercase">Section 4</span>
+                    <h2 class="text-3xl font-bold text-slate-800">The Danger Zone: Reference Assignment</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-6">
+                        <p class="text-slate-600 leading-relaxed font-bold">
+                            Warning: Using the equals sign (<code class="bg-red-100 px-1 rounded">=</code>) is NOT copying.
+                        </p>
+                        <div class="bg-slate-900 rounded-xl p-6 text-red-400 code-font text-sm shadow-inner overflow-x-auto">
+<pre>
+targetArray = sourceArray; // ❌ WRONG
+</pre>
+                        </div>
+                        <p class="text-slate-600 text-sm">
+                            This creates a <span class="underline">Reference Copy</span>. You now have two variables pointing to the exact same physical spot in memory.
+                        </p>
+                        <div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-r-xl">
+                            <h4 class="font-bold text-red-800 mb-1">Key Takeaway</h4>
+                            <p class="text-red-700 text-sm">Changes made to targetArray will change sourceArray! The original target data is lost and deleted by Garbage Collection.</p>
+                        </div>
+                    </div>
+
+                    <!-- Simulator 4: Interactive Disaster -->
+                    <div class="bg-white rounded-2xl p-6 border border-red-200">
+                        <h4 class="font-bold mb-4 text-center">The "Reference" Nightmare</h4>
+                        <div class="flex flex-col items-center gap-6 relative">
+                            <!-- Memory Block -->
+                            <div class="bg-slate-100 p-8 rounded-xl border-2 border-slate-300 w-full text-center">
+                                <span class="text-xs uppercase text-slate-400 block mb-2 font-bold">Physical Memory Block</span>
+                                <div class="flex justify-center gap-2" id="sim4-memory">
+                                    <div class="w-10 h-10 bg-blue-500 text-white rounded flex items-center justify-center font-bold" id="sim4-val">99</div>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-around w-full mt-4">
+                                <div class="flex flex-col items-center">
+                                    <span class="text-xs font-bold mb-1">sourceArray</span>
+                                    <div class="h-10 w-1 bg-red-400"></div>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <span class="text-xs font-bold mb-1">targetArray</span>
+                                    <div id="target-pointer" class="h-10 w-1 bg-slate-300 transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2">
+                                <button onclick="runSim4()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition text-sm">Run target = source</button>
+                                <button onclick="breakStuff()" id="break-btn" disabled class="bg-slate-200 text-slate-400 px-4 py-2 rounded-lg text-sm cursor-not-allowed">Change Target Value</button>
+                            </div>
+                            <p id="sim4-msg" class="text-[10px] text-red-500 font-bold opacity-0">⚠️ Changing target changed source too!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quiz 4 -->
+                <div class="mt-12 pt-12 border-t border-red-100">
+                    <h3 class="text-xl font-bold mb-6">Final Challenge</h3>
+                    <div class="space-y-6">
+                        <div class="quiz-block">
+                            <p class="font-medium mb-3">4. What happens to the memory at sourceArray[0] if you do 'targetArray = sourceArray' and then execute 'targetArray[0] = 5'?</p>
+                            <div class="grid gap-2">
+                                <button onclick="checkAns(this, true, 'Exactly! Both variables look at the same memory. Changing one affects the other.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-red-400 hover:bg-red-50">sourceArray[0] becomes 5</button>
+                                <button onclick="checkAns(this, false, 'Wrong. They are no longer independent.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-red-400 hover:bg-red-50">sourceArray[0] stays original</button>
+                                <button onclick="checkAns(this, false, 'Wrong. A Runtime error only happens if you try to access a null array.')" class="quiz-option text-left p-3 rounded-lg border border-slate-200 hover:border-red-400 hover:bg-red-50">A Runtime error occurs</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="gradient-bg text-slate-400 py-12 px-6 text-center border-t border-slate-800 mt-24">
+        <p class="mb-2">Java Array Mastery • Built for Beginners</p>
+        <p class="text-xs">Scroll back up to review any section. Keep practicing!</p>
+    </footer>
+
+    <script>
+        // --- SIMULATOR 1 LOGIC ---
+        function runSim1() {
+            const targetContainer = document.getElementById('sim1-target');
+            const pointer = document.getElementById('sim1-pointer');
+            const sourceValues = [10, 20, 30, 40];
+            const targetSlots = targetContainer.children;
+            
+            // Reset
+            Array.from(targetSlots).forEach(slot => {
+                slot.innerHTML = "?";
+                slot.classList.remove('bg-blue-500', 'text-white');
+                slot.classList.add('bg-slate-200', 'text-slate-400');
+            });
+
+            let i = 0;
+            const interval = setInterval(() => {
+                if (i >= sourceValues.length) {
+                    clearInterval(interval);
+                    pointer.innerText = "✅ Done!";
+                    return;
+                }
+                
+                pointer.innerText = `⬇️ i = ${i}`;
+                pointer.style.transform = `translateX(${i * 48}px)`;
+                
+                targetSlots[i].innerHTML = sourceValues[i];
+                targetSlots[i].classList.remove('bg-slate-200', 'text-slate-400');
+                targetSlots[i].classList.add('bg-blue-500', 'text-white', 'moving-val');
+                
+                i++;
+            }, 800);
+        }
+
+        // --- SIMULATOR 3 LOGIC ---
+        function runSim3() {
+            const action = document.getElementById('sim3-action');
+            const container = document.getElementById('sim3-dest-container');
+            
+            action.innerHTML = "Creating brand new object...";
+            container.style.opacity = "0";
+            
+            setTimeout(() => {
+                action.innerHTML = "Copying data...";
+                setTimeout(() => {
+                    action.innerHTML = "✅ Done!";
+                    container.style.opacity = "1";
+                }, 800);
+            }, 800);
+        }
+
+        // --- SIMULATOR 4 LOGIC ---
+        function runSim4() {
+            const ptr = document.getElementById('target-pointer');
+            ptr.classList.remove('bg-slate-300');
+            ptr.classList.add('bg-red-400');
+            ptr.style.transform = "translateX(-130px)"; // Shift arrow to source block
+            
+            const btn = document.getElementById('break-btn');
+            btn.disabled = false;
+            btn.classList.remove('bg-slate-200', 'text-slate-400');
+            btn.classList.add('bg-orange-500', 'text-white', 'hover:bg-orange-600', 'cursor-pointer');
+        }
+
+        function breakStuff() {
+            const valBox = document.getElementById('sim4-val');
+            const msg = document.getElementById('sim4-msg');
+            
+            valBox.innerHTML = "5";
+            valBox.classList.replace('bg-blue-500', 'bg-red-500');
+            msg.style.opacity = "1";
+        }
+
+        // --- QUIZ LOGIC ---
+        function checkAns(btn, isCorrect, explanation) {
+            // Find sibling buttons to disable them
+            const parent = btn.parentElement;
+            const siblings = parent.querySelectorAll('button');
+            siblings.forEach(s => s.disabled = true);
+
+            const feedback = document.createElement('div');
+            feedback.className = `mt-2 text-sm font-bold ${isCorrect ? 'text-green-600' : 'text-red-600'}`;
+            feedback.innerText = (isCorrect ? "✅ Correct! " : "❌ Wrong. ") + explanation;
+            
+            btn.classList.add(isCorrect ? 'bg-green-100' : 'bg-red-100');
+            btn.classList.add(isCorrect ? 'border-green-500' : 'border-red-500');
+            
+            parent.appendChild(feedback);
+        }
+    </script>
+</body>
+</html>
