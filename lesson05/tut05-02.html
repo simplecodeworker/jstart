@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP: Exception Handling Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .answer-hidden {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                Java Exception Handling Quiz
+            </h1>
+            <p class="text-slate-400">Mastering try-catch-finally blocks through analysis</p>
+        </header>
+
+        <div id="questions-container" class="space-y-8">
+            <!-- Questions will be injected here -->
+        </div>
+
+        <footer class="mt-16 text-center text-slate-500 text-sm pb-8 border-t border-slate-800 pt-8">
+            &copy; 2024 Java Learning Portal • Dark Mode Console
+        </footer>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: "Identify and fix the error in the following codes:",
+                code: `try{\n    statement1;\n}catch{ \n    System.out.println("Exception caught!");\n}`,
+                answer: "The 'catch' block is missing a parameter. In Java, you must specify the exception type and a variable name.<br><br><b>Fixed Code:</b><br><code class='text-emerald-400'>catch(Exception e) { ... }</code>"
+            },
+            {
+                id: 2,
+                text: "Identify and fix the error in the following codes:",
+                code: `try{\n   statement1;\n}\nfinally{\n   System.out.println("The End!");\n}catch(Exception e){\n   System.out.println("Your program encountered an exception");\n}`,
+                answer: "The 'catch' block must appear <b>before</b> the 'finally' block. The order is always try -> catch -> finally.<br><br><b>Correct Sequence:</b><br>1. try<br>2. catch<br>3. finally"
+            },
+            {
+                id: 3,
+                text: "Run the code below, what’s the print out if the value i is 0 or 3 for the following codes?",
+                code: `public class Test {\n   public static void main(String[] args){\n      try{\n          System.out.print("The program throws");\n          int i = 0;\n          int j = 100/i;\n          System.out.print(" no exception. ");\n      }catch (Exception e){\n          System.out.print(" exception.");\n      }finally {\n          System.out.print(" Thanks!");\n      }\n          System.out.print(" Have a nice day!");\n  }\n}`,
+                answer: "<b>If i = 0:</b><br>'The program throws exception. Thanks! Have a nice day!'<br><br><b>If i = 3:</b><br>'The program throws no exception. Thanks! Have a nice day!'"
+            },
+            {
+                id: 4,
+                text: "Which statement is FALSE about the try{} block?",
+                options: [
+                    "a. Some of the statements in a try{} block will never throw an exception.",
+                    "b. The statements in a try{} block may throw several types of exception.",
+                    "c. The try{} block can not contain loops or branches.",
+                    "d. The try{} block must appear before the catch{} blocks."
+                ],
+                answer: "<b>c. The try{} block can not contain loops or branches.</b><br>This is false. A try block can contain any valid Java code, including loops, switch statements, and if/else conditions."
+            },
+            {
+                id: 5,
+                text: "How many finally{} blocks may there be in a try/catch structure?",
+                options: [
+                    "a. There must always be one, following the last catch{} block.",
+                    "b. There can be zero or one immediately after each catch{} block.",
+                    "c. There can be zero or one, following the last catch{} block.",
+                    "d. There can be any number, following the last catch{} block."
+                ],
+                answer: "<b>c. There can be zero or one, following the last catch{} block.</b>"
+            },
+            {
+                id: 6,
+                text: "When is a finally{} block executed?",
+                options: [
+                    "a. Only when an unhandled exception is thrown in a try{} block.",
+                    "b. Only when any exception is thrown in a try{} block.",
+                    "c. Always after execution has left a try{} block, no matter for what reason.",
+                    "d. Always just as a method is about to finish."
+                ],
+                answer: "<b>c. Always after execution has left a try{} block, no matter for what reason.</b> (Except for specific cases like System.exit() or JVM crashes)."
+            },
+            {
+                id: 7,
+                text: "Please run following code, which line(s) will cause exception?",
+                code: `Line 1: public class Ex{\nLine 2:     public static void main(String[] a){\nLine 3:         double [ ] e = new double[8];\nLine 4:                     e[0] = 2.0;\nLine 5:         e[8] = 8;\nLine 6:     for(int i=0; i<=e.length; i++)\nLine 7:                         System.out.println(e[i]);\nLine 8:             }\nLine 9:          }`,
+                options: [
+                    "Line 5 will cause NumberFormat Exception as an integer value is assigned to double array element.",
+                    "Line 5 will cause ArrayIndexOutOfBoundsException as array e’s last element index is 7.",
+                    "Line 7 will cause ArrayIndexOutOfBoundsException as array e’s last element index is e.length-1, not e.length.",
+                    "Line 6 will cause ArrayIndexOutOfBoundsException as array e’s last element index is e.length-1, not e.length."
+                ],
+                answer: "<b>Multiple lines:</b><br>1. <b>Line 5</b>: ArrayIndexOutOfBoundsException (index 8 is out of bounds for size 8).<br>2. <b>Line 7</b>: ArrayIndexOutOfBoundsException when i reaching 8 (e.length) because the loop condition is 'i <= e.length'."
+            }
+        ];
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-2xl p-6 shadow-xl';
+                
+                let content = `
+                    <div class="flex items-start gap-4 mb-4">
+                        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold border border-blue-500/30">
+                            ${q.id}
+                        </span>
+                        <p class="text-lg font-medium pt-1">${q.text}</p>
+                    </div>
+                `;
+
+                if (q.code) {
+                    content += `
+                        <div class="bg-slate-900 rounded-lg p-4 mb-4 border border-slate-700 overflow-x-auto">
+                            <pre class="text-sm text-blue-300"><code>${q.code}</code></pre>
+                        </div>
+                    `;
+                }
+
+                if (q.options) {
+                    content += `<div class="space-y-2 mb-6 ml-12">`;
+                    q.options.forEach(opt => {
+                        content += `<div class="text-slate-400 text-sm italic">• ${opt}</div>`;
+                    });
+                    content += `</div>`;
+                }
+
+                content += `
+                    <div id="unlock-area-${q.id}" class="mt-6 pt-6 border-t border-slate-700/50">
+                        <div class="flex flex-col sm:flex-row gap-3 items-center">
+                            <input type="password" 
+                                id="pass-${q.id}" 
+                                placeholder="Enter passcode to reveal answer" 
+                                class="w-full sm:w-64 bg-slate-800 border border-slate-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                                onkeypress="if(event.key === 'Enter') checkPasscode(${q.id})"
+                            >
+                            <button 
+                                onclick="checkPasscode(${q.id})"
+                                class="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                  <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                                </svg>
+                                Unlock
+                            </button>
+                        </div>
+                        <p id="error-${q.id}" class="text-red-400 text-xs mt-2 opacity-0 transition-opacity">Incorrect passcode. Try again.</p>
+                    </div>
+                    <div id="answer-${q.id}" class="answer-hidden mt-4 p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
+                        <h4 class="text-emerald-400 font-semibold mb-2 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M12.354 4.354a.5.5 0 0 0-.708-.708L5 10.293 1.854 7.146a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l7-7z"/>
+                            </svg>
+                            Correct Answer:
+                        </h4>
+                        <div class="text-slate-300 text-sm leading-relaxed">${q.answer}</div>
+                    </div>
+                `;
+
+                card.innerHTML = content;
+                container.appendChild(card);
+            });
+        }
+
+        function checkPasscode(id) {
+            const input = document.getElementById(`pass-${id}`);
+            const errorMsg = document.getElementById(`error-${id}`);
+            const unlockArea = document.getElementById(`unlock-area-${id}`);
+            const answerArea = document.getElementById(`answer-${id}`);
+            
+            const val = input.value;
+            
+            // ASCII comparison for "oop"
+            // 'o' = 111, 'o' = 111, 'p' = 112
+            const secret = [111, 111, 112];
+            
+            let isValid = true;
+            if (val.length !== secret.length) {
+                isValid = false;
+            } else {
+                for (let i = 0; i < secret.length; i++) {
+                    if (val.charCodeAt(i) !== secret[i]) {
+                        isValid = false;
+                        break;
+                    }
+                }
+            }
+
+            if (isValid) {
+                unlockArea.classList.add('hidden');
+                answerArea.style.display = 'block';
+                errorMsg.style.opacity = '0';
+            } else {
+                errorMsg.style.opacity = '1';
+                input.classList.add('border-red-500');
+                setTimeout(() => {
+                    input.classList.remove('border-red-500');
+                }, 1000);
+            }
+        }
+
+        window.onload = renderQuestions;
+    </script>
+</body>
+</html>
