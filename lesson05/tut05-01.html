@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Array Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+        pre, code {
+            font-family: 'Fira Code', monospace;
+        }
+        .code-container {
+            background-color: #1e293b;
+            border-left: 4px solid #3b82f6;
+        }
+        .answer-hidden {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12 text-center">
+            <h1 class="text-4xl font-bold text-white mb-2">Java Array Quiz</h1>
+            <p class="text-slate-400">Mastering array structures and memory management.</p>
+        </header>
+
+        <div class="space-y-8">
+            <!-- Question 1 -->
+            <section class="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold text-blue-400 mb-4">Question 1</h2>
+                <p class="text-lg leading-relaxed">
+                    1. What is the array index data type? What is the lowest index?
+                </p>
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div id="unlock-container-1">
+                        <label class="block text-sm text-slate-400 mb-2">Enter code to unlock answer:</label>
+                        <div class="flex gap-2">
+                            <input type="text" data-qid="1" class="passcode-input bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Enter passcode...">
+                            <button onclick="checkUnlock(1)" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">Unlock</button>
+                        </div>
+                    </div>
+                    <div id="answer-1" class="answer-hidden mt-4 p-4 bg-green-900/20 border border-green-800/50 rounded-xl fade-in">
+                        <p class="text-green-400 font-semibold mb-1">Answer:</p>
+                        <p class="text-slate-300">The array index data type is <code class="text-blue-300">int</code>. The lowest index is <code class="text-blue-300">0</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Question 2 -->
+            <section class="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold text-blue-400 mb-4">Question 2</h2>
+                <p class="text-lg mb-4">2. Which of the following statements are valid array declarations?</p>
+                <div class="space-y-2 text-slate-300 ml-4 font-mono">
+                    <p>a. <code class="text-pink-400">int i = new int(30);</code></p>
+                    <p>b. <code class="text-green-400">double d[] = new double[30];</code></p>
+                    <p>c. <code class="text-pink-400">int i[]=(1, 4, 5, 9);</code></p>
+                    <p>d. <code class="text-pink-400">float f[] = {2.3, 4.5, 5.6};</code> <span class="text-xs text-slate-500 italic">(Missing 'f' suffix for literals)</span></p>
+                    <p>e. <code class="text-green-400">double[] a = {2, 5.6, 7};</code></p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div id="unlock-container-2">
+                        <label class="block text-sm text-slate-400 mb-2">Enter code to unlock answer:</label>
+                        <div class="flex gap-2">
+                            <input type="text" data-qid="2" class="passcode-input bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Enter passcode...">
+                            <button onclick="checkUnlock(2)" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">Unlock</button>
+                        </div>
+                    </div>
+                    <div id="answer-2" class="answer-hidden mt-4 p-4 bg-green-900/20 border border-green-800/50 rounded-xl fade-in">
+                        <p class="text-green-400 font-semibold mb-1">Answer:</p>
+                        <p class="text-slate-300"><strong>b</strong> and <strong>e</strong> are valid.</p>
+                        <ul class="text-sm list-disc ml-5 mt-2 space-y-1 text-slate-400">
+                            <li><strong>a:</strong> Invalid syntax (uses parenthesis instead of brackets).</li>
+                            <li><strong>c:</strong> Invalid syntax (uses parenthesis for initialization).</li>
+                            <li><strong>d:</strong> Potentially invalid in Java (literal 2.3 is double; requires 2.3f for float).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Question 3 -->
+            <section class="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold text-blue-400 mb-4">Question 3</h2>
+                <p class="text-lg mb-4">3. Indicate true or false for the following statements:</p>
+                <ul class="space-y-3 text-slate-300 ml-4">
+                    <li>a. Every element in an array has the same data type.</li>
+                    <li>b. The array size is fixed after the array is declared.</li>
+                    <li>c. The array size is fixed after the array is created.</li>
+                    <li>d. The elements in an array must be of primitive data type.</li>
+                </ul>
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div id="unlock-container-3">
+                        <label class="block text-sm text-slate-400 mb-2">Enter code to unlock answer:</label>
+                        <div class="flex gap-2">
+                            <input type="text" data-qid="3" class="passcode-input bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Enter passcode...">
+                            <button onclick="checkUnlock(3)" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">Unlock</button>
+                        </div>
+                    </div>
+                    <div id="answer-3" class="answer-hidden mt-4 p-4 bg-green-900/20 border border-green-800/50 rounded-xl fade-in">
+                        <p class="text-green-400 font-semibold mb-1">Answers:</p>
+                        <div class="grid grid-cols-2 gap-2 text-slate-300">
+                            <div>a. <span class="text-green-400">True</span></div>
+                            <div>b. <span class="text-red-400">False</span> (can be initialized later)</div>
+                            <div>c. <span class="text-green-400">True</span></div>
+                            <div>d. <span class="text-red-400">False</span> (can store objects)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Question 4 -->
+            <section class="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold text-blue-400 mb-4">Question 4</h2>
+                <div class="space-y-4 text-slate-300">
+                    <p>4.1 Declare an int array named: <code class="bg-slate-900 px-1 rounded">marks</code></p>
+                    <p>4.2 Create and initialize the array content to: <code class="bg-slate-900 px-1 rounded">100, 40, 50, 98</code></p>
+                    <p>4.3 Assign the first element value to int variable <code class="bg-slate-900 px-1 rounded">mark4Alice</code></p>
+                    <p>4.4 Assign the last element value to int variable <code class="bg-slate-900 px-1 rounded">mark4Danney</code></p>
+                    <p>4.5 Use for loop and <code class="bg-slate-900 px-1 rounded">marks.length</code> to calculate the average value of all the elements, then print out the average value.</p>
+                    <p>4.6 Put the above codes into a class <code class="bg-slate-900 px-1 rounded">Marks</code>, and run it.</p>
+                </div>
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div id="unlock-container-4">
+                        <label class="block text-sm text-slate-400 mb-2">Enter code to unlock answer:</label>
+                        <div class="flex gap-2">
+                            <input type="text" data-qid="4" class="passcode-input bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Enter passcode...">
+                            <button onclick="checkUnlock(4)" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">Unlock</button>
+                        </div>
+                    </div>
+                    <div id="answer-4" class="answer-hidden mt-4 p-4 bg-green-900/20 border border-green-800/50 rounded-xl fade-in">
+                        <p class="text-green-400 font-semibold mb-2">Answer Implementation:</p>
+                        <pre class="code-container p-4 rounded-lg overflow-x-auto text-sm text-blue-100">
+<span class="text-pink-400">public class</span> Marks {
+    <span class="text-pink-400">public static void</span> main(String[] args) {
+        <span class="text-slate-500">// 4.1 & 4.2</span>
+        <span class="text-pink-400">int</span>[] marks = {<span class="text-orange-400">100, 40, 50, 98</span>};
+
+        <span class="text-slate-500">// 4.3</span>
+        <span class="text-pink-400">int</span> mark4Alice = marks[<span class="text-orange-400">0</span>];
+
+        <span class="text-slate-500">// 4.4</span>
+        <span class="text-pink-400">int</span> mark4Danney = marks[marks.length - <span class="text-orange-400">1</span>];
+
+        <span class="text-slate-500">// 4.5</span>
+        <span class="text-pink-400">double</span> sum = <span class="text-orange-400">0</span>;
+        <span class="text-pink-400">for</span> (<span class="text-pink-400">int</span> i = <span class="text-orange-400">0</span>; i < marks.length; i++) {
+            sum += marks[i];
+        }
+        <span class="text-pink-400">double</span> average = sum / marks.length;
+        System.out.println(<span class="text-green-400">"Average: "</span> + average);
+    }
+}</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Question 5 -->
+            <section class="bg-slate-800/50 border border-slate-700 p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold text-blue-400 mb-4">Question 5</h2>
+                <p class="text-lg mb-4">5. Show the output of the following program:</p>
+                <pre class="code-container p-4 rounded-lg overflow-x-auto text-sm text-slate-300 mb-4">
+public class PassArray{
+    public static void main(String[] args){
+        int number = 0;
+        int[] numbers = new int[2];
+        
+        m(number, numbers);
+        System.out.println(" number is" +number + "  and numbers[0] is "  + numbers[0]);
+    }
+
+    public static void m(int x, int[] y){
+        x = 3;
+        y[0] = x;
+    }
+}</pre>
+                <div class="mt-6 pt-6 border-t border-slate-700">
+                    <div id="unlock-container-5">
+                        <label class="block text-sm text-slate-400 mb-2">Enter code to unlock answer:</label>
+                        <div class="flex gap-2">
+                            <input type="text" data-qid="5" class="passcode-input bg-slate-900 border border-slate-600 rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all" placeholder="Enter passcode...">
+                            <button onclick="checkUnlock(5)" class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-lg font-medium transition-colors">Unlock</button>
+                        </div>
+                    </div>
+                    <div id="answer-5" class="answer-hidden mt-4 p-4 bg-green-900/20 border border-green-800/50 rounded-xl fade-in">
+                        <p class="text-green-400 font-semibold mb-1">Output:</p>
+                        <div class="font-mono bg-black/40 p-3 rounded border border-slate-700 text-white">
+                            number is 0 and numbers[0] is 3
+                        </div>
+                        <p class="mt-3 text-sm text-slate-400 italic">
+                            Explanation: Primitive 'number' is passed by value (remains 0), while array 'numbers' is passed by reference (content changes).
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="mt-12 text-center text-slate-500 text-sm pb-8">
+            &copy; 2024 Computer Science Learning Portal
+        </footer>
+    </div>
+
+    <!-- Message UI Component (Replacing Alert) -->
+    <div id="toast" class="fixed bottom-4 right-4 translate-y-20 opacity-0 bg-red-600 text-white px-6 py-3 rounded-xl shadow-2xl transition-all duration-300 flex items-center gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+        </svg>
+        <span id="toast-message">Incorrect Passcode!</span>
+    </div>
+
+    <script>
+        
+        /**
+         * Verifies if the input matches the secret key 'oop' 
+         * using ASCII character values for obfuscation.
+         */
+        function verifyPasscode(input) {
+            // Secret ASCII values for 'o', 'o', 'p'
+            const secretMap = [111, 111, 112];
+            
+            if (input.length !== secretMap.length) return false;
+            
+            for (let i = 0; i < input.length; i++) {
+                if (input.charCodeAt(i) !== secretMap[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /**
+         * Handles the unlocking logic for a specific question
+         */
+        function checkUnlock(qid) {
+            const inputField = document.querySelector(`input[data-qid="${qid}"]`);
+            const val = inputField.value.trim().toLowerCase();
+            
+            if (verifyPasscode(val)) {
+                // Hide input container
+                document.getElementById(`unlock-container-${qid}`).classList.add('hidden');
+                // Show answer
+                document.getElementById(`answer-${qid}`).classList.remove('answer-hidden');
+            } else {
+                showToast("Access Denied: Invalid Passcode");
+            }
+        }
+
+        /**
+         * UI Notification helper
+         */
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const message = document.getElementById('toast-message');
+            message.innerText = msg;
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Listen for "Enter" key on all inputs
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputs = document.querySelectorAll('.passcode-input');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        const qid = input.getAttribute('data-qid');
+                        checkUnlock(qid);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
