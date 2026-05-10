@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Exceptions: A Beginner's Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .flow-node {
+            border: 2px solid #3b82f6;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .flow-arrow {
+            width: 2px;
+            height: 30px;
+            background: #3b82f6;
+            margin: 0 auto;
+        }
+
+        .mcq-option {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .mcq-option:hover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+        }
+
+        .correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+
+        .wrong {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Hero Section -->
+    <header class="gradient-bg text-white py-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl font-bold mb-4">Mastering Java Exceptions</h1>
+            <p class="text-xl text-blue-200">Building robust, crash-proof applications through effective error handling.</p>
+            <div class="mt-10 animate-bounce">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- SECTION 1: INTRODUCTION TO EXCEPTIONS -->
+        <section id="section1" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">1</span>
+                <h2 class="text-3xl font-bold text-gray-800">What is an Exception?</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-lg text-gray-600 mb-4">
+                        In programming, we often assume everything goes right. However, real-world apps face "unexpected events" like bad input or network failures.
+                    </p>
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
+                        <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                        <p class="text-blue-700 italic">Exceptions are a core feature of Java used to maintain program stability by managing errors gracefully instead of crashing.</p>
+                    </div>
+                </div>
+                <div class="bg-gray-100 rounded-xl p-6 flex flex-col items-center justify-center border-dashed border-2 border-gray-300 text-center">
+                    <i class="fas fa-shield-alt text-5xl text-blue-500 mb-4"></i>
+                    <p class="font-medium">"Moving from 'Fragile' code to 'Robust' code."</p>
+                </div>
+            </div>
+
+            <!-- Quiz 1 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Why do we use exceptions in Java?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, true, 'Correct! Exceptions allow us to handle errors without the entire program crashing.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) To handle unexpected runtime errors and maintain stability.</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Exceptions are not related to program speed.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) To make the code run faster.</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Syntax errors are caught during compilation, not as exceptions.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">C) To prevent syntax errors during typing.</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: DEFINING THE EXCEPTION MECHANISM -->
+        <section id="section2" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">2</span>
+                <h2 class="text-3xl font-bold text-gray-800">The Exception Lifecycle</h2>
+            </div>
+            
+            <p class="text-gray-600 mb-8">An exception is a signal that something went wrong during execution. If we don't have a handler, the program ends <strong>abnormally</strong>.</p>
+
+            <!-- Flowchart Simulator -->
+            <div class="bg-gray-50 rounded-xl p-8 flex flex-col items-center border border-gray-200">
+                <div class="flow-node font-bold bg-blue-500 text-white border-blue-600">Runtime Error Occurs</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node font-bold italic">Exception Object Created</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node bg-yellow-50 border-yellow-400">Is there a Handler?</div>
+                <div class="flex gap-20 mt-4">
+                    <div class="flex flex-col items-center">
+                        <div class="h-10 w-[2px] bg-green-500"></div>
+                        <div class="flow-node border-green-500 text-green-700 font-bold">YES: Execute Handler</div>
+                        <div class="h-6 w-[2px] bg-green-500"></div>
+                        <div class="text-xs text-green-600">Resume execution</div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="h-10 w-[2px] bg-red-500"></div>
+                        <div class="flow-node border-red-500 text-red-700 font-bold">NO: Terminate App</div>
+                        <div class="h-6 w-[2px] bg-red-500"></div>
+                        <div class="text-xs text-red-600">Program Crashes</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">Exception handlers act as a safety net. Without them, any runtime error leads to an abnormal termination (crash).</p>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">What happens if a runtime error occurs and NO exception handler is found?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Java cannot fix logical runtime errors automatically.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) Java automatically fixes the code.</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! Without a handler, the Java Virtual Machine terminates the program.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) The program terminates abnormally (crashes).</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. The program cannot skip errors; it needs explicit handling instructions.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">C) The program skips the line and continues.</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: HANDLING INVALID USER INPUT -->
+        <section id="section3" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">3</span>
+                <h2 class="text-3xl font-bold text-gray-800">Encounter: Input Mismatch</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-2">Scenario:</h4>
+                    <p class="text-gray-600 mb-4">Your code expects an <code class="bg-gray-100 px-1">int</code>, but the user types "ABC".</p>
+                    <pre class="bg-gray-900 text-blue-300 p-4 rounded-lg text-sm overflow-x-auto shadow-inner">
+Scanner sc = new Scanner(System.in);
+System.out.print("Enter an integer: ");
+int x = sc.nextInt(); <span class="text-red-400">// Crashes here!</span></pre>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                    <h4 class="font-bold text-red-700 mb-2">The Crash:</h4>
+                    <p class="text-sm font-mono text-red-600">
+                        Exception in thread "main" <br>
+                        java.util.InputMismatchException
+                    </p>
+                    <div class="mt-4 p-4 bg-white rounded border border-red-100 text-sm">
+                        <strong>Simulator:</strong> Input "ABC" into a numeric field.
+                        <div class="mt-2 flex gap-2">
+                            <input id="simInput1" type="text" placeholder="Type ABC..." class="border p-1 text-sm rounded w-full">
+                            <button onclick="simulateInputMismatch()" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Run</button>
+                        </div>
+                        <div id="simResult1" class="mt-2 text-xs font-mono min-h-[20px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">Users are unpredictable. The InputMismatchException occurs when the Scanner's retrieved data type doesn't match the expected type.</p>
+            </div>
+
+            <!-- Quiz 3 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Which exception is thrown when sc.nextInt() receives a non-numeric string?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. This relates to math errors.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) ArithmeticException</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! InputMismatchException handles type discrepancies in Scanner input.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) InputMismatchException</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: MANAGING MATHEMATICAL ERRORS -->
+        <section id="section4" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">4</span>
+                <h2 class="text-3xl font-bold text-gray-800">Encounter: Divide by Zero</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-2">Scenario:</h4>
+                    <p class="text-gray-600 mb-4">A user inputs "0" as a divisor. Java cannot perform this calculation.</p>
+                    <pre class="bg-gray-900 text-blue-300 p-4 rounded-lg text-sm overflow-x-auto">
+int divisor = sc.nextInt();
+double result = 100 / divisor; <span class="text-red-400">// Exception if 0!</span></pre>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                    <h4 class="font-bold text-red-700 mb-2">The Result:</h4>
+                    <p class="text-sm font-mono text-red-600">
+                        java.lang.ArithmeticException: / by zero
+                    </p>
+                    <div class="mt-4 p-4 bg-white rounded border border-red-100 text-sm">
+                        <strong>Simulator:</strong> Try dividing 100 by 0.
+                        <div class="mt-2 flex gap-2">
+                            <input id="simInput2" type="number" value="0" class="border p-1 text-sm rounded w-full">
+                            <button onclick="simulateMathError()" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">Calculate</button>
+                        </div>
+                        <div id="simResult2" class="mt-2 text-xs font-mono min-h-[20px]"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">Logical errors (like dividing by zero) can trigger exceptions even if the code syntax is perfectly correct.</p>
+            </div>
+
+            <!-- Quiz 4 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Can code with correct syntax still throw an exception?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, true, 'Correct! Syntax is about grammar, exceptions are about runtime events.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) Yes, if logical errors occur at runtime.</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Dividing by zero is a classic example of correct syntax but runtime failure.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) No, the compiler prevents all exceptions.</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: THE JAVA EXCEPTION HIERARCHY -->
+        <section id="section5" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">5</span>
+                <h2 class="text-3xl font-bold text-gray-800">The Family Tree</h2>
+            </div>
+
+            <div class="overflow-x-auto bg-gray-50 rounded-xl p-6 border border-gray-200 mb-8">
+                <div class="min-w-[600px] flex flex-col items-center gap-4 py-4">
+                    <div class="p-2 border-2 border-gray-400 rounded bg-white font-bold">Object (Root)</div>
+                    <div class="h-4 w-px bg-gray-400"></div>
+                    <div class="p-2 border-2 border-green-500 rounded bg-green-50 font-bold">Throwable</div>
+                    <div class="flex gap-40 relative">
+                        <div class="absolute top-[-16px] left-[50%] translate-x-[-50%] w-[240px] h-px bg-gray-400"></div>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="h-4 w-px bg-gray-400"></div>
+                            <div class="p-2 border-2 border-red-400 rounded bg-red-50 font-bold">Error</div>
+                            <p class="text-[10px] text-red-500 text-center mt-1">Serious System Issues<br>(e.g. OutOfMemory)</p>
+                        </div>
+
+                        <div class="flex flex-col items-center">
+                            <div class="h-4 w-px bg-gray-400"></div>
+                            <div class="p-2 border-2 border-blue-500 rounded bg-blue-50 font-bold">Exception</div>
+                            <div class="flex gap-10 mt-4">
+                                <div class="flex flex-col items-center">
+                                    <div class="p-2 border-2 border-orange-400 rounded bg-orange-50 text-xs font-bold">Checked</div>
+                                    <p class="text-[10px] text-orange-600 text-center mt-1">Must handle!<br>(IOException)</p>
+                                </div>
+                                <div class="flex flex-col items-center">
+                                    <div class="p-2 border-2 border-purple-400 rounded bg-purple-50 text-xs font-bold">Unchecked</div>
+                                    <p class="text-[10px] text-purple-600 text-center mt-1">Logical bugs<br>(ArithmeticException)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                    <h5 class="font-bold text-orange-800">Checked Exceptions</h5>
+                    <ul class="text-sm list-disc list-inside text-orange-700">
+                        <li>Checked at compile-time</li>
+                        <li>Mandatory handling required</li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-purple-50 border border-purple-200 rounded-lg">
+                    <h5 class="font-bold text-purple-800">Unchecked Exceptions</h5>
+                    <ul class="text-sm list-disc list-inside text-purple-700">
+                        <li>Not checked at compile-time</li>
+                        <li>Usually avoidable with better logic</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">"Checked" exceptions are environmental risks you MUST code for. "Unchecked" exceptions are usually programming blunders.</p>
+            </div>
+
+            <!-- Quiz 5 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Which class is the parent class for BOTH Exceptions and Errors?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Object is the root for all classes, but Throwable is the specific root for exceptions.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) Object</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! Throwable allows an object to be used with throw/catch keywords.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) Throwable</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. RuntimeException is a specific subtype.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">C) RuntimeException</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: THE TRY-CATCH-THROWS WORKFLOW -->
+        <section id="section6" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">6</span>
+                <h2 class="text-3xl font-bold text-gray-800">Handle, Catch, Throw</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-2">Claiming (Throws)</h4>
+                    <pre class="bg-gray-900 text-green-300 p-4 rounded-lg text-sm mb-4">
+void riskyMethod() <span class="text-yellow-300 font-bold">throws</span> Exception {
+  if (badStuff) 
+    <span class="text-yellow-300 font-bold">throw</span> new Exception();
+}</pre>
+                    <p class="text-xs text-gray-500 italic">"I might fail, whoever calls me needs to be ready."</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gray-700 mb-2">Catching (Try-Catch)</h4>
+                    <pre class="bg-gray-900 text-green-300 p-4 rounded-lg text-sm mb-4">
+<span class="text-yellow-300 font-bold">try</span> {
+  riskyMethod();
+} <span class="text-yellow-300 font-bold">catch</span> (Exception e) {
+  System.out.println("Handled!");
+}</pre>
+                    <p class="text-xs text-gray-500 italic">"I'll try this, and if it fails, I have a backup plan."</p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">Methods use "throws" to claim responsibility and "try-catch" blocks to wrap risky code with a recovery plan.</p>
+            </div>
+
+            <!-- Quiz 6 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">What is the keyword used in a method header to declare it might throw an exception?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. "throw" is used inside the method to trigger the event.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) throw</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! "throws" is used in method signatures to claim a potential exception.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) throws</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. "catch" is used to handle an exception that has occurred.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">C) catch</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: BEST PRACTICES -->
+        <section id="section7" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">7</span>
+                <h2 class="text-3xl font-bold text-gray-800">API Knowledge & Logic</h2>
+            </div>
+
+            <div class="space-y-6">
+                <div class="p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h4 class="font-bold mb-4 text-blue-700"><i class="fas fa-book-open mr-2"></i> How to know what to catch?</h4>
+                    <p class="text-gray-600 mb-4">Always check the Java API documentation. The method signature tells you everything:</p>
+                    <div class="space-y-4">
+                        <div class="bg-white p-3 rounded border border-blue-100">
+                            <code class="text-blue-600 font-bold block mb-1">public String readLine() throws IOException</code>
+                            <span class="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded font-bold">MUST BE CAUGHT</span>
+                            <p class="text-xs mt-2 text-gray-500">This is a Checked Exception. The compiler will complain if you ignore it.</p>
+                        </div>
+                        <div class="bg-white p-3 rounded border border-blue-100">
+                            <code class="text-blue-600 font-bold block mb-1">public static int parseInt(String s)</code>
+                            <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded font-bold">OPTIONAL CATCH</span>
+                            <p class="text-xs mt-2 text-gray-500">This throws a NumberFormatException (Unchecked). Handle it only if you expect bad user strings.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                    <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                    <p class="text-blue-700 italic">Use Checked exceptions for external risks beyond your control (files, networks). Use Unchecked exceptions for logic errors you should have prevented.</p>
+                </div>
+            </div>
+
+            <!-- Quiz 7 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Is it always necessary to catch an exception locally?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Sometimes it is better to let the calling method handle the error.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) Yes, every exception must be caught immediately.</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! You can use "throws" to pass the exception to the calling method instead of catching it.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) No, you can let it pass to the calling method (re-throw).</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="gradient-bg text-white py-12 mt-20 text-center">
+        <p>&copy; 2024 Java Masterclass: Exception Handling Section</p>
+        <p class="text-blue-300 text-sm mt-2">Built for Java Beginners to learn Robust Coding.</p>
+    </footer>
+
+    <script>
+        function checkAnswer(btn, isCorrect, explanation) {
+            const container = btn.parentElement;
+            const options = container.querySelectorAll('.mcq-option');
+            const feedback = container.nextElementSibling;
+
+            // Reset all
+            options.forEach(opt => {
+                opt.classList.remove('correct', 'wrong');
+            });
+
+            // Set current
+            if (isCorrect) {
+                btn.classList.add('correct');
+                feedback.classList.remove('text-red-600');
+                feedback.classList.add('text-green-600');
+            } else {
+                btn.classList.add('wrong');
+                feedback.classList.remove('text-green-600');
+                feedback.classList.add('text-red-600');
+            }
+
+            feedback.textContent = (isCorrect ? "✓ " : "✗ ") + explanation;
+            feedback.classList.remove('hidden');
+        }
+
+        function simulateInputMismatch() {
+            const val = document.getElementById('simInput1').value;
+            const res = document.getElementById('simResult1');
+            res.className = "mt-2 text-xs font-mono min-h-[20px]";
+            
+            if (!val) {
+                res.textContent = "Please type something.";
+                res.classList.add('text-gray-500');
+                return;
+            }
+
+            if (isNaN(val)) {
+                res.innerHTML = "<span class='text-red-600'>CRASH: java.util.InputMismatchException!</span><br>Value '" + val + "' is not a valid integer.";
+            } else {
+                res.innerHTML = "<span class='text-green-600'>SUCCESS:</span> Read integer: " + val;
+            }
+        }
+
+        function simulateMathError() {
+            const val = document.getElementById('simInput2').value;
+            const res = document.getElementById('simResult2');
+            res.className = "mt-2 text-xs font-mono min-h-[20px]";
+
+            if (val === "0" || val === "") {
+                res.innerHTML = "<span class='text-red-600'>CRASH: java.lang.ArithmeticException: / by zero</span>";
+            } else {
+                const result = 100 / parseFloat(val);
+                res.innerHTML = "<span class='text-green-600'>SUCCESS:</span> 100 / " + val + " = " + result.toFixed(2);
+            }
+        }
+    </script>
+</body>
+</html>
