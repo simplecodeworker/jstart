@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Array Basics - Interactive Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=JetBrains+Mono&display=swap');
+        
+        :root {
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            scroll-behavior: smooth;
+        }
+
+        .code-snippet {
+            font-family: var(--font-mono);
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .egg-icon {
+            width: 40px;
+            height: 50px;
+            background: #fff5e6;
+            border: 2px solid #e6ccb2;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: inline-block;
+            box-shadow: inset -4px -4px 0 rgba(0,0,0,0.05);
+        }
+
+        .egg-carton {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            background: #d2b48c;
+            padding: 12px;
+            border-radius: 8px;
+            border-bottom: 4px solid #a68b6a;
+        }
+
+        .mcq-option {
+            transition: all 0.2s ease;
+        }
+
+        .memory-cell {
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .pointer-arrow {
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        /* Prevent layout shift during scroll for simulator */
+        #memory-simulator {
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <!-- Header / Hero -->
+    <header class="bg-indigo-700 text-white py-16 px-4 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Mastering Java Arrays</h1>
+        <p class="text-lg md:text-xl text-indigo-100 max-w-2xl mx-auto">A visual, step-by-step guide for absolute beginners.</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- SECTION 1: EGG ANALOGY -->
+        <section id="section-1" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 1</span>
+                <h2 class="text-2xl font-bold">Introduction & The Egg Analogy</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="bg-slate-50 p-6 rounded-xl text-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Single Variable</p>
+                    <div class="inline-block p-4 bg-white rounded-full border shadow-sm mb-4">
+                        <div class="egg-icon"></div>
+                    </div>
+                    <p class="text-sm italic text-slate-600">"One variable = One value"</p>
+                </div>
+                <div class="bg-slate-50 p-6 rounded-xl text-center">
+                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Array</p>
+                    <div class="inline-block p-4 bg-white rounded-lg border shadow-sm mb-4">
+                        <div class="egg-carton">
+                            <div class="egg-icon"></div>
+                            <div class="egg-icon"></div>
+                            <div class="egg-icon"></div>
+                        </div>
+                    </div>
+                    <p class="text-sm italic text-slate-600">"One variable = Many values"</p>
+                </div>
+            </div>
+
+            <pre class="code-snippet mb-6"><code>int mark; // one single value
+int[] marks; // a container for many marks</code></pre>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> Use arrays when you need to manage a collection of related data points rather than creating dozens of individual variables.</p>
+            </div>
+
+            <!-- MCQ -->
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Knowledge Check</h4>
+                <div class="space-y-3">
+                    <p class="text-sm">Why would we prefer an array over 10 separate 'int' variables?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Arrays group related data under one easy-to-manage name.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">A) To group related data under a single name</button>
+                    <button onclick="handleMCQ(this, false, 'Actually, arrays make the program easier to read and maintain.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">B) To make the code longer</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: HOMOGENEITY -->
+        <section id="section-2" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 2</span>
+                <h2 class="text-2xl font-bold">Homogeneity & Consistency</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="p-6 border-2 border-red-100 bg-red-50 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-2 right-2 text-red-400 font-bold">WRONG</div>
+                    <div class="egg-carton opacity-50 mb-4">
+                        <div class="egg-icon"></div>
+                        <div class="flex items-center justify-center text-2xl">📦</div>
+                        <div class="egg-icon"></div>
+                    </div>
+                    <p class="text-sm text-red-800 font-semibold text-center">Mixing Types</p>
+                </div>
+                <div class="p-6 border-2 border-emerald-100 bg-emerald-50 rounded-xl relative overflow-hidden">
+                    <div class="absolute top-2 right-2 text-emerald-400 font-bold">RIGHT</div>
+                    <div class="egg-carton mb-4">
+                        <div class="egg-icon"></div>
+                        <div class="egg-icon"></div>
+                        <div class="egg-icon"></div>
+                    </div>
+                    <p class="text-sm text-emerald-800 font-semibold text-center">Same Type Only</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> You cannot mix data types (e.g., integers and strings) within a standard Java array.</p>
+            </div>
+
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Knowledge Check</h4>
+                <div class="space-y-3">
+                    <p class="text-sm">Can an array of 'double' store an 'int' value?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Java will actually auto-convert the int to double (e.g., 5 to 5.0) because the structure is still a double array.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">A) Yes, but only because Java converts the type to match</button>
+                    <button onclick="handleMCQ(this, false, 'Technically, you cannot mix unrelated types like String and int.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">B) Yes, you can store any mix of types anywhere</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 & 4: SYNTAX & NEW -->
+        <section id="section-3-4" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 3 & 4</span>
+                <h2 class="text-2xl font-bold">Syntax: Declaration & 'new'</h2>
+            </div>
+            
+            <p class="mb-6">Declaring is telling Java about the variable. Creating is asking for memory.</p>
+            
+            <pre class="code-snippet mb-8"><code>int[] marks; // Declaration
+marks = new int[5]; // Creation: allocate 5 slots
+System.out.println(marks.length); // Prints 5</code></pre>
+
+            <div class="grid md:grid-cols-2 gap-4 mb-8">
+                <div class="p-4 bg-indigo-50 rounded-lg">
+                    <p class="font-bold text-indigo-900 mb-1">Declaration</p>
+                    <p class="text-sm text-indigo-700">The brackets <code class="bg-white px-1">[]</code> indicate it's an array. Use <code class="bg-white px-1">type[] name</code>.</p>
+                </div>
+                <div class="p-4 bg-amber-50 rounded-lg">
+                    <p class="font-bold text-amber-900 mb-1">Creation ('new')</p>
+                    <p class="text-sm text-amber-700">The <code class="bg-white px-1">new</code> keyword tells Java to reserve actual space in RAM.</p>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> Declaration defines the variable; 'new' allocates memory. The size is fixed at the moment of creation.</p>
+            </div>
+
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Knowledge Check</h4>
+                <div class="space-y-3">
+                    <p class="text-sm">What happens if you try to change the size of an array after it is created?</p>
+                    <button onclick="handleMCQ(this, false, 'Arrays in Java are fixed-size.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">A) It grows automatically</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! Once created with a specific size, an array cannot be resized.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">B) You can't; sizes are fixed at creation</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5, 6, 7: MEMORY SIMULATOR -->
+        <section id="section-memory" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 5-7</span>
+                <h2 class="text-2xl font-bold">Memory & Reference Logic</h2>
+            </div>
+            
+            <p class="mb-8">An array variable is a <strong>Reference</strong>. It holds an <strong>address</strong>, not the data itself.</p>
+
+            <!-- Memory Simulator Tool -->
+            <div id="memory-simulator" class="bg-slate-900 rounded-xl p-8 text-white relative">
+                <div class="flex flex-col md:flex-row items-start justify-between gap-12">
+                    
+                    <!-- Stack -->
+                    <div class="w-full md:w-1/3">
+                        <h4 class="text-xs uppercase font-bold text-slate-500 mb-4 tracking-widest">Stack (Variable)</h4>
+                        <div id="stack-var" class="p-4 bg-indigo-600 rounded-lg border-2 border-indigo-400 text-center font-mono relative">
+                            <span class="text-xs opacity-70 block mb-1">marks</span>
+                            <span id="ptr-val" class="text-lg">null</span>
+                        </div>
+                    </div>
+
+                    <!-- Arrow Container -->
+                    <div class="hidden md:flex flex-col items-center justify-center h-20 w-16 pt-8">
+                        <div id="mem-arrow" class="pointer-arrow opacity-0 transform translate-x-[-20px]">
+                            <svg width="60" height="20" viewBox="0 0 60 20">
+                                <path d="M0 10 L50 10" stroke="white" stroke-width="2" />
+                                <polygon points="50,5 60,10 50,15" fill="white" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Heap -->
+                    <div class="w-full md:w-1/2">
+                        <h4 class="text-xs uppercase font-bold text-slate-500 mb-4 tracking-widest">Heap (Actual Array)</h4>
+                        <div id="heap-cells" class="grid grid-cols-4 gap-2">
+                            <div class="memory-cell h-16 bg-slate-800 rounded flex flex-col items-center justify-center border border-slate-700 opacity-20">
+                                <span class="text-[10px] text-slate-500">10A0</span>
+                                <span class="cell-val">-</span>
+                            </div>
+                            <div class="memory-cell h-16 bg-slate-800 rounded flex flex-col items-center justify-center border border-slate-700 opacity-20">
+                                <span class="text-[10px] text-slate-500">10A4</span>
+                                <span class="cell-val">-</span>
+                            </div>
+                            <div class="memory-cell h-16 bg-slate-800 rounded flex flex-col items-center justify-center border border-slate-700 opacity-20">
+                                <span class="text-[10px] text-slate-500">10A8</span>
+                                <span class="cell-val">-</span>
+                            </div>
+                            <div class="memory-cell h-16 bg-slate-800 rounded flex flex-col items-center justify-center border border-slate-700 opacity-20">
+                                <span class="text-[10px] text-slate-500">10AC</span>
+                                <span class="cell-val">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 flex flex-wrap gap-4 justify-center">
+                    <button id="btn-declare" class="px-6 py-2 bg-indigo-500 hover:bg-indigo-400 rounded-full font-bold transition">1. Declare (int[] marks)</button>
+                    <button id="btn-create" class="px-6 py-2 bg-slate-600 hover:bg-slate-500 rounded-full font-bold transition opacity-50 cursor-not-allowed" disabled>2. Create (marks = new int[4])</button>
+                    <button id="btn-reset" class="px-6 py-2 bg-slate-700 hover:bg-slate-600 rounded-full font-bold transition">Reset</button>
+                </div>
+                <p id="sim-text" class="text-center mt-6 text-indigo-300 italic text-sm">Click 'Declare' to start.</p>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 my-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> Declaration creates the pointer; Creation allocates space and fills it with <strong>default values</strong> (0 for int). The pointer tracks the start address.</p>
+            </div>
+
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Knowledge Check</h4>
+                <div class="space-y-3">
+                    <p class="text-sm">What is the address of the 3rd element if the array starts at 10A0?</p>
+                    <button onclick="handleMCQ(this, false, 'Integers take 4 bytes. 10A0, 10A4, 10A8...')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">A) 10A0</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! Elements are stored contiguously in memory. 1st is 10A0, 2nd is 10A4, 3rd is 10A8.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">B) 10A8</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8 & 9: SHORTHANDS -->
+        <section id="section-8-9" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 8 & 9</span>
+                <h2 class="text-2xl font-bold">Shorthand & Initializers</h2>
+            </div>
+            
+            <p class="mb-6">Efficiency matters! You can combine everything into one line.</p>
+            
+            <div class="space-y-4 mb-8">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-2">Combined Statement</p>
+                    <pre class="code-snippet"><code>int[] age = new int[3];</code></pre>
+                </div>
+                <div>
+                    <p class="text-xs font-bold text-slate-400 uppercase mb-2">Array Literal (Direct Values)</p>
+                    <pre class="code-snippet"><code>int[] marks = {70, 45, 90};</code></pre>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> Array literals <code class="bg-emerald-100 px-1">{v1, v2}</code> calculate the length automatically and fill the array instantly.</p>
+            </div>
+
+            <div class="mt-10 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                <h4 class="font-bold mb-4">Knowledge Check</h4>
+                <div class="space-y-3">
+                    <p class="text-sm">Which of these correctly makes an array of size 2?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Java counts the 2 elements and creates the array.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">A) int[] data = {1, 2};</button>
+                    <button onclick="handleMCQ(this, false, 'The literal syntax uses curly braces.')" class="mcq-option w-full text-left p-3 rounded bg-white border border-slate-200 hover:border-indigo-500 hover:bg-indigo-50">B) int[] data = (1, 2);</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10: ERRORS -->
+        <section id="section-10" class="scroll-mt-12 bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full text-sm font-bold">SECTION 10</span>
+                <h2 class="text-2xl font-bold text-red-600">Troubleshooting Errors</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div class="p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <p class="text-xs font-bold text-red-500 mb-4 uppercase">Error: Missing Size</p>
+                    <pre class="bg-red-900 text-red-100 p-4 rounded font-mono text-sm"><code>int[] data = new int[]; 
+// WRONG: Size missing</code></pre>
+                </div>
+                <div class="p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <p class="text-xs font-bold text-red-500 mb-4 uppercase">Error: Broken Shorthand</p>
+                    <pre class="bg-red-900 text-red-100 p-4 rounded font-mono text-sm"><code>int[] data;
+data = {1, 2, 3}; 
+// WRONG: 'new' required here</code></pre>
+                </div>
+            </div>
+
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 mb-8">
+                <p class="text-emerald-800"><strong>Takeaway:</strong> Size is mandatory at creation. Shorthand <code class="bg-emerald-100 px-1">{...}</code> only works if declared and assigned on the same line.</p>
+            </div>
+        </section>
+
+        <!-- SECTION 11: FINAL CHALLENGE -->
+        <section id="section-11" class="scroll-mt-12 bg-slate-900 text-white rounded-2xl shadow-xl p-12">
+            <h2 class="text-3xl font-bold mb-8 text-center">Final Mastery Check</h2>
+            
+            <div class="max-w-xl mx-auto space-y-12">
+                <div class="bg-slate-800 p-6 rounded-xl border border-slate-700">
+                    <p class="text-sm font-bold text-indigo-400 mb-4 uppercase tracking-widest">The Code Snippet</p>
+                    <pre class="font-mono text-lg text-indigo-100"><code>double a = 5.0;
+double[] b = new double[2];</code></pre>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="p-6 bg-slate-800 rounded-xl">
+                        <p class="mb-4">Question 1: What is the data type and value of 'a'?</p>
+                        <div class="grid gap-2">
+                            <button onclick="handleFinalMCQ(this, true)" class="w-full text-left p-3 rounded bg-slate-700 border border-slate-600 hover:border-indigo-500 transition">Type: double, Value: 5.0</button>
+                            <button onclick="handleFinalMCQ(this, false)" class="w-full text-left p-3 rounded bg-slate-700 border border-slate-600 hover:border-indigo-500 transition">Type: Array, Value: [5.0]</button>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-slate-800 rounded-xl">
+                        <p class="mb-4">Question 2: What are the values inside 'b' after creation?</p>
+                        <div class="grid gap-2">
+                            <button onclick="handleFinalMCQ(this, false)" class="w-full text-left p-3 rounded bg-slate-700 border border-slate-600 hover:border-indigo-500 transition">b[0]=5.0, b[1]=5.0</button>
+                            <button onclick="handleFinalMCQ(this, true)" class="w-full text-left p-3 rounded bg-slate-700 border border-slate-600 hover:border-indigo-500 transition">b[0]=0.0, b[1]=0.0</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-12 bg-slate-200 text-center text-slate-500 text-sm">
+        <p>Interactive Java Learning &bull; Built with Vanilla JS & Tailwind</p>
+    </footer>
+
+    <!-- LOGIC -->
+    <script>
+        // MCQ Logic
+        function handleMCQ(btn, isCorrect, explanation) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            
+            // Clear existing feedback
+            const existingExp = parent.querySelector('.explanation-text');
+            if (existingExp) existingExp.remove();
+
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.remove('border-indigo-500', 'bg-indigo-50');
+                b.classList.add('opacity-50');
+            });
+
+            if (isCorrect) {
+                btn.classList.remove('opacity-50');
+                btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
+            } else {
+                btn.classList.remove('opacity-50');
+                btn.classList.add('bg-red-50', 'border-red-500', 'text-red-900');
+            }
+
+            const exp = document.createElement('p');
+            exp.className = `explanation-text mt-4 p-3 rounded text-sm font-medium ${isCorrect ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`;
+            exp.innerText = explanation;
+            parent.appendChild(exp);
+        }
+
+        function handleFinalMCQ(btn, isCorrect) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('opacity-30');
+            });
+            btn.classList.remove('opacity-30');
+            if (isCorrect) {
+                btn.classList.add('bg-emerald-600', 'border-emerald-400', 'font-bold');
+            } else {
+                btn.classList.add('bg-red-600', 'border-red-400');
+            }
+        }
+
+        // Simulator Logic
+        const btnDeclare = document.getElementById('btn-declare');
+        const btnCreate = document.getElementById('btn-create');
+        const btnReset = document.getElementById('btn-reset');
+        const stackVal = document.getElementById('ptr-val');
+        const arrow = document.getElementById('mem-arrow');
+        const simText = document.getElementById('sim-text');
+        const heapCells = document.querySelectorAll('.memory-cell');
+
+        btnDeclare.addEventListener('click', () => {
+            stackVal.innerText = "null";
+            stackVal.classList.add('text-indigo-200');
+            simText.innerText = "Variable 'marks' exists, but points to nothing (null).";
+            btnDeclare.disabled = true;
+            btnDeclare.classList.add('opacity-50', 'cursor-not-allowed');
+            btnCreate.disabled = false;
+            btnCreate.classList.remove('opacity-50', 'cursor-not-allowed');
+            btnCreate.classList.add('bg-amber-500', 'hover:bg-amber-400');
+        });
+
+        btnCreate.addEventListener('click', () => {
+            stackVal.innerText = "10A0";
+            stackVal.classList.remove('text-indigo-200');
+            stackVal.classList.add('text-white', 'font-bold');
+            
+            arrow.classList.remove('opacity-0');
+            arrow.classList.add('opacity-100', 'translate-x-0');
+
+            heapCells.forEach(cell => {
+                cell.classList.remove('opacity-20');
+                cell.classList.add('bg-indigo-700', 'border-indigo-500');
+                cell.querySelector('.cell-val').innerText = "0";
+                cell.querySelector('.cell-val').classList.add('text-white', 'font-bold');
+            });
+
+            simText.innerText = "Memory allocated at 10A0! Pointer updated. Array initialized to zeros.";
+            simText.classList.remove('text-indigo-300');
+            simText.classList.add('text-emerald-400');
+            btnCreate.disabled = true;
+            btnCreate.classList.add('opacity-50', 'cursor-not-allowed');
+        });
+
+        btnReset.addEventListener('click', () => {
+            stackVal.innerText = "null";
+            stackVal.className = "text-lg";
+            arrow.classList.add('opacity-0', 'translate-x-[-20px]');
+            heapCells.forEach(cell => {
+                cell.classList.add('opacity-20');
+                cell.classList.remove('bg-indigo-700', 'border-indigo-500');
+                cell.querySelector('.cell-val').innerText = "-";
+                cell.querySelector('.cell-val').classList.remove('text-white', 'font-bold');
+            });
+            simText.innerText = "Click 'Declare' to start.";
+            simText.className = "text-center mt-6 text-indigo-300 italic text-sm";
+            btnDeclare.disabled = false;
+            btnDeclare.classList.remove('opacity-50', 'cursor-not-allowed');
+            btnCreate.disabled = true;
+            btnCreate.classList.add('opacity-50', 'cursor-not-allowed');
+            btnCreate.classList.remove('bg-amber-500');
+        });
+    </script>
+</body>
+</html>
