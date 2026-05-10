@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Exception Handling Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .flow-node {
+            transition: all 0.3s ease;
+        }
+        .flow-node:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            overflow-x: auto;
+            border: 1px solid #333;
+        }
+        .java-keyword { color: #569cd6; }
+        .java-comment { color: #6a9955; }
+        .java-string { color: #ce9178; }
+        .java-type { color: #4ec9b0; }
+
+        .quiz-option {
+            transition: all 0.2s ease;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 text-white py-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block p-3 bg-blue-500/20 rounded-2xl mb-6">
+                <i class="fa-solid fa-shield-halved text-4xl text-blue-400"></i>
+            </div>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Java Exception Handling</h1>
+            <p class="text-xl text-blue-100 opacity-90 max-w-2xl mx-auto leading-relaxed">
+                Master the art of building robust, crash-proof Java applications through professional error management.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- SECTION 1 -->
+        <section id="section1" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-indigo-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 01</span>
+                <h2 class="text-3xl font-bold text-slate-800">The Syntax of Catching Exceptions</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-semibold text-lg mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-code text-indigo-500"></i> The Core Structure
+                        </h3>
+                        <p class="text-slate-600 mb-4">Handling exceptions in Java involves three primary keywords that act as a safety net for your code.</p>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3">
+                                <b class="text-indigo-600 w-20 shrink-0">try:</b> 
+                                <span>Wraps the "dangerous" code that might fail.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <b class="text-indigo-600 w-20 shrink-0">catch:</b> 
+                                <span>Specific blocks to handle various types of errors.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <b class="text-indigo-600 w-20 shrink-0">finally:</b> 
+                                <span>The cleanup crew. Runs no matter what happens.</span>
+                            </li>
+                        </ul>
+                        <div class="mt-6 p-4 bg-amber-50 border-l-4 border-amber-400 rounded-r-lg text-sm text-amber-800">
+                            <i class="fa-solid fa-circle-exclamation mr-1"></i>
+                            <strong>Mandatory:</strong> Curly braces <code>{}</code> are required even for single-line blocks!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+<pre class="code-font text-sm leading-relaxed">
+<span class="java-keyword">try</span> {
+    <span class="java-comment">// Code that might throw exceptions</span>
+    openFile(<span class="java-string">"data.txt"</span>);
+}
+<span class="java-keyword">catch</span> (<span class="java-type">FileNotFoundException</span> e) {
+    <span class="java-comment">// Handle specific error</span>
+}
+<span class="java-keyword">catch</span> (<span class="java-type">Exception</span> e) {
+    <span class="java-comment">// Catch-all for other errors</span>
+}
+<span class="java-keyword">finally</span> {
+    <span class="java-comment">// Always runs (e.g., closing file)</span>
+}
+</pre>
+                </div>
+            </div>
+
+            <!-- Takeaway -->
+            <div class="mt-8 bg-indigo-900 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-lightbulb"></i></div>
+                <div>
+                    <span class="text-indigo-300 font-bold uppercase text-xs">Section Takeaway</span>
+                    <p class="text-lg">Exceptions are managed by "trying" code and "catching" specific errors to prevent program crashes.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Section 1 -->
+            <div class="mt-12 bg-white rounded-2xl shadow-md p-8 border border-slate-100">
+                <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-green-500"></i> Check Your Knowledge
+                </h4>
+                <div class="space-y-8">
+                    <div>
+                        <p class="font-medium mb-4">1. Which block is used to store code that should run regardless of whether an exception occurs?</p>
+                        <div class="grid gap-3">
+                            <button onclick="checkQuiz(this, false, 'Try is for running code, not cleanup.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">A) try block</button>
+                            <button onclick="checkQuiz(this, true, 'Correct! Finally is guaranteed to execute.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">B) finally block</button>
+                            <button onclick="checkQuiz(this, false, 'Catch only runs if an error occurs.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">C) catch block</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="section2" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 02</span>
+                <h2 class="text-3xl font-bold text-slate-800">Essential Rules</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200">
+                <div class="mb-8 text-center">
+                    <span class="text-blue-600 font-mono text-xl font-bold italic">"Try is not alone, Catch is conditional, Finally is guaranteed."</span>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold mb-4">1</div>
+                        <p class="text-slate-700">Checked exceptions <b>must</b> be placed in a try block or declared.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold mb-4">2</div>
+                        <p class="text-slate-700">Try cannot be alone; it needs <b>at least one</b> catch or finally.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold mb-4">3</div>
+                        <p class="text-slate-700">If an exception hits, the <b>remaining code</b> in the try block is skipped.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold mb-4">4</div>
+                        <p class="text-slate-700">Finally runs <b>even if</b> there is a return or exit statement before it.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold mb-4">5</div>
+                        <p class="text-slate-700">Catch only executes if the exception type <b>matches</b> the error thrown.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Takeaway -->
+            <div class="mt-8 bg-blue-900 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-hand-holding-heart"></i></div>
+                <div>
+                    <span class="text-blue-300 font-bold uppercase text-xs">Section Takeaway</span>
+                    <p class="text-lg">You can't have a try without a partner (catch or finally), and finally is your "safety net" that always runs.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Section 2 -->
+            <div class="mt-12 bg-white rounded-2xl shadow-md p-8 border border-slate-100">
+                <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-green-500"></i> Check Your Knowledge
+                </h4>
+                <div class="space-y-8">
+                    <div>
+                        <p class="font-medium mb-4">2. If an exception occurs on line 2 of a try block containing 5 lines, what happens to lines 3, 4, and 5?</p>
+                        <div class="grid gap-3">
+                            <button onclick="checkQuiz(this, true, 'Correct! The execution immediately jumps to the catch block.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">A) They are skipped</button>
+                            <button onclick="checkQuiz(this, false, 'No, Java stops the try block execution immediately.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">B) They run after the catch block</button>
+                            <button onclick="checkQuiz(this, false, 'Lines in the try block do not resume after an error.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">C) They are executed first</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: SIMULATOR -->
+        <section id="section3" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-emerald-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 03</span>
+                <h2 class="text-3xl font-bold text-slate-800">Practical Example & Simulator</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <div class="bg-slate-800 p-6 rounded-2xl shadow-xl border border-slate-700">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-400 text-sm font-mono uppercase tracking-widest">Interactive Simulator</span>
+                            <div class="flex gap-1.5">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <label class="block text-slate-300 text-sm">Input Divisor (used in: <code>100 / divisor</code>)</label>
+                            <input type="text" id="sim-input" placeholder="Try '0' or 'ABC' or '5'..." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-emerald-400 font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                            <button onclick="runSimulation()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 rounded-lg transition-all active:scale-95">
+                                Run Code Sample
+                            </button>
+                        </div>
+
+                        <div class="mt-6">
+                            <div class="text-xs text-slate-500 uppercase font-bold mb-2">System Console Output</div>
+                            <div id="sim-console" class="bg-black rounded p-4 font-mono text-sm min-h-[120px] text-slate-300 whitespace-pre-wrap">Waiting for input...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <h3 class="font-bold text-lg mb-4">What's happening?</h3>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        In this example, we calculate <code>100 / divisor</code>. Two things can go wrong:
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex gap-4 p-4 rounded-xl bg-red-50 border border-red-100">
+                            <div class="text-red-500 text-xl"><i class="fa-solid fa-keyboard"></i></div>
+                            <div>
+                                <h4 class="font-bold text-red-800">InputMismatchException</h4>
+                                <p class="text-sm text-red-700">Triggered if you enter text instead of a number.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 p-4 rounded-xl bg-orange-50 border border-orange-100">
+                            <div class="text-orange-500 text-xl"><i class="fa-solid fa-divide"></i></div>
+                            <div>
+                                <h4 class="font-bold text-orange-800">ArithmeticException</h4>
+                                <p class="text-sm text-orange-700">Triggered if you try to divide by zero.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Takeaway -->
+            <div class="mt-8 bg-emerald-900 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-microchip"></i></div>
+                <div>
+                    <span class="text-emerald-300 font-bold uppercase text-xs">Section Takeaway</span>
+                    <p class="text-lg">By catching specific exceptions, you can provide user-friendly feedback instead of cryptic system error messages.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Section 3 -->
+            <div class="mt-12 bg-white rounded-2xl shadow-md p-8 border border-slate-100">
+                <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-green-500"></i> Check Your Knowledge
+                </h4>
+                <div class="space-y-8">
+                    <div>
+                        <p class="font-medium mb-4">3. Which exception is specifically thrown in Java when dividing by zero?</p>
+                        <div class="grid gap-3">
+                            <button onclick="checkQuiz(this, false, 'InputMismatch is for user input types.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">A) InputMismatchException</button>
+                            <button onclick="checkQuiz(this, true, 'Correct! Math errors like divide-by-zero throw this exception.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">B) ArithmeticException</button>
+                            <button onclick="checkQuiz(this, false, 'NullPointerException is for uninitialized objects.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">C) NullPointerException</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: FLOWCHART -->
+        <section id="section4" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-purple-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 04</span>
+                <h2 class="text-3xl font-bold text-slate-800">Visualizing Execution Flow</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 overflow-x-auto">
+                <h3 class="text-center text-slate-400 font-bold text-sm uppercase tracking-widest mb-10">JVM Execution Logic</h3>
+                
+                <div class="min-w-[600px] flex flex-col items-center gap-6">
+                    <div class="flow-node px-6 py-3 bg-slate-800 text-white rounded-lg font-bold shadow-md">START TRY BLOCK</div>
+                    
+                    <div class="w-0.5 h-6 bg-slate-300"></div>
+
+                    <div class="flow-node px-8 py-6 border-4 border-amber-400 rounded-3xl bg-amber-50 flex flex-col items-center shadow-sm">
+                        <span class="font-bold text-amber-800 uppercase text-xs mb-2">Decision Point</span>
+                        <span class="text-lg font-semibold text-slate-800">Is Exception Thrown?</span>
+                    </div>
+
+                    <div class="w-full flex justify-center gap-40 -mt-2">
+                        <div class="flex flex-col items-center">
+                            <div class="text-xs font-bold text-green-600 mb-2">NO</div>
+                            <div class="w-0.5 h-12 bg-green-500"></div>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="text-xs font-bold text-red-600 mb-2">YES</div>
+                            <div class="w-0.5 h-12 bg-red-500"></div>
+                        </div>
+                    </div>
+
+                    <div class="w-full flex justify-center gap-24">
+                        <div class="flow-node px-6 py-4 bg-green-100 border-2 border-green-300 rounded-xl text-green-800 font-bold max-w-[200px] text-center">
+                            Finish Try Block Normally
+                        </div>
+                        <div class="flow-node px-6 py-4 bg-red-100 border-2 border-red-300 rounded-xl text-red-800 font-bold max-w-[200px] text-center">
+                            Match Catch Block & Run
+                        </div>
+                    </div>
+
+                    <div class="w-full flex justify-center">
+                        <div class="w-[300px] h-12 border-x-2 border-b-2 border-slate-300 rounded-b-3xl"></div>
+                    </div>
+
+                    <div class="flow-node px-8 py-4 bg-purple-600 text-white rounded-xl font-bold shadow-lg ring-4 ring-purple-200">
+                        RUN FINALLY BLOCK (Guaranteed)
+                    </div>
+
+                    <div class="w-0.5 h-6 bg-slate-300"></div>
+
+                    <div class="flow-node px-6 py-3 bg-slate-800 text-white rounded-lg font-bold">CONTINUE PROGRAM</div>
+                </div>
+            </div>
+
+            <!-- Takeaway -->
+            <div class="mt-8 bg-purple-900 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-diagram-project"></i></div>
+                <div>
+                    <span class="text-purple-300 font-bold uppercase text-xs">Section Takeaway</span>
+                    <p class="text-lg">The finally block is the "bottleneck" through which almost all execution paths must pass before the program continues.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Section 4 -->
+            <div class="mt-12 bg-white rounded-2xl shadow-md p-8 border border-slate-100">
+                <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-green-500"></i> Check Your Knowledge
+                </h4>
+                <div class="space-y-8">
+                    <div>
+                        <p class="font-medium mb-4">4. In which scenario does the 'finally' block NOT run?</p>
+                        <div class="grid gap-3">
+                            <button onclick="checkQuiz(this, false, 'No, finally runs even if there is no error.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">A) When NO exception occurs</button>
+                            <button onclick="checkQuiz(this, false, 'Finally still runs after the catch block completes.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">B) When a matching exception is caught</button>
+                            <button onclick="checkQuiz(this, true, 'Correct! Finally is guaranteed except in rare cases like System.exit() or JVM crash.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">C) It almost always runs (barring JVM crash)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: ACCESSING DETAILS -->
+        <section id="section5" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-rose-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 05</span>
+                <h2 class="text-3xl font-bold text-slate-800">Accessing Exception Details</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-rose-500 shadow-sm">
+                    <code class="text-rose-600 font-bold block mb-4">e.getMessage()</code>
+                    <p class="text-slate-600 text-sm">Returns a short, descriptive string explaining the core reason for the failure (e.g., "/ by zero").</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-rose-500 shadow-sm">
+                    <code class="text-rose-600 font-bold block mb-4">e.toString()</code>
+                    <p class="text-slate-600 text-sm">Returns the full class name of the exception plus the message. Better for identifying the error type.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border-t-4 border-rose-500 shadow-sm">
+                    <code class="text-rose-600 font-bold block mb-4">e.printStackTrace()</code>
+                    <p class="text-slate-600 text-sm">The debugger's best friend. Lists every method call that led to the crash, including line numbers.</p>
+                </div>
+            </div>
+
+            <!-- Takeaway -->
+            <div class="mt-8 bg-rose-900 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                <div>
+                    <span class="text-rose-300 font-bold uppercase text-xs">Section Takeaway</span>
+                    <p class="text-lg">The exception object 'e' contains useful data that helps developers debug exactly where and why a crash happened.</p>
+                </div>
+            </div>
+
+            <!-- Quiz Section 5 -->
+            <div class="mt-12 bg-white rounded-2xl shadow-md p-8 border border-slate-100">
+                <h4 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-pen-nib text-green-500"></i> Check Your Knowledge
+                </h4>
+                <div class="space-y-8">
+                    <div>
+                        <p class="font-medium mb-4">5. Which method provides the line number where the exception occurred?</p>
+                        <div class="grid gap-3">
+                            <button onclick="checkQuiz(this, false, 'getMessage only gives the text description.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">A) getMessage()</button>
+                            <button onclick="checkQuiz(this, true, 'Correct! The stack trace maps the entire execution history with line numbers.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">B) printStackTrace()</button>
+                            <button onclick="checkQuiz(this, false, 'toString only gives the class name and message.')" class="quiz-option text-left p-4 rounded-xl border border-slate-200 hover:border-indigo-300 hover:bg-indigo-50">C) toString()</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: PROS/CONS -->
+        <section id="section6" class="scroll-mt-12">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-slate-700 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Section 06</span>
+                <h2 class="text-3xl font-bold text-slate-800">Pros, Cons, and Resources</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-emerald-600 font-bold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check"></i> Advantages
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2 text-slate-600">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span><b>Robustness:</b> Prevents abnormal termination of the software.</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-600">
+                            <i class="fa-solid fa-check text-emerald-400 mt-1"></i>
+                            <span><b>Readability:</b> Separates error logic from main business logic.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="text-rose-600 font-bold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-xmark"></i> Disadvantages
+                    </h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start gap-2 text-slate-600">
+                            <i class="fa-solid fa-minus text-rose-400 mt-1"></i>
+                            <span><b>Overhead:</b> Requires more CPU resources to process exceptions.</span>
+                        </li>
+                        <li class="flex items-start gap-2 text-slate-600">
+                            <i class="fa-solid fa-minus text-rose-400 mt-1"></i>
+                            <span><b>Verbosity:</b> Can make simple code look bulky if overused.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-12 p-8 bg-slate-900 rounded-3xl text-white">
+                <h3 class="text-xl font-bold mb-6">Self-Directed Learning Resources</h3>
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <a href="http://codingbat.com/doc/java-array-loops.html" target="_blank" class="flex items-center gap-4 p-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors">
+                        <i class="fa-solid fa-code text-blue-400 text-2xl"></i>
+                        <div>
+                            <div class="font-bold">CodingBat</div>
+                            <div class="text-xs text-slate-400">Arrays & Logic Practice</div>
+                        </div>
+                    </a>
+                    <a href="https://www.tutorialspoint.com/java/java_exceptions.htm" target="_blank" class="flex items-center gap-4 p-4 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-colors">
+                        <i class="fa-solid fa-book text-emerald-400 text-2xl"></i>
+                        <div>
+                            <div class="font-bold">TutorialsPoint</div>
+                            <div class="text-xs text-slate-400">Deep Dive into Exceptions</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Final Takeaway -->
+            <div class="mt-8 bg-slate-800 text-white p-6 rounded-2xl flex items-center gap-6">
+                <div class="hidden sm:block text-4xl opacity-50"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div>
+                    <span class="text-slate-400 font-bold uppercase text-xs">Final Takeaway</span>
+                    <p class="text-lg">Exception handling is a trade-off: you spend a little bit of performance to gain a lot of stability and readability.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6 mt-24 text-center">
+        <p>© 2024 Java Masterclass Curriculum. Built for beginners.</p>
+    </footer>
+
+    <script>
+        function checkQuiz(button, isCorrect, explanation) {
+            const parent = button.parentElement;
+            const buttons = parent.querySelectorAll('.quiz-option');
+            
+            // Clear existing feedback
+            const existingFeedback = parent.parentElement.querySelector('.quiz-feedback');
+            if (existingFeedback) existingFeedback.remove();
+
+            // Reset buttons
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500', 'text-green-800', 'text-red-800');
+                btn.disabled = true;
+            });
+
+            // Set state
+            if (isCorrect) {
+                button.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+            } else {
+                button.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+            }
+
+            // Show explanation
+            const feedback = document.createElement('div');
+            feedback.className = `quiz-feedback mt-4 p-4 rounded-lg font-medium text-sm animate-bounce ${isCorrect ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`;
+            feedback.innerHTML = `<i class="fa-solid ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'} mr-2"></i> ${explanation}`;
+            parent.parentElement.appendChild(feedback);
+        }
+
+        function runSimulation() {
+            const input = document.getElementById('sim-input').value.trim();
+            const consoleBox = document.getElementById('sim-console');
+            
+            consoleBox.innerHTML = ""; // Clear console
+            consoleBox.innerHTML += "> Scanner sc = new Scanner(System.in);\n";
+            consoleBox.innerHTML += "> Enter an integer divisor: " + input + "\n";
+            
+            setTimeout(() => {
+                if (input === "") {
+                    consoleBox.innerHTML += "<span class='text-yellow-500'>[System] Waiting for input...</span>";
+                    return;
+                }
+
+                // Simulate logic
+                const numericValue = Number(input);
+                
+                if (isNaN(numericValue)) {
+                    consoleBox.innerHTML += "<span class='text-red-400'>[Exception] java.util.InputMismatchException</span>\n";
+                    consoleBox.innerHTML += "<span class='text-emerald-400'>Output: You have entered a non-integer</span>\n";
+                } else if (numericValue === 0) {
+                    consoleBox.innerHTML += "<span class='text-red-400'>[Exception] java.lang.ArithmeticException: / by zero</span>\n";
+                    consoleBox.innerHTML += "<span class='text-emerald-400'>Output: Cannot divide by zero!</span>\n";
+                } else {
+                    const result = 100 / numericValue;
+                    consoleBox.innerHTML += "<span class='text-blue-400'>[Success] Calculation: 100 / " + input + " = " + result + "</span>\n";
+                }
+                
+                consoleBox.innerHTML += "<span class='text-slate-500'>[Process] Program terminates normally.</span>";
+            }, 400);
+        }
+
+        // Initialize simulator
+        runSimulation();
+    </script>
+</body>
+</html>
