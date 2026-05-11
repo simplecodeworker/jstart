@@ -140,6 +140,16 @@
         }
         <span class="class-name">System</span>.out.println();
         input.close();
+
+        <span class="comment">// Task D: The expression for getting size of array msg without hardcoding is</span>
+        <span class="comment">// </span><input type="text" id="blank5" class="blank-input" placeholder="write code here.." />
+
+        <span class="comment">// Task E: The statement to update the first element of array msg to uppercase 'S' is</span>
+        <span class="comment">// </span><input type="text" id="blank6" class="blank-input" placeholder="write code here.." />
+
+        <span class="comment">// Task F: The statement to compare the first and last element of array msg, </span>
+        <span class="comment">// then print out the result in one statement is:</span>
+        <span class="comment">// </span><input type="text" id="blank7" class="blank-input" placeholder="write code here.." />
     }
 }</pre>
             </div>
@@ -164,7 +174,10 @@
             blank1: "for (char c : msg) { System.out.print(c); }",
             blank2: "int i = 0; while (i < msg.length) { System.out.print(msg[i]); i++; }",
             blank3: "for (int i = msg.length - 1; i >= 0; i--) { System.out.print(msg[i]); }",
-            blank4: "int i = msg.length - 1; do { System.out.print(msg[i]); i--; } while (i >= 0);"
+            blank4: "int i = msg.length - 1; do { System.out.print(msg[i]); i--; } while (i >= 0);",
+            blank5: "msg.length",
+            blank6: "msg[0] = 'S';",
+            blank7: "System.out.println(msg[0] == msg[msg.length - 1]);"
         };
 
         function checkAnswers() {
@@ -182,10 +195,10 @@
 
             feedback.classList.add('block');
             if (filledCount === total) {
-                feedback.innerText = "Great work! You've filled in all the loops. Ensure your logic matches the method requirements.";
+                feedback.innerText = "Excellent! You have completed all code snippets and array manipulation tasks.";
                 feedback.classList.add('bg-green-900/50', 'text-green-400');
             } else {
-                feedback.innerText = `You have completed ${filledCount} of ${total} logic blocks. Keep going!`;
+                feedback.innerText = `Progress: ${filledCount} of ${total} tasks completed.`;
                 feedback.classList.add('bg-blue-900/50', 'text-blue-400');
             }
         }
@@ -194,24 +207,26 @@
             for (let key in answers) {
                 const input = document.getElementById(key);
                 input.value = answers[key];
-                // Manually trigger resize
+                // Update width
                 input.style.width = ((answers[key].length + 1) * 9.5) + 'px';
             }
             
             const feedback = document.getElementById('feedback');
             feedback.classList.remove('hidden', 'bg-green-900/50', 'text-green-400', 'bg-blue-900/50', 'text-blue-400');
             feedback.classList.add('block', 'bg-slate-800', 'text-slate-300');
-            feedback.innerText = "Reference answers have been populated. Review the syntax for each loop type!";
+            feedback.innerText = "Reference answers populated. Review the logic for array length, element access, and comparison.";
         }
 
         // Auto-resize inputs based on content
         document.querySelectorAll('.blank-input').forEach(input => {
-            input.addEventListener('input', function() {
-                const textLength = this.value.length || this.placeholder.length;
-                this.style.width = ((textLength + 1) * 9.5) + 'px';
-            });
-            // Initial size based on placeholder
-            input.style.width = ((input.placeholder.length + 1) * 9.5) + 'px';
+            const resize = (el) => {
+                const textLength = el.value.length || el.placeholder.length;
+                el.style.width = ((textLength + 1) * 9.5) + 'px';
+            };
+
+            input.addEventListener('input', function() { resize(this); });
+            // Initial size
+            resize(input);
         });
     </script>
 </body>
