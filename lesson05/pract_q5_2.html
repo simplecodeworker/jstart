@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill In the Codes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background-color: #1e293b;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            line-height: 1.6;
+            overflow-x: auto;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        .highlight-blank {
+            background-color: #fde047; /* Lighter yellow highlight */
+            color: #422006; /* Darker font color */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+        .keyword { color: #ff79c6; }
+        .comment { color: #6272a4; font-style: italic; }
+        .string { color: #f1fa8c; }
+        .type { color: #8be9fd; }
+        .number { color: #bd93f9; }
+        .method { color: #50fa7b; }
+    </style>
+</head>
+<body class="min-h-screen py-10 px-4 md:px-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Fill In the Codes</h1>
+            <p class="text-slate-400">Review the Java code below and identify the missing logic for the loop sections.</p>
+        </header>
+
+        <main>
+            <div class="code-block text-sm md:text-base">
+<span class="keyword">public class</span> <span class="type">AverageArray</span> {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Method to find the average of an array</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public static</span> <span class="type">double</span> <span class="method">avgArry</span>(<span class="type">double</span>[] a) {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> sum = <span class="number">0</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> ave = <span class="number">0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// for loop</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight-blank">___________</span>&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> ave;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Method using DO-WHILE LOOP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public static</span> <span class="type">double</span> <span class="method">avgArryDoWhile</span>(<span class="type">double</span>[] a) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// a.length = number of elements in array a</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> sum = <span class="number">0</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> ave = <span class="number">0</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// do-while</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight-blank">___________</span>&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> ave;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Method using WHILE LOOP</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public static</span> <span class="type">double</span> <span class="method">avgArryWhile</span>(<span class="type">double</span>[] a) {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> sum = <span class="number">0</span>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span> ave = <span class="number">0</span>;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// while loop</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="highlight-blank">___________</span>&nbsp;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">return</span> ave;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// First array</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span>[] arr1 = {<span class="number">1.5</span>, <span class="number">20.3</span>, <span class="number">4.5</span>, <span class="number">5.5</span>, <span class="number">10.3</span>, <span class="number">450</span>, <span class="number">20.4</span>, -<span class="number">22.3</span>};<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Second array</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">double</span>[] arr2 = {<span class="number">99</span>, <span class="number">50</span>, <span class="number">70.5</span>};<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Testing FOR LOOP method</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr1 using FOR LOOP: "</span> + <span class="method">avgArry</span>(arr1));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr2 using FOR LOOP: "</span> + <span class="method">avgArry</span>(arr2));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Testing DO-WHILE LOOP method</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr1 using DO-WHILE LOOP: "</span> + <span class="method">avgArryDoWhile</span>(arr1));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr2 using DO-WHILE LOOP: "</span> + <span class="method">avgArryDoWhile</span>(arr2));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">// Testing WHILE LOOP method</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr1 using WHILE LOOP: "</span> + <span class="method">avgArryWhile</span>(arr1));<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">System</span>.out.println(<span class="string">"Average of arr2 using WHILE LOOP: "</span> + <span class="method">avgArryWhile</span>(arr2));<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+}
+            </div>
+        </main>
+
+        <footer class="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center text-sm text-slate-500">
+            <p>&copy; 2024 Coding Practice Module</p>
+            <div class="flex gap-4 mt-4 sm:mt-0">
+                <span class="px-2 py-1 bg-slate-800 rounded">Language: Java</span>
+                <span class="px-2 py-1 bg-slate-800 rounded">Topic: Loops & Arrays</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Interactive Logic (Optional): We could add a feature to show the answers when clicking the blanks
+        document.querySelectorAll('.highlight-blank').forEach((blank, index) => {
+            blank.classList.add('cursor-pointer', 'transition-all', 'hover:opacity-80');
+            blank.title = "Click to reveal logic";
+            
+            blank.addEventListener('click', function() {
+                const answers = [
+                    'for (int i = 0; i < a.length; i++) { sum += a[i]; } ave = sum / a.length;',
+                    'int i = 0; do { sum += a[i]; i++; } while (i < a.length); ave = sum / a.length;',
+                    'int i = 0; while (i < a.length) { sum += a[i]; i++; } ave = sum / a.length;'
+                ];
+                
+                if (this.textContent === '___________') {
+                    this.textContent = answers[index];
+                    this.style.backgroundColor = '#4ade80'; // Change to green when revealed
+                    this.style.color = '#064e3b';
+                } else {
+                    this.textContent = '___________';
+                    this.style.backgroundColor = '#fde047';
+                    this.style.color = '#422006';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
