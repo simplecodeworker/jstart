@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Math API: sqrt() Study Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .pitfall-card { border-left-width: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen">
+
+    <header class="bg-indigo-700 text-white py-8 px-4 shadow-lg">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl font-bold mb-2">Java Programming Lab</h1>
+            <p class="text-indigo-100 italic">Topic: Math Class Usage & String Formatting</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto p-4 md:p-8 space-y-12">
+        
+        <section id="program-solution">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-indigo-100 p-2 rounded-lg text-indigo-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold">The Math Table Program</h2>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="p-6">
+                    <p class="mb-4 text-gray-700"><strong>Question:</strong> Write a program that prints a table showing the square root of numbers from 0 to 20 (incrementing by 2) using <code class="bg-gray-100 px-1 rounded">Math.sqrt()</code>.</p>
+                    
+                    <div class="relative group">
+                        <div class="absolute top-4 right-4 flex gap-2">
+                            <span class="text-xs font-semibold text-gray-500 uppercase tracking-widest">Java</span>
+                        </div>
+                        <pre class="bg-gray-900 text-gray-100 p-6 rounded-xl overflow-x-auto code-font text-sm leading-relaxed">
+<span class="text-pink-400">public class</span> <span class="text-yellow-300">SqrtTable</span> {
+    <span class="text-pink-400">public static void</span> <span class="text-blue-300">main</span>(String[] args) {
+        <span class="text-gray-500">// Print Header</span>
+        System.out.printf(<span class="text-green-300">"%-10s %-15s%n"</span>, <span class="text-green-300">"Number"</span>, <span class="text-green-300">"Square Root"</span>);
+        System.out.println(<span class="text-green-300">"---------------------------"</span>);
+
+        <span class="text-gray-500">// Loop from 0 to 20, stepping by 2</span>
+        <span class="text-pink-400">for</span> (<span class="text-pink-400">int</span> i = <span class="text-orange-300">0</span>; i <= <span class="text-orange-300">20</span>; i += <span class="text-orange-300">2</span>) {
+            <span class="text-pink-400">double</span> result = Math.<span class="text-blue-300">sqrt</span>(i);
+            
+            <span class="text-gray-500">// Format output to 4 decimal places</span>
+            System.out.printf(<span class="text-green-300">"%-10d %-15.4f%n"</span>, i, result);
+        }
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="pitfall-card bg-amber-50 border-amber-400 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-amber-800 flex items-center gap-2">
+                        ⚠️ Watch Out: printf vs println
+                    </h4>
+                    <p class="text-sm text-amber-700 mt-1">
+                        Use <code class="font-bold text-xs uppercase">printf</code> for table alignment. <code class="bg-white px-1">%-10s</code> creates a column 10 characters wide, left-aligned.
+                    </p>
+                </div>
+                <div class="pitfall-card bg-blue-50 border-blue-400 p-4 rounded-r-lg">
+                    <h4 class="font-bold text-blue-800 flex items-center gap-2">
+                        ⚠️ Watch Out: Return Types
+                    </h4>
+                    <p class="text-sm text-blue-700 mt-1">
+                        Even if you pass an <code class="bg-white px-1">int</code> (like 4), <code class="bg-white px-1">sqrt()</code> always returns a <code class="bg-white px-1">double</code> (2.0).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="api-questions">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-green-100 p-2 rounded-lg text-green-700">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold">Questions</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Part A -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Part (a)</span>
+                    <h3 class="text-lg font-semibold mt-1">What’s the name of the method?</h3>
+                    <p class="text-gray-600 mt-2">The name of the method is <span class="bg-gray-100 px-2 py-1 rounded text-pink-600 font-mono">sqrt</span>.</p>
+                </div>
+
+                <!-- Part B -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Part (b)</span>
+                    <h3 class="text-lg font-semibold mt-1">How many input parameters are required?</h3>
+                    <p class="text-gray-600 mt-2">Only <span class="font-bold text-gray-800">1</span> input parameter is required.</p>
+                </div>
+
+                <!-- Part C -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Part (c)</span>
+                    <h3 class="text-lg font-semibold mt-1">What is the data type for each parameter?</h3>
+                    <p class="text-gray-600 mt-2">The data type is <span class="bg-gray-100 px-2 py-1 rounded text-blue-600 font-mono">double</span>.</p>
+                    <div class="mt-3 text-xs bg-red-50 text-red-700 p-3 rounded-lg border border-red-100">
+                        <strong>Beginner Note:</strong> You can pass an <code class="font-bold">int</code> as well, but Java will automatically promote (convert) it to a <code class="font-bold">double</code> before processing.
+                    </div>
+                </div>
+
+                <!-- Part D -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Part (d)</span>
+                    <h3 class="text-lg font-semibold mt-1">What’s the return value data type of the method?</h3>
+                    <p class="text-gray-600 mt-2">The return value type is <span class="bg-gray-100 px-2 py-1 rounded text-blue-600 font-mono">double</span>.</p>
+                </div>
+
+                <!-- Part E -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <span class="text-xs font-bold text-indigo-600 uppercase">Part (e)</span>
+                    <h3 class="text-lg font-semibold mt-1">Why must "Math." be added in front of method name?</h3>
+                    <p class="text-gray-600 mt-2">Because <code class="text-pink-600">sqrt()</code> is a <strong>static method</strong> defined inside the <code class="text-indigo-600">Math</code> class. Since we are not creating an object of the Math class (and it's a utility class), we must access the method using the class name.</p>
+                    <div class="mt-3 text-xs bg-indigo-50 text-indigo-700 p-3 rounded-lg border border-indigo-100">
+                        <strong>Technical Concept:</strong> This is known as "Namespace" or "Class-level access". It prevents confusion if you wrote your own method named <code class="font-bold">sqrt()</code> elsewhere.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 py-8 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <p>Generated for Java Learning Support. References: Java Documentation (Math API).</p>
+            <button id="copyBtn" class="mt-4 px-4 py-2 bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 transition-colors font-semibold">
+                Copy Answers to Clipboard
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const textToCopy = `
+(a) Method Name: sqrt
+(b) Input Parameters: 1
+(c) Parameter Type: double
+(d) Return Type: double
+(e) Why Math.?: It is a static method in the Math class, accessed via the class name.
+            `.trim();
+            
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            
+            this.textContent = "Copied!";
+            this.classList.replace('bg-indigo-50', 'bg-green-100');
+            this.classList.replace('text-indigo-700', 'text-green-700');
+            
+            setTimeout(() => {
+                this.textContent = "Copy Answers to Clipboard";
+                this.classList.replace('bg-green-100', 'bg-indigo-50');
+                this.classList.replace('text-green-700', 'text-indigo-700');
+            }, 2000);
+        });
+    </script>
+</body>
+</html>
