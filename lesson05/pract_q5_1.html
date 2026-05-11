@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill In the Codes - Java Array Processor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .blank-input {
+            background-color: #fef9c3; /* Lighter yellow highlight */
+            color: #422006; /* Darker font color */
+            border: none;
+            border-radius: 2px;
+            padding: 0 4px;
+            font-weight: 500;
+            transition: all 0.2s;
+            min-width: 150px;
+            display: inline-block;
+        }
+        .blank-input::placeholder {
+            color: #713f12;
+            opacity: 0.6;
+        }
+        .blank-input:focus {
+            outline: 2px solid #eab308;
+            background-color: #fef08a;
+        }
+        .keyword { color: #f472b6; } /* Pinkish for keywords */
+        .class-name { color: #60a5fa; } /* Blue for classes */
+        .method-name { color: #4ade80; } /* Green for methods */
+        .comment { color: #94a3b8; font-style: italic; }
+        .string { color: #fbbf24; }
+        
+        .code-container {
+            background-color: #1e293b;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Hide number inputs arrows */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-bold text-white mb-2 tracking-tight">Fill In the Codes</h1>
+            <p class="text-slate-400">Complete the Java implementation for the <code class="bg-slate-800 px-2 py-0.5 rounded">ArrayProcessor</code> class.</p>
+        </header>
+
+        <!-- Code Workspace -->
+        <div class="code-container rounded-xl overflow-hidden border border-slate-700">
+            <!-- Window Control Bar -->
+            <div class="bg-slate-800 px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <span class="text-xs text-slate-400 code-font">ArrayProcessor.java</span>
+                <div class="w-12"></div>
+            </div>
+
+            <!-- Code Editor Area -->
+            <div class="p-6 md:p-8 overflow-x-auto">
+                <pre class="code-font text-sm md:text-base leading-relaxed whitespace-pre"><span class="keyword">import</span> java.util.<span class="class-name">Scanner</span>;
+
+<span class="keyword">public class</span> <span class="class-name">ArrayProcessor</span> {  
+    <span class="keyword">public static void</span> <span class="method-name">printCharArrayInNormalOrder_EnhancedForLoop</span>(<span class="keyword">char</span>[] msg) {
+        <span class="comment">// Display data in normal order using a enhanced for-each loop</span>
+        <input type="text" id="blank1" class="blank-input" placeholder="write code here.." /> 
+    }
+
+    <span class="keyword">public static void</span> <span class="method-name">printCharArrayInNormalOrder_WhileLoop</span>(<span class="keyword">char</span>[] msg) {
+        <span class="comment">// Display data in normal order using a while loop</span>
+        <input type="text" id="blank2" class="blank-input" placeholder="write code here.." /> 
+    }
+
+    <span class="keyword">public static void</span> <span class="method-name">printCharArrayInReverseOrder_ForLoop</span>(<span class="keyword">char</span>[] msg) {
+        <span class="comment">// Display data in reverse order using a For loop</span>
+        <input type="text" id="blank3" class="blank-input" placeholder="write code here.." /> 
+    }
+
+    <span class="keyword">public static void</span> <span class="method-name">printCharArrayInReverseOrder_DoWhile</span>(<span class="keyword">char</span>[] msg) {
+        <span class="comment">// Display data in reverse order using a Do-While loop</span>
+        <input type="text" id="blank4" class="blank-input" placeholder="write code here.." /> 
+    }
+
+    <span class="keyword">public static void</span> <span class="method-name">main</span>(<span class="class-name">String</span>[] args) {
+        <span class="keyword">char</span>[] msg = {'s', 't', 'r', 'e', 's', 's', 'e', 'd'};
+
+        <span class="comment">// Task A: Display data in normal order using a for-each loop</span>
+        <span class="class-name">System</span>.out.print(<span class="string">"a) Normal order: "</span>);
+        <span class="method-name">printCharArrayInNormalOrder_EnhancedForLoop</span>(msg);
+        <span class="class-name">System</span>.out.println();
+
+        <span class="comment">// Task B: Display data in reverse order using a standard for loop</span>
+        <span class="class-name">System</span>.out.print(<span class="string">"b) Reverse order: "</span>);
+        <span class="method-name">printCharArrayInReverseOrder_ForLoop</span>(msg);
+        <span class="class-name">System</span>.out.println(<span class="string">"\n"</span>);
+
+        <span class="comment">// Task C: User prompt with switch/case</span>
+        <span class="class-name">Scanner</span> input = <span class="keyword">new</span> <span class="class-name">Scanner</span>(<span class="class-name">System</span>.in);
+        <span class="class-name">System</span>.out.println(<span class="string">"c) Choose display mode:"</span>);
+        <span class="class-name">System</span>.out.println(<span class="string">"   Enter 1 for Normal Order"</span>);
+        <span class="class-name">System</span>.out.println(<span class="string">"   Enter 0 for Reverse Order"</span>);
+        <span class="class-name">System</span>.out.print(<span class="string">"Selection: "</span>);
+        
+        <span class="keyword">int</span> choice = input.nextInt();
+
+        <span class="keyword">switch</span> (choice) {
+            <span class="keyword">case</span> 1:
+                <span class="class-name">System</span>.out.print(<span class="string">"Normal order: "</span>);
+                <span class="method-name">printCharArrayInNormalOrder_WhileLoop</span>(msg);
+                <span class="keyword">break</span>;
+
+            <span class="keyword">case</span> 0:
+                <span class="class-name">System</span>.out.print(<span class="string">"Reverse order: "</span>);
+                <span class="method-name">printCharArrayInReverseOrder_DoWhile</span>(msg);
+                <span class="keyword">break</span>;
+
+            <span class="keyword">default</span>:
+                <span class="class-name">System</span>.out.println(<span class="string">"Invalid selection. Please run the program again and enter 1 or 0."</span>);
+                <span class="keyword">break</span>;
+        }
+        <span class="class-name">System</span>.out.println();
+        input.close();
+    }
+}</pre>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="checkAnswers()" class="w-full sm:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg shadow-lg transition-all active:scale-95">
+                Check Progress
+            </button>
+            <button onclick="revealAnswers()" class="w-full sm:w-auto px-8 py-3 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded-lg shadow-lg transition-all active:scale-95">
+                Show Answer Key
+            </button>
+        </div>
+
+        <!-- Feedback Area -->
+        <div id="feedback" class="mt-8 hidden p-4 rounded-lg text-center font-medium"></div>
+    </div>
+
+    <script>
+        const answers = {
+            blank1: "for (char c : msg) { System.out.print(c); }",
+            blank2: "int i = 0; while (i < msg.length) { System.out.print(msg[i]); i++; }",
+            blank3: "for (int i = msg.length - 1; i >= 0; i--) { System.out.print(msg[i]); }",
+            blank4: "int i = msg.length - 1; do { System.out.print(msg[i]); i--; } while (i >= 0);"
+        };
+
+        function checkAnswers() {
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden', 'bg-green-900/50', 'text-green-400', 'bg-blue-900/50', 'text-blue-400', 'bg-slate-800', 'text-slate-300');
+            
+            let filledCount = 0;
+            const total = Object.keys(answers).length;
+
+            for (let i = 1; i <= total; i++) {
+                if (document.getElementById(`blank${i}`).value.trim() !== "") {
+                    filledCount++;
+                }
+            }
+
+            feedback.classList.add('block');
+            if (filledCount === total) {
+                feedback.innerText = "Great work! You've filled in all the loops. Ensure your logic matches the method requirements.";
+                feedback.classList.add('bg-green-900/50', 'text-green-400');
+            } else {
+                feedback.innerText = `You have completed ${filledCount} of ${total} logic blocks. Keep going!`;
+                feedback.classList.add('bg-blue-900/50', 'text-blue-400');
+            }
+        }
+
+        function revealAnswers() {
+            for (let key in answers) {
+                const input = document.getElementById(key);
+                input.value = answers[key];
+                // Manually trigger resize
+                input.style.width = ((answers[key].length + 1) * 9.5) + 'px';
+            }
+            
+            const feedback = document.getElementById('feedback');
+            feedback.classList.remove('hidden', 'bg-green-900/50', 'text-green-400', 'bg-blue-900/50', 'text-blue-400');
+            feedback.classList.add('block', 'bg-slate-800', 'text-slate-300');
+            feedback.innerText = "Reference answers have been populated. Review the syntax for each loop type!";
+        }
+
+        // Auto-resize inputs based on content
+        document.querySelectorAll('.blank-input').forEach(input => {
+            input.addEventListener('input', function() {
+                const textLength = this.value.length || this.placeholder.length;
+                this.style.width = ((textLength + 1) * 9.5) + 'px';
+            });
+            // Initial size based on placeholder
+            input.style.width = ((input.placeholder.length + 1) * 9.5) + 'px';
+        });
+    </script>
+</body>
+</html>
