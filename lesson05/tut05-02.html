@@ -115,10 +115,10 @@
                 text: "Please run following code, which line(s) will cause exception?",
                 code: `Line 1: public class Ex{\nLine 2:     public static void main(String[] a){\nLine 3:         double [ ] e = new double[8];\nLine 4:                     e[0] = 2.0;\nLine 5:         e[8] = 8;\nLine 6:     for(int i=0; i<=e.length; i++)\nLine 7:                         System.out.println(e[i]);\nLine 8:             }\nLine 9:          }`,
                 options: [
-                    "Line 5 will cause NumberFormat Exception as an integer value is assigned to double array element.",
+                   /* "Line 5 will cause NumberFormat Exception as an integer value is assigned to double array element.",
                     "Line 5 will cause ArrayIndexOutOfBoundsException as array e’s last element index is 7.",
                     "Line 7 will cause ArrayIndexOutOfBoundsException as array e’s last element index is e.length-1, not e.length.",
-                    "Line 6 will cause ArrayIndexOutOfBoundsException as array e’s last element index is e.length-1, not e.length."
+                    "Line 6 will cause ArrayIndexOutOfBoundsException as array e’s last element index is e.length-1, not e.length."*/
                 ],
                 answer: "<b>Multiple lines:</b><br>1. <b>Line 5</b>: ArrayIndexOutOfBoundsException (index 8 is out of bounds for size 8).<br>2. <b>Line 7</b>: ArrayIndexOutOfBoundsException when i reaching 8 (e.length) because the loop condition is 'i <= e.length'."
             }
