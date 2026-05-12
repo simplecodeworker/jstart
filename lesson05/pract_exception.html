@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exception Handling Assignment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .requirement-card {
+            transition: all 0.2s ease;
+        }
+
+        .requirement-card:hover {
+            transform: translateX(4px);
+        }
+
+        .status-badge {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .blank-highlight {
+            background-color: #fef08a; /* bg-yellow-200 */
+            color: #713f12; /* text-yellow-900 */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <main class="max-w-5xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
+        
+        <!-- Hero Section -->
+        <header class="mb-12">
+            <div class="flex items-center gap-2 text-indigo-600 font-semibold text-sm mb-2">
+                <i class="fa-solid fa-book-open"></i>
+                <span>Module 4: Exception Handling</span>
+            </div>
+            <h1 class="text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">Exception Handling Assignment</h1>
+            <p class="text-lg text-slate-600 max-w-3xl leading-relaxed">
+                In this assignment, you will learn how to handle user-driven errors using Java's robust Exception Handling framework. You'll ensure your program doesn't crash when someone types "hello" instead of a number.
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            
+            <!-- Left Column: Instructions -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- The Task -->
+                <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                    <h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+                        <i class="fa-solid fa-terminal text-slate-400"></i>
+                        The Question
+                    </h2>
+                    <div class="prose prose-slate max-w-none">
+                        <p class="text-slate-700 bg-slate-50 p-4 rounded-xl border-l-4 border-indigo-500 italic mb-6">
+                            "Write a Java program that asks the user to enter an integer. If the input is valid, echo the number. If it is invalid, inform the user without crashing the program."
+                        </p>
+                        
+                        <h3 class="text-lg font-bold text-slate-900 mb-4">Core Requirements</h3>
+                        <div class="space-y-3">
+                            <label class="requirement-card flex items-start gap-4 p-4 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 cursor-pointer group">
+                                <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="updateProgress()">
+                                <div>
+                                    <span class="font-semibold block text-slate-900 group-hover:text-indigo-700 transition">Prompt for Input</span>
+                                    <span class="text-sm text-slate-500">Ask the user: <code class="bg-slate-200 px-1 rounded">Enter an integer:</code></span>
+                                </div>
+                            </label>
+
+                            <label class="requirement-card flex items-start gap-4 p-4 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 cursor-pointer group">
+                                <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="updateProgress()">
+                                <div>
+                                    <span class="font-semibold block text-slate-900 group-hover:text-indigo-700 transition">Handle Valid Input</span>
+                                    <span class="text-sm text-slate-500">Display the entered number (e.g., "You entered: 25").</span>
+                                </div>
+                            </label>
+
+                            <label class="requirement-card flex items-start gap-4 p-4 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 cursor-pointer group">
+                                <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="updateProgress()">
+                                <div>
+                                    <span class="font-semibold block text-slate-900 group-hover:text-indigo-700 transition">Handle Invalid Input</span>
+                                    <span class="text-sm text-slate-500">Catch text inputs and display: <code class="bg-slate-200 px-1 rounded">Invalid input. Please enter an integer.</code></span>
+                                </div>
+                            </label>
+
+                            <label class="requirement-card flex items-start gap-4 p-4 rounded-xl border border-slate-100 hover:border-indigo-200 hover:bg-indigo-50/30 cursor-pointer group">
+                                <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" onchange="updateProgress()">
+                                <div>
+                                    <span class="font-semibold block text-slate-900 group-hover:text-indigo-700 transition">The Finally Block</span>
+                                    <span class="text-sm text-slate-500">Use a finally block to display: <code class="bg-slate-200 px-1 rounded">Program finished.</code></span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sample Outputs -->
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-emerald-400 text-xs font-bold uppercase">Success Scenario</span>
+                            <i class="fa-solid fa-circle-check text-emerald-400"></i>
+                        </div>
+                        <pre class="code-font text-sm text-slate-300 leading-relaxed">
+<span class="text-slate-500">// Output</span>
+Enter an integer: <span class="text-white">10</span>
+You entered: 10
+Program finished.</pre>
+                    </div>
+
+                    <div class="bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-rose-400 text-xs font-bold uppercase">Invalid Input Scenario</span>
+                            <i class="fa-solid fa-circle-xmark text-rose-400"></i>
+                        </div>
+                        <pre class="code-font text-sm text-slate-300 leading-relaxed">
+<span class="text-slate-500">// Output</span>
+Enter an integer: <span class="text-white">hello</span>
+Invalid input. Please enter an integer.
+Program finished.</pre>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Sidebar / Hints -->
+            <div class="space-y-6">
+                
+                <!-- Progress Widget -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-900 mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-indigo-500"></i>
+                        Task Completion
+                    </h3>
+                    <div class="w-full bg-slate-100 rounded-full h-3 mb-2">
+                        <div id="progressBar" class="bg-indigo-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                    <p id="progressText" class="text-sm text-slate-500">0 of 4 tasks completed</p>
+                </div>
+
+                <!-- Technical Hints -->
+                <div class="bg-indigo-600 text-white p-6 rounded-2xl shadow-lg relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="font-bold text-xl mb-4">Pro Tips & Hints</h3>
+                        <ul class="space-y-4 text-indigo-100 text-sm">
+                            <li class="flex gap-3">
+                                <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                                <span>Use <code>Scanner</code> and <code>nextInt()</code> to read user input.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                                <span>When text is entered where a number is expected, Java throws <code>InputMismatchException</code>.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <i class="fa-solid fa-lightbulb text-yellow-300 mt-1"></i>
+                                <span>Don't forget the import statement at the top of your file!</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Decorative Icon -->
+                    <i class="fa-solid fa-microchip absolute -bottom-4 -right-4 text-indigo-500/30 text-7xl"></i>
+                </div>
+
+                <!-- Code Toolbox -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 class="font-bold text-slate-900 mb-4">The Syntax Toolbox</h3>
+                    <div class="space-y-3">
+                        <div class="group">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-semibold text-slate-400">IMPORT</span>
+                                <button onclick="copyText('import java.util.InputMismatchException;')" class="text-indigo-600 text-xs hover:underline opacity-0 group-hover:opacity-100 transition">Copy</button>
+                            </div>
+                            <code class="block text-xs bg-slate-50 p-2 rounded border border-slate-100 text-indigo-600 font-mono">import java.util.InputMismatchException;</code>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="text-xs font-semibold text-slate-400">STRUCTURE</span>
+                            </div>
+                            <code class="block text-xs bg-slate-50 p-2 rounded border border-slate-100 text-slate-600 font-mono leading-relaxed">
+                                try { ... } <br>
+                                catch (InputMismatchException e) { ... } <br>
+                                finally { ... }
+                            </code>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Fill in the Blanks Section -->
+        <section class="bg-slate-50 p-8 rounded-3xl border border-slate-200">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="bg-yellow-400 text-yellow-900 p-2 rounded-lg">
+                    <i class="fa-solid fa-pen-clip"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-bold text-slate-900">Practice: Fill in the Blanks</h2>
+                    <p class="text-slate-500 text-sm">Review the code structure and identify the missing keywords.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 rounded-2xl p-6 md:p-10 shadow-inner overflow-x-auto border border-slate-800">
+                <pre class="code-font text-sm md:text-base text-slate-300 leading-loose">
+<span class="text-indigo-400">import</span> java.util.Scanner;
+<span class="text-indigo-400">import</span> java.util.InputMismatchException;
+
+<span class="text-indigo-400">public class</span> IntegerInputProgram {
+
+    <span class="text-indigo-400">public static void</span> main(String[] args) {
+
+        Scanner sc = <span class="text-indigo-400">new</span> Scanner(System.in);
+
+        <span class="blank-highlight">_____</span> {
+
+            System.out.print(<span class="text-emerald-400">"Enter an integer: "</span>);
+            <span class="text-indigo-400">int</span> number = sc.nextInt();
+
+            System.out.println(<span class="text-emerald-400">"You entered: "</span> + number);
+
+        } <span class="blank-highlight">____</span> (<span class="blank-highlight">____</span> e) {
+
+            System.out.println(<span class="text-emerald-400">"Invalid input. Please enter an integer."</span>);
+
+        } <span class="blank-highlight">____</span> {
+
+            System.out.println(<span class="text-emerald-400">"Program finished."</span>);
+
+        }
+
+        sc.close();
+    }
+}</pre>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Toast -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl transform translate-y-24 transition-transform duration-300 flex items-center gap-3">
+        <i class="fa-solid fa-check-circle text-emerald-400"></i>
+        <span id="toastMsg">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const total = checkboxes.length;
+            const checked = Array.from(checkboxes).filter(c => c.checked).length;
+            const percentage = (checked / total) * 100;
+            
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').innerText = `${checked} of ${total} tasks completed`;
+            
+            if (checked === total) {
+                showToast("All requirements met! Ready to code.");
+            }
+        }
+
+        function copyText(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            showToast("Snippet copied!");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMsg').innerText = msg;
+            toast.classList.remove('translate-y-24');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
