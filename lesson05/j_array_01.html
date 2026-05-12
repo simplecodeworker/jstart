@@ -76,21 +76,87 @@ marks = new int[5];    // Instantiate 5 slots
                     </div>
                     <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
                 </div>
+            </div>
+        </section>
+
+        <!-- NEW SECTION: DATA TYPES & DEFAULTS -->
+        <section id="section2" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+            <header class="mb-8">
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 2</span>
+                <h2 class="text-3xl font-bold">Automatic Initialization (Default Values)</h2>
+            </header>
+            
+            <p class="mb-6 text-slate-600">When you create an array using the <code>new</code> keyword, Java automatically fills every slot with a <strong>default value</strong> based on the data type. You don't have to initialize them manually!</p>
+            
+            <div class="overflow-x-auto rounded-2xl border border-slate-200 shadow-sm mb-12">
+                <table class="w-full text-left">
+                    <thead class="bg-slate-50 border-b">
+                        <tr>
+                            <th class="p-4 font-bold text-slate-600 uppercase text-xs tracking-wider">Data Type</th>
+                            <th class="p-4 font-bold text-slate-600 uppercase text-xs tracking-wider">Default Value</th>
+                            <th class="p-4 font-bold text-slate-600 uppercase text-xs tracking-wider">Example Code</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y text-sm">
+                        <tr>
+                            <td class="p-4 font-semibold">byte, short, int, long</td>
+                            <td class="p-4 text-blue-600 font-mono">0</td>
+                            <td class="p-4 font-mono text-xs">new int[3] &rarr; {0, 0, 0}</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">float, double</td>
+                            <td class="p-4 text-blue-600 font-mono">0.0</td>
+                            <td class="p-4 font-mono text-xs">new double[2] &rarr; {0.0, 0.0}</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">boolean</td>
+                            <td class="p-4 text-blue-600 font-mono text-pink-600">false</td>
+                            <td class="p-4 font-mono text-xs">new boolean[2] &rarr; {false, false}</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">char</td>
+                            <td class="p-4 text-blue-600 font-mono">'\u0000' (null char)</td>
+                            <td class="p-4 font-mono text-xs">new char[2] &rarr; {'\u0000', '\u0000'}</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold">Reference (String, Objects)</td>
+                            <td class="p-4 text-blue-600 font-mono text-purple-600">null</td>
+                            <td class="p-4 font-mono text-xs">new String[2] &rarr; {null, null}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="takeaway p-6 rounded-r-xl mb-12">
+                <p class="font-bold text-blue-800">Takeaway 🔑</p>
+                <p class="text-blue-700">Java ensures that memory is never "garbage" data. Every slot is guaranteed to have a predictable starting value before you ever touch it.</p>
+            </div>
+
+            <div class="space-y-8">
+                <h4 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-tasks text-blue-500"></i> Section Quiz</h4>
                 <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">2. Which brackets are used to refer to an element by its index?</p>
+                    <p class="mb-4 font-medium text-slate-700">1. What is the default value of an element in a <code>boolean[]</code>?</p>
                     <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'Parentheses are for methods, not arrays.')">A. () Parentheses</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! Square brackets [ ] are specifically for array indexing.')">B. [] Square Brackets</div>
+                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, true is not the default state for booleans.')">A. true</div>
+                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! Booleans default to false.')">B. false</div>
+                    </div>
+                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
+                </div>
+                <div class="quiz-block">
+                    <p class="mb-4 font-medium text-slate-700">2. If you create <code>String[] names = new String[5];</code>, what is <code>names[0]</code>?</p>
+                    <div class="grid gap-3">
+                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, an empty string is an actual object, not the default for a reference.')">A. "" (Empty String)</div>
+                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! Objects and Strings default to null.')">B. null</div>
                     </div>
                     <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2 -->
-        <section id="section2" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 3 (Previously Section 2) -->
+        <section id="section3" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 2</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 3</span>
                 <h2 class="text-3xl font-bold">Zero-Based Indexing & Boundary Rules</h2>
             </header>
             
@@ -143,10 +209,10 @@ marks[5] // ERROR! (Out of Bounds)</code></pre>
             </div>
         </section>
 
-        <!-- SECTION 3 -->
-        <section id="section3" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 4 (Previously Section 3) -->
+        <section id="section4" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 3</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 4</span>
                 <h2 class="text-3xl font-bold">Modifying Individual Array Elements</h2>
             </header>
             
@@ -198,10 +264,10 @@ marks[1] = 50;</code></pre>
             </div>
         </section>
 
-        <!-- SECTION 4 -->
-        <section id="section4" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 5 (Previously Section 4) -->
+        <section id="section5" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 4</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 5</span>
                 <h2 class="text-3xl font-bold">Automating Array Processing with Loops</h2>
             </header>
             
@@ -254,10 +320,10 @@ marks[1] = 50;</code></pre>
             </div>
         </section>
 
-        <!-- SECTION 5 -->
-        <section id="section5" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 6 (Previously Section 5) -->
+        <section id="section6" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 5</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 6</span>
                 <h2 class="text-3xl font-bold">Visualizing Execution through Trace Tables</h2>
             </header>
             
@@ -298,21 +364,13 @@ marks[1] = 50;</code></pre>
                     </div>
                     <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
                 </div>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">2. How many iterations occur for an array with <code>length = 5</code>?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, remember index starts at 0.')">A. 4</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! It runs 5 times (indices 0, 1, 2, 3, 4).')">B. 5</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
             </div>
         </section>
 
-        <!-- SECTION 6 -->
-        <section id="section6" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 7 (Previously Section 6) -->
+        <section id="section7" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 6</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 7</span>
                 <h2 class="text-3xl font-bold">Array Pass-By-Reference in Methods</h2>
             </header>
             
@@ -353,21 +411,13 @@ public static void changeMark(int[] array, int val) {
                     </div>
                     <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
                 </div>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">2. If a method updates <code>array[0]</code>, will the caller see that change?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! Both point to the same memory.')">A. Yes</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'Incorrect, arrays are passed by reference.')">B. No</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
             </div>
         </section>
 
-        <!-- SECTION 7 -->
-        <section id="section7" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 8 (Previously Section 7) -->
+        <section id="section8" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 7</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 8</span>
                 <h2 class="text-3xl font-bold">The Enhanced For Loop (For-Each)</h2>
             </header>
             
@@ -397,32 +447,12 @@ public static void changeMark(int[] array, int val) {
                 <p class="font-bold text-blue-800">Takeaway 🔑</p>
                 <p class="text-blue-700">Use the enhanced for loop when you want to look at every item in an array without worrying about index numbers.</p>
             </div>
-
-            <div class="space-y-8">
-                <h4 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-tasks text-blue-500"></i> Section Quiz</h4>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">1. Which of the following is a limitation of the enhanced for loop?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! You don\'t have direct access to the index counter.')">A. It is hard to track the current index number</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, it actually works perfectly for that.')">B. It cannot visit every element</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">2. Is the enhanced for loop typically used to modify array contents?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! It is primarily for reading or processing values.')">A. No, it is mostly for reading values</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'Actually, modifying usually requires the traditional loop.')">B. Yes, it is the standard way to update values</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
-            </div>
         </section>
 
-        <!-- SECTION 8 -->
-        <section id="section8" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
+        <!-- SECTION 9 (Previously Section 8) -->
+        <section id="section9" class="bg-white rounded-3xl shadow-sm border border-slate-200 p-8 md:p-12">
             <header class="mb-8">
-                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 8</span>
+                <span class="text-blue-600 font-bold text-sm tracking-widest uppercase mb-2 block">Section 9</span>
                 <h2 class="text-3xl font-bold">Variable Number of Arguments (Varargs)</h2>
             </header>
             
@@ -447,35 +477,10 @@ public static void changeMark(int[] array, int val) {
                     <p class="text-sm text-indigo-700">The <code>...</code> syntax tells Java to bundle all trailing arguments into an array.</p>
                 </div>
             </div>
-
-            <div class="takeaway p-6 rounded-r-xl mb-12">
-                <p class="font-bold text-blue-800">Takeaway 🔑</p>
-                <p class="text-blue-700">Varargs make your methods more flexible by allowing the caller to decide how many items to send.</p>
-            </div>
-
-            <div class="space-y-8">
-                <h4 class="font-bold text-lg flex items-center gap-2"><i class="fas fa-tasks text-blue-500"></i> Section Quiz</h4>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">1. What symbol is used to define a varargs parameter?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! Three dots (ellipsis) signify varargs.')">A. ... (Three dots)</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, the asterisk is used for multiplication or wildcard imports.')">B. * (Asterisk)</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-700">2. How is a vararg parameter treated inside the method body?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, false, 'No, it is much more useful than that.')">A. As a single String</div>
-                        <div class="mcq-option p-4 rounded-xl" onclick="checkAnswer(this, true, 'Correct! It behaves exactly like a standard array of that type.')">B. As an array</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
-            </div>
         </section>
 
-        <!-- SECTION 9 -->
-        <section id="section9" class="bg-slate-900 text-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
+        <!-- SECTION 10 (Previously Section 9) -->
+        <section id="section10" class="bg-slate-900 text-white rounded-3xl shadow-2xl p-8 md:p-12 overflow-hidden relative">
             <header class="mb-8 relative z-10">
                 <span class="text-blue-400 font-bold text-sm tracking-widest uppercase mb-2 block">Final Section</span>
                 <h2 class="text-3xl font-bold">Size Persistence and Self-Assessment</h2>
@@ -509,14 +514,6 @@ public static void changeMark(int[] array, int val) {
                     <div class="grid gap-3">
                         <div class="mcq-option p-4 rounded-xl bg-slate-800 border-slate-700 hover:bg-slate-700" onclick="checkAnswer(this, true, 'Correct! Arrays are fixed-length objects.')">A. No, sizes are immutable</div>
                         <div class="mcq-option p-4 rounded-xl bg-slate-800 border-slate-700 hover:bg-slate-700" onclick="checkAnswer(this, false, 'No, you cannot grow or shrink an existing array.')">B. Yes, using the .resize() method</div>
-                    </div>
-                    <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
-                </div>
-                <div class="quiz-block">
-                    <p class="mb-4 font-medium text-slate-200">2. For <code>char[] c = {'J', 'O', 'K', 'E'}</code>, what is <code>c[c.length]</code>?</p>
-                    <div class="grid gap-3">
-                        <div class="mcq-option p-4 rounded-xl bg-slate-800 border-slate-700 hover:bg-slate-700" onclick="checkAnswer(this, false, 'No, index 4 is out of bounds for size 4.')">A. 'E'</div>
-                        <div class="mcq-option p-4 rounded-xl bg-slate-800 border-slate-700 hover:bg-slate-700" onclick="checkAnswer(this, true, 'Correct! Accessing index 4 (the length) results in an Exception.')">B. ArrayIndexOutOfBoundsException</div>
                     </div>
                     <p class="explanation mt-3 hidden text-sm font-medium italic"></p>
                 </div>
