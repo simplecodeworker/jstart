@@ -116,10 +116,95 @@
             </div>
         </section>
 
-        <!-- SECTION 2: DEFINING THE EXCEPTION MECHANISM -->
+        <!-- SECTION 2: REDONE - THE RELATIONSHIP MAP -->
         <section id="section2" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
                 <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">2</span>
+                <h2 class="text-3xl font-bold text-gray-800">Exceptions vs. Runtime Failures</h2>
+            </div>
+            
+            <p class="text-gray-600 mb-6">Beginners often ask: <em>"Are exceptions and runtime errors the same thing?"</em> The answer is nuanced. Let's break down the truth about when things go wrong.</p>
+
+            <!-- Clarification Box -->
+            <div class="grid md:grid-cols-2 gap-6 mb-10">
+                <div class="p-6 bg-blue-50 border border-blue-200 rounded-xl">
+                    <h4 class="font-bold text-blue-800 mb-3 underline">Are all exceptions runtime events?</h4>
+                    <p class="text-sm text-blue-700 leading-relaxed">
+                        <strong>YES.</strong> By definition, an Exception only exists once the program is <strong>running</strong>. Even "Checked Exceptions" (which the compiler makes you write handlers for) only actually happen when the program is live.
+                    </p>
+                </div>
+                <div class="p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <h4 class="font-bold text-red-800 mb-3 underline">Is everything that fails at runtime an Exception?</h4>
+                    <p class="text-sm text-red-700 leading-relaxed">
+                        <strong>NO.</strong> "Runtime Failure" is a broad category. In Java, things that go wrong at runtime are split into <strong>Exceptions</strong> (fixable) and <strong>Errors</strong> (fatal system failures).
+                    </p>
+                </div>
+            </div>
+
+            <!-- Visual Comparison -->
+            <div class="mb-10 p-6 bg-gray-900 rounded-2xl text-white">
+                <h4 class="text-center font-bold mb-6 text-blue-400">The "When" and "What" of Failures</h4>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="p-4 border border-gray-700 rounded-lg bg-gray-800">
+                        <div class="text-yellow-400 font-bold text-xs uppercase mb-2">Pre-Runtime</div>
+                        <h5 class="font-bold mb-1">Compilation Errors</h5>
+                        <p class="text-[10px] text-gray-400">Syntax mistakes (missing <code class="text-gray-300">;</code>). The program never even starts.</p>
+                    </div>
+                    <div class="p-4 border border-blue-700 rounded-lg bg-blue-900/30">
+                        <div class="text-blue-400 font-bold text-xs uppercase mb-2">Runtime (Handled)</div>
+                        <h5 class="font-bold mb-1">Exceptions</h5>
+                        <p class="text-[10px] text-gray-400">Logical or external issues (bad input). We <strong>catch</strong> these to stay alive.</p>
+                    </div>
+                    <div class="p-4 border border-red-700 rounded-lg bg-red-900/30">
+                        <div class="text-red-400 font-bold text-xs uppercase mb-2">Runtime (Fatal)</div>
+                        <h5 class="font-bold mb-1">Errors</h5>
+                        <p class="text-[10px] text-gray-400">System failures (No Memory). We <strong>fail fast</strong> because the environment is broken.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What to do with Errors? -->
+            <div class="bg-gray-100 p-6 rounded-xl border border-gray-300 mb-8">
+                <h4 class="font-bold text-gray-800 mb-3"><i class="fas fa-exclamation-triangle mr-2 text-yellow-600"></i> Why don't we catch "Errors"?</h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    If your program runs out of memory (<code class="text-red-700 font-bold">OutOfMemoryError</code>), there is no memory left to even run your "catch" code safely. 
+                </p>
+                <div class="mt-4 flex gap-4">
+                    <div class="flex-1 p-3 bg-white rounded border border-gray-200 text-xs text-center">
+                        <strong class="block text-red-600">Action: Fail Fast</strong>
+                        Let it crash. It's better to stop than to run in a broken state.
+                    </div>
+                    <div class="flex-1 p-3 bg-white rounded border border-gray-200 text-xs text-center">
+                        <strong class="block text-blue-600">Action: Fix External</strong>
+                        Solve it by changing JVM settings or fixing hardware, not by writing code.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                <p class="font-semibold text-blue-800">Key Takeaway:</p>
+                <p class="text-blue-700 italic">Every Exception is a runtime event, but not every runtime failure is an Exception. We use code to handle Exceptions, but we use system changes to address Errors.</p>
+            </div>
+
+            <!-- Quiz 2 -->
+            <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
+                <div class="space-y-4">
+                    <p class="font-medium">Which of these is the most accurate statement regarding the relationship between the terms?</p>
+                    <div class="grid gap-3">
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Errors also occur at runtime but are a separate hierarchy from Exceptions.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">A) All runtime failures are technically 'Exceptions'.</button>
+                        <button onclick="checkAnswer(this, true, 'Correct! Every exception (even checked ones) happens when the code is running, but fatal \'Errors\' are a separate category of runtime failure.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">B) All Exceptions happen during program execution, but not all runtime failures are Exceptions.</button>
+                        <button onclick="checkAnswer(this, false, 'Incorrect. Checked Exceptions are forced by the compiler, but they still only occur when the program runs.')" class="mcq-option w-full text-left p-4 border rounded-lg bg-white">C) Checked Exceptions are not runtime events because the compiler sees them.</button>
+                    </div>
+                    <div class="feedback hidden mt-2 text-sm font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: DEFINING THE EXCEPTION MECHANISM -->
+        <section id="section3" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">3</span>
                 <h2 class="text-3xl font-bold text-gray-800">The Exception Lifecycle</h2>
             </div>
             
@@ -153,7 +238,7 @@
                 <p class="text-blue-700 italic">Exception handlers act as a safety net. Without them, any runtime error leads to an abnormal termination (crash).</p>
             </div>
 
-            <!-- Quiz 2 -->
+            <!-- Quiz 3 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
@@ -168,10 +253,10 @@
             </div>
         </section>
 
-        <!-- SECTION 3: HANDLING INVALID USER INPUT -->
-        <section id="section3" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <!-- SECTION 4: HANDLING INVALID USER INPUT -->
+        <section id="section4" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
-                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">3</span>
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">4</span>
                 <h2 class="text-3xl font-bold text-gray-800">Encounter: Input Mismatch</h2>
             </div>
 
@@ -207,7 +292,7 @@ int x = sc.nextInt(); <span class="text-red-400">// Crashes here!</span></pre>
                 <p class="text-blue-700 italic">Users are unpredictable. The InputMismatchException occurs when the Scanner's retrieved data type doesn't match the expected type.</p>
             </div>
 
-            <!-- Quiz 3 -->
+            <!-- Quiz 4 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
@@ -221,10 +306,10 @@ int x = sc.nextInt(); <span class="text-red-400">// Crashes here!</span></pre>
             </div>
         </section>
 
-        <!-- SECTION 4: MANAGING MATHEMATICAL ERRORS -->
-        <section id="section4" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <!-- SECTION 5: MANAGING MATHEMATICAL ERRORS -->
+        <section id="section5" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
-                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">4</span>
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">5</span>
                 <h2 class="text-3xl font-bold text-gray-800">Encounter: Divide by Zero</h2>
             </div>
 
@@ -258,7 +343,7 @@ double result = 100 / divisor; <span class="text-red-400">// Exception if 0!</sp
                 <p class="text-blue-700 italic">Logical errors (like dividing by zero) can trigger exceptions even if the code syntax is perfectly correct.</p>
             </div>
 
-            <!-- Quiz 4 -->
+            <!-- Quiz 5 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
@@ -272,10 +357,10 @@ double result = 100 / divisor; <span class="text-red-400">// Exception if 0!</sp
             </div>
         </section>
 
-        <!-- SECTION 5: THE JAVA EXCEPTION HIERARCHY -->
-        <section id="section5" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <!-- SECTION 6: THE JAVA EXCEPTION HIERARCHY -->
+        <section id="section6" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
-                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">5</span>
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">6</span>
                 <h2 class="text-3xl font-bold text-gray-800">The Family Tree</h2>
             </div>
 
@@ -333,7 +418,7 @@ double result = 100 / divisor; <span class="text-red-400">// Exception if 0!</sp
                 <p class="text-blue-700 italic">"Checked" exceptions are environmental risks you MUST code for. "Unchecked" exceptions are usually programming blunders.</p>
             </div>
 
-            <!-- Quiz 5 -->
+            <!-- Quiz 6 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
@@ -348,10 +433,10 @@ double result = 100 / divisor; <span class="text-red-400">// Exception if 0!</sp
             </div>
         </section>
 
-        <!-- SECTION 6: THE TRY-CATCH-THROWS WORKFLOW -->
-        <section id="section6" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <!-- SECTION 7: THE TRY-CATCH-THROWS WORKFLOW -->
+        <section id="section7" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
-                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">6</span>
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">7</span>
                 <h2 class="text-3xl font-bold text-gray-800">Handle, Catch, Throw</h2>
             </div>
 
@@ -382,7 +467,7 @@ void riskyMethod() <span class="text-yellow-300 font-bold">throws</span> Excepti
                 <p class="text-blue-700 italic">Methods use "throws" to claim responsibility and "try-catch" blocks to wrap risky code with a recovery plan.</p>
             </div>
 
-            <!-- Quiz 6 -->
+            <!-- Quiz 7 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
@@ -397,10 +482,10 @@ void riskyMethod() <span class="text-yellow-300 font-bold">throws</span> Excepti
             </div>
         </section>
 
-        <!-- SECTION 7: BEST PRACTICES -->
-        <section id="section7" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+        <!-- SECTION 8: BEST PRACTICES -->
+        <section id="section8" class="section-card bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
             <div class="flex items-center gap-4 mb-6">
-                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">7</span>
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full font-bold">8</span>
                 <h2 class="text-3xl font-bold text-gray-800">API Knowledge & Logic</h2>
             </div>
 
@@ -428,7 +513,7 @@ void riskyMethod() <span class="text-yellow-300 font-bold">throws</span> Excepti
                 </div>
             </div>
 
-            <!-- Quiz 7 -->
+            <!-- Quiz 8 -->
             <div class="mt-12 bg-gray-50 rounded-xl p-6 border border-gray-200">
                 <h3 class="text-xl font-bold mb-4"><i class="fas fa-question-circle mr-2 text-blue-500"></i> Checkpoint</h3>
                 <div class="space-y-4">
