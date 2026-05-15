@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ET0706 Tutorial 6 - Objects and Classes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .answer-blur {
+            filter: blur(8px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .code-block {
+            background-color: #011627;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+            border: 1px solid #1e293b;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/80 backdrop-blur-md">
+        <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center font-bold">SP</div>
+                <h1 class="text-lg font-semibold tracking-tight text-white">ET0706: Objects & Classes</h1>
+            </div>
+            <div class="hidden md:block text-slate-400 text-sm">
+                School of Electrical & Electronic Engineering
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 mt-8 max-w-4xl">
+        <div class="mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2">Tutorial 6</h2>
+            <p class="text-slate-400">Unlock answers using the tutorial password.</p>
+        </div>
+
+        <div id="questions-container" class="space-y-8">
+            <!-- Questions will be injected here -->
+        </div>
+    </main>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: "1. A constructor is used to",
+                options: ["a. free memory", "b. initialize a newly created object.", "c. return a value.", "d. create a JVM."],
+                answer: "b. initialize a newly created object."
+            },
+            {
+                id: 2,
+                text: "2. How many objects of a given class may be constructed in an application?",
+                options: ["a. Only one per constructor.", "b. As many as the application asks for.", "c. Only one per class.", "d. One object per variable."],
+                answer: "b. As many as the application asks for."
+            },
+            {
+                id: 3,
+                text: "3. Write a program that declares a class named Person. It has public instance variables to record name as a single character and age as an integer. Write a test program to create an object myPerson, assign name and age as 'X' and 16 respectively, then print out the info.",
+                expectedOutput: "myPerson's name is 'X'\nmyPerson's age is 16",
+                answer: `class Person {\n    public char name;\n    public int age;\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person();\n        myPerson.name = 'X';\n        myPerson.age = 16;\n        System.out.println("myPerson's name is '" + myPerson.name + "'");\n        System.out.println("myPerson's age is " + myPerson.age);\n    }\n}`
+            },
+            {
+                id: 4,
+                text: "4. Add a constructor to Person class of the Question 3 to initialize name and age. Change the two variables as private. Add get methods to return variables' value.",
+                answer: `class Person {\n    private char name;\n    private int age;\n\n    public Person(char n, int a) {\n        this.name = n;\n        this.age = a;\n    }\n\n    public char getName() { return name; }\n    public int getAge() { return age; }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person('X', 16);\n        System.out.println("myPerson's name is '" + myPerson.getName() + "'");\n        System.out.println("myPerson's age is " + myPerson.getAge());\n    }\n}`
+            },
+            {
+                id: 5,
+                text: "5. Study the following classes and write the expected output.",
+                code: `class Handphone {\n    static int count = 0;\n    String model;\n\n    Handphone (String md) {\n        model = md;\n        ++count;\n    }\n}\n\npublic class TestHP {\n    public static void main (String args[]) {\n        Handphone h1 = new Handphone ("SA");\n        System.out.println(h1.model +" "+ Handphone.count);\n\n        Handphone h2 = new Handphone ("SB");\n        System.out.println(h2.model +" "+ Handphone.count);\n\n        Handphone h3 = new Handphone ("SC");\n        System.out.println(h3.model +" "+ Handphone.count);\n        System.out.println(h1.model +" "+ Handphone.count);\n        System.out.println(h2.model +" "+ Handphone.count);\n    }\n}`,
+                answer: `SA 1\nSB 2\nSC 3\nSA 3\nSB 3\n\nExplanation: 'count' is static, meaning it is shared across all instances. Every time a new Handphone is created, the same count variable increments.`
+            },
+            {
+                id: 6,
+                text: "6. What is the expected output of the following program? What change is needed to get correct number of objects? Show the correct output.",
+                code: `public class TestHP {\n    public static void main (String args[]) {\n        Handphone h1 = new Handphone('a');\n        System.out.println(h1.imei +" "+Handphone.count+" Number of objects:"+h1.no0fobjects);\n\n        Handphone h2 = new Handphone ('b');\n        System.out.println(h2.imei +" " +Handphone.count+" Number of objects:"+h2.noofobjects);\n\n        Handphone h3 = new Handphone ('c');\n        System.out.println(h3.imei +" " +Handphone.count+" Number of objects:"+h3.no0fobjects);\n    }\n}\n\nclass Handphone {\n    static int count;\n    String imei;\n    int noofobjects = 0;\n\n    Handphone (char im) {\n        imei = im;\n        ++count;\n        ++noofobjects;\n    }\n}`,
+                answer: `Expected Output (Incorrect count for noofobjects):\na 1 Number of objects:1\nb 2 Number of objects:1\nc 3 Number of objects:1\n\nCorrection Needed:\nThe variable 'noofobjects' should be declared as 'static'.\n\nCorrect Output after change:\na 1 Number of objects:1\nb 2 Number of objects:2\nc 3 Number of objects:3`
+            },
+            {
+                id: 7,
+                text: "7. What is the output of the following program?",
+                code: `public class TestLinkPoint {\n    public static void main(String args[]){\n        LinkPoint myLinkPoint = new LinkPoint();\n        myLinkPoint.nTUCLinkPoint();\n    }\n}\n\nclass LinkPoint {\n    int points = 1000;\n\n    public void nTUCLinkPoint() {\n        int points = 100;\n        System.out.println(points);\n        bonusPoint();\n    }\n\n    public void bonusPoint() {\n        System.out.println(points);\n    }\n}`,
+                answer: `100\n1000\n\nExplanation: Inside nTUCLinkPoint(), the local variable 'points' (100) shadows the instance variable. Inside bonusPoint(), there is no local variable, so it refers to the instance variable 'points' (1000).`
+            }
+        ];
+
+        function checkPasscode(input) {
+            // "oop2" in ASCII: 111, 111, 112, 50
+            const target = [111, 111, 112, 50];
+            if (input.length !== target.length) return false;
+            for (let i = 0; i < input.length; i++) {
+                if (input.charCodeAt(i) !== target[i]) return false;
+            }
+            return true;
+        }
+
+        function unlockAnswer(id) {
+            const input = document.getElementById(`pass-${id}`).value;
+            const errorMsg = document.getElementById(`err-${id}`);
+            
+            if (checkPasscode(input)) {
+                document.getElementById(`unlock-overlay-${id}`).classList.add('hidden');
+                document.getElementById(`answer-content-${id}`).classList.remove('answer-blur');
+                errorMsg.classList.add('hidden');
+            } else {
+                errorMsg.classList.remove('hidden');
+                errorMsg.innerText = "Incorrect password.";
+            }
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            
+            questions.forEach(q => {
+                const card = document.createElement('div');
+                card.className = 'glass-card rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-900/20';
+                
+                let content = `
+                    <div class="mb-4">
+                        <p class="text-lg text-slate-100 font-medium leading-relaxed">${q.text}</p>
+                    </div>
+                `;
+
+                if (q.options) {
+                    content += `<ul class="space-y-2 mb-4 text-slate-300">
+                        ${q.options.map(opt => `<li class="pl-2 border-l-2 border-slate-700">${opt}</li>`).join('')}
+                    </ul>`;
+                }
+
+                if (q.code) {
+                    content += `
+                        <div class="code-block text-sm">
+                            <pre class="text-blue-300"><code>${q.code.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+                        </div>
+                    `;
+                }
+
+                if (q.expectedOutput) {
+                    content += `
+                        <div class="mt-4 p-3 bg-slate-900/50 rounded border border-slate-700">
+                            <span class="text-xs font-bold text-blue-500 uppercase tracking-wider">Expected Output</span>
+                            <pre class="text-emerald-400 text-sm mt-1"><code>${q.expectedOutput}</code></pre>
+                        </div>
+                    `;
+                }
+
+                content += `
+                    <div class="mt-8 pt-6 border-t border-slate-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-widest">Answer Section</h4>
+                        </div>
+                        
+                        <div class="relative min-h-[100px]">
+                            <!-- Overlay -->
+                            <div id="unlock-overlay-${q.id}" class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-slate-900/60 backdrop-blur-[2px] rounded-lg">
+                                <div class="flex flex-col items-center max-w-xs w-full px-4">
+                                    <input type="password" id="pass-${q.id}" placeholder="Password to unlock" 
+                                        class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all text-center"
+                                        onkeypress="if(event.key === 'Enter') unlockAnswer(${q.id})">
+                                    <button onclick="unlockAnswer(${q.id})" 
+                                        class="mt-3 w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors">
+                                        Show Answer
+                                    </button>
+                                    <p id="err-${q.id}" class="text-red-400 text-xs mt-2 hidden"></p>
+                                </div>
+                            </div>
+
+                            <!-- Answer Content -->
+                            <div id="answer-content-${q.id}" class="answer-blur transition-all duration-700">
+                                <div class="bg-slate-900/40 p-4 rounded-lg border border-emerald-900/30">
+                                    <pre class="text-emerald-300 whitespace-pre-wrap text-sm"><code>${q.answer.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                card.innerHTML = content;
+                container.appendChild(card);
+            });
+        }
+
+        window.onload = renderQuestions;
+    </script>
+</body>
+</html>
