@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Mastery Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; background-color: #f8fafc; color: #1e293b; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .lesson-section { min-height: 80vh; border-bottom: 2px solid #e2e8f0; padding: 4rem 1rem; }
+        .glass-card { background: rgba(255, 255, 255, 0.95); border-radius: 1.5rem; border: 1px solid #e2e8f0; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); }
+        .token-keyword { color: #d946ef; font-weight: 600; }
+        .token-type { color: #3b82f6; }
+        .token-comment { color: #64748b; font-style: italic; }
+        .token-string { color: #10b981; }
+        .error-line { background-color: rgba(239, 68, 68, 0.15); border-left: 4px solid #ef4444; }
+        .mcq-btn { transition: all 0.2s ease; }
+        .mcq-btn:disabled { cursor: not-allowed; }
+        .correct { background-color: #dcfce7 !important; border-color: #22c55e !important; color: #166534 !important; }
+        .wrong { background-color: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b !important; }
+        /* Memory Sim Styles */
+        .stack-box { border: 2px solid #3b82f6; background: #eff6ff; }
+        .heap-box { border: 2px solid #8b5cf6; background: #f5f3ff; }
+        .memory-pointer { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
+</head>
+<body>
+
+    <header class="py-20 bg-slate-900 text-white text-center px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block p-4 bg-blue-600 rounded-2xl mb-6 shadow-xl">
+                <svg class="w-12 h-12 text-white" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+            </div>
+            <h1 class="text-5xl font-extrabold mb-4 tracking-tight">Java Core Concepts</h1>
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto">Mastering Encapsulation, Constructors, and Memory Architecture through interactive lessons.</p>
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <span class="bg-slate-800 px-4 py-2 rounded-full text-sm font-medium border border-slate-700">OOP Fundamentals</span>
+                <span class="bg-slate-800 px-4 py-2 rounded-full text-sm font-medium border border-slate-700">Memory Visualizations</span>
+                <span class="bg-slate-800 px-4 py-2 rounded-full text-sm font-medium border border-slate-700">Automatic GC</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto pb-20">
+
+        <section id="s1" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 1</span>
+                    <h2 class="text-3xl font-bold">Objectives</h2>
+                </div>
+                <p class="text-lg text-slate-600 mb-8 leading-relaxed">Welcome to the module! We are setting the roadmap for understanding how Java manages data safety and system memory. Here is what we will tackle:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <div class="text-blue-600 font-bold">01</div>
+                        <div>
+                            <h4 class="font-bold">Access Control</h4>
+                            <p class="text-sm text-slate-500">Public vs. Private modifiers</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <div class="text-blue-600 font-bold">02</div>
+                        <div>
+                            <h4 class="font-bold">Encapsulation</h4>
+                            <p class="text-sm text-slate-500">Getters and Setters</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <div class="text-blue-600 font-bold">03</div>
+                        <div>
+                            <h4 class="font-bold">Overloading</h4>
+                            <p class="text-sm text-slate-500">Constructors and Signatures</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                        <div class="text-blue-600 font-bold">04</div>
+                        <div>
+                            <h4 class="font-bold">Memory</h4>
+                            <p class="text-sm text-slate-500">Primitives vs. Reference types</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-12">
+                    <h5 class="font-bold text-blue-900 mb-1">💡 Key Takeaway</h5>
+                    <p class="text-blue-800">This module focuses on <strong>Data Encapsulation</strong> (protecting data) and <strong>Memory Management</strong> basics.</p>
+                </div>
+
+                <!-- MCQs -->
+                <div class="space-y-6">
+                    <h4 class="font-bold text-xl border-b pb-2">Quick Check</h4>
+                    <div class="quiz-block" data-section="1">
+                        <p class="font-medium mb-3">1. Which concept focuses on protecting data from outside modification?</p>
+                        <div class="grid gap-2">
+                            <button onclick="checkMCQ(this, true, 'Correct! Encapsulation shields internal data.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) Encapsulation</button>
+                            <button onclick="checkMCQ(this, false, 'Inheritance is about code reuse, not data protection.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) Inheritance</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s2" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 2</span>
+                    <h2 class="text-3xl font-bold">Understanding Access Control</h2>
+                </div>
+                <p class="text-slate-600 mb-8">Access modifiers control the visibility of variables and methods. Think of them as security clearance levels.</p>
+
+                <div class="overflow-hidden rounded-2xl border border-slate-200 mb-8 shadow-sm">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th class="p-4 font-bold text-slate-700">Modifier</th>
+                                <th class="p-4 font-bold text-slate-700">Accessible in Class?</th>
+                                <th class="p-4 font-bold text-slate-700">Accessible by World?</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="p-4 font-mono font-bold text-green-600">public</td>
+                                <td class="p-4 text-slate-600">Yes (Y)</td>
+                                <td class="p-4 text-slate-600">Yes (Y)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-mono font-bold text-red-500">private</td>
+                                <td class="p-4 text-slate-600">Yes (Y)</td>
+                                <td class="p-4 text-slate-600 font-bold text-red-500">No (N)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 text-sm">
+                    <div class="p-5 rounded-2xl bg-green-50 border border-green-100">
+                        <h4 class="font-bold text-green-800 mb-2">Public Modifier</h4>
+                        <p class="text-green-700 leading-relaxed">The member is accessible to <strong>ALL</strong> other objects in the system. Use it for the interface you want others to use.</p>
+                    </div>
+                    <div class="p-5 rounded-2xl bg-red-50 border border-red-100">
+                        <h4 class="font-bold text-red-800 mb-2">Private Modifier</h4>
+                        <p class="text-red-700 leading-relaxed">The member is accessible <strong>within this class only</strong>. This is the cornerstone of data security.</p>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-xl mb-12">
+                    <h5 class="font-bold text-blue-900 mb-1 text-sm uppercase tracking-wider">Takeaway</h5>
+                    <p class="text-blue-800">Use 'private' to hide data and 'public' to provide a controlled interface.</p>
+                </div>
+
+                <!-- MCQs -->
+                <div class="quiz-block space-y-6" data-section="2">
+                    <p class="font-medium mb-3">1. If a variable is marked "private", can a class in a different package access it directly?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, false, 'Private means it is strictly limited to the defining class.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) Yes</button>
+                        <button onclick="checkMCQ(this, true, 'Correct! Private variables are hidden from all other classes.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) No</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s3" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 3</span>
+                    <h2 class="text-3xl font-bold">Enforcing Data Privacy</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">What happens when you break the rules? Java enforces privacy at <strong>Compile-Time</strong>. The compiler stops you from even starting the program if you attempt to touch private data from outside.</p>
+
+                <div class="bg-slate-900 rounded-2xl overflow-hidden mb-8 shadow-lg">
+                    <div class="bg-slate-800 px-4 py-2 flex justify-between items-center text-xs text-slate-400">
+                        <span>Circle.java & testCircle.java</span>
+                        <span class="text-red-400 font-bold uppercase">Compilation Error</span>
+                    </div>
+                    <pre class="p-6 text-sm leading-relaxed text-slate-300"><code><span class="token-keyword">class</span> <span class="token-type">Circle</span> {
+  <span class="token-keyword">private</span> <span class="token-type">double</span> radius = <span class="token-type">1.0</span>;
+}
+
+<span class="token-keyword">public class</span> <span class="token-type">testCircle</span> {
+  <span class="token-keyword">public static void</span> <span class="token-type">main</span>(<span class="token-type">String</span>[] args) {
+    <span class="token-type">Circle</span> c = <span class="token-keyword">new</span> <span class="token-type">Circle</span>();
+<div class="error-line">    <span class="token-type">System</span>.out.println(c.radius); <span class="token-comment">// ❌ radius has private access in Circle</span></div>  }
+}</code></pre>
+                </div>
+
+                <div class="p-6 bg-amber-50 rounded-2xl border-l-4 border-amber-400 mb-12">
+                    <h5 class="font-bold text-amber-800 mb-2">Why the failure?</h5>
+                    <p class="text-amber-700 text-sm">The <code>radius</code> is shielded. Even though <code>c</code> is a Circle object, <code>testCircle</code> is a different class and does not have permission to look inside.</p>
+                </div>
+
+                <!-- MCQs -->
+                <div class="quiz-block space-y-6" data-section="3">
+                    <p class="font-medium mb-3">1. When does Java detect that you are trying to access a private variable incorrectly?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! Access violations are caught before the program runs.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) At Compile-Time</button>
+                        <button onclick="checkMCQ(this, false, 'The program cannot run if there is a compilation error.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) At Runtime</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s4" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 4</span>
+                    <h2 class="text-3xl font-bold">Accessor Methods</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">If data is private, how do we use it? We use <strong>Accessor Methods</strong> (Getters and Setters). They act as a controlled "middleman" between the outside world and the private data.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="p-6 rounded-2xl border-2 border-dashed border-blue-200 bg-white">
+                        <div class="flex items-center gap-2 text-blue-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            <span class="font-bold">Getter (Accessor)</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">Retrieves the value of a private variable without allowing direct modification.</p>
+                        <pre class="bg-slate-50 p-3 rounded-lg text-xs"><code><span class="token-keyword">public</span> <span class="token-type">double</span> getRadius() {
+  <span class="token-keyword">return</span> radius;
+}</code></pre>
+                    </div>
+                    <div class="p-6 rounded-2xl border-2 border-dashed border-purple-200 bg-white">
+                        <div class="flex items-center gap-2 text-purple-600 mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            <span class="font-bold">Setter (Mutator)</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-4">Changes the value of a private variable, often adding validation logic.</p>
+                        <pre class="bg-slate-50 p-3 rounded-lg text-xs"><code><span class="token-keyword">public</span> <span class="token-type">void</span> setRadius(<span class="token-type">double</span> r) {
+  <span class="token-keyword">this</span>.radius = r;
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="quiz-block space-y-6" data-section="4">
+                    <p class="font-medium mb-3">1. Which method type is used to modify a private variable's value?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, false, 'Getters only read the value.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) Getter</button>
+                        <button onclick="checkMCQ(this, true, 'Correct! Setters mutate or change the internal state.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) Setter</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s5" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 5</span>
+                    <h2 class="text-3xl font-bold">Implementing Encapsulation</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Here is the corrected code. By combining private data with public accessors, we achieve **Encapsulation**.</p>
+
+                <!-- Interactive Simulator -->
+                <div class="bg-white rounded-3xl border border-slate-200 p-8 mb-10 shadow-inner">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="flex-1 space-y-4">
+                            <h4 class="font-bold text-slate-800">Visual Encapsulation Lab</h4>
+                            <p class="text-sm text-slate-500">Notice how the "Circle" box is sealed. You can only interact with it through the blue buttons.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="simSetRadius(5.0)" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-blue-700 transition">setRadius(5.0)</button>
+                                <button onclick="simGetRadius()" class="border-2 border-blue-600 text-blue-600 px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-50 transition">getRadius()</button>
+                                <button onclick="simReset()" class="text-slate-400 text-xs hover:underline">Reset Circle</button>
+                            </div>
+                            <div id="sim-feedback" class="mt-4 p-3 rounded-lg bg-slate-100 text-xs font-mono hidden"></div>
+                        </div>
+                        <div class="w-48 h-48 bg-slate-50 rounded-3xl border-4 border-dashed border-slate-200 flex items-center justify-center relative">
+                            <div id="visual-circle" class="bg-blue-500 rounded-full transition-all duration-500 flex items-center justify-center text-white text-xs font-bold" style="width: 40px; height: 40px;">r=1.0</div>
+                            <div class="absolute -top-3 -right-3 bg-red-500 text-white p-1 rounded-full shadow-lg">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="5">
+                    <p class="font-medium mb-3">1. What does 'this.radius = radius' accomplish in a setter?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! It distinguishes between the class member and the parameter.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) Assigns the parameter to the class variable.</button>
+                        <button onclick="checkMCQ(this, false, 'this refers to the current object, not a global variable.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) It creates a new static variable.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s6" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 6</span>
+                    <h2 class="text-3xl font-bold">Constructor Requirements</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Constructors define the "required ingredients" to create an object. If you provide a custom constructor, Java assumes you want total control.</p>
+
+                <div class="p-6 bg-red-50 rounded-2xl border border-red-100 mb-8">
+                    <h4 class="font-bold text-red-800 mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                        The Default Constructor Warning
+                    </h4>
+                    <p class="text-sm text-red-700 leading-relaxed italic">"If you define a constructor that requires a parameter, you can no longer use the default 'no-arg' constructor unless you explicitly write one."</p>
+                </div>
+
+                <pre class="bg-slate-900 text-slate-300 p-6 rounded-2xl text-sm mb-10"><code><span class="token-keyword">public class</span> <span class="token-type">Test</span> {
+  <span class="token-keyword">public static void</span> main(<span class="token-type">String</span>[] args) {
+    <span class="token-type">Circle</span> c1 = <span class="token-keyword">new</span> <span class="token-type">Circle</span>(3.5); <span class="token-comment">// ✅ Works</span>
+    <span class="token-type">Circle</span> c2 = <span class="token-keyword">new</span> <span class="token-type">Circle</span>();    <span class="token-comment">// ❌ ERROR: no constructor match</span>
+  }
+}</code></pre>
+
+                <div class="quiz-block space-y-6" data-section="6">
+                    <p class="font-medium mb-3">1. When do you lose the automatic 'no-arg' constructor?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! Java only provides one if you write NO constructors.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) As soon as you define any custom constructor.</button>
+                        <button onclick="checkMCQ(this, false, 'Java provides it by default only if your class is completely empty of constructors.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) Only if you mark the class private.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s7" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 7</span>
+                    <h2 class="text-3xl font-bold">Multiple Constructors</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">For flexibility, a class can have multiple constructors. This allows a programmer to create a "default" object or a "customized" one.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">Path A: Default</span>
+                        <pre class="mt-2 text-xs"><code><span class="token-keyword">public</span> <span class="token-type">Circle</span>() {
+  <span class="token-keyword">this</span>.radius = 1.0;
+}</code></pre>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">Path B: Custom</span>
+                        <pre class="mt-2 text-xs"><code><span class="token-keyword">public</span> <span class="token-type">Circle</span>(<span class="token-type">double</span> r) {
+  <span class="token-keyword">this</span>.radius = r;
+}</code></pre>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="7">
+                    <p class="font-medium mb-3">1. Why would you want multiple constructors in a class?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! It provides different initialization paths.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) To allow flexibility during object creation.</button>
+                        <button onclick="checkMCQ(this, false, 'Constructors do not increase execution speed.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) To make the program run faster.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s8" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 8</span>
+                    <h2 class="text-3xl font-bold">Method Overloading</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Having more than one constructor with the same name is called **Overloading**. The compiler identifies which one to call based on the **Signature**.</p>
+
+                <div class="p-6 rounded-2xl bg-purple-50 border-2 border-purple-200 mb-10">
+                    <h4 class="font-bold text-purple-900 mb-2">What is a Signature?</h4>
+                    <p class="text-sm text-purple-800">It is the combination of: <br> 1. Number of params <br> 2. Types of params <br> 3. Order of types.</p>
+                    <div class="mt-4 text-xs font-bold text-red-600 uppercase italic underline">Variable names do NOT count!</div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="8">
+                    <p class="font-medium mb-3">1. Which of these defines a unique signature for `move(int x)`?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, false, 'The parameter type is still just one int. The name doesn\'t matter.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) move(int y)</button>
+                        <button onclick="checkMCQ(this, true, 'Correct! Different number of parameters equals a different signature.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) move(int x, int y)</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s9" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 9</span>
+                    <h2 class="text-3xl font-bold">Rules for Unique Signatures</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Let's look at legal vs. illegal overloading with visual examples.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-green-50 rounded-xl border-l-4 border-green-500">
+                            <span class="text-green-700 font-bold text-sm">✅ LEGAL (Different Order)</span>
+                            <pre class="text-xs mt-2"><code>move(<span class="token-type">int</span> a, <span class="token-type">double</span> b)
+move(<span class="token-type">double</span> a, <span class="token-type">int</span> b)</code></pre>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-red-50 rounded-xl border-l-4 border-red-500">
+                            <span class="text-red-700 font-bold text-sm">❌ ILLEGAL (Same Types)</span>
+                            <pre class="text-xs mt-2"><code>add(<span class="token-type">int</span> x, <span class="token-type">int</span> y)
+add(<span class="token-type">int</span> a, <span class="token-type">int</span> b)</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="9">
+                    <p class="font-medium mb-3">1. Is `print(int a)` and `print(double a)` a legal overload?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! Different data types create different signatures.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) Yes</button>
+                        <button onclick="checkMCQ(this, false, 'Since the data types (int vs double) are different, this is legal.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) No</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s10" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 10</span>
+                    <h2 class="text-3xl font-bold">Primitive vs. Reference</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Understanding memory is key. Java handles simple values (primitives) and complex objects (references) differently.</p>
+
+                <!-- Memory Visualizer -->
+                <div class="p-8 bg-slate-100 rounded-3xl border border-slate-200 mb-10">
+                    <div class="grid grid-cols-2 gap-8 h-48 relative">
+                        <div class="stack-area text-center">
+                            <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Stack (Variables)</div>
+                            <div class="flex flex-col gap-2">
+                                <div class="bg-white p-3 rounded-lg border border-blue-200 text-xs shadow-sm flex justify-between items-center">
+                                    <span>int age</span> <span class="font-bold text-blue-600">19</span>
+                                </div>
+                                <div id="ref-var" class="bg-white p-3 rounded-lg border border-purple-200 text-xs shadow-sm flex justify-between items-center relative">
+                                    <span>Circle myC</span>
+                                    <div class="absolute -right-16 top-1/2 -translate-y-1/2 memory-pointer text-purple-500 font-bold text-2xl" id="pointer-arrow">➔</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="heap-area text-center">
+                            <div class="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest">Heap (Objects)</div>
+                            <div class="flex flex-col gap-2 h-full justify-center">
+                                <div id="heap-obj" class="bg-white p-4 rounded-2xl border-2 border-purple-400 w-32 mx-auto shadow-md">
+                                    <div class="text-[10px] text-slate-400">Circle Object</div>
+                                    <div class="font-bold text-xs">radius=1.0</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="10">
+                    <p class="font-medium mb-3">1. Where is the actual object data (attributes) stored in memory?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, false, 'The Stack stores primitive values and references (pointers).')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) The Stack</button>
+                        <button onclick="checkMCQ(this, true, 'Correct! The Heap is the large pool of memory where objects live.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) The Heap</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s11" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 11</span>
+                    <h2 class="text-3xl font-bold">Copying Primitive Data</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Primitive assignment is a **copy-by-value** operation. The two variables remain independent.</p>
+
+                <div class="flex flex-col md:flex-row gap-4 mb-10 items-center justify-center">
+                    <div class="p-6 bg-white border border-slate-200 rounded-2xl w-full max-w-xs">
+                        <div class="text-center mb-4 font-bold text-slate-400">Before i = j</div>
+                        <div class="flex justify-around">
+                            <div class="w-16 h-16 bg-blue-100 border border-blue-300 rounded flex flex-col items-center justify-center">
+                                <span class="text-xs">i</span><span class="font-bold">5</span>
+                            </div>
+                            <div class="w-16 h-16 bg-blue-100 border border-blue-300 rounded flex flex-col items-center justify-center">
+                                <span class="text-xs">j</span><span class="font-bold">10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-2xl text-slate-300">➜</div>
+                    <div class="p-6 bg-white border border-slate-200 rounded-2xl w-full max-w-xs">
+                        <div class="text-center mb-4 font-bold text-slate-400">After i = j</div>
+                        <div class="flex justify-around">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded flex flex-col items-center justify-center transition-all duration-500">
+                                <span class="text-xs">i</span><span class="font-bold">10</span>
+                            </div>
+                            <div class="w-16 h-16 bg-blue-100 border border-blue-300 rounded flex flex-col items-center justify-center">
+                                <span class="text-xs">j</span><span class="font-bold">10</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="11">
+                    <p class="font-medium mb-3">1. If `int i = 5; int j = i; j = 10;`, what is the value of `i`?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! i remains 5 because primitives copy values, not locations.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) 5</button>
+                        <button onclick="checkMCQ(this, false, 'Primitive assignments create independent copies.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) 10</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s12" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 12</span>
+                    <h2 class="text-3xl font-bold">Copying References</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Object assignment is different. It copies the **reference**, not the object. Now both point to the same object!</p>
+
+                <div class="bg-slate-50 p-8 rounded-3xl border border-slate-200 mb-10">
+                    <div class="flex flex-col items-center gap-8">
+                        <div class="flex gap-20">
+                            <div class="flex flex-col gap-4">
+                                <div class="bg-white p-3 rounded-lg border-2 border-blue-400 text-xs w-24 text-center">c1</div>
+                                <div class="bg-white p-3 rounded-lg border-2 border-blue-400 text-xs w-24 text-center">c2</div>
+                            </div>
+                            <div class="flex flex-col gap-4">
+                                <div id="obj-a" class="bg-slate-200 p-4 rounded-2xl w-32 h-16 flex items-center justify-center relative">
+                                    <span class="text-xs">Object A</span>
+                                    <div id="trash-icon" class="hidden absolute inset-0 bg-red-100 opacity-80 rounded-2xl items-center justify-center text-2xl">🗑️</div>
+                                </div>
+                                <div id="obj-b" class="bg-blue-100 p-4 border-2 border-blue-400 rounded-2xl w-32 h-16 flex items-center justify-center">
+                                    <span class="text-xs">Object B</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="simRefAssign()" class="bg-slate-800 text-white px-6 py-2 rounded-xl font-bold hover:bg-black transition">Run: c1 = c2;</button>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="12">
+                    <p class="font-medium mb-3">1. What happens to the original object `c1` pointed to after `c1 = c2`?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! It becomes unreachable and is marked for deletion.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) It becomes orphaned (Garbage).</button>
+                        <button onclick="checkMCQ(this, false, 'c1 is redirected, the data doesn\'t merge automatically.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) It merges with object c2.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="s13" class="lesson-section">
+            <div class="glass-card p-8 md:p-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-bold uppercase">Section 13</span>
+                    <h2 class="text-3xl font-bold">Garbage Collection</h2>
+                </div>
+                <p class="text-slate-600 mb-8 leading-relaxed">Java manages memory for you. The **Garbage Collector** (GC) automatically deletes unreachable objects to reclaim space.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold mb-2">The Definition of Garbage</h4>
+                        <p class="text-sm text-slate-500">Any object in memory that no longer has any reference pointing to it is "Garbage".</p>
+                    </div>
+                    <div class="p-6 bg-green-50 rounded-2xl border border-green-200">
+                        <h4 class="font-bold text-green-800 mb-2">Correct Object Cloning</h4>
+                        <p class="text-sm text-green-700">To copy data correctly, copy fields individually: <br><code>c1.setRadius(c2.getRadius())</code></p>
+                    </div>
+                </div>
+
+                <div class="quiz-block space-y-6" data-section="13">
+                    <p class="font-medium mb-3">1. How do you trigger Garbage Collection manually in a perfect Java world?</p>
+                    <div class="grid gap-2">
+                        <button onclick="checkMCQ(this, true, 'Correct! You can suggest it (System.gc()), but the JVM decides when to actually run.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">A) You don't; JVM handles it automatically.</button>
+                        <button onclick="checkMCQ(this, false, 'The delete keyword doesn\'t exist for memory in Java.')" class="mcq-btn text-left p-4 rounded-xl border border-slate-200 hover:bg-slate-50">B) Using the `delete` keyword.</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 py-12 text-center border-t border-slate-800">
+        <p class="text-sm">© 2024 Java Masterclass Platform • Interactive Curriculum</p>
+    </footer>
+
+    <script>
+        // MCQ Logic
+        function checkMCQ(btn, isCorrect, explanation) {
+            const parent = btn.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            
+            // Lock buttons
+            buttons.forEach(b => {
+                b.disabled = true;
+                b.classList.add('opacity-50');
+            });
+
+            // Highlight answer
+            btn.classList.remove('opacity-50');
+            if (isCorrect) {
+                btn.classList.add('correct');
+            } else {
+                btn.classList.add('wrong');
+            }
+
+            // Show explanation
+            const feedback = document.createElement('div');
+            feedback.className = `mt-4 p-4 rounded-xl text-sm font-medium animate-pulse ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`;
+            feedback.innerText = explanation;
+            parent.appendChild(feedback);
+        }
+
+        // Section 5 Simulator
+        let currentRadius = 1.0;
+        function simSetRadius(val) {
+            currentRadius = val;
+            const circle = document.getElementById('visual-circle');
+            const feedback = document.getElementById('sim-feedback');
+            
+            circle.style.width = (val * 20) + 'px';
+            circle.style.height = (val * 20) + 'px';
+            circle.innerText = 'r=' + val.toFixed(1);
+            
+            feedback.classList.remove('hidden');
+            feedback.innerText = `>> setRadius(${val}) called. Internal radius updated.`;
+        }
+
+        function simGetRadius() {
+            const feedback = document.getElementById('sim-feedback');
+            feedback.classList.remove('hidden');
+            feedback.innerText = `>> getRadius() returned ${currentRadius.toFixed(1)}`;
+        }
+
+        function simReset() {
+            simSetRadius(1.0);
+            document.getElementById('sim-feedback').classList.add('hidden');
+        }
+
+        // Section 12 Simulator
+        function simRefAssign() {
+            const trash = document.getElementById('trash-icon');
+            const objA = document.getElementById('obj-a');
+            const objB = document.getElementById('obj-b');
+            
+            trash.style.display = 'flex';
+            objA.style.opacity = '0.5';
+            objB.classList.add('ring-4', 'ring-blue-500', 'ring-offset-2');
+            
+            setTimeout(() => {
+                alert("Assignment Complete: Variable c1 now points to Object B. Object A is unreachable.");
+            }, 100);
+        }
+    </script>
+</body>
+</html>
