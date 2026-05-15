@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill In the Codes - Java Programming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .code-block {
+            font-family: 'Fira Code', monospace;
+            background-color: #010409;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 1.5rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        /* The specific highlight requested */
+        .blank-highlight {
+            background-color: #fef08a; /* Light yellow */
+            color: #713f12;            /* Darker font color */
+            padding: 0 4px;
+            border-radius: 2px;
+            font-weight: 600;
+        }
+
+        .java-keyword { color: #ff7b72; }
+        .java-type { color: #ffa657; }
+        .java-comment { color: #8b949e; font-style: italic; }
+        .java-string { color: #a5d6ff; }
+        .java-method { color: #d2a8ff; }
+
+        .question-card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            transition: transform 0.2s;
+        }
+
+        .question-card:hover {
+            border-color: #475569;
+        }
+
+        input.blank-input {
+            background-color: #fef08a;
+            color: #713f12;
+            border: none;
+            outline: none;
+            padding: 0 4px;
+            font-family: inherit;
+            font-weight: 600;
+            width: auto;
+            min-width: 100px;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-2">
+                Fill In the Codes
+            </h1>
+            <p class="text-slate-400 italic">Java Programming Exercise: The Fan Class</p>
+        </header>
+
+        <!-- Q6.2.1 Section -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.1</span>
+                <h2 class="text-xl font-semibold">The Fan Class Template</h2>
+            </div>
+            
+            <div class="code-block text-sm md:text-base mb-6 shadow-2xl">
+                <span class="java-keyword">public class</span> <span class="java-type">Fan</span> {<br>
+                &nbsp;&nbsp;<span class="java-keyword">private double</span> radius = <span class="java-string">5</span>;<br>
+                &nbsp;&nbsp;<span class="java-keyword">private</span> <span class="java-type">String</span> color = <span class="java-string">"white"</span>;<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-method">Fan</span>(){<br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public double</span> <span class="java-method">getRadius</span>() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="java-keyword">return</span> radius; <span class="java-java-comment">//return the value of instance variable radius</span><br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public void</span> <span class="java-method">setRadius</span>(<span class="java-keyword">double</span> dbRadius) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;radius = dbRadius;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="java-comment">/*change the value of instance variable to method’s parameter’s value.*/</span><br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">getColor</span>() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public void</span> <span class="java-method">setColor</span>(<span class="java-type">String</span> strColor) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
+                &nbsp;&nbsp;}<br>
+                <br>
+                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">toString</span>() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
+                &nbsp;&nbsp;}<br>
+                }
+            </div>
+        </section>
+
+        <!-- Q6.2.2 Section -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.2</span>
+                <h2 class="text-xl font-semibold">Testing the Fan Class</h2>
+            </div>
+            
+            <div class="question-card rounded-xl p-6 shadow-lg space-y-6">
+                <p class="text-slate-300 leading-relaxed">
+                    Write a client program to test the Fan class: create a Fan object and set its radius as 10 and color as "yellow". Describe the object by invoking its toString() method.
+                </p>
+                
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span>Your Fan object name is:</span>
+                        <span class="blank-highlight">________________</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span>The object creation statement is:</span>
+                        <span class="blank-highlight">_______________________________________</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span>The statement to assign new radius to your Fan object is:</span>
+                        <span class="blank-highlight">_______________________________________</span>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-700">
+                        <p class="mb-2 text-sm text-blue-400 uppercase tracking-wider font-bold">Analysis</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-slate-900/50 rounded-lg">
+                                <p class="text-sm text-slate-400 mb-1">setColor input/output?</p>
+                                <span class="blank-highlight w-full block">__________________________________</span>
+                            </div>
+                            <div class="p-4 bg-slate-900/50 rounded-lg">
+                                <p class="text-sm text-slate-400 mb-1">toString input/output?</p>
+                                <span class="blank-highlight w-full block">__________________________________</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/50 rounded-lg">
+                        <p class="text-sm text-slate-400 mb-1">What’s the difference of calling the set method and toString method? Why?</p>
+                        <span class="blank-highlight w-full block h-12">__________________________________________________________________________________________________________________________________________________</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q6.2.3 Section -->
+        <section class="mb-12">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.3</span>
+                <h2 class="text-xl font-semibold">Expanding Constructors</h2>
+            </div>
+            
+            <div class="question-card rounded-xl p-6 shadow-lg">
+                <p class="text-slate-300 mb-6 italic">Add a constructor to initialize the fan color through its parameter.</p>
+                
+                <div class="space-y-4">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span>The number of constructors in template class Fan now is:</span>
+                        <span class="blank-highlight">_________</span>
+                    </div>
+                    
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span>What’s the purpose of newly designed constructor?</span>
+                        <span class="blank-highlight block w-full">_________________________________________________________________________________</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q6.2.4 Section -->
+        <section class="mb-12 pb-20">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.4</span>
+                <h2 class="text-xl font-semibold">Comparison & Observation</h2>
+            </div>
+            
+            <div class="question-card rounded-xl p-6 shadow-lg">
+                <div class="space-y-6">
+                    <div class="p-4 bg-slate-900/50 rounded-lg border-l-4 border-emerald-500">
+                        <p class="text-sm font-medium text-emerald-400 mb-2">Scenario: Create another object with the new constructor and call toString().</p>
+                        <p class="text-slate-300 text-sm mb-3">What are the property value’s differences between the two Fan objects? Why?</p>
+                        <span class="blank-highlight block w-full h-12">__________________________________________________________________________________________________________________________________________________</span>
+                    </div>
+
+                    <div class="p-4 bg-slate-900/50 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm font-medium text-blue-400 mb-2">Scenario: Call set methods on the new object, then toString() again.</p>
+                        <p class="text-slate-300 text-sm mb-3">What are the changes of the two object properties' values?</p>
+                        <span class="blank-highlight block w-full h-12">__________________________________________________________________________________________________________________________________________________</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Simple Interactivity Script -->
+    <script>
+        // Make the blanks editable for user interaction
+        document.querySelectorAll('.blank-highlight').forEach(blank => {
+            blank.setAttribute('contenteditable', 'true');
+            blank.addEventListener('focus', function() {
+                if(this.innerText.includes('___')) {
+                    this.innerText = '';
+                }
+            });
+            blank.addEventListener('blur', function() {
+                if(this.innerText.trim() === '') {
+                    this.innerText = '_________________________________';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
