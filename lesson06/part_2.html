@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Constructor Mastery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+
+        .java-keyword { color: #c678dd; }
+        .java-class { color: #e5c07b; }
+        .java-method { color: #61afef; }
+        .java-string { color: #98c379; }
+        .java-comment { color: #7f848e; font-style: italic; }
+        .java-number { color: #d19a66; }
+
+        .mcq-option:hover {
+            transform: translateX(5px);
+            transition: all 0.2s ease;
+        }
+
+        .section-fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Flowchart styling */
+        .flow-node {
+            border: 2px solid #3b82f6;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: #eff6ff;
+            text-align: center;
+            position: relative;
+        }
+        
+        .flow-arrow::after {
+            content: '↓';
+            display: block;
+            text-align: center;
+            font-size: 1.5rem;
+            color: #3b82f6;
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">Java Constructor Mastery</h1>
+        <p class="text-xl opacity-90 max-w-2xl mx-auto">Master the art of object creation, initialization, and encapsulation in Java.</p>
+        <div class="mt-8">
+            <a href="#section1" class="bg-white text-blue-700 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition shadow-lg">Start Learning</a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 space-y-24">
+
+        <!-- SECTION 1 -->
+        <section id="section1" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 1</span>
+                <h2 class="text-3xl font-bold">Manual Initialization</h2>
+            </div>
+            
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 mb-8">
+                <p class="mb-6 text-lg text-gray-700">Before learning constructors, we must understand how objects are created "the hard way." This section introduces the basic <code>BankAC</code> class and shows how to set values manually.</p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="font-bold text-gray-500 uppercase text-xs mb-3 tracking-widest">The Class Structure</h4>
+                        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+<span class="java-keyword">class</span> <span class="java-class">BankAC</span> {
+    <span class="java-class">String</span> acNo;
+    <span class="java-class">String</span> name;
+    <span class="java-keyword">double</span> balance;
+    
+    <span class="java-keyword">public void</span> <span class="java-method">deposit</span>(<span class="java-keyword">double</span> amt){
+        balance += amt;
+    }
+    <span class="java-comment">// ... withdraw method</span>
+}</pre>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-500 uppercase text-xs mb-3 tracking-widest">Manual Setup (The Driver)</h4>
+                        <pre class="bg-gray-900 text-gray-100 p-4 rounded-lg text-sm overflow-x-auto">
+<span class="java-class">BankAC</span> b1 = <span class="java-keyword">new</span> <span class="java-class">BankAC</span>(); 
+b1.name = <span class="java-string">"Jane Fonda"</span>;
+b1.acNo = <span class="java-string">"112233"</span>;
+b1.balance = <span class="java-number">1000.34</span>;</pre>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+                    <h4 class="font-bold text-blue-800 mb-2 italic">Key Takeaways:</h4>
+                    <ul class="list-disc ml-5 space-y-1 text-blue-900">
+                        <li><strong>Manual Initialization:</strong> Without a constructor, you must set every attribute manually using dot notation.</li>
+                        <li><strong>Default Constructor:</strong> Java provides a hidden "default" constructor that allows <code>new BankAC()</code> even if you didn't write one.</li>
+                        <li><strong>Inefficiency:</strong> This is tedious and error-prone for many objects.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MCQ 1 -->
+            <div class="bg-gray-100 p-6 rounded-xl">
+                <p class="font-semibold mb-4">Quiz: What happens if you don't define any constructor in a class?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, false, 'The code will actually compile because Java provides a default one.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) The code will not compile.</button>
+                    <button onclick="checkAnswer(this, true, 'Correct! Java automatically inserts a no-argument constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Java provides a default hidden constructor.</button>
+                    <button onclick="checkAnswer(this, false, 'Actually, the attributes are initialized to default values (null, 0.0), not empty strings.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) All attributes are automatically assigned strings.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="section2" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 2</span>
+                <h2 class="text-3xl font-bold">The Constructor Concept</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <p class="mb-6 text-lg text-gray-700 italic">A constructor is a special method used to initialize objects.</p>
+                
+                <div class="grid md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-indigo-50 p-4 rounded-xl text-center border border-indigo-100">
+                        <i class="fas fa-id-card text-2xl text-indigo-600 mb-2"></i>
+                        <h5 class="font-bold text-sm">Same Name</h5>
+                        <p class="text-xs text-indigo-700">Matches the Class name exactly</p>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-xl text-center border border-indigo-100">
+                        <i class="fas fa-ban text-2xl text-indigo-600 mb-2"></i>
+                        <h5 class="font-bold text-sm">No Return</h5>
+                        <p class="text-xs text-indigo-700">No return type, not even void</p>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-xl text-center border border-indigo-100">
+                        <i class="fas fa-hammer text-2xl text-indigo-600 mb-2"></i>
+                        <h5 class="font-bold text-sm">Purpose</h5>
+                        <p class="text-xs text-indigo-700">Constructs and initializes state</p>
+                    </div>
+                    <div class="bg-indigo-50 p-4 rounded-xl text-center border border-indigo-100">
+                        <i class="fas fa-bolt text-2xl text-indigo-600 mb-2"></i>
+                        <h5 class="font-bold text-sm">Auto-Invoke</h5>
+                        <p class="text-xs text-indigo-700">Triggered by the 'new' keyword</p>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded">
+                    <h4 class="font-bold text-green-800 mb-2">Clear Takeaway:</h4>
+                    <p class="text-green-900">Constructors are the blueprint's "setup instructions." They ensure every object starts with valid data immediately upon birth.</p>
+                </div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: Which return type does a constructor have?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, false, 'Void is for methods that return nothing; constructors have no return type at all.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) void</button>
+                    <button onclick="checkAnswer(this, true, 'Correct! This is a unique feature of constructors.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) None</button>
+                    <button onclick="checkAnswer(this, false, 'The constructor is named after the class, but the type itself is absent.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Same as the class type</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section id="section3" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 3</span>
+                <h2 class="text-3xl font-bold">Implementation & Invocation</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="mb-8">
+                    <h4 class="font-bold mb-4 flex items-center gap-2"><i class="fas fa-code"></i> Implementing the Constructor</h4>
+                    <pre class="bg-gray-900 text-gray-100 p-6 rounded-lg text-sm overflow-x-auto leading-relaxed shadow-inner">
+<span class="java-keyword">public class</span> <span class="java-class">BankAC</span> {
+    <span class="java-class">String</span> acNo;
+    <span class="java-class">String</span> name;
+    <span class="java-keyword">double</span> balance;
+
+    <span class="java-comment">// Constructor acts as a gateway</span>
+    <span class="java-keyword">public</span> <span class="java-class">BankAC</span>(<span class="java-class">String</span> ac, <span class="java-class">String</span> n, <span class="java-keyword">double</span> b) {
+        acNo = ac;
+        name = n;
+        balance = b;
+    }
+}</pre>
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 bg-slate-50 p-6 rounded-xl border border-dashed border-slate-300">
+                    <div class="text-center md:text-left">
+                        <h5 class="font-bold text-slate-700">Usage In Driver:</h5>
+                        <code class="block mt-2 text-blue-600 font-bold bg-white p-2 rounded shadow-sm">new BankAC("112233", "Jane", 1000.34);</code>
+                    </div>
+                    <div class="text-slate-400 hidden md:block">
+                        <i class="fas fa-arrow-right fa-2xl"></i>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h5 class="font-bold text-slate-700">Invocation result:</h5>
+                        <ul class="text-sm mt-2 text-slate-600">
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> acNo gets "112233"</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> name gets "Jane"</li>
+                            <li><i class="fas fa-check text-green-500 mr-2"></i> balance gets 1000.34</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MCQ 3 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: When exactly is the constructor's code executed?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, false, 'No, the programmer must decide when to call "new".')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) When the program starts.</button>
+                    <button onclick="checkAnswer(this, true, 'Correct! The new operator triggers the constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) At the moment the 'new' keyword is used.</button>
+                    <button onclick="checkAnswer(this, false, 'No, variables are just placeholders until construction occurs.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Only when we declare the class variable name.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section id="section4" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 4</span>
+                <h2 class="text-3xl font-bold">Independence & Reusability</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <p class="mb-8 text-gray-700">One class can create thousands of independent objects. Each object lives in its own space in memory with its own unique data.</p>
+                
+                <!-- LIVE SIMULATOR -->
+                <div class="bg-slate-900 rounded-xl p-6 text-white mb-8">
+                    <h4 class="text-blue-400 font-bold mb-4 uppercase text-xs tracking-widest">Simulator: Memory Layout</h4>
+                    <div class="flex flex-col md:flex-row gap-6 justify-center">
+                        <div class="bg-slate-800 p-4 rounded border border-blue-500/30 w-full md:w-64">
+                            <div class="bg-blue-600 px-2 py-1 text-xs rounded mb-3 text-center">Object Instance: b1</div>
+                            <div class="space-y-2 text-sm font-mono">
+                                <div class="flex justify-between border-b border-slate-700 pb-1"><span>name:</span> <span class="text-green-400">"Jane"</span></div>
+                                <div class="flex justify-between border-b border-slate-700 pb-1"><span>acNo:</span> <span class="text-green-400">"112233"</span></div>
+                                <div class="flex justify-between"><span>bal:</span> <span class="text-yellow-400">1000.34</span></div>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex items-center text-slate-600"><i class="fas fa-plus"></i></div>
+                        <div class="bg-slate-800 p-4 rounded border border-purple-500/30 w-full md:w-64">
+                            <div class="bg-purple-600 px-2 py-1 text-xs rounded mb-3 text-center">Object Instance: b2</div>
+                            <div class="space-y-2 text-sm font-mono">
+                                <div class="flex justify-between border-b border-slate-700 pb-1"><span>name:</span> <span class="text-green-400">"John"</span></div>
+                                <div class="flex justify-between border-b border-slate-700 pb-1"><span>acNo:</span> <span class="text-green-400">"445566"</span></div>
+                                <div class="flex justify-between"><span>bal:</span> <span class="text-yellow-400">10.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded">
+                    <h4 class="font-bold text-indigo-800 mb-2">Learning Point:</h4>
+                    <ul class="list-disc ml-5 space-y-1 text-indigo-900">
+                        <li><strong>Object Independence:</strong> Every instance maintains separate data. Changing <code>b1</code> does not affect <code>b2</code>.</li>
+                        <li><strong>Reusability:</strong> We write the constructor once but use it to scale our app infinitely.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: If I create two objects, b1 and b2, from the same class, and update b1.balance, what happens to b2.balance?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, false, 'No, objects are independent units of memory.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) b2.balance updates as well.</button>
+                    <button onclick="checkAnswer(this, true, 'Correct! Each object holds its own state.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Nothing, b2.balance stays the same.</button>
+                    <button onclick="checkAnswer(this, false, 'Memory doesn\'t reset; it just isolates.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) b2.balance resets to zero.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section id="section5" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 5</span>
+                <h2 class="text-3xl font-bold">The "this" Keyword</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <p class="mb-6 text-gray-700">What happens when the parameter name is the same as the attribute name? We get <strong>Shadowing</strong>. The <code>this</code> keyword helps us solve it.</p>
+                
+                <div class="bg-amber-50 p-6 rounded-xl mb-6 border border-amber-200">
+                    <h5 class="font-bold text-amber-800 mb-2">Disambiguation Solution:</h5>
+                    <pre class="bg-white p-4 rounded border text-sm overflow-x-auto">
+<span class="java-keyword">public</span> <span class="java-class">BankAC</span>(<span class="java-class">String</span> name, <span class="java-keyword">double</span> balance) {
+    <span class="java-keyword">this</span>.name = name;        <span class="java-comment">// this.name is the Class Variable</span>
+    <span class="java-keyword">this</span>.balance = balance;  <span class="java-comment">// balance is the incoming Parameter</span>
+}</pre>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h6 class="font-bold text-blue-800 mb-2">Shadowing</h6>
+                        <p class="text-sm text-blue-700 italic">Parameters "hide" the attributes because they share the same name.</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h6 class="font-bold text-green-800 mb-2">Dynamic Reference</h6>
+                        <p class="text-sm text-green-700 italic"><code>this</code> refers to the specific instance currently being constructed (b1, b2, etc.).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: In the line 'this.age = age', what does 'this.age' refer to?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, true, 'Correct! "this" targets the attribute within the class instance.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) The attribute of the current instance.</button>
+                    <button onclick="checkAnswer(this, false, 'No, the parameter is the plain "age" variable.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) The parameter passed into the constructor.</button>
+                    <button onclick="checkAnswer(this, false, 'No, "this" is specific to the object itself.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) A global static variable.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section id="section6" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 6</span>
+                <h2 class="text-3xl font-bold">Flexibility & Default Values</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <p class="mb-6 text-gray-700">A constructor doesn't have to take every attribute as a parameter. You can hardcode default logic directly inside the constructor.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg mb-8 shadow-inner">
+                    <h5 class="text-blue-400 font-bold mb-3">Simplified Constructor</h5>
+                    <pre class="text-sm leading-relaxed">
+<span class="java-keyword">public</span> <span class="java-class">BankAC</span>(<span class="java-class">String</span> ac, <span class="java-class">String</span> n) {
+    acNo = ac;
+    name = n;
+    balance = <span class="java-number">0.0</span>; <span class="java-comment">// Hardcoded default for new accounts</span>
+}</pre>
+                </div>
+
+                <div class="flex items-start gap-4 bg-orange-50 p-4 rounded-lg border border-orange-200 text-orange-800">
+                    <i class="fas fa-lightbulb mt-1"></i>
+                    <div>
+                        <h6 class="font-bold">Pro Tip:</h6>
+                        <p class="text-sm">This is extremely useful when some data is common for all new objects, like starting a game with zero score or starting an account with zero balance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MCQ 6 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: Is it mandatory to initialize all class attributes through constructor parameters?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, false, 'Initialization is mandatory, but using parameters is not.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) Yes, otherwise the code won't compile.</button>
+                    <button onclick="checkAnswer(this, true, 'Correct! You can use hardcoded defaults.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) No, you can assign default values inside the body.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section id="section7" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 7</span>
+                <h2 class="text-3xl font-bold">Core OOP Concepts</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="space-y-6">
+                        <div>
+                            <h4 class="font-bold text-xl text-blue-700 mb-2">Real-World Modeling</h4>
+                            <p class="text-gray-600">Objects represent physical or conceptual things (Cars, Bank Accounts, Users). Code reflects reality.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-xl text-blue-700 mb-2">Encapsulation</h4>
+                            <p class="text-gray-600">Think of a "box" that hides data. We bundle attributes and behaviors together and protect them from outside interference.</p>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                        <h4 class="font-bold mb-4 text-center">Object Interaction</h4>
+                        <!-- Simple flowchart -->
+                        <div class="space-y-2">
+                            <div class="flow-node">Object A (Sender)</div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-node bg-blue-100 font-bold">Sends "Message" (Method Call)</div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-node">Object B (Receiver)</div>
+                        </div>
+                        <p class="mt-4 text-xs text-center text-slate-500 italic">Objects interact by invoking methods on one another.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MCQ 7 -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+                <p class="font-semibold mb-4">Quiz: What is the main goal of Encapsulation?</p>
+                <div class="space-y-3">
+                    <button onclick="checkAnswer(this, true, 'Correct! Bundling and hiding is the key.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) Bundling data and methods while hiding complexity.</button>
+                    <button onclick="checkAnswer(this, false, 'That is actually related to inheritance.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Making the code run faster.</button>
+                    <button onclick="checkAnswer(this, false, 'No, encapsulation is about internal structure.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Connecting to external databases.</button>
+                </div>
+                <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 8 -->
+        <section id="section8" class="section-fade-in">
+            <div class="flex items-center gap-3 mb-6">
+                <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 8</span>
+                <h2 class="text-3xl font-bold">Summary of Terminology</h2>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-blue-50 rounded-xl border border-blue-100">
+                        <h5 class="font-bold text-blue-800 border-b border-blue-200 mb-3 pb-2">Constructor</h5>
+                        <p class="text-sm text-blue-700">The gateway method used for initializing object state at creation.</p>
+                    </div>
+                    <div class="p-6 bg-purple-50 rounded-xl border border-purple-100">
+                        <h5 class="font-bold text-purple-800 border-b border-purple-200 mb-3 pb-2">this keyword</h5>
+                        <p class="text-sm text-purple-700">A reference variable that refers to the current object instance.</p>
+                    </div>
+                    <div class="p-6 bg-green-50 rounded-xl border border-green-100">
+                        <h5 class="font-bold text-green-800 border-b border-green-200 mb-3 pb-2">Encapsulation</h5>
+                        <p class="text-sm text-green-700">The protective "box" that bundles data and logic together.</p>
+                    </div>
+                </div>
+                
+                <div class="mt-10 p-6 bg-gray-50 border border-gray-200 rounded-xl text-center">
+                    <h4 class="font-bold text-gray-700 mb-2">Ready for the next step?</h4>
+                    <p class="text-gray-600 italic">In subsequent topics, we will move some attributes from the 'public' zone to the 'private' zone to truly master security through encapsulation.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12 px-6 text-center">
+        <p class="opacity-60 mb-2">&copy; 2024 Java Learning Curriculum</p>
+        <div class="flex justify-center gap-6 text-xl">
+            <i class="fab fa-java"></i>
+            <i class="fas fa-terminal"></i>
+            <i class="fas fa-code-branch"></i>
+        </div>
+    </footer>
+
+    <script>
+        function checkAnswer(button, isCorrect, feedbackText) {
+            const container = button.closest('.bg-gray-100');
+            const feedbackDiv = container.querySelector('.feedback');
+            const allButtons = container.querySelectorAll('button');
+
+            // Reset buttons
+            allButtons.forEach(btn => {
+                btn.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
+                btn.disabled = true;
+            });
+
+            // Set state
+            if (isCorrect) {
+                button.classList.add('bg-green-100', 'border-green-500');
+                feedbackDiv.textContent = feedbackText;
+                feedbackDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700');
+                feedbackDiv.classList.add('bg-green-100', 'text-green-700');
+            } else {
+                button.classList.add('bg-red-100', 'border-red-500');
+                feedbackDiv.textContent = feedbackText;
+                feedbackDiv.classList.remove('hidden', 'bg-green-100', 'text-green-700');
+                feedbackDiv.classList.add('bg-red-100', 'text-red-700');
+            }
+        }
+
+        // Add some interaction when scrolling
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('section-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
