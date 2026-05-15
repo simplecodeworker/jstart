@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering UML for Java Beginners</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        .uml-box {
+            border: 2px solid #333;
+            min-width: 200px;
+        }
+        .uml-header {
+            background-color: #2dd4bf;
+            border-bottom: 2px solid #333;
+            padding: 8px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .uml-section {
+            border-bottom: 1px solid #333;
+            padding: 8px;
+            min-height: 40px;
+        }
+        .uml-section:last-child {
+            border-bottom: none;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+    <!-- Hero Section -->
+    <header class="min-h-screen flex flex-center items-center justify-center gradient-bg px-6">
+        <div class="max-w-4xl text-center">
+            <h1 class="text-5xl md:text-7xl font-bold text-teal-900 mb-6">Visualizing Java</h1>
+            <p class="text-xl md:text-2xl text-teal-700 mb-8">A Beginner's Guide to reading and creating UML Class Diagrams.</p>
+            <div class="flex justify-center gap-4">
+                <a href="#intro" class="bg-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-700 transition">Start Lesson</a>
+                <a href="#simulator" class="bg-white text-teal-600 border border-teal-600 px-8 py-3 rounded-full font-semibold hover:bg-teal-50 transition">Try Simulator</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section 1: What is UML? -->
+    <section id="intro" class="py-20 px-6 max-w-5xl mx-auto">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+            <div class="flex-1">
+                <h2 class="text-3xl font-bold mb-6 text-teal-800">1. What is UML?</h2>
+                <div class="space-y-4 text-lg text-gray-700">
+                    <p><span class="font-semibold text-teal-600">Unified Modelling Language (UML)</span> is a general-purpose modelling language used in software engineering.</p>
+                    <ul class="list-disc ml-6 space-y-2">
+                        <li><strong>Not a programming language:</strong> It's a visual language.</li>
+                        <li><strong>The Goal:</strong> To define a standard way to visualize the structure and behavior of a system.</li>
+                        <li><strong>For Everyone:</strong> Helps engineers, architects, and business stakeholders communicate effectively.</li>
+                    </ul>
+                </div>
+                <div class="mt-8 p-4 bg-teal-50 border-l-4 border-teal-500 rounded">
+                    <p class="italic text-teal-800">"Think of UML as the architectural blueprint for a house before the builders start laying the bricks (writing the code)."</p>
+                </div>
+            </div>
+            <div class="flex-1 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                 <!-- Flowchart Representation -->
+                 <div class="flex flex-col items-center gap-4">
+                    <div class="bg-teal-100 p-4 rounded-lg border-2 border-teal-500 text-center w-40 font-bold">Idea / Concept</div>
+                    <i class="fas fa-arrow-down text-teal-500 text-2xl"></i>
+                    <div class="bg-amber-100 p-4 rounded-lg border-2 border-amber-500 text-center w-48 font-bold shadow-md">UML Design (The Blueprint)</div>
+                    <i class="fas fa-arrow-down text-teal-500 text-2xl"></i>
+                    <div class="bg-blue-100 p-4 rounded-lg border-2 border-blue-500 text-center w-40 font-bold">Java Code</div>
+                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Anatomy of a Class Diagram -->
+    <section id="anatomy" class="py-20 bg-white px-6 border-y border-gray-100">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12 text-center text-teal-800">2. Anatomy of a UML Class</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Visual Component -->
+                <div class="flex justify-center">
+                    <div class="uml-box bg-white rounded-lg shadow-2xl overflow-hidden scale-125">
+                        <div class="uml-header">BankAC</div>
+                        <div class="uml-section text-blue-600">
+                            <div>acNo</div>
+                            <div>name</div>
+                            <div>balance</div>
+                        </div>
+                        <div class="uml-section text-pink-600">
+                            <div>deposit()</div>
+                            <div>withdraw()</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Explanation Component -->
+                <div class="space-y-8">
+                    <div class="flex gap-4">
+                        <div class="bg-teal-500 text-white w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold">1</div>
+                        <div>
+                            <h3 class="font-bold text-xl">Class Name</h3>
+                            <p class="text-gray-600">The top section identifies the Java class. It should be capitalized (CamelCase).</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-blue-500 text-white w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold">2</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-blue-700">Attributes (Fields)</h3>
+                            <p class="text-gray-600">The middle section lists instance variables. In Java, these store the "state" of the object.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="bg-pink-500 text-white w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-bold">3</div>
+                        <div>
+                            <h3 class="font-bold text-xl text-pink-700">Behaviors (Methods)</h3>
+                            <p class="text-gray-600">The bottom section lists what the class can <i>do</i>. In Java, these are your functions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Mapping UML to Java Code -->
+    <section id="mapping" class="py-20 px-6 max-w-5xl mx-auto">
+        <h2 class="text-3xl font-bold mb-8 text-teal-800">3. From Diagram to Java</h2>
+        <p class="text-lg text-gray-700 mb-8">How do we translate that visual box into actual code? Let's look at the mapping:</p>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-gray-900 rounded-xl p-6 shadow-xl">
+                <h4 class="text-teal-400 font-mono mb-4 border-b border-gray-700 pb-2">// BankAC.java</h4>
+                <pre class="code-font text-sm text-gray-300 leading-relaxed">
+<span class="text-purple-400">public class</span> <span class="text-teal-300">BankAC</span> {
+    <span class="text-gray-500">// Attributes (Section 2)</span>
+    <span class="text-purple-400">String</span> acNo;
+    <span class="text-purple-400">String</span> name;
+    <span class="text-purple-400">double</span> balance;
+
+    <span class="text-gray-500">// Methods (Section 3)</span>
+    <span class="text-purple-400">void</span> deposit() { 
+        <span class="text-gray-500">/* logic */</span> 
+    }
+    
+    <span class="text-purple-400">void</span> withdraw() { 
+        <span class="text-gray-500">/* logic */</span> 
+    }
+}</pre>
+            </div>
+            <div class="flex flex-col justify-center gap-4">
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                    <h5 class="font-bold text-teal-700">Takeaway: Visibility Modifiers</h5>
+                    <p class="text-sm text-gray-600">In advanced UML, you might see <span class="font-mono">+</span> (public) or <span class="font-mono">-</span> (private) before names. For now, focus on the structure!</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                    <h5 class="font-bold text-teal-700">Takeaway: Types</h5>
+                    <p class="text-sm text-gray-600">UML often shows types like <code>balance: double</code>. In Java, the type comes first: <code>double balance;</code>.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Relationships & Associations (NEW) -->
+    <section id="relationships" class="py-20 bg-gray-50 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-teal-800">4. Relationships: Connecting Classes</h2>
+            <p class="text-lg text-gray-700 mb-12">Software isn't just a list of separate classes; they need to talk to each other. We use <span class="font-bold">Associations</span> to show these links.</p>
+
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 mb-12">
+                <h3 class="text-xl font-bold text-center mb-10 text-gray-800 uppercase tracking-wide">Example: Student & School</h3>
+                
+                <div class="flex flex-col md:flex-row items-center justify-around gap-4 mb-10">
+                    <!-- School Class -->
+                    <div class="uml-box bg-white rounded shadow-md overflow-hidden">
+                        <div class="uml-header bg-teal-200">School</div>
+                        <div class="uml-section text-sm italic">name: String</div>
+                        <div class="uml-section text-sm">enroll()</div>
+                    </div>
+
+                    <!-- Association Line -->
+                    <div class="flex flex-col items-center">
+                        <span class="text-xs font-bold text-gray-400 mb-1">"belongs to"</span>
+                        <div class="h-0.5 w-32 bg-gray-800 relative flex items-center justify-end">
+                            <div class="w-2 h-2 border-t-2 border-r-2 border-gray-800 rotate-45 transform translate-x-1"></div>
+                        </div>
+                    </div>
+
+                    <!-- Student Class -->
+                    <div class="uml-box bg-white rounded shadow-md overflow-hidden">
+                        <div class="uml-header bg-teal-200">Student</div>
+                        <div class="uml-section text-sm italic">name: String<br>id: int</div>
+                        <div class="uml-section text-sm">study()</div>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mt-12 border-t pt-8">
+                    <div>
+                        <h4 class="font-bold text-teal-700 mb-3"><i class="fas fa-project-diagram mr-2"></i>In UML</h4>
+                        <p class="text-gray-600">A simple line connects the two classes. It often has a label (like "belongs to") or an arrow to show which class "knows" about the other.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-teal-700 mb-3"><i class="fas fa-code mr-2"></i>In Java</h4>
+                        <p class="text-gray-600 mb-2">The relationship is represented as a <span class="font-semibold text-teal-600">Reference Variable</span> inside one of the classes.</p>
+                        <div class="bg-gray-100 p-3 rounded font-mono text-xs">
+                            <span class="text-purple-600">public class</span> Student {<br>
+                            &nbsp;&nbsp;<span class="text-teal-600">School</span> mySchool; <span class="text-gray-500">// The Association!</span><br>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 bg-teal-50 rounded-xl border-l-4 border-teal-500">
+                <h5 class="font-bold text-teal-800 mb-2">Pro Tip: "Has-A" Relationship</h5>
+                <p class="text-teal-900">Associations are often called "Has-A" relationships. A Student <span class="underline font-bold">has a</span> School. An Employee <span class="underline font-bold">has a</span> Manager.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Interactive Simulator -->
+    <section id="simulator" class="py-20 bg-teal-900 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-white mb-4">5. Interactive UML Builder</h2>
+                <p class="text-teal-300">Create your own UML class and see the Java code generated instantly.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Controls -->
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-lg font-bold mb-4 border-b pb-2">Class Settings</h3>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Class Name</label>
+                        <input type="text" id="inputClassName" value="Student" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Attributes (One per line)</label>
+                        <textarea id="inputAttributes" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none" placeholder="id&#10;fullName&#10;gpa"></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Methods (One per line)</label>
+                        <textarea id="inputMethods" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none" placeholder="study()&#10;takeExam()"></textarea>
+                    </div>
+
+                    <button id="updateBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700 transition">Update Diagram</button>
+                </div>
+
+                <!-- UML Output -->
+                <div class="flex flex-center items-center justify-center bg-teal-800 rounded-2xl p-8 border border-teal-700 relative">
+                    <span class="absolute top-4 left-4 text-teal-400 text-xs font-bold uppercase tracking-widest">UML Preview</span>
+                    <div class="uml-box bg-white rounded shadow-2xl w-full max-w-[250px]">
+                        <div id="umlDispName" class="uml-header">Student</div>
+                        <div id="umlDispAttrs" class="uml-section text-blue-700 text-sm min-h-[60px]">
+                            <div>id</div>
+                            <div>fullName</div>
+                            <div>gpa</div>
+                        </div>
+                        <div id="umlDispMethods" class="uml-section text-pink-700 text-sm min-h-[60px]">
+                            <div>study()</div>
+                            <div>takeExam()</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Code Output -->
+                <div class="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-700 relative">
+                    <span class="absolute top-4 left-4 text-gray-500 text-xs font-bold uppercase tracking-widest">Generated Java Code</span>
+                    <button id="copyCode" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <pre id="codeOutput" class="code-font text-teal-300 text-sm mt-8 whitespace-pre-wrap"></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Recap -->
+    <footer class="py-12 bg-gray-100 text-center">
+        <div class="max-w-2xl mx-auto px-6">
+            <h3 class="text-xl font-bold mb-4">Summary Checklist</h3>
+            <div class="text-left space-y-2 inline-block mx-auto">
+                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> UML helps visualize systems before coding.</div>
+                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> Class diagrams have 3 parts: Name, Attributes, Methods.</div>
+                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> Relationships (Associations) link classes together.</div>
+                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> In Java, an association is a reference variable.</div>
+            </div>
+            <p class="mt-8 text-gray-500 text-sm">Designed for Java Programming 101 Lessons.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-24 transition-transform duration-300 opacity-0">
+        Code copied to clipboard!
+    </div>
+
+    <script>
+        // DOM Elements
+        const inputClassName = document.getElementById('inputClassName');
+        const inputAttributes = document.getElementById('inputAttributes');
+        const inputMethods = document.getElementById('inputMethods');
+        const updateBtn = document.getElementById('updateBtn');
+        
+        const umlDispName = document.getElementById('umlDispName');
+        const umlDispAttrs = document.getElementById('umlDispAttrs');
+        const umlDispMethods = document.getElementById('umlDispMethods');
+        const codeOutput = document.getElementById('codeOutput');
+        const copyBtn = document.getElementById('copyCode');
+        const toast = document.getElementById('toast');
+
+        // Logic
+        function updateAll() {
+            const className = inputClassName.value.trim() || "MyClass";
+            const attrs = inputAttributes.value.split('\n').filter(line => line.trim() !== "");
+            const methods = inputMethods.value.split('\n').filter(line => line.trim() !== "");
+
+            // Update UML
+            umlDispName.textContent = className;
+            
+            umlDispAttrs.innerHTML = '';
+            attrs.forEach(attr => {
+                const div = document.createElement('div');
+                div.textContent = attr;
+                umlDispAttrs.appendChild(div);
+            });
+
+            umlDispMethods.innerHTML = '';
+            methods.forEach(method => {
+                const div = document.createElement('div');
+                div.textContent = method.includes('()') ? method : method + '()';
+                umlDispMethods.appendChild(div);
+            });
+
+            // Update Code
+            let javaCode = `public class ${className} {\n`;
+            
+            if (attrs.length > 0) {
+                javaCode += `    // Attributes\n`;
+                attrs.forEach(attr => {
+                    javaCode += `    Object ${attr}; \n`;
+                });
+                javaCode += `\n`;
+            }
+
+            if (methods.length > 0) {
+                javaCode += `    // Methods\n`;
+                methods.forEach(method => {
+                    const cleanMethod = method.replace('()', '');
+                    javaCode += `    public void ${cleanMethod}() {\n        // Your code here\n    }\n\n`;
+                });
+            }
+            
+            javaCode += `}`;
+            codeOutput.textContent = javaCode;
+        }
+
+        // Event Listeners
+        updateBtn.addEventListener('click', updateAll);
+        
+        // Auto-update as user types for "Live" feel
+        [inputClassName, inputAttributes, inputMethods].forEach(el => {
+            el.addEventListener('input', updateAll);
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const text = codeOutput.textContent;
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast();
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+            }
+            document.body.removeChild(textArea);
+        });
+
+        function showToast() {
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 2000);
+        }
+
+        // Initial Run
+        window.onload = updateAll;
+    </script>
+</body>
+</html>
