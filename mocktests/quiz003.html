@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Mock Quiz 3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f3ff;
+        }
+        .fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .option-btn {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .option-btn:hover:not(:disabled) {
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <div id="quiz-container" class="w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-violet-100">
+        <!-- Header Section -->
+        <div class="bg-violet-600 p-8 text-white">
+            <div class="flex justify-between items-center mb-4">
+                <span class="px-3 py-1 bg-violet-500/40 rounded-full text-xs font-bold tracking-wider uppercase">Level: Intermediate</span>
+                <span id="score-counter" class="font-mono bg-white/20 px-3 py-1 rounded-lg">Score: 0</span>
+            </div>
+            <h1 class="text-2xl font-bold">Mock Quiz 3: Logic & Edge Cases</h1>
+            <p class="text-violet-100 mt-2 text-sm">Testing scope, precision, and complex control flow behavior.</p>
+            
+            <div class="mt-6 bg-violet-900/20 rounded-full h-1.5 w-full">
+                <div id="progress-bar" class="bg-violet-200 h-1.5 rounded-full transition-all duration-700 ease-in-out" style="width: 0%"></div>
+            </div>
+            <p id="question-counter" class="text-xs mt-3 text-violet-100 font-medium">Question 1 of 10</p>
+        </div>
+
+        <div id="quiz-content" class="p-8">
+            <div id="question-area" class="fade-in">
+                <h2 id="question-text" class="text-lg font-bold text-slate-800 mb-8 leading-relaxed">Preparing logic...</h2>
+                
+                <div id="options-grid" class="grid grid-cols-1 gap-4">
+                    <!-- Options injected via JS -->
+                </div>
+
+                <!-- Explanation Box: As requested, green background for answers -->
+                <div id="explanation-container" class="mt-8 p-5 rounded-2xl bg-green-50 border border-green-200 hidden fade-in">
+                    <div class="flex items-start gap-3">
+                        <div id="status-icon" class="text-xl"></div>
+                        <div>
+                            <p id="result-text" class="font-bold text-green-900 text-base"></p>
+                            <p id="explanation-text" class="text-green-800 text-sm mt-1 leading-relaxed italic"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 flex justify-end">
+                    <button id="next-btn" class="hidden px-8 py-3 bg-violet-600 text-white rounded-xl font-bold hover:bg-violet-700 active:scale-95 transition-all shadow-lg shadow-violet-200">
+                        Next Challenge
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="results-area" class="hidden p-12 text-center fade-in">
+            <div class="inline-flex items-center justify-center w-24 h-24 bg-violet-100 text-violet-600 rounded-full mb-6">
+                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+            <h2 class="text-3xl font-extrabold text-slate-900">Quiz 3 Completed!</h2>
+            <p id="final-score" class="text-lg text-slate-500 mt-3 font-medium"></p>
+            
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="location.reload()" class="px-8 py-4 bg-violet-600 text-white rounded-2xl font-bold hover:bg-violet-700 transition-all shadow-xl hover:shadow-violet-200">
+                    Restart Quiz 3
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            {
+                question: "What is the result of 'System.out.println(-7 % 3);' in Java?",
+                options: ["1", "-1", "2", "-2"],
+                correct: 1,
+                explanation: "In Java, the result of the remainder operator (%) has the same sign as the dividend (-7)."
+            },
+            {
+                question: "Which of these will NOT compile if declared inside a method?",
+                options: ["int x; x = 5;", "final int y = 10;", "int z; System.out.println(z);", "var a = 20;"],
+                correct: 2,
+                explanation: "Local variables must be initialized before they are accessed; unlike instance variables, they don't get default values."
+            },
+            {
+                question: "What is the output of 'System.out.println(0.1 + 0.2 == 0.3);'?",
+                options: ["true", "false", "Compile Error", "Runtime Exception"],
+                correct: 1,
+                explanation: "Due to floating-point precision (binary representation of decimals), 0.1 + 0.2 actually equals 0.30000000000000004."
+            },
+            {
+                question: "In the code 'int x = 5; { int x = 10; }', what happens?",
+                options: ["It prints 10", "It prints 5", "Compile-time error", "Runtime exception"],
+                correct: 2,
+                explanation: "Java does not allow variable shadowing for local variables within the same method scope."
+            },
+            {
+                question: "What happens if you run: 'if (false && (10 / 0 == 0))'?",
+                options: ["ArithmeticException", "It evaluates to false", "It evaluates to true", "Compile error"],
+                correct: 1,
+                explanation: "The '&&' operator short-circuits; because the first part is false, the division by zero is never executed."
+            },
+            {
+                question: "What is the result of 'String s = \"Java\"; s.concat(\" 17\"); System.out.println(s);'?",
+                options: ["Java 17", "Java17", "Java", "Compile error"],
+                correct: 2,
+                explanation: "Strings are immutable; concat() returns a new String, but the original 's' remains unchanged unless reassigned."
+            },
+            {
+                question: "Which loop header is valid for iterating two variables simultaneously?",
+                options: ["for(int i=0, int j=10; i<j; i++)", "for(int i=0, j=10; i<j; i++, j--)", "for(i=0; j=10; i<j)", "for(int i,j: array)"],
+                correct: 1,
+                explanation: "A 'for' loop can initialize multiple variables of the same type, separated by commas."
+            },
+            {
+                question: "What is the value of 'x' after: 'int x = 5; x += x++ + ++x;'?",
+                options: ["16", "17", "18", "20"],
+                correct: 1,
+                explanation: "Evaluation: 5 + (5) + (7) = 17. The x++ uses 5 then becomes 6, and ++x makes it 7."
+            },
+            {
+                question: "Can a 'switch' statement evaluate a 'boolean' variable?",
+                options: ["Yes, since Java 8", "Yes, since Java 17", "No, it is not supported", "Only if converted to String"],
+                correct: 2,
+                explanation: "Switch expressions support integers, strings, and enums, but not boolean types (which should use if-else)."
+            },
+            {
+                question: "What is the output of 'System.out.printf(\"%2$s %1$s\", \"A\", \"B\");'?",
+                options: ["A B", "B A", "AB", "Error"],
+                correct: 1,
+                explanation: "The 'n$' syntax in printf allows you to specify the argument index; 2$ refers to the second argument ('B')."
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        const elements = {
+            question: document.getElementById('question-text'),
+            options: document.getElementById('options-grid'),
+            nextBtn: document.getElementById('next-btn'),
+            explanation: document.getElementById('explanation-container'),
+            result: document.getElementById('result-text'),
+            explanationText: document.getElementById('explanation-text'),
+            progress: document.getElementById('progress-bar'),
+            counter: document.getElementById('question-counter'),
+            score: document.getElementById('score-counter'),
+            content: document.getElementById('quiz-content'),
+            results: document.getElementById('results-area'),
+            finalScore: document.getElementById('final-score'),
+            statusIcon: document.getElementById('status-icon')
+        };
+
+        function loadQuestion() {
+            isAnswered = false;
+            const current = quizData[currentIndex];
+            
+            elements.question.innerText = `${currentIndex + 1}. ${current.question}`;
+            elements.options.innerHTML = '';
+            elements.explanation.classList.add('hidden');
+            elements.nextBtn.classList.add('hidden');
+            
+            const progress = ((currentIndex) / quizData.length) * 100;
+            elements.progress.style.width = `${progress}%`;
+            elements.counter.innerText = `Question ${currentIndex + 1} of ${quizData.length}`;
+            
+            current.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-slate-100 hover:border-violet-200 hover:bg-violet-50 font-semibold text-slate-700 shadow-sm bg-white";
+                btn.innerText = option;
+                btn.onclick = () => selectOption(index);
+                elements.options.appendChild(btn);
+            });
+        }
+
+        function selectOption(index) {
+            if (isAnswered) return;
+            isAnswered = true;
+            
+            const current = quizData[currentIndex];
+            const buttons = elements.options.getElementsByTagName('button');
+            const correct = index === current.correct;
+
+            if (correct) {
+                score++;
+                elements.score.innerText = `Score: ${score}`;
+                buttons[index].className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-violet-500 bg-violet-600 text-white font-bold shadow-lg";
+                elements.result.innerText = "Correct! Logic is sound.";
+                elements.statusIcon.innerHTML = '🎯';
+            } else {
+                buttons[index].className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-rose-500 bg-rose-500 text-white font-bold shadow-lg";
+                buttons[current.correct].className = "option-btn w-full text-left p-5 rounded-2xl border-2 border-violet-500 text-violet-700 bg-violet-50 font-bold";
+                elements.result.innerText = "Careful now...";
+                elements.statusIcon.innerHTML = '🔍';
+            }
+
+            elements.explanation.classList.remove('hidden');
+            elements.explanationText.innerText = current.explanation;
+            
+            for (let btn of buttons) {
+                btn.disabled = true;
+                btn.classList.add('cursor-default');
+            }
+            elements.nextBtn.classList.remove('hidden');
+        }
+
+        elements.nextBtn.onclick = () => {
+            currentIndex++;
+            if (currentIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        };
+
+        function showResults() {
+            elements.content.classList.add('hidden');
+            elements.results.classList.remove('hidden');
+            elements.progress.style.width = "100%";
+            elements.finalScore.innerText = `You conquered ${score} out of ${quizData.length} advanced challenges.`;
+        }
+
+        window.onload = loadQuestion;
+    </script>
+</body>
+</html>
