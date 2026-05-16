@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java OOP Masterclass: Classes & Objects</title>
+    <title>Java OOP Masterclass: Procedural vs OOP</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -12,526 +12,327 @@
         .mcq-option { 
             transition: all 0.2s; 
             cursor: pointer; 
-            color: #1e293b; /* Ensure text is dark slate for readability */
+            color: #1e293b;
         }
         .mcq-option:hover { background-color: #f3f4f6; border-color: #3b82f6; }
-        .correct { background-color: #d1fae5 !important; border-color: #10b981 !important; color: #064e3b !important; }
-        .logic-card:hover { transform: scale(1.02); }
+        /* Green background for correct answers as requested */
+        .correct { 
+            background-color: #22c55e !important; 
+            border-color: #15803d !important; 
+            color: white !important; 
+        }
+        .wrong { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .logic-card:hover { transform: translateY(-4px); transition: transform 0.2s; }
+        
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- SECTION 1: INTRODUCTION -->
-    <section id="section-1" class="min-h-screen flex flex-col justify-center items-center px-6 py-20 bg-white border-b border-slate-200">
-        <div class="max-w-4xl text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-bold mb-6">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-                LECTURE 6 PART 1
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2 font-bold text-xl tracking-tight">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white">J</div>
+                <span>Java Masterclass</span>
             </div>
-            <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight text-slate-900 mb-8">Classes and Objects</h1>
-            <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-                Welcome to the Great Shift. We are moving beyond simple logic to a more organized world where code models reality.
-            </p>
-            <div class="mt-12 flex justify-center gap-4">
-                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-left">
-                    <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Key Takeaway</p>
-                    <p class="font-semibold text-slate-700">Objects are the building blocks of Java.</p>
-                </div>
-            </div>
+            <nav class="flex p-1 bg-slate-100 rounded-xl">
+                <button onclick="switchTab('procedural')" id="btn-procedural" class="tab-btn px-6 py-2 rounded-lg font-bold text-sm transition-all bg-white shadow-sm text-blue-600">Procedural</button>
+                <button onclick="switchTab('oop')" id="btn-oop" class="tab-btn px-6 py-2 rounded-lg font-bold text-sm transition-all text-slate-500 hover:text-slate-700">Object-Oriented</button>
+            </nav>
         </div>
-        <div id="mcq-1" class="mt-16 w-full max-w-2xl"></div>
-    </section>
+    </header>
 
-    <!-- SECTION 2: LEARNING OBJECTIVES -->
-    <section id="section-2" class="py-24 px-6 max-w-5xl mx-auto border-b border-slate-100">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">2</div>
-            <h2 class="text-3xl font-bold">Learning Objectives</h2>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 logic-card">
-                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Compare Models</h3>
-                <p class="text-slate-500 text-sm">Contrast Procedural vs. OOP programming approaches.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 logic-card">
-                <div class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Define Structure</h3>
-                <p class="text-slate-500 text-sm">Learn the exact Java syntax to define your own classes.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 logic-card">
-                <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mb-6">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Instantiate</h3>
-                <p class="text-slate-500 text-sm">Create living objects from blueprints and control them.</p>
-            </div>
-        </div>
-        <div id="mcq-2" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
-
-    <!-- SECTION 3: MODELING REAL-WORLD PROBLEMS -->
-    <section id="section-3" class="py-24 px-6 bg-slate-900 text-white overflow-hidden">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center font-bold text-xl">3</div>
-                <h2 class="text-3xl font-bold">Modeling Real-World Problems</h2>
-            </div>
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="space-y-6">
-                    <p class="text-xl text-slate-300">Programming isn't just about code; it's about <strong>Abstraction</strong>. How do we take a physical checkbook and represent it in memory?</p>
-                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-                        <p class="text-amber-400 font-bold mb-2 italic">Thought Experiment:</p>
-                        <p class="text-slate-300">"Let’s think of a bank account, where we keep our $$$..." What does it HAVE? What can it DO?</p>
-                    </div>
-                </div>
-                <div class="relative">
-                    <div class="bg-white/10 p-8 rounded-3xl border border-white/20 backdrop-blur-md">
-                        <div class="text-6xl mb-4">💰</div>
-                        <h4 class="text-2xl font-bold mb-4">Entity: Bank Account</h4>
-                        <ul class="space-y-3 text-slate-300">
-                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-amber-500 rounded-full"></div> Account Number</li>
-                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-amber-500 rounded-full"></div> Owner Name</li>
-                            <li class="flex items-center gap-2"><div class="w-2 h-2 bg-amber-500 rounded-full"></div> Current Balance</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="mcq-3" class="mt-16 w-full max-w-2xl mx-auto"></div>
-        </div>
-    </section>
-
-    <!-- SECTION 4: PROCEDURAL APPROACH (SINGLE) -->
-    <section id="section-4" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-slate-800 text-white rounded-xl flex items-center justify-center font-bold text-xl">4</div>
-            <h2 class="text-3xl font-bold">Procedural: Single Entities</h2>
-        </div>
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-4">
-                <h3 class="text-xl font-bold">The Simple Map</h3>
-                <p class="text-slate-600">In procedural programming, we map real-world attributes directly to <strong>Primitive Data Types</strong>.</p>
-                <div class="p-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-xl">
-                    <p class="text-sm font-bold text-blue-800 mb-1">Learning Point:</p>
-                    <p class="text-blue-900 text-sm">For one user, this is easy. We create 4 separate variables and give them values.</p>
-                </div>
-            </div>
-            <div class="bg-slate-900 p-6 rounded-2xl shadow-xl">
-                <div class="flex gap-2 mb-4">
-                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-amber-400"></div>
-                    <div class="w-3 h-3 rounded-full bg-emerald-400"></div>
-                </div>
-                <div class="code-font text-emerald-400 space-y-1 text-sm">
-                    <p><span class="text-pink-400">String</span> accountNo = <span class="text-white">"112233"</span>;</p>
-                    <p><span class="text-pink-400">String</span> Name = <span class="text-white">"Jane Fonda"</span>;</p>
-                    <p><span class="text-pink-400">double</span> Balance = <span class="text-white">1000.34</span>;</p>
-                    <p><span class="text-pink-400">String</span> Type = <span class="text-white">"Saving"</span>;</p>
-                </div>
-            </div>
-        </div>
-        <div id="mcq-4" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
-
-    <!-- SECTION 5: PROCEDURAL APPROACH (MULTIPLE) -->
-    <section id="section-5" class="py-24 px-6 bg-slate-50 border-y border-slate-200">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-rose-600 text-white rounded-xl flex items-center justify-center font-bold text-xl">5</div>
-                <h2 class="text-3xl font-bold">Multiple Entities & Arrays</h2>
-            </div>
-            
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 mb-12">
-                <h3 class="text-xl font-bold mb-4">Scaling with Parallel Arrays</h3>
-                <p class="text-slate-600 mb-8">When we have 100 users, we can't create 400 separate variables. We use arrays. But in procedural code, these arrays are <strong>disconnected</strong>.</p>
-                
-                <!-- SIMULATOR: FRAGILE ARRAYS -->
-                <div class="bg-slate-50 p-6 rounded-2xl border-2 border-dashed border-slate-300">
-                    <h4 class="text-center font-bold text-slate-400 uppercase text-xs tracking-widest mb-6">Interactive Fragility Simulator</h4>
-                    <div class="grid grid-cols-2 gap-4 mb-8" id="array-sim-container">
-                        <!-- JS injects here -->
-                    </div>
-                    <div class="flex flex-col md:flex-row justify-center gap-4">
-                        <button onclick="corruptData()" class="px-6 py-3 bg-rose-600 text-white rounded-xl font-bold hover:bg-rose-700 transition active:scale-95 shadow-lg">Sort Names Array Only (Corrupt)</button>
-                        <button onclick="resetData()" class="px-6 py-3 bg-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-300 transition">Reset Synchronicity</button>
-                    </div>
-                    <p id="sim-warning" class="mt-6 text-center text-rose-600 font-bold hidden">⚠️ CRITICAL ERROR: Jane's name is now linked to John's $1,667,000 balance! Data integrity is lost!</p>
-                </div>
-            </div>
-            <div id="mcq-5" class="mt-8 w-full max-w-2xl mx-auto"></div>
-        </div>
-    </section>
-
-    <!-- SECTION 6: LIMITATIONS OF PROCEDURAL -->
-    <section id="section-6" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-slate-900 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">6</div>
-            <h2 class="text-3xl font-bold text-slate-900">The Procedural Drawback</h2>
-        </div>
+    <main class="max-w-5xl mx-auto px-6 py-12">
         
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="p-8 bg-rose-50 rounded-3xl border border-rose-100">
-                <h3 class="text-rose-800 font-bold text-xl mb-4">Cluster Paradox</h3>
-                <p class="text-rose-900 leading-relaxed">
-                    In Procedural Programming, information is clustered around <strong>Attribute Types</strong> (All names together) and NOT the individual account holder.
+        <!-- SECTION 1: INTRODUCTION (Visible to all) -->
+        <section id="section-1" class="flex flex-col justify-center items-center px-6 py-12 bg-white rounded-3xl border border-slate-200 mb-12 shadow-sm">
+            <div class="max-w-4xl text-center">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 text-amber-700 rounded-full text-sm font-bold mb-6">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
+                    LECTURE 6 PART 1
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 mb-8">Classes and Objects</h1>
+                <p class="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
+                    Welcome to the <strong>Great Shift</strong>. We are moving beyond simple logic to a more organized world where code models reality.
                 </p>
-                <div class="mt-6 space-y-2">
-                    <div class="p-3 bg-white/50 rounded-lg text-sm border border-rose-200">❌ <strong>Fragmentation:</strong> The "Account" unit doesn't exist.</div>
-                    <div class="p-3 bg-white/50 rounded-lg text-sm border border-rose-200">❌ <strong>Mental Overhead:</strong> Programmer must manually sync indices.</div>
+                <div class="mt-8 flex justify-center gap-4">
+                    <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-left">
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">Key Takeaway</p>
+                        <p class="font-semibold text-slate-700">Objects are the building blocks of Java.</p>
+                    </div>
                 </div>
             </div>
-            <div class="flex flex-col justify-center items-center p-8 bg-slate-100 rounded-3xl border border-slate-200">
-                <div class="grid grid-cols-2 gap-2 opacity-50 mb-4">
-                    <div class="w-8 h-8 bg-blue-500 rounded"></div>
-                    <div class="w-8 h-8 bg-emerald-500 rounded"></div>
-                    <div class="w-8 h-8 bg-blue-500 rounded"></div>
-                    <div class="w-8 h-8 bg-emerald-500 rounded"></div>
-                </div>
-                <p class="text-center text-sm font-bold text-slate-500">Data is "Horizontal" (By Type)<br>instead of "Vertical" (By Person)</p>
-            </div>
-        </div>
-        <div id="mcq-6" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
+            <div id="mcq-1" class="mt-12 w-full max-w-2xl"></div>
+        </section>
 
-    <!-- SECTION 7: DEFINING DATA BEHAVIORS -->
-    <section id="section-7" class="py-24 px-6 bg-slate-900 text-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-indigo-500 text-white rounded-xl flex items-center justify-center font-bold text-xl">7</div>
-                <h2 class="text-3xl font-bold">Defining Behaviors</h2>
-            </div>
-            <p class="text-xl text-slate-400 mb-12 max-w-2xl">A model isn't complete without actions. What can a user do with their account?</p>
+        <!-- TAB 1: PROCEDURAL -->
+        <div id="procedural" class="tab-content active fade-in">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 text-center">
-                    <div class="text-3xl mb-4">📥</div>
-                    <h4 class="font-bold">Deposit</h4>
-                    <p class="text-sm text-slate-400">Increase the balance</p>
+            <!-- SECTION 2: LEARNING OBJECTIVES & PARALLEL ARRAYS -->
+            <section id="section-2" class="py-12 px-6 max-w-5xl mx-auto border-b border-slate-100">
+                <div class="flex items-center gap-4 mb-12">
+                    <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">2</div>
+                    <h2 class="text-3xl font-bold text-slate-900">Understanding Parallel Arrays</h2>
                 </div>
-                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 text-center">
-                    <div class="text-3xl mb-4">📤</div>
-                    <h4 class="font-bold">Withdraw</h4>
-                    <p class="text-sm text-slate-400">Decrease the balance</p>
-                </div>
-                <div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 text-center">
-                    <div class="text-3xl mb-4">↔️</div>
-                    <h4 class="font-bold">Transfer</h4>
-                    <p class="text-sm text-slate-400">Move funds between accounts</p>
-                </div>
-            </div>
-            <div id="mcq-7" class="mt-16 w-full max-w-2xl mx-auto"></div>
-        </div>
-    </section>
 
-    <!-- SECTION 8: PROCEDURAL METHODS -->
-    <section id="section-8" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-rose-500 text-white rounded-xl flex items-center justify-center font-bold text-xl shadow-lg">8</div>
-            <h2 class="text-3xl font-bold">The Method Signature Mess</h2>
-        </div>
-        <p class="mb-8 text-slate-600">In procedural code, methods are separate from data. You must pass <strong>all</strong> arrays into <strong>every</strong> function.</p>
-        
-        <div class="bg-slate-900 rounded-2xl p-8 code-font text-sm overflow-x-auto shadow-2xl">
-            <div class="text-amber-400 mb-4">// Procedural "Withdraw" requires passing the whole balance array</div>
-            <div class="text-emerald-400">
-                <span class="text-pink-400">double</span> withdraw(<span class="text-pink-400">double</span>[] balanceArray, <span class="text-pink-400">double</span> amt, <span class="text-pink-400">int</span> accountIndex) {<br>
-                &nbsp;&nbsp;balanceArray[accountIndex] -= amt;<br>
-                &nbsp;&nbsp;<span class="text-pink-400">return</span> balanceArray[accountIndex];<br>
-                }
-            </div>
-            <div class="mt-6 p-4 bg-slate-800 rounded-xl border border-slate-700 text-slate-400 italic">
-                Notice: The logic has no "owner". Any part of the program can call this and potentially mess up the indices.
-            </div>
-        </div>
-        <div id="mcq-8" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
+                <div class="grid md:grid-cols-2 gap-8 mb-12">
+                    <div class="space-y-6">
+                        <div class="bg-white p-6 rounded-2xl border border-blue-100 shadow-sm">
+                            <h4 class="font-bold text-blue-600 mb-2 uppercase text-xs tracking-widest">What is it?</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                A <strong>Parallel Array</strong> is a structure where two or more arrays of the same size are used to store related data. Each index ($i$) acts as a "virtual link." 
+                                <br><br>
+                                For example, <code class="bg-slate-100 px-1 rounded">names[0]</code> and <code class="bg-slate-100 px-1 rounded">balances[0]</code> belong to the same human, but Java treats them as totally separate lists.
+                            </p>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-2xl border border-amber-200">
+                            <h4 class="font-bold text-amber-700 mb-2 uppercase text-xs tracking-widest">Why Procedural?</h4>
+                            <p class="text-slate-700 text-sm leading-relaxed">
+                                In <strong>Procedural Programming</strong>, you only have basic data types (int, String, double). You don't have a "container" to hold a Name and a Balance together. 
+                                <br><br>
+                                Because you can't create an <code class="text-amber-900 font-bold">Account</code> type, you are forced to manage several "primitive" arrays and pray they stay synchronized.
+                            </p>
+                        </div>
+                    </div>
 
-    <!-- SECTION 9: OOP ADVANTAGES -->
-    <section id="section-9" class="py-24 px-6 bg-blue-600 text-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-white text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl">9</div>
-                <h2 class="text-3xl font-bold">The OOP Revolution</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="bg-white/10 p-8 rounded-3xl backdrop-blur-md">
-                    <h3 class="text-2xl font-bold mb-6">The Solution: Encapsulation</h3>
-                    <p class="mb-6 opacity-90">Bundle <strong>Attributes</strong> and <strong>Methods</strong> into a single unit called an <strong>Object</strong>.</p>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3"><span class="text-emerald-300 font-bold">✓</span> Higher Abstraction</li>
-                        <li class="flex items-start gap-3"><span class="text-emerald-300 font-bold">✓</span> Code Reusability</li>
-                        <li class="flex items-start gap-3"><span class="text-emerald-300 font-bold">✓</span> Data Protection</li>
-                    </ul>
-                </div>
-                <div class="flex items-center justify-center">
-                    <div class="relative w-64 h-64 flex items-center justify-center border-4 border-dashed border-blue-400 rounded-full animate-pulse">
-                        <div class="bg-white text-blue-600 p-8 rounded-2xl shadow-2xl font-bold text-center">
-                            THE<br>OBJECT
+                    <div class="bg-slate-900 p-6 rounded-3xl shadow-xl code-font text-xs flex flex-col justify-center">
+                        <div class="text-emerald-400 mb-4">// One array for names, one for money</div>
+                        <div class="text-emerald-400">
+                            <span class="text-pink-400">String</span>[] names = {<span class="text-white">"Jane"</span>, <span class="text-white">"John"</span>};<br>
+                            <span class="text-pink-400">double</span>[] balances = {<span class="text-white">1000.0</span>, <span class="text-white">500.0</span>};<br><br>
+                            <span class="text-slate-500">// To find Jane's balance, you MUST know she is index 0</span><br>
+                            <span class="text-white">System.out.println(names[0] + <span class="text-emerald-400">": "</span> + balances[0]);</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="mcq-9" class="mt-16 w-full max-w-2xl mx-auto"></div>
-        </div>
-    </section>
+                <div id="mcq-2" class="mt-8 w-full max-w-2xl mx-auto"></div>
+            </section>
 
-    <!-- SECTION 10: TERMINOLOGY MAPPING -->
-    <section id="section-10" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center font-bold text-xl">10</div>
-            <h2 class="text-3xl font-bold">Terminology Mapping</h2>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm text-center">
-                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Real World</div>
-                <div class="text-lg font-bold mb-4">Operations</div>
-                <div class="text-blue-600 font-bold text-xl">Methods</div>
-            </div>
-            <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm text-center">
-                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Real World</div>
-                <div class="text-lg font-bold mb-4">Properties</div>
-                <div class="text-emerald-600 font-bold text-xl">Instance Variables</div>
-            </div>
-            <div class="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm text-center">
-                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Real World</div>
-                <div class="text-lg font-bold mb-4">The Entity</div>
-                <div class="text-purple-600 font-bold text-xl">The Class</div>
-            </div>
-        </div>
-        <div id="mcq-10" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
-
-    <!-- SECTION 11: WRITING A CLASS -->
-    <section id="section-11" class="py-24 px-6 bg-slate-50">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center font-bold text-xl">11</div>
-                <h2 class="text-3xl font-bold">Implementation: BankAC</h2>
-            </div>
-            
-            <div class="bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
-                <!-- Code Annotations -->
-                <div class="hidden lg:block absolute right-8 top-12 w-64 space-y-8">
-                    <div class="bg-blue-500/10 border border-blue-500/30 p-4 rounded-xl text-xs text-blue-200">
-                        <strong>PascalCase:</strong> Class names start with an Uppercase letter.
+                <!-- Section 5: Multiple Entities -->
+                <section class="bg-white p-8 rounded-3xl border border-slate-200">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 bg-rose-600 text-white rounded-lg flex items-center justify-center font-bold">2</div>
+                        <h2 class="text-2xl font-bold text-slate-900">Parallel Array Fragility</h2>
                     </div>
-                    <div class="bg-amber-500/10 border border-amber-500/30 p-4 rounded-xl text-xs text-amber-200">
-                        <strong>No 'static':</strong> These belong to individual instances.
+                    <div class="bg-slate-50 p-6 rounded-2xl border-2 border-dashed border-slate-300">
+                        <h4 class="text-center font-bold text-slate-400 uppercase text-[10px] tracking-widest mb-6 italic">Simulation: Data Misalignment</h4>
+                        <div class="grid grid-cols-2 gap-4 mb-8" id="array-sim-container"></div>
+                        <div class="flex justify-center gap-4">
+                            <button onclick="corruptData()" class="px-4 py-2 bg-rose-600 text-white rounded-lg text-xs font-bold hover:bg-rose-700 transition">Sort Names Only (Corrupt)</button>
+                            <button onclick="resetData()" class="px-4 py-2 bg-slate-200 text-slate-700 rounded-lg text-xs font-bold hover:bg-slate-300 transition">Reset Synchronicity</button>
+                        </div>
+                        <p id="sim-warning" class="mt-4 text-center text-rose-600 font-bold text-sm hidden">⚠️ ERROR: Data integrity lost! Names no longer match balances.</p>
                     </div>
-                </div>
+                    <div id="mcq-5" class="mt-12"></div>
+                </section>
 
-                <div class="code-font text-slate-300 leading-relaxed text-sm md:text-base">
-                    <span class="text-pink-400">class</span> <span class="text-blue-300">BankAC</span> {<br>
-                    &nbsp;&nbsp;<span class="text-slate-500">// Attributes (Properties)</span><br>
-                    &nbsp;&nbsp;<span class="text-emerald-400">String</span> acNo;<br>
-                    &nbsp;&nbsp;<span class="text-emerald-400">String</span> name;<br>
-                    &nbsp;&nbsp;<span class="text-pink-400">double</span> balance;<br><br>
-
-                    &nbsp;&nbsp;<span class="text-slate-500">// Methods (Behaviors)</span><br>
-                    &nbsp;&nbsp;<span class="text-pink-400">public void</span> <span class="text-amber-300">deposit</span>(<span class="text-pink-400">double</span> amt) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;balance += amt;<br>
-                    &nbsp;&nbsp;}<br><br>
-
-                    &nbsp;&nbsp;<span class="text-pink-400">public boolean</span> <span class="text-amber-300">withdraw</span>(<span class="text-pink-400">double</span> amt) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-pink-400">if</span> (balance >= amt) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;balance -= amt;<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-pink-400">return true</span>;<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;} <span class="text-pink-400">else return false</span>;<br>
-                    &nbsp;&nbsp;}<br>
-                    }
-                </div>
-            </div>
-            <div id="mcq-11" class="mt-16 w-full max-w-2xl mx-auto"></div>
-        </div>
-    </section>
-
-    <!-- SECTION 12: INSTANTIATION -->
-    <section id="section-12" class="py-24 px-6 max-w-5xl mx-auto">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-xl">12</div>
-            <h2 class="text-3xl font-bold">Creating and Using Objects</h2>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-6">
-                <p class="text-xl text-slate-600">The <strong>'new'</strong> keyword is a command to allocate memory for a new object.</p>
-                <div class="p-6 bg-indigo-50 rounded-2xl border-l-8 border-indigo-500">
-                    <h4 class="font-bold mb-2">The Dot (.) Operator</h4>
-                    <p class="text-sm">Think of it as the "key" used to enter the object and access its data or trigger its actions.</p>
-                </div>
-                <div class="bg-slate-900 p-6 rounded-2xl code-font text-sm">
-                    <span class="text-blue-300">BankAC</span> b1 = <span class="text-pink-400">new</span> <span class="text-blue-300">BankAC</span>();<br>
-                    b1.name = <span class="text-emerald-400">"Jane Fonda"</span>;
-                </div>
-            </div>
-            
-            <!-- OBJECT FACTORY SIMULATOR -->
-            <div class="bg-slate-100 p-8 rounded-3xl border-2 border-slate-200">
-                <h4 class="text-center font-bold text-slate-500 mb-6 uppercase text-xs tracking-widest">Memory Heap Visualizer</h4>
-                <div id="heap-container" class="space-y-4 h-48 overflow-y-auto mb-6 bg-white p-4 rounded-xl border">
-                    <!-- Dynamic instances appear here -->
-                    <p class="text-slate-400 text-xs text-center italic mt-12">No objects in memory. Click "new" to allocate.</p>
-                </div>
-                <button onclick="createInstance()" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg active:scale-95">new BankAC();</button>
-            </div>
-        </div>
-        <div id="mcq-12" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
-
-    <!-- SECTION 13: THE CLASS-DRIVER RELATIONSHIP -->
-    <section id="section-13" class="py-24 px-6 bg-slate-900">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="w-12 h-12 bg-white text-slate-900 rounded-xl flex items-center justify-center font-bold text-xl">13</div>
-                <h2 class="text-3xl font-bold text-white">Definition vs. Execution</h2>
-            </div>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700">
-                    <h4 class="text-amber-400 font-bold mb-4 uppercase text-xs">The Blueprint (Class)</h4>
-                    <div class="code-font text-xs text-slate-400">
-                        class BankAC { ... attributes and methods ... }
+                <!-- Section 8: Method Signature Mess -->
+                <section>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 bg-rose-500 text-white rounded-lg flex items-center justify-center font-bold">3</div>
+                        <h2 class="text-2xl font-bold">Disconnected Logic</h2>
                     </div>
-                </div>
-                <div class="bg-indigo-900/40 p-6 rounded-2xl border border-indigo-500/30">
-                    <h4 class="text-indigo-400 font-bold mb-4 uppercase text-xs">The Execution (Main Method)</h4>
-                    <div class="code-font text-xs text-slate-300">
-                        public class TestBank {<br>
-                        &nbsp;&nbsp;public static void main(...) {<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;BankAC b1 = new BankAC();<br>
-                        &nbsp;&nbsp;}<br>
-                        }
+                    <div class="bg-slate-900 rounded-2xl p-6 code-font text-sm shadow-xl">
+                        <div class="text-amber-400 mb-4">// Procedural "Withdraw" requires passing the whole balance array</div>
+                        <div class="text-emerald-400">
+                            <span class="text-pink-400">double</span> withdraw(<span class="text-pink-400">double</span>[] balances, <span class="text-pink-400">double</span> amt, <span class="text-pink-400">int</span> index) {<br>
+                            &nbsp;&nbsp;balances[index] -= amt;<br>
+                            &nbsp;&nbsp;<span class="text-pink-400">return</span> balances[index];<br>
+                            }
+                        </div>
                     </div>
-                </div>
+                    <div id="mcq-8" class="mt-12"></div>
+                </section>
             </div>
-            <div class="mt-8 p-6 bg-white/5 rounded-2xl border border-white/10 text-slate-400 text-sm italic">
-                Pro Tip: The 'driver' class is technically a "client" of your BankAC class. They can even live in separate files!
-            </div>
-            <div id="mcq-13" class="mt-16 w-full max-w-2xl mx-auto"></div>
         </div>
-    </section>
 
-    <!-- SECTION 14: SUMMARY -->
-    <section id="section-14" class="py-24 px-6 max-w-5xl mx-auto pb-40">
-        <div class="flex items-center gap-4 mb-12">
-            <div class="w-12 h-12 bg-emerald-500 text-white rounded-xl flex items-center justify-center font-bold text-xl">14</div>
-            <h2 class="text-3xl font-bold">Summary Checklist</h2>
+        <!-- TAB 2: OOP -->
+        <div id="oop" class="tab-content fade-in">
+            <div class="space-y-24">
+                
+                <!-- Intro to OOP -->
+                <section class="bg-blue-600 rounded-3xl p-10 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-bold mb-4">The Solution: Encapsulation</h2>
+                        <p class="text-blue-100 text-lg mb-8 max-w-xl">We bundle <strong>Attributes</strong> (data) and <strong>Methods</strong> (logic) into a single unit called an <strong>Object</strong>.</p>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <span class="font-bold block">PascalCase</span>
+                                <span class="text-xs opacity-60">Class Naming</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <span class="font-bold block">"new"</span>
+                                <span class="text-xs opacity-60">Memory Allocate</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <span class="font-bold block">The Dot</span>
+                                <span class="text-xs opacity-60">Access Operator</span>
+                            </div>
+                            <div class="bg-white/10 p-4 rounded-xl border border-white/20 text-center">
+                                <span class="font-bold block">Instance</span>
+                                <span class="text-xs opacity-60">The Living Object</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Writing a Class -->
+                <section>
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center font-bold">1</div>
+                        <h2 class="text-2xl font-bold">Defining the Blueprint</h2>
+                    </div>
+                    <div class="bg-slate-900 rounded-3xl p-8 shadow-2xl relative overflow-hidden">
+                        <div class="code-font text-slate-300 leading-relaxed text-sm md:text-base">
+                            <span class="text-pink-400">class</span> <span class="text-blue-300">BankAC</span> {<br>
+                            &nbsp;&nbsp;<span class="text-slate-500">// Attributes (Properties)</span><br>
+                            &nbsp;&nbsp;<span class="text-emerald-400">String</span> acNo;<br>
+                            &nbsp;&nbsp;<span class="text-emerald-400">String</span> name;<br>
+                            &nbsp;&nbsp;<span class="text-pink-400">double</span> balance;<br><br>
+
+                            &nbsp;&nbsp;<span class="text-slate-500">// Methods (Behaviors)</span><br>
+                            &nbsp;&nbsp;<span class="text-pink-400">public void</span> <span class="text-amber-300">deposit</span>(<span class="text-pink-400">double</span> amt) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;balance += amt;<br>
+                            &nbsp;&nbsp;}<br>
+                            }
+                        </div>
+                    </div>
+                    <div id="mcq-11" class="mt-12"></div>
+                </section>
+
+                <!-- Instantiation Visualizer -->
+                <section>
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-6">
+                            <h2 class="text-2xl font-bold flex items-center gap-3">
+                                <span class="w-10 h-10 bg-indigo-600 text-white rounded-lg flex items-center justify-center">2</span>
+                                Bringing Blueprints to Life
+                            </h2>
+                            <p class="text-slate-600 leading-relaxed">When you use the <code>new</code> keyword, Java carves out space in the <strong>Heap Memory</strong> for your unique object data.</p>
+                            <div class="bg-indigo-50 p-4 border-l-4 border-indigo-600 rounded-r-xl">
+                                <p class="text-xs font-bold text-indigo-900 uppercase">Pro-Tip</p>
+                                <p class="text-sm text-indigo-800">You can create thousands of unique objects from a single class blueprint.</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-100 p-8 rounded-3xl border-2 border-slate-200">
+                            <h4 class="text-center font-bold text-slate-500 mb-6 uppercase text-[10px] tracking-widest">Memory Heap Visualizer</h4>
+                            <div id="heap-container" class="space-y-4 h-48 overflow-y-auto mb-6 bg-white p-4 rounded-xl border">
+                                <p class="text-slate-400 text-xs text-center italic mt-16">No objects in memory. Click "new" to allocate.</p>
+                            </div>
+                            <button onclick="createInstance()" class="w-full py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition shadow-lg active:scale-95">new BankAC();</button>
+                        </div>
+                    </div>
+                    <div id="mcq-12" class="mt-12"></div>
+                </section>
+
+                <!-- Final Summary Checklist -->
+                <section class="pb-20">
+                    <div class="flex items-center gap-4 mb-12">
+                        <div class="w-10 h-10 bg-emerald-500 text-white rounded-lg flex items-center justify-center font-bold">3</div>
+                        <h2 class="text-2xl font-bold">OOP Summary</h2>
+                    </div>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
+                            <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500 pointer-events-none">
+                            <span class="font-bold">Encapsulation (Data + Methods)</span>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
+                            <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500 pointer-events-none">
+                            <span class="font-bold">Abstraction (Simplified Models)</span>
+                        </div>
+                    </div>
+                    <div id="mcq-14" class="mt-12"></div>
+                </section>
+            </div>
         </div>
-        
-        <div class="grid sm:grid-cols-2 gap-4">
-            <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
-                <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500">
-                <span class="font-bold">Class (The Blueprint)</span>
-            </div>
-            <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
-                <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500">
-                <span class="font-bold">Attributes (Instance Variables)</span>
-            </div>
-            <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
-                <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500">
-                <span class="font-bold">Methods (Behaviors)</span>
-            </div>
-            <div class="p-6 bg-white border border-slate-200 rounded-2xl flex items-center gap-4">
-                <input type="checkbox" checked class="w-6 h-6 rounded accent-emerald-500">
-                <span class="font-bold">Instance (Memory Allocation)</span>
-            </div>
-        </div>
-        <div id="mcq-14" class="mt-16 w-full max-w-2xl mx-auto"></div>
-    </section>
+    </main>
 
     <script>
+        function switchTab(tabId) {
+            // Hide all tab content sections
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Reset all tab button styles to inactive
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-white', 'shadow-sm', 'text-blue-600');
+                btn.classList.add('text-slate-500');
+            });
+
+            // Show the selected tab content
+            document.getElementById(tabId).classList.add('active');
+
+            // Apply active styles to the clicked button
+            const activeBtn = document.getElementById(`btn-${tabId}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-500');
+                activeBtn.classList.add('bg-white', 'shadow-sm', 'text-blue-600');
+            }
+        }
+
         // --- MCQ DATABASE ---
         const curriculumData = [
             { id: 1, q: "What is the primary shift in this lecture?", options: ["Moving from Java to Python", "Moving from Procedural to OOP", "Moving from Arrays to Loops"], correct: 1, why: "OOP is the fundamental organization principle for modern Java applications." },
-            { id: 1, q: "Classes and Objects are the basic building blocks of Java.", options: ["True", "False"], correct: 0, why: "Correct! Java is entirely based on classes." },
-            
             { id: 2, q: "Which of these is NOT a goal of this lecture?", options: ["Learning to define classes", "Understanding why industry uses OOP", "Building a website database"], correct: 2, why: "The lecture focuses on the foundational concept of Classes and Objects, not full-scale databases." },
-            
-            { id: 3, q: "What is 'Abstraction' in the context of modeling?", options: ["Hiding the code", "Identifying core components of a physical object", "Naming variables randomly"], correct: 1, why: "Abstraction is simplifying a complex entity into its essential parts for code representation." },
-            
-            { id: 4, q: "In procedural code, Jane Fonda's data is stored in:", options: ["A single Object", "Separate primitive variables", "A text file"], correct: 1, why: "Procedural approach uses individual variables like 'String name' and 'double balance' for one entity." },
-            
-            { id: 5, q: "What is the danger of parallel arrays?", options: ["They use too much RAM", "Data becomes fragile if one array is sorted differently", "They are too fast to handle"], correct: 1, why: "If indices lose alignment, Jane's name could be linked to John's balance." },
-            
-            { id: 6, q: "Procedural programming clusters information around:", options: ["The Person", "Attribute Types", "File names"], correct: 1, why: "It groups all names together, all balances together, rather than grouping one person's data together." },
-            
-            { id: 7, q: "Which of these is an 'Operation' or 'Behavior'?", options: ["Balance", "Deposit", "Account Number"], correct: 1, why: "A behavior is an action an object can take, like changing its balance via a deposit." },
-            
-            { id: 8, q: "In procedural code, methods are:", options: ["Bundled with data", "Separate from data (must pass arrays in)", "Automatically linked"], correct: 1, why: "Data and logic are detached in procedural programming." },
-            
-            { id: 9, q: "What is the core idea of an 'Object' in OOP?", options: ["Bundling data and methods together", "A synonym for 'Variable'", "A way to print text"], correct: 0, why: "Encapsulation is the bundling of data (attributes) and logic (methods) into one unit." },
-            
-            { id: 10, q: "What maps to 'Instance Variables'?", options: ["Actions", "Blueprints", "Properties/Attributes"], correct: 2, why: "Instance variables store the specific characteristics (state) of an object." },
-            
-            { id: 11, q: "What naming convention is used for Java classes?", options: ["camelCase", "PascalCase", "snake_case"], correct: 1, why: "Classes always start with an Uppercase letter (e.g., BankAccount)." },
-            
-            { id: 12, q: "What does the 'new' keyword do?", options: ["Clears the screen", "Allocates memory for a new instance", "Deletes an old object"], correct: 1, why: "'new' tells Java to reserve space in memory (the heap) for the object data." },
-            
-            { id: 13, q: "Where does the code execution usually start?", options: ["The class definition", "The main method", "Inside a constructor"], correct: 1, why: "The 'main' method is the entry point where the program actually begins running." },
-            
-            { id: 14, q: "How many instances of a class can you create?", options: ["Only one", "Up to ten", "As many as needed"], correct: 2, why: "One class blueprint can be used to build thousands of unique objects." }
+            { id: 4, q: "In procedural code, how is an individual's data typically stored?", options: ["Inside an Object", "In separate primitive variables", "In a cloud database"], correct: 1, why: "Procedural approach relies on independent variables like 'String name' and 'double balance' that are not formally grouped." },
+            { id: 5, q: "What is the primary danger of using parallel arrays?", options: ["They use too much CPU", "Data becomes fragile if sorting misaligns indices", "They are limited to 10 items"], correct: 1, why: "If you sort the 'Names' array but forget to sort the 'Balances' array, the wrong name will be linked to the wrong money!" },
+            { id: 8, q: "Where does logic live in procedural programming?", options: ["Inside the data", "Separate from the data (passed in as arguments)", "In the cloud"], correct: 1, why: "Functions are independent of the data structures they manipulate in procedural code." },
+            { id: 11, q: "Which naming convention is correct for a Java Class?", options: ["bankAccount (camelCase)", "BankAccount (PascalCase)", "bank_account (snake_case)"], correct: 1, why: "Java classes always start with an Uppercase letter for every word." },
+            { id: 12, q: "What is the purpose of the 'new' keyword?", options: ["Delete an object", "Allocate memory for a new instance", "Refresh the console"], correct: 1, why: "'new' tells the JVM to find space in the heap to store the object's data." },
+            { id: 14, q: "What is 'Encapsulation' in OOP?", options: ["Protecting code with a password", "Bundling attributes and methods together", "Deleting unused variables"], correct: 1, why: "Encapsulation is the fundamental OOP concept of keeping data and its behaviors inside one 'capsule'." }
         ];
 
         // --- MCQ RENDERING ---
         function renderMCQs() {
-            const sections = {};
-            curriculumData.forEach(item => {
-                if(!sections[item.id]) sections[item.id] = [];
-                sections[item.id].push(item);
-            });
-
-            Object.keys(sections).forEach(id => {
-                const container = document.getElementById(`mcq-${id}`);
+            curriculumData.forEach(mcq => {
+                const container = document.getElementById(`mcq-${mcq.id}`);
                 if(!container) return;
 
-                container.innerHTML = `<h5 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Knowledge Check</h5>`;
-                
-                sections[id].forEach((mcq, idx) => {
-                    const qDiv = document.createElement('div');
-                    qDiv.className = "bg-white p-6 rounded-2xl border border-slate-200 mb-4 shadow-sm";
-                    qDiv.innerHTML = `
-                        <p class="font-bold text-slate-800 mb-4">${idx + 1}. ${mcq.q}</p>
-                        <div class="space-y-2" id="q-options-${id}-${idx}">
+                container.innerHTML = `
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm max-w-2xl">
+                        <h5 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Knowledge Check</h5>
+                        <p class="font-bold text-slate-800 mb-6 text-lg">${mcq.q}</p>
+                        <div class="space-y-3" id="q-options-${mcq.id}">
                             ${mcq.options.map((opt, oIdx) => `
-                                <div onclick="checkAnswer(${id}, ${idx}, ${oIdx}, ${mcq.correct}, '${mcq.why.replace(/'/g, "\\'")}')" 
-                                     class="mcq-option p-4 rounded-xl border border-slate-100 text-sm flex items-center justify-between">
+                                <div onclick="checkAnswer(${mcq.id}, ${oIdx}, ${mcq.correct}, '${mcq.why.replace(/'/g, "\\'")}')" 
+                                     class="mcq-option p-4 rounded-xl border border-slate-200 text-sm flex items-center justify-between font-medium">
                                     <span>${opt}</span>
                                     <span class="status-icon"></span>
                                 </div>
                             `).join('')}
                         </div>
-                        <div class="feedback-box mt-4 text-xs font-medium text-slate-500 hidden"></div>
-                    `;
-                    container.appendChild(qDiv);
-                });
+                        <div class="feedback-box mt-6 p-4 rounded-xl text-sm font-medium hidden"></div>
+                    </div>
+                `;
             });
         }
 
-        function checkAnswer(secId, qIdx, selectedIdx, correctIdx, why) {
-            const parent = document.getElementById(`q-options-${secId}-${qIdx}`);
+        function checkAnswer(id, selectedIdx, correctIdx, why) {
+            const parent = document.getElementById(`q-options-${id}`);
             if (parent.dataset.answered === "true") return;
             parent.dataset.answered = "true";
 
             const options = parent.children;
             const feedback = parent.nextElementSibling;
             
-            options[selectedIdx].classList.add(selectedIdx === correctIdx ? 'correct' : 'wrong');
-            if (selectedIdx !== correctIdx) {
+            // Correct answer logic
+            if (selectedIdx === correctIdx) {
+                options[selectedIdx].classList.add('correct');
+            } else {
+                options[selectedIdx].classList.add('wrong');
                 options[correctIdx].classList.add('correct');
             }
 
-            feedback.innerText = (selectedIdx === correctIdx ? "✨ Correct! " : "❌ Oops! ") + why;
+            feedback.innerHTML = `<span class="block mb-1 font-bold">${selectedIdx === correctIdx ? "✅ Great Job!" : "❌ Not quite."}</span> ${why}`;
+            feedback.className = `feedback-box mt-6 p-4 rounded-xl text-sm font-medium fade-in ${selectedIdx === correctIdx ? 'bg-emerald-50 text-emerald-800' : 'bg-rose-50 text-rose-800'}`;
             feedback.classList.remove('hidden');
-            feedback.classList.add('fade-in');
         }
 
-        // --- SIMULATOR 1: ARRAY FRAGILITY ---
+        // --- SIMULATORS ---
         let accounts = [
             { name: "Jane Fonda", balance: 1000.34 },
             { name: "John Wick", balance: 1667000.00 }
@@ -541,36 +342,29 @@
             const container = document.getElementById('array-sim-container');
             container.innerHTML = `
                 <div class="space-y-2">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Names Array</p>
-                    ${accounts.map(a => `<div class="p-3 bg-blue-100 border border-blue-200 rounded text-sm font-bold text-blue-800 transition-all duration-500">${a.name}</div>`).join('')}
+                    <p class="text-[9px] font-bold text-slate-400 uppercase">Names[]</p>
+                    ${accounts.map(a => `<div class="p-3 bg-blue-100 border border-blue-200 rounded text-xs font-bold text-blue-800 transition-all duration-500">${a.name}</div>`).join('')}
                 </div>
                 <div class="space-y-2">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Balances Array</p>
-                    <div class="p-3 bg-emerald-100 border border-emerald-200 rounded text-sm font-bold text-emerald-800 transition-all duration-500">$1,000.34</div>
-                    <div class="p-3 bg-emerald-100 border border-emerald-200 rounded text-sm font-bold text-emerald-800 transition-all duration-500">$1,667,000.00</div>
+                    <p class="text-[9px] font-bold text-slate-400 uppercase">Balances[]</p>
+                    <div class="p-3 bg-emerald-100 border border-emerald-200 rounded text-xs font-bold text-emerald-800 transition-all duration-500">$1,000.34</div>
+                    <div class="p-3 bg-emerald-100 border border-emerald-200 rounded text-xs font-bold text-emerald-800 transition-all duration-500">$1,667,000.00</div>
                 </div>
             `;
         }
 
         function corruptData() {
-            accounts = [
-                { name: "John Wick" },
-                { name: "Jane Fonda" }
-            ];
+            accounts = [{ name: "John Wick" }, { name: "Jane Fonda" }];
             renderArraySim();
             document.getElementById('sim-warning').classList.remove('hidden');
         }
 
         function resetData() {
-            accounts = [
-                { name: "Jane Fonda" },
-                { name: "John Wick" }
-            ];
+            accounts = [{ name: "Jane Fonda" }, { name: "John Wick" }];
             renderArraySim();
             document.getElementById('sim-warning').classList.add('hidden');
         }
 
-        // --- SIMULATOR 2: HEAP VISUALIZER ---
         let instanceCount = 0;
         function createInstance() {
             instanceCount++;
@@ -578,13 +372,13 @@
             if (instanceCount === 1) container.innerHTML = '';
             
             const div = document.createElement('div');
-            div.className = "fade-in p-3 bg-indigo-50 border border-indigo-200 rounded-xl text-xs flex justify-between items-center";
+            div.className = "fade-in p-3 bg-white border border-indigo-200 rounded-xl text-[10px] flex justify-between items-center shadow-sm";
             div.innerHTML = `
                 <div>
-                    <span class="font-bold text-indigo-600">BankAC@${Math.floor(Math.random()*1000).toString(16)}</span>
+                    <span class="font-bold text-indigo-600">BankAC@${Math.floor(Math.random()*10000).toString(16).toUpperCase()}</span>
                     <span class="text-slate-400 ml-2">Allocated ${new Date().toLocaleTimeString()}</span>
                 </div>
-                <div class="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
             `;
             container.prepend(div);
         }
