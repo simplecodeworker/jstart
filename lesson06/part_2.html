@@ -61,7 +61,6 @@
 </head>
 <body class="bg-gray-50 text-gray-900">
 
-    <!-- Hero Section -->
     <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-20 px-6 text-center">
         <h1 class="text-4xl md:text-6xl font-bold mb-4">Java Constructor Mastery</h1>
         <p class="text-xl opacity-90 max-w-2xl mx-auto">Master the art of object creation, initialization, and encapsulation in Java.</p>
@@ -72,7 +71,6 @@
 
     <main class="max-w-4xl mx-auto px-6 py-12 space-y-24">
 
-        <!-- SECTION 1 -->
         <section id="section1" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 1</span>
@@ -118,18 +116,17 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 1 -->
-            <div class="bg-gray-100 p-6 rounded-xl">
+            <div class="bg-gray-100 p-6 rounded-xl quiz-container">
                 <p class="font-semibold mb-4">Quiz: What happens if you don't define any constructor in a class?</p>
                 <div class="space-y-3">
                     <button onclick="checkAnswer(this, false, 'The code will actually compile because Java provides a default one.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) The code will not compile.</button>
-                    <button onclick="checkAnswer(this, true, 'Correct! Java automatically inserts a no-argument constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Java provides a default hidden constructor.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! Java automatically inserts a no-argument constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Java provides a default hidden constructor.</button>
                     <button onclick="checkAnswer(this, false, 'Actually, the attributes are initialized to default values (null, 0.0), not empty strings.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) All attributes are automatically assigned strings.</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 2 -->
         <section id="section2" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 2</span>
@@ -169,18 +166,17 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 2 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
                 <p class="font-semibold mb-4">Quiz: Which return type does a constructor have?</p>
                 <div class="space-y-3">
                     <button onclick="checkAnswer(this, false, 'Void is for methods that return nothing; constructors have no return type at all.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) void</button>
-                    <button onclick="checkAnswer(this, true, 'Correct! This is a unique feature of constructors.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) None</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! This is a unique feature of constructors.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) None</button>
                     <button onclick="checkAnswer(this, false, 'The constructor is named after the class, but the type itself is absent.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Same as the class type</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 3 -->
         <section id="section3" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 3</span>
@@ -225,18 +221,17 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 3 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
                 <p class="font-semibold mb-4">Quiz: When exactly is the constructor's code executed?</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, false, 'No, the programmer must decide when to call "new".')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) When the program starts.</button>
-                    <button onclick="checkAnswer(this, true, 'Correct! The new operator triggers the constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) At the moment the 'new' keyword is used.</button>
+                    <button onclick="checkAnswer(this, false, 'No, the programmer must decide when to call \"new\".')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) When the program starts.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! The new operator triggers the constructor.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) At the moment the 'new' keyword is used.</button>
                     <button onclick="checkAnswer(this, false, 'No, variables are just placeholders until construction occurs.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Only when we declare the class variable name.</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 4 -->
         <section id="section4" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 4</span>
@@ -280,18 +275,17 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 4 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
                 <p class="font-semibold mb-4">Quiz: If I create two objects, b1 and b2, from the same class, and update b1.balance, what happens to b2.balance?</p>
                 <div class="space-y-3">
                     <button onclick="checkAnswer(this, false, 'No, objects are independent units of memory.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) b2.balance updates as well.</button>
-                    <button onclick="checkAnswer(this, true, 'Correct! Each object holds its own state.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Nothing, b2.balance stays the same.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! Each object holds its own state.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Nothing, b2.balance stays the same.</button>
                     <button onclick="checkAnswer(this, false, 'Memory doesn\'t reset; it just isolates.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) b2.balance resets to zero.</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 5 -->
         <section id="section5" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 5</span>
@@ -322,19 +316,18 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
                 </div>
             </div>
 
-            <!-- MCQ 5 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
-                <p class="font-semibold mb-4">Quiz: In the line 'this.age = age', what does 'this.age' refer to?</p>
+            <!-- MCQ 5 (FIXED: Matched 'name' attribute to example code) -->
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
+                <p class="font-semibold mb-4">Quiz: In the line 'this.name = name', what does 'this.name' refer to?</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, true, 'Correct! "this" targets the attribute within the class instance.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) The attribute of the current instance.</button>
-                    <button onclick="checkAnswer(this, false, 'No, the parameter is the plain "age" variable.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) The parameter passed into the constructor.</button>
-                    <button onclick="checkAnswer(this, false, 'No, "this" is specific to the object itself.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) A global static variable.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! this targets the attribute within the class instance.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) The attribute of the current instance.</button>
+                    <button onclick="checkAnswer(this, false, 'No, the parameter is the plain name variable on the right side.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) The parameter passed into the constructor.</button>
+                    <button onclick="checkAnswer(this, false, 'No, this is specific to the object itself.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) A global static variable.</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 6 -->
         <section id="section6" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 6</span>
@@ -364,17 +357,16 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 6 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
                 <p class="font-semibold mb-4">Quiz: Is it mandatory to initialize all class attributes through constructor parameters?</p>
                 <div class="space-y-3">
                     <button onclick="checkAnswer(this, false, 'Initialization is mandatory, but using parameters is not.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) Yes, otherwise the code won't compile.</button>
-                    <button onclick="checkAnswer(this, true, 'Correct! You can use hardcoded defaults.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) No, you can assign default values inside the body.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! You can use hardcoded defaults.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) No, you can assign default values inside the body.</button>
                 </div>
                 <div class="feedback mt-4 hidden p-3 rounded font-medium"></div>
             </div>
         </section>
 
-        <!-- SECTION 7 -->
         <section id="section7" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 7</span>
@@ -409,10 +401,10 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
 
             <!-- MCQ 7 -->
-            <div class="bg-gray-100 p-6 rounded-xl mt-8">
+            <div class="bg-gray-100 p-6 rounded-xl mt-8 quiz-container">
                 <p class="font-semibold mb-4">Quiz: What is the main goal of Encapsulation?</p>
                 <div class="space-y-3">
-                    <button onclick="checkAnswer(this, true, 'Correct! Bundling and hiding is the key.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) Bundling data and methods while hiding complexity.</button>
+                    <button data-correct="true" onclick="checkAnswer(this, true, 'Correct! Bundling and hiding is the key.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">A) Bundling data and methods while hiding complexity.</button>
                     <button onclick="checkAnswer(this, false, 'That is actually related to inheritance.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">B) Making the code run faster.</button>
                     <button onclick="checkAnswer(this, false, 'No, encapsulation is about internal structure.')" class="mcq-option w-full text-left bg-white p-4 rounded-lg border hover:border-blue-400">C) Connecting to external databases.</button>
                 </div>
@@ -420,7 +412,6 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
             </div>
         </section>
 
-        <!-- SECTION 8 -->
         <section id="section8" class="section-fade-in">
             <div class="flex items-center gap-3 mb-6">
                 <span class="bg-blue-600 text-white px-3 py-1 rounded text-sm font-bold uppercase">Section 8</span>
@@ -445,7 +436,7 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
                 
                 <div class="mt-10 p-6 bg-gray-50 border border-gray-200 rounded-xl text-center">
                     <h4 class="font-bold text-gray-700 mb-2">Resources</h4>
-                    <p class="text-gray-600 italic"><a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp3_OOP.html" target="_blank">http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp3_OOP.html</a></p>
+                    <p class="text-gray-600 italic"><a href="http://www3.ntu.edu.sg/home/ehchua/programming/cpp/cp3_OOP.html" class="text-blue-600 hover:underline" target="_blank">Introduction to OOP (External Resource)</a></p>
                 </div>
             </div>
         </section>
@@ -462,32 +453,46 @@ b1.balance = <span class="java-number">1000.34</span>;</pre>
     </footer>
 
     <script>
+        /**
+         * Checks the answer for MCQs.
+         * FIXED BUG: Now shows the correct answer if the user picks the wrong one.
+         */
         function checkAnswer(button, isCorrect, feedbackText) {
-            const container = button.closest('.bg-gray-100');
+            const container = button.closest('.quiz-container');
             const feedbackDiv = container.querySelector('.feedback');
             const allButtons = container.querySelectorAll('button');
 
-            // Reset buttons
+            // Disable all buttons to prevent double clicking
             allButtons.forEach(btn => {
-                btn.classList.remove('bg-green-100', 'border-green-500', 'bg-red-100', 'border-red-500');
                 btn.disabled = true;
+                btn.classList.add('opacity-75', 'cursor-not-allowed');
+                
+                // Highlight the correct one regardless of choice
+                if (btn.hasAttribute('data-correct')) {
+                    btn.classList.add('border-green-500', 'bg-green-50');
+                }
             });
 
-            // Set state
+            // Set state for the clicked button
             if (isCorrect) {
-                button.classList.add('bg-green-100', 'border-green-500');
-                feedbackDiv.textContent = feedbackText;
+                button.classList.remove('bg-white');
+                button.classList.add('bg-green-100', 'border-green-500', 'ring-2', 'ring-green-200');
+                feedbackDiv.innerHTML = `<i class="fas fa-check-circle mr-2"></i> ${feedbackText}`;
                 feedbackDiv.classList.remove('hidden', 'bg-red-100', 'text-red-700');
-                feedbackDiv.classList.add('bg-green-100', 'text-green-700');
+                feedbackDiv.classList.add('bg-green-100', 'text-green-700', 'animate-bounce');
             } else {
-                button.classList.add('bg-red-100', 'border-red-500');
-                feedbackDiv.textContent = feedbackText;
+                button.classList.remove('bg-white');
+                button.classList.add('bg-red-100', 'border-red-500', 'ring-2', 'ring-red-200');
+                feedbackDiv.innerHTML = `<i class="fas fa-times-circle mr-2"></i> ${feedbackText}`;
                 feedbackDiv.classList.remove('hidden', 'bg-green-100', 'text-green-700');
                 feedbackDiv.classList.add('bg-red-100', 'text-red-700');
             }
+            
+            // Final visual reveal
+            feedbackDiv.classList.remove('hidden');
         }
 
-        // Add some interaction when scrolling
+        // Add interaction when scrolling using Intersection Observer
         const observerOptions = {
             threshold: 0.1
         };
