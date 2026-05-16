@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP: Accessors & Encapsulation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .code-line { display: block; padding: 0.1rem 0.5rem; border-radius: 4px; transition: background 0.3s; }
+        .explanation-card { border-left: 4px solid #3b82f6; }
+        .keyword { color: #d946ef; font-weight: 600; }
+        .type { color: #3b82f6; }
+        .comment { color: #64748b; font-style: italic; }
+        .method { color: #0ea5e9; }
+        .string { color: #10b981; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-slate-900 text-white py-12 px-6 text-center shadow-lg">
+        <h1 class="text-4xl font-extrabold mb-4">Understanding Java Accessors</h1>
+        <p class="text-slate-400 max-w-2xl mx-auto text-lg">
+            A visual guide to <span class="text-blue-400">Encapsulation</span>: Protecting data with private variables and public methods.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-20">
+
+        <!-- SECTION 1: THE CLASS CODE -->
+        <section>
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-blue-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Part 1</span>
+                <h2 class="text-3xl font-bold">The Blueprint: <code class="text-blue-600">CircleWithAccessors.java</code></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <!-- Code Block -->
+                <div class="bg-slate-900 rounded-xl p-6 shadow-2xl overflow-x-auto border border-slate-800">
+                    <pre class="text-sm leading-relaxed"><code class="text-slate-300">
+<span class="comment">// 1. Package declaration</span>
+<span class="keyword">package</span> oop6TestCircleWithAccessors;
+
+<span class="comment">// 2. The Class definition</span>
+<span class="keyword">public class</span> <span class="type">CircleWithAccessors</span> {
+  
+  <span class="comment">// 3. Private data (Encapsulation)</span>
+  <span class="keyword">private double</span> radius;
+
+  <span class="comment">// 4. No-arg constructor</span>
+  <span class="keyword">public</span> <span class="method">CircleWithAccessors</span>() {
+    radius = <span class="type">1.0</span>;
+  }
+
+  <span class="comment">// 5. Constructor with parameter</span>
+  <span class="keyword">public</span> <span class="method">CircleWithAccessors</span>(<span class="keyword">double</span> r) {
+    radius = r;
+  }
+
+  <span class="comment">// 6. The Getter (Accessor)</span>
+  <span class="keyword">public double</span> <span class="method">getRadius</span>() {
+    <span class="keyword">return</span> radius;
+  }
+
+  <span class="comment">// 7. The Setter (Mutator)</span>
+  <span class="keyword">public void</span> <span class="method">setRadius</span>(<span class="keyword">double</span> newRadius) { 
+    radius = newRadius;
+  }
+
+  <span class="comment">// 8. Method for logic</span>
+  <span class="keyword">public double</span> <span class="method">findArea</span>() {
+    <span class="keyword">return</span> radius * radius * <span class="type">3.14159</span>;
+  }
+}</code></pre>
+                </div>
+
+                <!-- Explanations -->
+                <div class="space-y-6">
+                    <div class="explanation-card bg-white p-5 rounded-r-lg shadow-sm">
+                        <h4 class="font-bold text-blue-700 mb-1">1 & 2. The Setup</h4>
+                        <p class="text-sm text-slate-600">We define a container for our circle logic. Everything inside the curly braces belongs to this "Blueprint".</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-5 rounded-r-lg shadow-sm border-l-rose-500">
+                        <h4 class="font-bold text-rose-600 mb-1">3. Private Variable (The Core Concept)</h4>
+                        <p class="text-sm text-slate-600">The <code class="bg-rose-50 px-1 text-rose-600">private</code> keyword is a lock. It prevents other classes from touching the <code>radius</code> directly. This is called <strong>Encapsulation</strong>.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-5 rounded-r-lg shadow-sm border-l-amber-500">
+                        <h4 class="font-bold text-amber-600 mb-1">4 & 5. Constructors</h4>
+                        <p class="text-sm text-slate-600">These are "birth certificates" for objects. One creates a default circle (radius 1.0), and the other lets you choose the size when you create it.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-5 rounded-r-lg shadow-sm border-l-emerald-500">
+                        <h4 class="font-bold text-emerald-600 mb-1">6 & 7. Accessors (Getters & Setters)</h4>
+                        <p class="text-sm text-slate-600">Because <code>radius</code> is private, we provide these public "windows". <strong>getRadius</strong> lets people see the value, and <strong>setRadius</strong> lets them change it safely.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-5 rounded-r-lg shadow-sm border-l-indigo-500">
+                        <h4 class="font-bold text-indigo-600 mb-1">8. Functional Method</h4>
+                        <p class="text-sm text-slate-600">A public action that uses the internal data to perform a calculation (calculating Area).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: THE APPLICATION CODE -->
+        <section class="pb-20">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="bg-emerald-600 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Part 2</span>
+                <h2 class="text-3xl font-bold">The Execution: <code class="text-emerald-600">TestCircleWithAccessors.java</code></h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                <!-- Code Block -->
+                <div class="bg-slate-900 rounded-xl p-6 shadow-2xl overflow-x-auto border border-slate-800">
+                    <pre class="text-sm leading-relaxed"><code class="text-slate-300">
+<span class="keyword">public class</span> <span class="type">TestCircleWithAccessors</span> {
+  <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+
+    <span class="comment">// A. Create object with radius 5.0</span>
+    <span class="type">CircleWithAccessors</span> myCircle = 
+        <span class="keyword">new</span> <span class="type">CircleWithAccessors</span>(<span class="type">5.0</span>);
+
+    <span class="comment">// B. Using the Getter to read data</span>
+    <span class="type">System</span>.out.println(<span class="string">"Radius is "</span> + 
+        myCircle.<span class="method">getRadius</span>());
+
+    <span class="comment">// C. Trying direct access (ERROR!)</span>
+    <span class="comment">// myCircle.radius = 10; // This won't compile!</span>
+
+    <span class="comment">// D. Using the Setter to update data</span>
+    <span class="keyword">double</span> currentRadius = myCircle.<span class="method">getRadius</span>();
+    myCircle.<span class="method">setRadius</span>(currentRadius * <span class="type">1.1</span>);
+
+    <span class="comment">// E. Final calculation</span>
+    <span class="type">System</span>.out.println(<span class="string">"New Area: "</span> + 
+        myCircle.<span class="method">findArea</span>());
+  }
+}</code></pre>
+                </div>
+
+                <!-- Explanations -->
+                <div class="space-y-6">
+                    <div class="explanation-card bg-emerald-50 border-emerald-500 p-5 rounded-r-lg shadow-sm">
+                        <h4 class="font-bold text-emerald-800 mb-1">A. Object Instantiation</h4>
+                        <p class="text-sm text-slate-600">We create an instance of our blueprint. We call the constructor and pass <code>5.0</code> to set the initial radius.</p>
+                    </div>
+
+                    <div class="explanation-card bg-emerald-50 border-emerald-500 p-5 rounded-r-lg shadow-sm">
+                        <h4 class="font-bold text-emerald-800 mb-1">B. Reading Private Data</h4>
+                        <p class="text-sm text-slate-600">We cannot type <code>myCircle.radius</code>. We must ask politely using <code>getRadius()</code>. This ensures the class stays in control of its data.</p>
+                    </div>
+
+                    <div class="bg-rose-100 border-l-4 border-rose-500 p-5 rounded-r-lg shadow-sm">
+                        <h4 class="font-bold text-rose-800 mb-1 italic">C. Why the Error?</h4>
+                        <p class="text-sm text-slate-700 font-medium">If you uncommented that line, Java would stop you! "radius has private access." This prevents accidental data corruption from outside classes.</p>
+                    </div>
+
+                    <div class="explanation-card bg-emerald-50 border-emerald-500 p-5 rounded-r-lg shadow-sm">
+                        <h4 class="font-bold text-emerald-800 mb-1">D. Updating via Mutator</h4>
+                        <p class="text-sm text-slate-600">To change the radius (like increasing it by 10%), we use the <code>setRadius()</code> method. Inside the class, we could even add logic to prevent negative numbers here!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-100 border-t border-slate-200 py-12 px-6 mt-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-xl font-bold mb-4">Key Takeaway for Beginners</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <p class="font-bold text-blue-600 mb-1">Private Variables</p>
+                    Keep data safe and hidden.
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <p class="font-bold text-blue-600 mb-1">Getters (Accessors)</p>
+                    Provide read-only access to data.
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-sm">
+                    <p class="font-bold text-blue-600 mb-1">Setters (Mutators)</p>
+                    Allow controlled modification of data.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("Java OOP Tutorial Loaded Successfully");
+        });
+    </script>
+</body>
+</html>
