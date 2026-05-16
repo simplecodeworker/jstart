@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Concepts: Static vs Instance Variables</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .code-font { font-family: 'Fira Code', monospace; }
+        .logic-card { border-left-width: 4px; }
+        .highlight-static { color: #f59e0b; font-weight: bold; }
+        .highlight-instance { color: #3b82f6; font-weight: bold; }
+        .explanation-box { background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-slate-900 text-white py-12 px-6 text-center">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-4xl font-extrabold mb-4">Java: Static vs. Instance Variables</h1>
+            <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+                Understanding how objects share data using the <code>static</code> keyword.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="bg-blue-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold">The Blueprint: <span class="text-blue-600">CircleWithStaticVariable.java</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- Left: Code -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-slate-700 px-4 py-2 text-xs text-slate-300 flex justify-between">
+                        <span>Java Class Code</span>
+                        <span class="flex gap-1"><span class="w-2 h-2 rounded-full bg-red-500"></span><span class="w-2 h-2 rounded-full bg-yellow-500"></span><span class="w-2 h-2 rounded-full bg-green-500"></span></span>
+                    </div>
+                    <pre class="p-6 text-sm code-font leading-relaxed overflow-x-auto text-slate-200">
+<span class="text-blue-400">public class</span> CircleWithStaticVariable {
+  <span class="text-slate-500">/** The radius (Instance Variable) */</span>
+  <span class="text-blue-400">private double</span> <span class="text-blue-300">radius</span>;
+
+  <span class="text-slate-500">/** The count (Static Variable) */</span>
+  <span class="text-blue-400">private static int</span> <span class="text-yellow-400">numOfObjects</span> = 0;  
+  
+  <span class="text-blue-400">public final double</span> PAI = 3.14;
+
+  <span class="text-blue-400">public</span> CircleWithStaticVariable() {
+    <span class="text-blue-300">radius</span> = 1.0;
+    <span class="text-yellow-400">numOfObjects</span>++;
+  }
+
+  <span class="text-blue-400">public</span> CircleWithStaticVariable(<span class="text-blue-400">double</span> r) {
+    <span class="text-blue-300">radius</span> = r;
+    <span class="text-yellow-400">numOfObjects</span>++;
+  }
+
+  <span class="text-blue-400">public static int</span> getNumOfObjects() {
+    <span class="text-blue-400">return</span> <span class="text-yellow-400">numOfObjects</span>;
+  }
+  
+  <span class="text-slate-500">// ... methods for getRadius, setRadius, findArea</span>
+}</pre>
+                </div>
+
+                <!-- Right: Explanation -->
+                <div class="space-y-6">
+                    <div class="explanation-box p-6 rounded-xl border border-slate-200 shadow-sm logic-card border-blue-500">
+                        <h3 class="font-bold text-xl mb-2 flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                            The Instance Variable (<code class="text-blue-600">radius</code>)
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Every time you use <code>new</code>, a <strong>unique</strong> copy of <code>radius</code> is created in memory. If you have 100 circles, you have 100 different radius values stored in 100 different locations.
+                        </p>
+                    </div>
+
+                    <div class="explanation-box p-6 rounded-xl border border-slate-200 shadow-sm logic-card border-yellow-500">
+                        <h3 class="font-bold text-xl mb-2 flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                            The Static Variable (<code class="text-yellow-600">numOfObjects</code>)
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            The keyword <code>static</code> means this variable belongs to the <strong>Class itself</strong>, not any specific object. There is only <strong>one</strong> copy of this variable shared by every circle object ever created.
+                        </p>
+                    </div>
+
+                    <div class="bg-indigo-50 p-6 rounded-xl border border-indigo-100">
+                        <h3 class="font-bold text-indigo-900 mb-2">Memory Visualization</h3>
+                        <div class="flex flex-col gap-4">
+                            <div class="bg-white p-3 rounded border border-indigo-200 text-xs shadow-sm">
+                                <span class="font-bold text-indigo-600 block mb-1">Static Memory (Class-Level)</span>
+                                <div class="flex justify-between items-center bg-indigo-50 p-2 rounded">
+                                    <span>numOfObjects:</span>
+                                    <span class="font-mono font-bold text-yellow-600">Shared Data</span>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div class="bg-white p-3 rounded border border-blue-200 text-xs shadow-sm">
+                                    <span class="font-bold text-blue-600 block mb-1">Circle Object 1</span>
+                                    <span>radius: 1.0</span>
+                                </div>
+                                <div class="bg-white p-3 rounded border border-blue-200 text-xs shadow-sm">
+                                    <span class="font-bold text-blue-600 block mb-1">Circle Object 2</span>
+                                    <span>radius: 5.0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="flex items-center gap-3 mb-8">
+                <div class="bg-green-600 text-white p-2 rounded-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h2 class="text-3xl font-bold">The Execution: <span class="text-green-600">TestCircleWithStaticVariable.java</span></h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- Left: Code -->
+                <div class="bg-slate-800 rounded-xl overflow-hidden shadow-2xl">
+                    <div class="bg-slate-700 px-4 py-2 text-xs text-slate-300 flex justify-between">
+                        <span>Application Code</span>
+                    </div>
+                    <pre class="p-6 text-sm code-font leading-relaxed overflow-x-auto text-slate-200">
+<span class="text-blue-400">public class</span> TestCircleWithStaticVariable {
+  <span class="text-blue-400">public static void</span> main(String[] args) {
+    <span class="text-slate-500">// 1. Create circle1</span>
+    CircleWithStaticVariable <span class="text-blue-300">circle1</span> = <span class="text-blue-400">new</span> CircleWithStaticVariable();
+    
+    System.out.println(<span class="text-green-300">"Circle 1 count: "</span> + <span class="text-blue-300">circle1</span>.getNumOfObjects());
+
+    <span class="text-slate-500">// 2. Create circle2</span>
+    CircleWithStaticVariable <span class="text-pink-300">circle2</span> = <span class="text-blue-400">new</span> CircleWithStaticVariable(5);
+
+    <span class="text-slate-500">// 3. The "Why?" - Observe the difference</span>
+    System.out.println(<span class="text-pink-300">circle2</span>.getNumOfObjects()); <span class="text-slate-500">// Result: 2</span>
+    System.out.println(<span class="text-blue-300">circle1</span>.getNumOfObjects()); <span class="text-slate-500">// Result: 2</span>
+    System.out.println(CircleWithStaticVariable.getNumOfObjects()); <span class="text-slate-500">// Result: 2</span>
+    
+    <span class="text-slate-500">// 4. Modify instance variable</span>
+    <span class="text-blue-300">circle1</span>.setRadius(9);
+    
+    <span class="text-slate-500">// Display results</span>
+    System.out.println(<span class="text-green-300">"Circle 1 radius: "</span> + <span class="text-blue-300">circle1</span>.getRadius());
+    System.out.println(<span class="text-green-300">"Circle 2 radius: "</span> + <span class="text-pink-300">circle2</span>.getRadius());
+  }
+}</pre>
+                </div>
+
+                <!-- Right: Step-by-Step Logic -->
+                <div class="space-y-6">
+                    <div class="explanation-box p-6 rounded-xl border border-slate-200 shadow-sm logic-card border-green-500">
+                        <div class="text-xs font-bold text-green-600 uppercase tracking-wider mb-2">Step 1 & 2: Object Creation</div>
+                        <p class="text-slate-600 leading-relaxed mb-3">
+                            When <code>circle1</code> was created, <code>numOfObjects</code> became <strong>1</strong>. <br>
+                            When <code>circle2</code> was created, the <strong>same</strong> variable was incremented to <strong>2</strong>.
+                        </p>
+                    </div>
+
+                    <div class="bg-amber-50 p-6 rounded-xl border border-amber-200 shadow-sm logic-card border-amber-500">
+                        <div class="text-xs font-bold text-amber-600 uppercase tracking-wider mb-2">Step 3: The "Why?" Explained</div>
+                        <p class="text-slate-700 font-semibold mb-2">Why do all three print statements output "2"?</p>
+                        <ul class="space-y-2 text-slate-600 text-sm">
+                            <li class="flex gap-2">
+                                <span class="text-amber-500 font-bold">1.</span>
+                                <span><code>circle1</code> and <code>circle2</code> are just pointing to the same shared count in the class memory.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-amber-500 font-bold">2.</span>
+                                <span>Even though we call it via <code>circle1</code>, Java internally treats it as <code>CircleWithStaticVariable.getNumOfObjects()</code>.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="explanation-box p-6 rounded-xl border border-slate-200 shadow-sm logic-card border-purple-500">
+                        <div class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-2">Step 4: Instance Autonomy</div>
+                        <p class="text-slate-600 leading-relaxed">
+                            When we set <code>circle1</code> radius to <strong>9</strong>, the radius of <code>circle2</code> remained <strong>5</strong>. This is because <strong>Instance Variables</strong> are private and unique to each object.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mt-12 bg-white rounded-2xl p-8 shadow-inner border border-slate-100">
+            <h3 class="text-2xl font-bold text-center mb-8">Quick Cheat Sheet</h3>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="p-6 bg-blue-50 rounded-xl">
+                    <h4 class="font-bold text-blue-800 mb-2">Instance Variables</h4>
+                    <ul class="text-sm text-blue-700 space-y-2">
+                        <li>• One copy <strong>per object</strong></li>
+                        <li>• Used for unique properties (like a circle's radius)</li>
+                        <li>• Accessed via: <code>objectName.variable</code></li>
+                    </ul>
+                </div>
+                <div class="p-6 bg-yellow-50 rounded-xl">
+                    <h4 class="font-bold text-yellow-800 mb-2">Static Variables</h4>
+                    <ul class="text-sm text-yellow-700 space-y-2">
+                        <li>• One copy <strong>per class</strong> (shared)</li>
+                        <li>• Used for common data (like a global counter)</li>
+                        <li>• Accessed via: <code>ClassName.variable</code></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-12 text-slate-400 text-sm">
+        <p>Built for Java Learners &bull; Visual Explanation System</p>
+    </footer>
+
+    <script>
+        // Note: No heavy JS needed as per requirements for a non-interactive layout.
+        window.addEventListener('load', () => {
+            console.log("Guide loaded successfully.");
+        });
+    </script>
+</body>
+</html>
