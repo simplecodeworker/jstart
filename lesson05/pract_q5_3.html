@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Array & Exception Handling Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        .keyword { color: #ff79c6; }
+        .type { color: #8be9fd; }
+        .comment { color: #6272a4; }
+        .string { color: #f1fa8c; }
+        .method { color: #50fa7b; }
+        .highlight-box { border-left: 4px solid #f59e0b; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased pb-20">
+
+    <header class="bg-indigo-700 text-white py-12 px-4 shadow-lg mb-8">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-4">Java Mastery: Arrays & Exceptions</h1>
+            <p class="text-indigo-100 text-lg">Detailed breakdown of Question 5.3: Safe user input and array processing.</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4">
+        <!-- Question Context -->
+        <div class="bg-white p-6 rounded-xl shadow-sm mb-8 border border-slate-200">
+            <h2 class="text-xl font-semibold mb-3 flex items-center">
+                <span class="bg-indigo-100 text-indigo-700 p-2 rounded-lg mr-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                </span>
+                Problem Context
+            </h2>
+            <p class="text-slate-600 leading-relaxed italic">
+ Assume a method exists public static double avgArry(double[] a) { ,, } that finds the average in an array of floating-point values.
+
+<br /><br />a)	Prompt user to enter the array size, with InputMismatchException handled, till the array size is a valid No.
+<br />b)	Declare and create a double array with size decided by user in a)
+<br />c)	Prompt user to enter the array element value one by one using loop with Exception handled
+<br />d)	Call method avgArry(double[ ] a) to calculate the average of all the elements’ values of the above array , then print out the average value.
+           </p>
+        </div>
+
+        <!-- Part (a) -->
+        <section class="mb-12">
+            <div class="flex items-center mb-4">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">a</span>
+                <h3 class="text-xl font-bold">Prompt user for valid array size</h3>
+            </div>
+            <p class="mb-4 text-slate-600 font-medium italic">"Prompt user to enter the array size, with InputMismatchException handled, till the array size is a valid No."</p>
+            
+            <div class="bg-slate-900 rounded-xl p-6 mb-4 overflow-x-auto shadow-xl">
+                <pre class="text-sm leading-relaxed text-slate-300"><code><span class="type">Scanner</span> input = <span class="keyword">new</span> <span class="type">Scanner</span>(System.in);
+<span class="type">int</span> size = <span class="number">0</span>;
+<span class="keyword">boolean</span> isValid = <span class="keyword">false</span>;
+
+<span class="keyword">while</span> (!isValid) {
+    <span class="keyword">try</span> {
+        System.out.print(<span class="string">"Enter array size: "</span>);
+        size = input.nextInt();
+        <span class="keyword">if</span> (size &lt;= <span class="number">0</span>) <span class="keyword">throw new</span> <span class="type">Exception</span>();
+        isValid = <span class="keyword">true</span>;
+    } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
+        System.out.println(<span class="string">"Error: Please enter an integer!"</span>);
+        input.next(); <span class="comment">// WATCH OUT! Clear the buffer</span>
+    } <span class="keyword">catch</span> (<span class="type">Exception</span> e) {
+        System.out.println(<span class="string">"Error: Size must be positive!"</span>);
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight-box bg-amber-50 p-5 rounded-r-xl border-l-amber-500">
+                <h4 class="text-amber-800 font-bold mb-2 flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    Beginner Alert: The Scanner Trap
+                </h4>
+                <p class="text-amber-900 text-sm">
+                    When <code class="bg-amber-100 px-1 rounded">nextInt()</code> fails due to a mismatch, the "bad" input stays in the buffer. If you don't call <code class="bg-amber-100 px-1 rounded">input.next()</code> in the catch block, your loop will run infinitely!
+                </p>
+            </div>
+        </section>
+
+        <!-- Part (b) -->
+        <section class="mb-12">
+            <div class="flex items-center mb-4">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">b</span>
+                <h3 class="text-xl font-bold">Declare and create the array</h3>
+            </div>
+            <p class="mb-4 text-slate-600 font-medium italic">"Declare and create a double array with size decided by user in a)"</p>
+            
+            <div class="bg-slate-900 rounded-xl p-6 mb-4 overflow-x-auto shadow-xl">
+                <pre class="text-sm leading-relaxed text-slate-300"><code><span class="type">double</span>[] numbers = <span class="keyword">new</span> <span class="type">double</span>[size];</code></pre>
+            </div>
+
+            <div class="highlight-box bg-blue-50 p-5 rounded-r-xl border-l-blue-500">
+                <h4 class="text-blue-800 font-bold mb-2 flex items-center text-sm uppercase tracking-wider">Note</h4>
+                <p class="text-blue-900 text-sm">
+                    In Java, array sizes are fixed once initialized. You must ensure <code class="bg-blue-100 px-1 rounded">size</code> is a non-negative integer before this step.
+                </p>
+            </div>
+        </section>
+
+        <!-- Part (c) -->
+        <section class="mb-12">
+            <div class="flex items-center mb-4">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">c</span>
+                <h3 class="text-xl font-bold">Populate array with error handling</h3>
+            </div>
+            <p class="mb-4 text-slate-600 font-medium italic">"Prompt user to enter the array element value one by one using loop with Exception handled"</p>
+            
+            <div class="bg-slate-900 rounded-xl p-6 mb-4 overflow-x-auto shadow-xl">
+                <pre class="text-sm leading-relaxed text-slate-300"><code><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; numbers.length; i++) {
+    <span class="keyword">boolean</span> inputOk = <span class="keyword">false</span>;
+    <span class="keyword">while</span> (!inputOk) {
+        <span class="keyword">try</span> {
+            System.out.print(<span class="string">"Enter value for element "</span> + i + <span class="string">": "</span>);
+            numbers[i] = input.nextDouble();
+            inputOk = <span class="keyword">true</span>;
+        } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
+            System.out.println(<span class="string">"Invalid input. Please enter a double."</span>);
+            input.next(); <span class="comment">// Clear buffer again!</span>
+        }
+    }
+}</code></pre>
+            </div>
+
+            <div class="highlight-box bg-amber-50 p-5 rounded-r-xl border-l-amber-500">
+                <h4 class="text-amber-800 font-bold mb-2 text-sm uppercase tracking-wider">Index Warning</h4>
+                <p class="text-amber-900 text-sm">
+                    Beginners often confuse the index <code class="bg-amber-100 px-1 rounded">i</code> (0 to length-1) with the "count" (1 to length). Your loop should always start at 0.
+                </p>
+            </div>
+        </section>
+
+        <!-- Part (d) -->
+        <section class="mb-12">
+            <div class="flex items-center mb-4">
+                <span class="bg-slate-800 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">d</span>
+                <h3 class="text-xl font-bold">Calculate and Print Average</h3>
+            </div>
+            <p class="mb-4 text-slate-600 font-medium italic">"Call method avgArry(double[ ] a) to calculate the average... then print out the average value."</p>
+            
+            <div class="bg-slate-900 rounded-xl p-6 mb-4 overflow-x-auto shadow-xl">
+                <pre class="text-sm leading-relaxed text-slate-300"><code><span class="type">double</span> result = <span class="method">avgArry</span>(numbers);
+System.out.println(<span class="string">"The average is: "</span> + result);</code></pre>
+            </div>
+
+            <div class="highlight-box bg-green-50 p-5 rounded-r-xl border-l-green-500">
+                <h4 class="text-green-800 font-bold mb-2 text-sm uppercase tracking-wider">Method Signature Tip</h4>
+                <p class="text-green-900 text-sm">
+                    When calling the method, you pass only the variable name <code class="bg-green-100 px-1 rounded">numbers</code>. Do <strong>not</strong> use brackets like <code class="bg-red-100 px-1 rounded text-red-700">avgArry(numbers[])</code> in the call!
+                </p>
+            </div>
+        </section>
+
+        <hr class="my-12 border-slate-200">
+        
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+            <div class="bg-slate-800 px-6 py-4 flex justify-between items-center text-white">
+                <h3 class="font-bold">Full Solution Implementation</h3>
+                <span class="text-xs text-slate-400 bg-slate-700 px-2 py-1 rounded">ArrayAverage.java</span>
+            </div>
+            <div class="p-0">
+                <div class="bg-slate-900 p-6 overflow-x-auto">
+                    <pre class="text-sm leading-relaxed text-slate-300"><code><span class="keyword">import</span> java.util.*;
+
+<span class="keyword">public class</span> <span class="type">ArrayAverage</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+        <span class="type">Scanner</span> sc = <span class="keyword">new</span> <span class="type">Scanner</span>(System.in);
+        <span class="type">int</span> size = <span class="number">0</span>;
+        
+        <span class="comment">// (a) Handle size input</span>
+        <span class="keyword">while</span> (<span class="keyword">true</span>) {
+            <span class="keyword">try</span> {
+                System.out.print(<span class="string">"Enter array size: "</span>);
+                size = sc.nextInt();
+                <span class="keyword">if</span> (size &gt; <span class="number">0</span>) <span class="keyword">break</span>;
+                System.out.println(<span class="string">"Size must be positive."</span>);
+            } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
+                System.out.println(<span class="string">"Invalid integer input!"</span>);
+                sc.next();
+            }
+        }
+
+        <span class="comment">// (b) Create array</span>
+        <span class="type">double</span>[] myArr = <span class="keyword">new</span> <span class="type">double</span>[size];
+
+        <span class="comment">// (c) Fill array</span>
+        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) {
+            <span class="keyword">while</span> (<span class="keyword">true</span>) {
+                <span class="keyword">try</span> {
+                    System.out.print(<span class="string">"Enter element "</span> + (i+<span class="number">1</span>) + <span class="string">": "</span>);
+                    myArr[i] = sc.nextDouble();
+                    <span class="keyword">break</span>;
+                } <span class="keyword">catch</span> (InputMismatchException e) {
+                    System.out.println(<span class="string">"Input must be a decimal value."</span>);
+                    sc.next();
+                }
+            }
+        }
+
+        <span class="comment">// (d) Call and Print</span>
+        <span class="type">double</span> average = <span class="method">avgArry</span>(myArr);
+        System.out.println(<span class="string">"Result: "</span> + average);
+    }
+
+    <span class="comment">// Mock method for demonstration</span>
+    <span class="keyword">public static double</span> <span class="method">avgArry</span>(<span class="type">double</span>[] a) {
+        <span class="type">double</span> sum = <span class="number">0</span>;
+        <span class="keyword">for</span> (<span class="type">double</span> val : a) sum += val;
+        <span class="keyword">return</span> sum / a.length;
+    }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-20 text-center text-slate-400 text-sm px-4">
+        <p>Interactive Java Learning App &bull; Built with Tailwind CSS</p>
+    </footer>
+
+</body>
+</html>
