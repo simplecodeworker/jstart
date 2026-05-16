@@ -5,228 +5,364 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fill In the Codes - Java Programming</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;700&display=swap');
+        :root {
+            --bg-deep: #0f172a;
+            --card-bg: #1e293b;
+            --code-bg: #010409;
+            --highlight-bg: #fef08a; /* Light yellow requested */
+            --highlight-text: #713f12; /* Darker font color requested */
+            --accent-blue: #3b82f6;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #0f172a;
+            background-color: var(--bg-deep);
             color: #e2e8f0;
+            scroll-behavior: smooth;
         }
 
-        .code-block {
-            font-family: 'Fira Code', monospace;
-            background-color: #010409;
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 1.5rem;
-            line-height: 1.6;
-            overflow-x: auto;
-        }
+        .fira-code { font-family: 'Fira Code', monospace; }
 
-        /* The specific highlight requested */
         .blank-highlight {
-            background-color: #fef08a; /* Light yellow */
-            color: #713f12;            /* Darker font color */
-            padding: 0 4px;
-            border-radius: 2px;
+            background-color: var(--highlight-bg);
+            color: var(--highlight-text);
+            padding: 2px 8px;
+            border-radius: 4px;
             font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .java-keyword { color: #ff7b72; }
+        .blank-highlight.empty {
+            opacity: 0.8;
+            filter: grayscale(0.5);
+            font-family: monospace;
+        }
+
+        /* Java Syntax Highlighting */
+        .java-keyword { color: #ff7b72; font-weight: 600; }
         .java-type { color: #ffa657; }
         .java-comment { color: #8b949e; font-style: italic; }
         .java-string { color: #a5d6ff; }
         .java-method { color: #d2a8ff; }
 
-        .question-card {
-            background-color: #1e293b;
+        .code-block {
+            background-color: var(--code-bg);
             border: 1px solid #334155;
-            transition: transform 0.2s;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px -15px rgba(0,0,0,0.7);
         }
 
-        .question-card:hover {
-            border-color: #475569;
+        .unlock-group {
+            display: flex;
+            align-items: center;
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 4px;
+            border-radius: 10px;
+            transition: all 0.2s;
         }
 
-        input.blank-input {
-            background-color: #fef08a;
-            color: #713f12;
+        .unlock-group:focus-within {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .unlock-input {
+            background: transparent;
             border: none;
             outline: none;
-            padding: 0 4px;
-            font-family: inherit;
+            color: white;
+            padding: 4px 12px;
+            width: 100px;
+            font-size: 0.875rem;
+        }
+
+        .unlock-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.875rem;
             font-weight: 600;
-            width: auto;
-            min-width: 100px;
+            transition: all 0.2s;
+        }
+
+        .unlock-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .unlock-btn:active {
+            transform: translateY(0);
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="min-h-screen p-4 md:p-12">
 
-    <div class="max-w-4xl mx-auto">
-        <!-- Header -->
-        <header class="mb-10 text-center">
-            <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400 mb-2">
+    <div class="max-w-5xl mx-auto">
+        <header class="mb-16 text-center">
+            <h1 class="text-4xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-indigo-400 to-emerald-400 mb-4">
                 Fill In the Codes
             </h1>
-            <p class="text-slate-400 italic">Java Programming Exercise: The Fan Class</p>
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/50 border border-slate-700">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <p class="text-slate-400 font-medium text-sm tracking-wide uppercase">Java OOP: The Fan Class Module</p>
+            </div>
         </header>
 
-        <!-- Q6.2.1 Section -->
-        <section class="mb-12">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.1</span>
-                <h2 class="text-xl font-semibold">The Fan Class Template</h2>
+        <section class="mb-16">
+            <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 text-white rounded-xl font-bold text-xl shadow-xl">1</div>
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">The Fan Class Template</h2>
+                        <p class="text-slate-500 text-sm">Module Q6.2.1</p>
+                    </div>
+                </div>
+                
+                <div class="unlock-group" id="group-q621">
+                    <input type="password" placeholder="Passcode" class="unlock-input" id="input-q621" onkeypress="handleEnter(event, 'q621')">
+                    <button onclick="unlockByInput('q621')" class="unlock-btn">Unlock Answers</button>
+                </div>
             </div>
-            
-            <div class="code-block text-sm md:text-base mb-6 shadow-2xl">
-                <span class="java-keyword">public class</span> <span class="java-type">Fan</span> {<br>
-                &nbsp;&nbsp;<span class="java-keyword">private double</span> radius = <span class="java-string">5</span>;<br>
-                &nbsp;&nbsp;<span class="java-keyword">private</span> <span class="java-type">String</span> color = <span class="java-string">"white"</span>;<br>
+
+            <div class="code-block p-6 md:p-10 fira-code text-sm md:text-lg leading-relaxed overflow-x-auto border-l-4 border-l-blue-500">
+                <div class="mb-1"><span class="java-keyword">public class</span> <span class="java-type">Fan</span> {</div>
+                <div class="pl-8 mb-1"><span class="java-keyword">private double</span> radius = <span class="java-string">5</span>;</div>
+                <div class="pl-8 mb-1"><span class="java-keyword">private</span> <span class="java-type">String</span> color = <span class="java-string">"white"</span>;</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-method">Fan</span>(){<br>
-                &nbsp;&nbsp;}<br>
+                <div class="pl-8 mb-1"><span class="java-keyword">public</span> <span class="java-method">Fan</span>(){ }</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public double</span> <span class="java-method">getRadius</span>() {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="java-keyword">return</span> radius; <span class="java-java-comment">//return the value of instance variable radius</span><br>
-                &nbsp;&nbsp;}<br>
+                <div class="pl-8 mb-1"><span class="java-keyword">public double</span> <span class="java-method">getRadius</span>() {</div>
+                <div class="pl-16 mb-1"><span class="java-keyword">return</span> radius; <span class="java-comment">//return instance variable radius</span></div>
+                <div class="pl-8 mb-1">}</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public void</span> <span class="java-method">setRadius</span>(<span class="java-keyword">double</span> dbRadius) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;radius = dbRadius;<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="java-comment">/*change the value of instance variable to method’s parameter’s value.*/</span><br>
-                &nbsp;&nbsp;}<br>
+                <div class="pl-8 mb-1"><span class="java-keyword">public void</span> <span class="java-method">setRadius</span>(<span class="java-keyword">double</span> dbRadius) {</div>
+                <div class="pl-16 mb-1">radius = dbRadius;</div>
+                <div class="pl-8 mb-1">}</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">getColor</span>() {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
-                &nbsp;&nbsp;}<br>
+                <div class="pl-8 mb-1"><span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">getColor</span>() {</div>
+                <div class="pl-16 mb-1"><span class="blank-highlight empty" data-qid="q621" data-ans="return color;">_________________</span></div>
+                <div class="pl-8 mb-1">}</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public void</span> <span class="java-method">setColor</span>(<span class="java-type">String</span> strColor) {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
-                &nbsp;&nbsp;}<br>
+                <div class="pl-8 mb-1"><span class="java-keyword">public void</span> <span class="java-method">setColor</span>(<span class="java-type">String</span> strColor) {</div>
+                <div class="pl-16 mb-1"><span class="blank-highlight empty" data-qid="q621" data-ans="color = strColor;">_________________</span></div>
+                <div class="pl-8 mb-1">}</div>
                 <br>
-                &nbsp;&nbsp;<span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">toString</span>() {<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="blank-highlight">_________________________________________________________________</span><br>
-                &nbsp;&nbsp;}<br>
-                }
+                <div class="pl-8 mb-1"><span class="java-keyword">public</span> <span class="java-type">String</span> <span class="java-method">toString</span>() {</div>
+                <div class="pl-16 mb-1"><span class="blank-highlight empty" data-qid="q621" data-ans='return "Fan: radius=" + radius + ", color=" + color;'>__________________________________________________</span></div>
+                <div class="pl-8 mb-1">}</div>
+                <div class="mb-1">}</div>
             </div>
         </section>
 
-        <!-- Q6.2.2 Section -->
-        <section class="mb-12">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.2</span>
-                <h2 class="text-xl font-semibold">Testing the Fan Class</h2>
-            </div>
-            
-            <div class="question-card rounded-xl p-6 shadow-lg space-y-6">
-                <p class="text-slate-300 leading-relaxed">
-                    Write a client program to test the Fan class: create a Fan object and set its radius as 10 and color as "yellow". Describe the object by invoking its toString() method.
-                </p>
+        <section class="mb-16">
+            <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-emerald-600 to-emerald-700 text-white rounded-xl font-bold text-xl shadow-xl">2</div>
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">Testing the Fan Class</h2>
+                        <p class="text-slate-500 text-sm">Module Q6.2.2</p>
+                    </div>
+                </div>
                 
-                <div class="space-y-4">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span>Your Fan object name is:</span>
-                        <span class="blank-highlight">________________</span>
-                    </div>
-                    
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span>The object creation statement is:</span>
-                        <span class="blank-highlight">_______________________________________</span>
-                    </div>
-                    
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span>The statement to assign new radius to your Fan object is:</span>
-                        <span class="blank-highlight">_______________________________________</span>
+                <div class="unlock-group" id="group-q622">
+                    <input type="password" placeholder="Passcode" class="unlock-input" id="input-q622" onkeypress="handleEnter(event, 'q622')">
+                    <button onclick="unlockByInput('q622')" class="unlock-btn bg-emerald-600 hover:bg-emerald-500">Unlock Answers</button>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-8 shadow-xl backdrop-blur-sm">
+                <p class="text-slate-200 leading-relaxed mb-10 text-lg italic border-l-4 border-emerald-500 pl-6 py-2">
+                    "Write a client program to test the Fan class: create a Fan object and set its radius as 10 and color as 'yellow'. Describe the object by invoking its toString() method."
+                </p>
+
+                <div class="grid gap-8">
+                    <div class="flex flex-wrap items-center gap-4 text-lg">
+                        <span class="text-slate-400">1. Your Fan object name is:</span>
+                        <span class="blank-highlight empty" data-qid="q622" data-ans="fan1">________________</span>
                     </div>
 
-                    <div class="pt-4 border-t border-slate-700">
-                        <p class="mb-2 text-sm text-blue-400 uppercase tracking-wider font-bold">Analysis</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 bg-slate-900/50 rounded-lg">
-                                <p class="text-sm text-slate-400 mb-1">setColor input/output?</p>
-                                <span class="blank-highlight w-full block">__________________________________</span>
-                            </div>
-                            <div class="p-4 bg-slate-900/50 rounded-lg">
-                                <p class="text-sm text-slate-400 mb-1">toString input/output?</p>
-                                <span class="blank-highlight w-full block">__________________________________</span>
-                            </div>
+                    <div class="flex flex-wrap items-center gap-4 text-lg">
+                        <span class="text-slate-400">2. The object creation statement is:</span>
+                        <span class="blank-highlight empty" data-qid="q622" data-ans="Fan fan1 = new Fan();">_______________________________________</span>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-4 text-lg">
+                        <span class="text-slate-400">3. The statement to assign new radius is:</span>
+                        <span class="blank-highlight empty" data-qid="q622" data-ans="fan1.setRadius(10);">_______________________________________</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-8 mt-4 border-t border-slate-700/50">
+                        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/30">
+                            <label class="block text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3">setColor Signature</label>
+                            <span class="blank-highlight empty w-full block py-2" data-qid="q622" data-ans="Input: String, Output: void">____________________________</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/30">
+                            <label class="block text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3">toString Signature</label>
+                            <span class="blank-highlight empty w-full block py-2" data-qid="q622" data-ans="Input: none, Output: String">____________________________</span>
+                        </div>
+                        <div class="md:col-span-2 bg-slate-900/60 p-5 rounded-xl border border-slate-700/30">
+                            <label class="block text-emerald-400 text-xs font-bold uppercase tracking-widest mb-3">What’s the difference of calling set vs toString?</label>
+                            <span class="blank-highlight empty w-full block py-3 text-left px-4" data-qid="q622" data-ans="Set methods are mutators that change the internal state, whereas toString is an accessor that returns a textual summary of that state.">__________________________________________________________________________________________________________________________________________________</span>
                         </div>
                     </div>
-
-                    <div class="p-4 bg-slate-900/50 rounded-lg">
-                        <p class="text-sm text-slate-400 mb-1">What’s the difference of calling the set method and toString method? Why?</p>
-                        <span class="blank-highlight w-full block h-12">__________________________________________________________________________________________________________________________________________________</span>
-                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Q6.2.3 Section -->
-        <section class="mb-12">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.3</span>
-                <h2 class="text-xl font-semibold">Expanding Constructors</h2>
-            </div>
-            
-            <div class="question-card rounded-xl p-6 shadow-lg">
-                <p class="text-slate-300 mb-6 italic">Add a constructor to initialize the fan color through its parameter.</p>
+        <section class="mb-16">
+            <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white rounded-xl font-bold text-xl shadow-xl">3</div>
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">Expanding Constructors</h2>
+                        <p class="text-slate-500 text-sm">Module Q6.2.3</p>
+                    </div>
+                </div>
                 
-                <div class="space-y-4">
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span>The number of constructors in template class Fan now is:</span>
-                        <span class="blank-highlight">_________</span>
-                    </div>
-                    
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span>What’s the purpose of newly designed constructor?</span>
-                        <span class="blank-highlight block w-full">_________________________________________________________________________________</span>
-                    </div>
+                <div class="unlock-group" id="group-q623">
+                    <input type="password" placeholder="Passcode" class="unlock-input" id="input-q623" onkeypress="handleEnter(event, 'q623')">
+                    <button onclick="unlockByInput('q623')" class="unlock-btn bg-indigo-600 hover:bg-indigo-500">Unlock Answers</button>
+                </div>
+            </div>
+
+            <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-8 shadow-xl">
+                <div class="flex flex-wrap items-center gap-6 text-xl mb-10">
+                    <span class="text-slate-200">The number of constructors in template class Fan now is:</span>
+                    <span class="blank-highlight empty px-8" data-qid="q623" data-ans="2">_____</span>
+                </div>
+                
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/30 border-l-4 border-l-indigo-500">
+                    <label class="block text-indigo-400 text-xs font-bold uppercase tracking-widest mb-3">Purpose of the newly designed constructor?</label>
+                    <span class="blank-highlight empty w-full block py-4 text-left px-6" data-qid="q623" data-ans="To provide flexibility by allowing users to specify a Fan color at the exact moment of creation.">__________________________________________________________________________________________________________________</span>
                 </div>
             </div>
         </section>
 
-        <!-- Q6.2.4 Section -->
-        <section class="mb-12 pb-20">
-            <div class="flex items-center gap-3 mb-4">
-                <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">Q6.2.4</span>
-                <h2 class="text-xl font-semibold">Comparison & Observation</h2>
+        <section class="mb-24 pb-20">
+            <div class="flex flex-wrap items-center justify-between gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-600 to-purple-700 text-white rounded-xl font-bold text-xl shadow-xl">4</div>
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight">Comparison & Observation</h2>
+                        <p class="text-slate-500 text-sm">Module Q6.2.4</p>
+                    </div>
+                </div>
+                
+                <div class="unlock-group" id="group-q624">
+                    <input type="password" placeholder="Passcode" class="unlock-input" id="input-q624" onkeypress="handleEnter(event, 'q624')">
+                    <button onclick="unlockByInput('q624')" class="unlock-btn bg-purple-600 hover:bg-purple-500">Unlock Answers</button>
+                </div>
             </div>
-            
-            <div class="question-card rounded-xl p-6 shadow-lg">
-                <div class="space-y-6">
-                    <div class="p-4 bg-slate-900/50 rounded-lg border-l-4 border-emerald-500">
-                        <p class="text-sm font-medium text-emerald-400 mb-2">Scenario: Create another object with the new constructor and call toString().</p>
-                        <p class="text-slate-300 text-sm mb-3">What are the property value’s differences between the two Fan objects? Why?</p>
-                        <span class="blank-highlight block w-full h-12">__________________________________________________________________________________________________________________________________________________</span>
-                    </div>
 
-                    <div class="p-4 bg-slate-900/50 rounded-lg border-l-4 border-blue-500">
-                        <p class="text-sm font-medium text-blue-400 mb-2">Scenario: Call set methods on the new object, then toString() again.</p>
-                        <p class="text-slate-300 text-sm mb-3">What are the changes of the two object properties' values?</p>
-                        <span class="blank-highlight block w-full h-12">__________________________________________________________________________________________________________________________________________________</span>
-                    </div>
+            <div class="grid gap-8">
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-8 shadow-xl border-t-4 border-t-emerald-500">
+                    <h4 class="text-emerald-400 font-bold text-sm uppercase tracking-widest mb-3">Scenario A: Default vs Custom State</h4>
+                    <p class="text-slate-300 mb-4 text-lg">What are the property value differences between the two Fan objects?</p>
+                    <span class="blank-highlight empty w-full block py-4 text-left px-6" data-qid="q624" data-ans="Both share the same radius (5.0), but their colors are distinct: 'white' for the default and the specific parameter for the new one.">__________________________________________________________________________________________________________________________________________________</span>
+                </div>
+
+                <div class="bg-slate-800/40 border border-slate-700/50 rounded-2xl p-8 shadow-xl border-t-4 border-t-blue-500">
+                    <h4 class="text-blue-400 font-bold text-sm uppercase tracking-widest mb-3">Scenario B: Object Independence</h4>
+                    <p class="text-slate-300 mb-4 text-lg">What are the changes of the two object properties' values after calling setters on one?</p>
+                    <span class="blank-highlight empty w-full block py-4 text-left px-6" data-qid="q624" data-ans="Only the object that received the method call changes. This demonstrates that instances encapsulate their own unique data independently.">__________________________________________________________________________________________________________________________________________________</span>
                 </div>
             </div>
         </section>
     </div>
 
-    <!-- Simple Interactivity Script -->
     <script>
-        // Make the blanks editable for user interaction
-        document.querySelectorAll('.blank-highlight').forEach(blank => {
-            blank.setAttribute('contenteditable', 'true');
-            blank.addEventListener('focus', function() {
-                if(this.innerText.includes('___')) {
-                    this.innerText = '';
-                }
+        /**
+         * STREAMING_CHUNK:Verifying passcode using ASCII codes...
+         * Target: "oop2" -> [111, 111, 112, 50]
+         */
+        function checkPasscode(input) {
+            if (!input) return false;
+            const target = [111, 111, 112, 50]; 
+            if (input.length !== target.length) return false;
+            
+            for (let i = 0; i < input.length; i++) {
+                if (input.charCodeAt(i) !== target[i]) return false;
+            }
+            return true;
+        }
+
+        /**
+         * STREAMING_CHUNK:Handling inline unlock events...
+         */
+        function unlockByInput(qid) {
+            const inputField = document.getElementById(`input-${qid}`);
+            const pass = inputField.value;
+
+            if (checkPasscode(pass)) {
+                revealAnswers(qid);
+                hideUnlockUI(qid);
+            } else {
+                triggerErrorShake(qid);
+            }
+        }
+
+        function handleEnter(event, qid) {
+            if (event.key === 'Enter') {
+                unlockByInput(qid);
+            }
+        }
+
+        /**
+         * STREAMING_CHUNK:Applying visual animations on unlock...
+         */
+        function revealAnswers(qid) {
+            const blanks = document.querySelectorAll(`.blank-highlight[data-qid="${qid}"]`);
+            blanks.forEach(blank => {
+                const answer = blank.getAttribute('data-ans');
+                
+                // Add a small delay for cascading effect if multiple
+                setTimeout(() => {
+                    blank.textContent = answer;
+                    blank.classList.remove('empty');
+                    blank.style.transform = "scale(1.05)";
+                    blank.style.backgroundColor = "#4ade80"; // Bright green for success
+                    blank.style.color = "#064e3b";
+
+                    setTimeout(() => {
+                        blank.style.transform = "scale(1)";
+                        blank.style.backgroundColor = "var(--highlight-bg)";
+                        blank.style.color = "var(--highlight-text)";
+                    }, 500);
+                }, 50);
             });
-            blank.addEventListener('blur', function() {
-                if(this.innerText.trim() === '') {
-                    this.innerText = '_________________________________';
-                }
-            });
-        });
+        }
+
+        function hideUnlockUI(qid) {
+            const group = document.getElementById(`group-${qid}`);
+            group.innerHTML = `
+                <div class="flex items-center gap-2 text-emerald-400 px-4 py-2 font-bold text-sm bg-emerald-500/10 rounded-lg border border-emerald-500/20">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Unlocked
+                </div>
+            `;
+        }
+
+        function triggerErrorShake(qid) {
+            const group = document.getElementById(`group-${qid}`);
+            const input = document.getElementById(`input-${qid}`);
+            
+            group.classList.add('border-red-500', 'bg-red-500/10');
+            input.value = '';
+            
+            // CSS Animation could be added, but simpler logic here
+            setTimeout(() => {
+                group.classList.remove('border-red-500', 'bg-red-500/10');
+            }, 800);
+        }
     </script>
 </body>
 </html>
