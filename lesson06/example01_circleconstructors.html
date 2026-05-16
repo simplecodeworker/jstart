@@ -134,7 +134,6 @@
                 <div class="code-container p-6 overflow-x-auto">
                     <pre class="text-sm md:text-base leading-relaxed text-slate-300">
 <span class="keyword">package</span> oop6TestCircleWithConstructors;
-<span class="keyword">import</span> java.util.Scanner;
 
 <span class="keyword">public class</span> <span class="class-name">TestCircleWithConstructors</span> {
   <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
@@ -143,7 +142,9 @@
     <span class="comment">// 1. Create a Circle with radius 8.0</span>
     <span class="class-name">CircleWithConstructors</span> <span class="variable">myCircle</span> = 
         <span class="keyword">new</span> <span class="class-name">CircleWithConstructors</span>(<span class="number">8.0</span>);
-    
+
+    System.out.println(<span class="string">"myCircle Area: "</span> + <span class="variable">myCircle</span>.<span class="method">findArea</span>());
+                        
     <span class="comment">// 2. Create a Circle with default radius</span>
     <span class="class-name">CircleWithConstructors</span> <span class="variable">yourCircle</span> = 
         <span class="keyword">new</span> <span class="class-name">CircleWithConstructors</span>();
@@ -151,7 +152,7 @@
     <span class="comment">// 3. Modify circle radius</span>
     <span class="variable">yourCircle</span>.<span class="variable">radius</span> = <span class="number">100</span>;
 
-    System.out.println(<span class="string">"Area: "</span> + <span class="variable">yourCircle</span>.<span class="method">findArea</span>());
+    System.out.println(<span class="string">"yourCircle Area: "</span> + <span class="variable">yourCircle</span>.<span class="method">findArea</span>());
   }
 }</pre>
                 </div>
