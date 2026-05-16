@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Class with Constructors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        
+        .code-container {
+            background-color: #0f172a;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+            border: 1px solid #1e293b;
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #c678dd; }
+        .class-name { color: #e5c07b; }
+        .method { color: #61afef; }
+        .comment { color: #7f848e; font-style: italic; }
+        .string { color: #98c379; }
+        .number { color: #d19a66; }
+        .type { color: #56b6c2; }
+        .variable { color: #e06c75; }
+
+        .explanation-card {
+            border-left: 4px solid #6366f1;
+            transition: transform 0.3s ease;
+        }
+        
+        .explanation-card:hover {
+            transform: translateX(8px);
+        }
+
+        /* Line numbers for visual rhythm */
+        .line-numbers {
+            color: #4b5563;
+            text-align: right;
+            padding-right: 1rem;
+            user-select: none;
+            border-right: 1px solid #1e293b;
+            margin-right: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 leading-relaxed">
+
+    <header class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-5xl font-extrabold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+                Circle Class with Constructors
+            </h2>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-12 space-y-32">
+
+        <section>
+            <div class="mb-10">
+                <span class="inline-block px-4 py-1 rounded-full bg-blue-100 text-blue-700 font-bold text-sm mb-4 uppercase tracking-widest">Part 1</span>
+                <h2 class="text-4xl font-bold text-slate-800">The Blueprint: <span class="text-blue-600">The Class</span></h2>
+                <p class="text-slate-500 mt-2 text-lg">This code defines the "Idea" of a circle. It's not a specific circle yet—it's the set of rules for making one.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <!-- Full Code Block -->
+                <div class="code-container p-6 overflow-x-auto">
+                    <pre class="text-sm md:text-base leading-relaxed text-slate-300">
+<span class="keyword">package</span> oop6TestCircleWithConstructors;
+
+<span class="comment">// Define the Circle class with two constructors</span>
+<span class="keyword">class</span> <span class="class-name">CircleWithConstructors</span> {
+   <span class="type">double</span> <span class="variable">radius</span>;
+
+   <span class="comment">/** no-arg constructor */</span>
+   <span class="class-name">CircleWithConstructors</span>() {
+     <span class="variable">radius</span> = <span class="number">1.0</span>;
+   }
+
+   <span class="comment">/** Construct a circle with a specified radius */</span>
+   <span class="class-name">CircleWithConstructors</span>(<span class="type">double</span> <span class="variable">r</span>) {
+      <span class="variable">radius</span> = <span class="variable">r</span>;
+   }
+
+   <span class="comment">/** Return the area of this circle */</span>
+   <span class="type">double</span> <span class="method">findArea</span>() {
+     <span class="keyword">return</span> <span class="variable">radius</span> * <span class="variable">radius</span> * <span class="number">3.14159</span>;
+   }
+}</pre>
+                </div>
+
+                <!-- Linked Explanations -->
+                <div class="space-y-6">
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-blue-500">
+                        <h3 class="font-bold text-blue-800 text-lg mb-2">The Data Field (State)</h3>
+                        <p class="text-slate-600">The <code>double radius</code> variable is where every Circle object will store its size. In OOP, we call this the "State" of the object.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-indigo-500">
+                        <h3 class="font-bold text-indigo-800 text-lg mb-2">No-Arg Constructor</h3>
+                        <p class="text-slate-600">Think of this as the "Default Builder." If you don't provide a size, Java uses this to create a standard circle with a radius of <code>1.0</code>.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-purple-500">
+                        <h3 class="font-bold text-purple-800 text-lg mb-2">Parameterized Constructor</h3>
+                        <p class="text-slate-600">The "Custom Builder." It allows you to specify a value (<code>r</code>) at the exact moment the circle is born, setting the radius immediately.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-emerald-500">
+                        <h3 class="font-bold text-emerald-800 text-lg mb-2">The Method (Behavior)</h3>
+                        <p class="text-slate-600"><code>findArea()</code> is what the circle can *do*. It uses the circle's own <code>radius</code> to calculate and return the area.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="border-slate-200">
+
+        <section>
+            <div class="mb-10">
+                <span class="inline-block px-4 py-1 rounded-full bg-pink-100 text-pink-700 font-bold text-sm mb-4 uppercase tracking-widest">Part 2</span>
+                <h2 class="text-4xl font-bold text-slate-800">The Reality: <span class="text-pink-600">The Application</span></h2>
+                <p class="text-slate-500 mt-2 text-lg">This is the workshop where we actually use the blueprint to create living objects in memory.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+                <!-- Full Code Block -->
+                <div class="code-container p-6 overflow-x-auto">
+                    <pre class="text-sm md:text-base leading-relaxed text-slate-300">
+<span class="keyword">package</span> oop6TestCircleWithConstructors;
+<span class="keyword">import</span> java.util.Scanner;
+
+<span class="keyword">public class</span> <span class="class-name">TestCircleWithConstructors</span> {
+  <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {
+    <span class="class-name">Scanner</span> <span class="variable">s</span> = <span class="keyword">new</span> <span class="class-name">Scanner</span>(System.in); 
+
+    <span class="comment">// 1. Create a Circle with radius 8.0</span>
+    <span class="class-name">CircleWithConstructors</span> <span class="variable">myCircle</span> = 
+        <span class="keyword">new</span> <span class="class-name">CircleWithConstructors</span>(<span class="number">8.0</span>);
+    
+    <span class="comment">// 2. Create a Circle with default radius</span>
+    <span class="class-name">CircleWithConstructors</span> <span class="variable">yourCircle</span> = 
+        <span class="keyword">new</span> <span class="class-name">CircleWithConstructors</span>();
+
+    <span class="comment">// 3. Modify circle radius</span>
+    <span class="variable">yourCircle</span>.<span class="variable">radius</span> = <span class="number">100</span>;
+
+    System.out.println(<span class="string">"Area: "</span> + <span class="variable">yourCircle</span>.<span class="method">findArea</span>());
+  }
+}</pre>
+                </div>
+
+                <!-- Linked Explanations -->
+                <div class="space-y-6">
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-pink-500">
+                        <h3 class="font-bold text-pink-800 text-lg mb-2">Instantiating Objects</h3>
+                        <p class="text-slate-600">Using the keyword <code>new</code> is like saying "Execute the builder!" This allocates space in your computer's memory for a real object.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-amber-500">
+                        <h3 class="font-bold text-amber-800 text-lg mb-2">Two Distinct Lives</h3>
+                        <p class="text-slate-600"><code>myCircle</code> and <code>yourCircle</code> are completely separate. Changing the radius of one does <strong>not</strong> change the other.</p>
+                    </div>
+
+                    <div class="explanation-card bg-white p-6 rounded-xl shadow-sm border-cyan-500">
+                        <h3 class="font-bold text-cyan-800 text-lg mb-2">The Dot Operator</h3>
+                        <p class="text-slate-600">The <code>.</code> is how we reach inside an object. <code>yourCircle.radius</code> allows us to access or change the specific data stored inside that object.</p>
+                    </div>
+
+                    <!-- Hands On Box -->
+                    <div class="bg-slate-900 rounded-2xl p-8 text-white mt-8 shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                        </div>
+                        <h4 class="text-xl font-bold text-blue-400 mb-2">🔥 Hands-on Challenge</h4>
+                        <p class="text-slate-400 text-sm mb-4 leading-relaxed">
+                            Think about this: If you create <code>CircleWithConstructors herCircle = new CircleWithConstructors(5.0);</code>, which constructor is being called?
+                        </p>
+                        <div class="bg-slate-800 rounded-lg p-4 font-mono text-xs text-blue-200">
+                            // Hint: Look at the parameter inside the parentheses.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-100 border-t border-slate-200 py-16 px-6 mt-20">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">Summary</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <span class="text-3xl mb-2 block">🏗️</span>
+                    <h3 class="font-bold text-slate-800">The Class</h3>
+                    <p class="text-slate-500 text-sm">The "Recipe" or "Blueprint". It defines variables and methods but holds no actual data for a specific user.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <span class="text-3xl mb-2 block">🍕</span>
+                    <h3 class="font-bold text-slate-800">The Object</h3>
+                    <p class="text-slate-500 text-sm">The "Instance" or "The Meal". It is the actual entity created in memory using the recipe.</p>
+                </div>
+            </div>
+            <p class="mt-12 text-slate-400 text-sm italic">Designed for Java Beginners &bull; 2024 Object-Oriented Fundamentals</p>
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .explanation-card').forEach(el => {
+            el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
