@@ -103,10 +103,10 @@
                 explanation: "Local variables must be initialized before they are accessed; unlike instance variables, they don't get default values."
             },
             {
-                question: "What is the output of 'System.out.println(0.1 + 0.2 == 0.3);'?",
-                options: ["true", "false", "Compile Error", "Runtime Exception"],
+                question: "What is the output of 'System.out.println((char)('A' + 1));'?",
+                options: ["66", "B", "A1", "Compile error"],
                 correct: 1,
-                explanation: "Due to floating-point precision (binary representation of decimals), 0.1 + 0.2 actually equals 0.30000000000000004."
+                explanation: "Arithmetic with 'char' promotes the values to 'int' (65 + 1 = 66). Casting the result back to 'char' yields the character 'B'."
             },
             {
                 question: "In the code 'int x = 5; { int x = 10; }', what happens?",
