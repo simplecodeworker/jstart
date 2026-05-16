@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fill In the Codes - Q6.1</title>
+    <title>Fill In the Codes - Q6.1 (Granular Unlock)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,19 +42,16 @@
         .string { color: #98c379; }
         .comment { color: #7f848e; font-style: italic; }
         
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .question-card {
+            background-color: rgba(30, 41, 59, 0.5);
+            border: 1px solid #334155;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            position: relative;
+            transition: all 0.3s ease;
         }
-        ::-webkit-scrollbar-track {
-            background: #0f172a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #475569;
+        .question-card:hover {
+            border-color: #475569;
         }
     </style>
 </head>
@@ -64,19 +61,23 @@
         <h1 class="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-2">
             Fill In the Codes
         </h1>
-        <p class="text-slate-400">Complete the Java implementation for the Die and GambleNum classes.</p>
+        <p class="text-slate-400">Complete the Java implementation. Use "oop2" to unlock individual answers.</p>
     </header>
 
-    <main class="max-w-4xl mx-auto space-y-8">
+    <main class="max-w-4xl mx-auto space-y-8 pb-20">
         
-        <section class="code-container rounded-xl p-6 shadow-2xl overflow-hidden">
+        <section class="code-container rounded-xl p-6 shadow-2xl overflow-hidden relative">
             <div class="flex items-center justify-between mb-4 border-b border-slate-700 pb-4">
                 <div class="flex space-x-2">
                     <div class="w-3 h-3 rounded-full bg-red-500"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
                     <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-xs font-mono text-slate-500 ml-2">Die.java & GambleNum.java</span>
                 </div>
-                <span class="text-xs font-mono text-slate-500">Java Implementation</span>
+                <div class="flex items-center space-x-2">
+                    <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-20 outline-none focus:border-yellow-500">
+                    <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock Code</button>
+                </div>
             </div>
 
             <div class="code-font text-sm sm:text-base leading-relaxed overflow-x-auto whitespace-pre">
@@ -100,128 +101,194 @@
         <section class="space-y-6">
             <h2 class="text-2xl font-bold text-slate-200 border-l-4 border-yellow-500 pl-4">Analysis Questions</h2>
             
-            <div class="grid grid-cols-1 gap-6">
-                <!-- Question Block 1 -->
-                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                    <label class="block text-sm font-medium text-slate-400 mb-3">1. Run your GambleNum class, what’s your “lucky” number?</label>
-                    <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 focus:ring-2 focus:ring-yellow-500 outline-none transition-all" placeholder="Enter number...">
-                </div>
-
-                <!-- Question Block 2 -->
-                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                    <label class="block text-sm font-medium text-slate-400 mb-3">2. Run it again, is it the same as last one? Why?</label>
-                    <div class="flex flex-col space-y-3">
+            <div class="grid grid-cols-1 gap-4">
+                
+                <!-- Question 1 -->
+                <div class="question-card">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                        <label class="text-sm font-medium text-slate-400">1. What's your “lucky” number range?</label>
                         <div class="flex items-center space-x-2">
-                            <span class="text-slate-300">Is it the same?</span>
-                            <input type="text" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Yes/No">
+                            <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
                         </div>
-                        <div class="flex flex-col space-y-2">
-                            <span class="text-slate-300">Why?</span>
-                            <textarea class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500" rows="2" placeholder="Explain the randomness..."></textarea>
+                    </div>
+                    <input type="text" data-answer="1 to 6" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none" placeholder="Range...">
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-card">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+                        <label class="text-sm font-medium text-slate-400">2. Is it always the same? Why?</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                        </div>
+                    </div>
+                    <textarea data-answer="No, Math.random() generates a pseudo-random value each time." class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none" rows="2" placeholder="Explanation..."></textarea>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="text-sm font-medium text-slate-400">3. Is there a constructor in Die?</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                        </div>
+                    </div>
+                    <input type="text" data-answer="No (Java uses a default constructor)" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none" placeholder="Answer...">
+                </div>
+
+                <!-- Question 4 -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="text-sm font-medium text-slate-400">4. Name of object created from Die?</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                        </div>
+                    </div>
+                    <input type="text" data-answer="myDie" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none font-mono" placeholder="Object name...">
+                </div>
+
+                <!-- Question 5 -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center mb-4">
+                        <label class="text-sm font-medium text-slate-400">5. Creation statement for the object?</label>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Pass..." class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                        </div>
+                    </div>
+                    <input type="text" data-answer="Die myDie = new Die();" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none font-mono" placeholder="Code...">
+                </div>
+
+                <h3 class="text-lg font-bold text-yellow-500 pt-4">Method Details (roll)</h3>
+
+                <!-- Sub-question: Params count -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-400">Number of input parameters?</span>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Key" class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                            <input type="text" data-answer="0" class="w-16 bg-slate-900 border border-slate-700 rounded p-1 text-center text-yellow-100 outline-none ml-4" placeholder="?">
                         </div>
                     </div>
                 </div>
 
-                <!-- Question Block 3 -->
-                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">3. Is there any constructor in template class Die?</label>
-                            <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Your answer...">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">4. What’s the name of object created from Die class?</label>
-                            <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Variable name...">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">5. The statement for creating the object is:</label>
-                            <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none font-mono focus:ring-2 focus:ring-yellow-500" placeholder="Write the code line...">
+                <!-- Sub-question: Param types -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-400">Data type of parameters?</span>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Key" class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                            <input type="text" data-answer="None" class="w-24 bg-slate-900 border border-slate-700 rounded p-1 text-center text-yellow-100 outline-none ml-4" placeholder="Type...">
                         </div>
                     </div>
                 </div>
 
-                <!-- Question Block 4: Method Details -->
-                <div class="bg-slate-800/50 p-6 rounded-xl border border-slate-700">
-                    <h3 class="text-sm font-bold text-yellow-500 uppercase tracking-wider mb-4">For the roll method in Die class:</h3>
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between">
-                            <span class="text-slate-300">How many input parameters are required?</span>
-                            <input type="text" class="w-24 bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-slate-300">What is the data type for each parameter?</span>
-                            <input type="text" class="w-48 bg-slate-900 border border-slate-700 rounded-lg p-2 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500">
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <span class="text-slate-300">What’s the return value data type?</span>
-                            <input type="text" class="w-48 bg-slate-900 border border-slate-700 rounded-lg p-2 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-400 mb-2">How the method roll is called in testing class GambleNum?</label>
-                            <input type="text" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none focus:ring-2 focus:ring-yellow-500" placeholder="Method call syntax...">
+                <!-- Sub-question: Return type -->
+                <div class="question-card">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-slate-400">Return value data type?</span>
+                        <div class="flex items-center space-x-2">
+                            <input type="password" placeholder="Key" class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                            <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                            <input type="text" data-answer="int" class="w-24 bg-slate-900 border border-slate-700 rounded p-1 text-center text-yellow-100 outline-none ml-4 font-mono" placeholder="Type...">
                         </div>
                     </div>
                 </div>
+
+                <!-- Sub-question: Call syntax -->
+                <div class="question-card">
+                    <div class="flex flex-col gap-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-400">How is roll called in GambleNum?</span>
+                            <div class="flex items-center space-x-2">
+                                <input type="password" placeholder="Key" class="sec-key bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 w-16 outline-none focus:border-yellow-500">
+                                <button onclick="unlockThis(this)" class="bg-slate-700 hover:bg-yellow-600 text-white text-[10px] px-2 py-1 rounded">Unlock</button>
+                            </div>
+                        </div>
+                        <input type="text" data-answer="myDie.roll()" class="w-full bg-slate-900 border border-slate-700 rounded-lg p-3 text-yellow-100 outline-none font-mono" placeholder="Syntax...">
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <div class="flex justify-center pt-6 pb-12">
-            <button onclick="checkAnswers()" class="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-400 hover:to-orange-500 text-slate-900 font-bold py-3 px-8 rounded-full shadow-lg transform transition active:scale-95">
-                Check Code Answers
-            </button>
-        </div>
-
-        <!-- Notification Toast -->
         <div id="toast" class="fixed bottom-8 right-8 bg-slate-800 border border-slate-700 text-white px-6 py-4 rounded-xl shadow-2xl opacity-0 translate-y-10 transition-all duration-300 z-50 pointer-events-none">
             <p id="toast-msg"></p>
         </div>
     </main>
 
     <script>
-        function checkAnswers() {
-            const inputs = document.querySelectorAll('.blank-input');
-            let correctCount = 0;
-            
-            inputs.forEach(input => {
-                const answer = input.getAttribute('data-answer');
-                const userVal = input.value.trim();
-                
-                if (userVal.toLowerCase() === answer.toLowerCase()) {
-                    input.classList.remove('bg-yellow-200', 'text-yellow-900', 'bg-red-400', 'text-red-900');
-                    input.classList.add('bg-green-400', 'text-green-900');
-                    correctCount++;
-                } else {
-                    input.classList.remove('bg-yellow-200', 'text-yellow-900', 'bg-green-400', 'text-green-900');
-                    input.classList.add('bg-red-400', 'text-red-900');
-                }
-            });
+        // ASCII codes for "oop2": 111, 111, 112, 50
+        const SEC_HASH = [111, 111, 112, 50];
 
-            showToast(correctCount === inputs.length ? "Excellent! All code blanks are correct." : `You got ${correctCount}/${inputs.length} correct. Try again!`);
+        function verify(input) {
+            if (input.length !== SEC_HASH.length) return false;
+            for (let i = 0; i < SEC_HASH.length; i++) {
+                if (input.charCodeAt(i) !== SEC_HASH[i]) return false;
+            }
+            return true;
         }
 
-        function showToast(message) {
+        function unlockThis(btn) {
+            // Find the closest parent that acts as a container for this specific question/block
+            const container = btn.closest('.question-card') || btn.closest('.code-container');
+            const passField = container.querySelector('.sec-key');
+            
+            if (verify(passField.value)) {
+                // Find all answer fields within this specific container only
+                const fields = container.querySelectorAll('[data-answer]');
+                fields.forEach(field => {
+                    field.value = field.getAttribute('data-answer');
+                    field.classList.add('ring-2', 'ring-green-500/50', 'border-green-500');
+                    
+                    // Specific logic for code blanks resizing
+                    if (field.classList.contains('blank-input')) {
+                        field.style.width = ((field.value.length + 1) * 9) + 'px';
+                    }
+                });
+                
+                showToast("Correct! Answer revealed.", "success");
+                passField.value = "";
+                passField.disabled = true; // Lock the pass field once successful
+                btn.disabled = true;
+                btn.classList.add('opacity-50');
+            } else {
+                showToast("Invalid key.", "error");
+                passField.classList.add('border-red-500');
+                setTimeout(() => passField.classList.remove('border-red-500'), 1000);
+            }
+        }
+
+        function showToast(message, type) {
             const toast = document.getElementById('toast');
             const msg = document.getElementById('toast-msg');
             msg.textContent = message;
+            
+            toast.className = "fixed bottom-8 right-8 bg-slate-800 border text-white px-6 py-4 rounded-xl shadow-2xl transition-all duration-300 z-50 pointer-events-none";
+            if (type === "error") toast.classList.add('border-red-500');
+            else if (type === "success") toast.classList.add('border-green-500');
+            else toast.classList.add('border-slate-700');
+
             toast.classList.remove('opacity-0', 'translate-y-10');
             toast.classList.add('opacity-100', 'translate-y-0');
 
             setTimeout(() => {
                 toast.classList.add('opacity-0', 'translate-y-10');
                 toast.classList.remove('opacity-100', 'translate-y-0');
-            }, 3000);
+            }, 2500);
         }
 
-        // Auto-resize inputs for a better feel
         document.querySelectorAll('.blank-input').forEach(input => {
             input.addEventListener('input', function() {
-                this.style.width = ((this.value.length + 1) * 8) + 'px';
+                this.style.width = ((this.value.length + 1) * 9) + 'px';
             });
         });
-
-        window.onload = () => {
-            console.log("App loaded. Ready for interactive learning.");
-        }
     </script>
 </body>
 </html>
