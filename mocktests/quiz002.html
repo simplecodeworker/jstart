@@ -93,10 +93,10 @@
                 explanation: "Java evaluates from left to right; the integers are added first (30) before being concatenated with the String."
             },
             {
-                question: "Which of the following will cause a compile-time error?",
-                options: ["int _ = 5;", "int $x = 10;", "int #val = 20;", "int first_name = 1;"],
-                correct: 2,
-                explanation: "Identifiers cannot contain special characters like '#'—only letters, numbers, '$', and '_' are allowed."
+                question: "What is the output of 'System.out.println('A' + 'B');' in Java?",
+                options: ["AB", "131", "6566", "Compiler Error"],
+                correct: 1,
+                explanation: "When using the arithmetic '+' operator on 'char' data types, Java promotes them to integers using their ASCII values ('A' is 65 and 'B' is 66). Therefore, 65 + 66 equals 131."
             },
             {
                 question: "If a byte variable 'b' is 127, what is the result of 'b++' in Java?",
@@ -135,7 +135,7 @@
                 explanation: "A labeled break (e.g., 'break outer;') allows you to exit specific nested loops directly."
             },
             {
-                question: "What is the output of 'System.out.printf(\"%05d\", 42);'?",
+                question: "What is the output of 'System.out.println(String.format(\"%05d\", 42));' (equivalent to printf)?",
                 options: ["42", "00042", "42000", " 42"],
                 correct: 1,
                 explanation: "The '%05d' flag pads the number with leading zeros until the total width reaches 5 characters."
