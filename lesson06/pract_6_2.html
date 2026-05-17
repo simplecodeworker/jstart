@@ -280,11 +280,11 @@
     <script>
         /**
          * STREAMING_CHUNK:Verifying passcode using ASCII codes...
-         * Target: "oop2" -> [111, 111, 112, 50]
+         * Target: "oo" -> [111, 111]
          */
         function checkPasscode(input) {
             if (!input) return false;
-            const target = [111, 111, 112, 50]; 
+            const target = [111, 111]; 
             if (input.length !== target.length) return false;
             
             for (let i = 0; i < input.length; i++) {
