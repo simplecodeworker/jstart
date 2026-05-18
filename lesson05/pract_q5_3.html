@@ -68,7 +68,7 @@
         isValid = <span class="keyword">true</span>;
     } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
         System.out.println(<span class="string">"Error: Please enter an integer!"</span>);
-        input.next(); <span class="comment">// WATCH OUT! Clear the buffer</span>
+        input.nextLine(); <span class="comment">// WATCH OUT! Clear the scanner buffer; start over</span>
     } <span class="keyword">catch</span> (<span class="type">Exception</span> e) {
         System.out.println(<span class="string">"Error: Size must be positive!"</span>);
     }
@@ -83,7 +83,7 @@
                     Beginner Alert: The Scanner Trap
                 </h4>
                 <p class="text-amber-900 text-sm">
-                    When <code class="bg-amber-100 px-1 rounded">nextInt()</code> fails due to a mismatch, the "bad" input stays in the buffer. If you don't call <code class="bg-amber-100 px-1 rounded">input.next()</code> in the catch block, your loop will run infinitely!
+                    When <code class="bg-amber-100 px-1 rounded">nextInt()</code> fails due to a mismatch, the "bad" input stays in the buffer. If you don't call <code class="bg-amber-100 px-1 rounded">input.nextLine()</code> in the catch block, your loop will run infinitely!
                 </p>
             </div>
         </section>
@@ -126,7 +126,7 @@
             inputOk = <span class="keyword">true</span>;
         } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
             System.out.println(<span class="string">"Invalid input. Please enter a double."</span>);
-            input.next(); <span class="comment">// Clear buffer again!</span>
+            input.nextLine(); <span class="comment">// Clear buffer again!</span>
         }
     }
 }</code></pre>
@@ -186,7 +186,7 @@ System.out.println(<span class="string">"The average is: "</span> + result);</co
                 System.out.println(<span class="string">"Size must be positive."</span>);
             } <span class="keyword">catch</span> (<span class="type">InputMismatchException</span> e) {
                 System.out.println(<span class="string">"Invalid integer input!"</span>);
-                sc.next();
+                sc.nextLine();
             }
         }
 
@@ -202,7 +202,7 @@ System.out.println(<span class="string">"The average is: "</span> + result);</co
                     <span class="keyword">break</span>;
                 } <span class="keyword">catch</span> (InputMismatchException e) {
                     System.out.println(<span class="string">"Input must be a decimal value."</span>);
-                    sc.next();
+                    sc.nextLine();
                 }
             }
         }
