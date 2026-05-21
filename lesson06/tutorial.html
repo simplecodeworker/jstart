@@ -82,14 +82,14 @@
             },
             {
                 id: 3,
-                text: "3. Write a program that declares a class named Person. It has public instance variables to record name as a single character and age as an integer. Write a test program to create an object myPerson, assign name and age as 'X' and 16 respectively, then print out the info.",
+                text: "3. Write a program that declares a class named Person. It has public instance variables to record name as a String and age as an integer. Write a test program to create an object myPerson, assign name and age as 'X' and 16 respectively, then print out the info.",
                 expectedOutput: "myPerson's name is 'X'\nmyPerson's age is 16",
-                answer: `class Person {\n    public char name;\n    public int age;\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person();\n        myPerson.name = 'X';\n        myPerson.age = 16;\n        System.out.println("myPerson's name is '" + myPerson.name + "'");\n        System.out.println("myPerson's age is " + myPerson.age);\n    }\n}`
+                answer: `class Person {\n    public String name;\n    public int age;\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person();\n        myPerson.name = 'X';\n        myPerson.age = 16;\n        System.out.println("myPerson's name is '" + myPerson.name + "'");\n        System.out.println("myPerson's age is " + myPerson.age);\n    }\n}`
             },
             {
                 id: 4,
                 text: "4. Add a constructor to Person class of the Question 3 to initialize name and age. Change the two variables as private. Add get methods to return variables' value.",
-                answer: `class Person {\n    private char name;\n    private int age;\n\n    public Person(char n, int a) {\n        this.name = n;\n        this.age = a;\n    }\n\n    public char getName() { return name; }\n    public int getAge() { return age; }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person('X', 16);\n        System.out.println("myPerson's name is '" + myPerson.getName() + "'");\n        System.out.println("myPerson's age is " + myPerson.getAge());\n    }\n}`
+                answer: `class Person {\n    private String name;\n    private int age;\n\n    public Person(String n, int a) {\n        this.name = n;\n        this.age = a;\n    }\n\n    public String getName() { return name; }\n    public int getAge() { return age; }\n}\n\npublic class Main {\n    public static void main(String[] args) {\n        Person myPerson = new Person('X', 16);\n        System.out.println("myPerson's name is '" + myPerson.getName() + "'");\n        System.out.println("myPerson's age is " + myPerson.getAge());\n    }\n}`
             },
             {
                 id: 5,
@@ -100,7 +100,7 @@
             {
                 id: 6,
                 text: "6. What is the expected output of the following program? What change is needed to get correct number of objects? Show the correct output.",
-                code: `public class TestHP {\n    public static void main (String args[]) {\n        Handphone h1 = new Handphone('a');\n        System.out.println(h1.imei +" "+Handphone.count+" Number of objects:"+h1.no0fobjects);\n\n        Handphone h2 = new Handphone ('b');\n        System.out.println(h2.imei +" " +Handphone.count+" Number of objects:"+h2.noofobjects);\n\n        Handphone h3 = new Handphone ('c');\n        System.out.println(h3.imei +" " +Handphone.count+" Number of objects:"+h3.no0fobjects);\n    }\n}\n\nclass Handphone {\n    static int count;\n    String imei;\n    int noofobjects = 0;\n\n    Handphone (char im) {\n        imei = im;\n        ++count;\n        ++noofobjects;\n    }\n}`,
+                code: `public class TestHP {\n    public static void main (String args[]) {\n        Handphone h1 = new Handphone('a');\n        System.out.println(h1.imei +" "+Handphone.count+" Number of objects:"+h1.no0fobjects);\n\n        Handphone h2 = new Handphone ('b');\n        System.out.println(h2.imei +" " +Handphone.count+" Number of objects:"+h2.noofobjects);\n\n        Handphone h3 = new Handphone ('c');\n        System.out.println(h3.imei +" " +Handphone.count+" Number of objects:"+h3.no0fobjects);\n    }\n}\n\nclass Handphone {\n    static int count;\n    String imei;\n    int noofobjects = 0;\n\n    Handphone (String im) {\n        imei = im;\n        ++count;\n        ++noofobjects;\n    }\n}`,
                 answer: `Expected Output (Incorrect count for noofobjects):\na 1 Number of objects:1\nb 2 Number of objects:1\nc 3 Number of objects:1\n\nCorrection Needed:\nThe variable 'noofobjects' should be declared as 'static'.\n\nCorrect Output after change:\na 1 Number of objects:1\nb 2 Number of objects:2\nc 3 Number of objects:3`
             },
             {
