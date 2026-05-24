@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Java: Static Methods & Variable Passing</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Custom animation pulses */
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .8; transform: scale(0.98); }
+        }
+        .pulse-element {
+            animation: pulse-soft 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Hero / Welcome Dashboard -->
+    <div class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-950 to-slate-950 border-b border-slate-800 pb-16 pt-12">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-25"></div>
+        <div class="max-w-6xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 text-xs font-semibold bg-indigo-500/10 text-indigo-400 rounded-full border border-indigo-500/20 uppercase tracking-wider">
+                Instructor-Led Interactive Guide
+            </span>
+            <h1 class="mt-4 text-4xl sm:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-white via-indigo-200 to-sky-400 bg-clip-text text-transparent">
+                Java Static Methods &amp; Parameters
+            </h1>
+            <p class="mt-4 text-lg text-slate-400 max-w-2xl mx-auto">
+                An immersive, sequential curriculum designed for beginners. Scroll down step-by-step to conduct lessons, run visual simulations, and complete checkpoint quizzes.
+            </p>
+
+            <!-- Table of Contents Dashboard -->
+            <div class="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-left max-w-5xl mx-auto">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition">
+                    <span class="text-xs text-indigo-400 font-mono font-bold block mb-1">SECTION 1 - 2</span>
+                    <a href="#section1" class="text-white hover:text-indigo-300 font-medium block">1. Intro to Static Methods</a>
+                    <a href="#section2" class="text-white hover:text-indigo-300 font-medium block mt-1">2. Static Scope &amp; Memory</a>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition">
+                    <span class="text-xs text-indigo-400 font-mono font-bold block mb-1">SECTION 3 - 4</span>
+                    <a href="#section3" class="text-white hover:text-indigo-300 font-medium block">3. Static Context Rules</a>
+                    <a href="#section4" class="text-white hover:text-indigo-300 font-medium block mt-1">4. Invalid Context Errors</a>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition">
+                    <span class="text-xs text-indigo-400 font-mono font-bold block mb-1">SECTION 5 - 6</span>
+                    <a href="#section5" class="text-white hover:text-indigo-300 font-medium block">5. Parameter Mechanisms</a>
+                    <a href="#section6" class="text-white hover:text-indigo-300 font-medium block mt-1">6. Passing Objects (Ref)</a>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition">
+                    <span class="text-xs text-indigo-400 font-mono font-bold block mb-1">SECTION 7</span>
+                    <a href="#section7" class="text-white hover:text-indigo-300 font-medium block">7. Passing Primitives (Val)</a>
+                    <span class="text-xs text-emerald-400 flex items-center mt-2 font-mono">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span> Live Simulators Included
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container (No Sticky Header to ensure clean, unrestricted presentation) -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- SECTION 1: INTRODUCTION TO STATIC METHODS -->
+        <section id="section1" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 1</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Introduction to Static Methods</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Instance vs. Static Context</span>
+                </div>
+            </div>
+
+            <!-- Content Description & Key Takeaway -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> The Core Concept
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        So far, every method you've written inside a class could only be run after building an actual object with the <code class="bg-slate-800 text-pink-400 px-1 py-0.5 rounded font-mono text-sm">new</code> keyword. But what if you need to run a task <strong class="text-indigo-300">before</strong> any objects exist?
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        Java provides <strong class="text-white">Static Methods</strong>. By adding the modifier word <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">static</code>, the method is bound directly to the class blueprint itself, rather than individual physical copies (objects).
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <h4 class="text-xs font-mono font-semibold text-indigo-400 mb-2">💡 Why is main() static?</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed font-mono">
+                            public static void main(String[] args)<br>
+                            The JVM must boot your code directly. If main wasn't static, Java would face a paradox: it would need to instantiate an object of your class just to find the start button!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Live Dynamic Code / Blueprint Visualization -->
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-cyan-500 rounded"></span> Code Blueprint &amp; Syntax
+                    </h3>
+                    
+                    <!-- Code Editor Box -->
+                    <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-400 font-mono">Java Sample</span>
+                            <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                        </div>
+                        <pre class="p-4 text-xs sm:text-sm font-mono text-indigo-200 overflow-x-auto"><code><span class="text-slate-500">// Calling a utility static method without creating an object first!</span>
+double result = <span class="text-cyan-400">Math</span>.<span class="text-emerald-400">sqrt</span>(<span class="text-amber-400">4.5</span>);
+System.out.println(result);</code></pre>
+                    </div>
+
+                    <!-- Highlight Box -->
+                    <div class="bg-gradient-to-r from-indigo-950/40 to-slate-900 p-4 rounded-xl border border-indigo-500/20">
+                        <p class="text-sm text-indigo-200">
+                            <strong>Key Takeaway:</strong> Use static methods when you need functionality that belongs to the class as a whole (like pure mathematical formulas) rather than to any specific instance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Static vs Instance Conceptualizer -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Simulator: Static vs. Instance Execution Path
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Toggle between the execution styles below to visualize how memory is assigned. Observe that static methods bypass the "Heap Object" block entirely.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Controls -->
+                    <div class="flex flex-col justify-center space-y-4">
+                        <button onclick="triggerSim1('static')" id="sim1-static-btn" class="w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 hover:bg-indigo-500/20 transition-all">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white text-base">Option A: Call Static Method</span>
+                                <span class="px-2 py-0.5 text-xs font-mono bg-indigo-500 text-white rounded">Math.sqrt(4.5)</span>
+                            </div>
+                            <p class="text-xs text-slate-300 mt-2">Invokes method directly through the Class container. No Object allocation needed.</p>
+                        </button>
+
+                        <button onclick="triggerSim1('instance')" id="sim1-instance-btn" class="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-all">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-slate-300 text-base">Option B: Call Instance Method</span>
+                                <span class="px-2 py-0.5 text-xs font-mono bg-slate-700 text-slate-300 rounded">new MyCalc().sqrt(4.5)</span>
+                            </div>
+                            <p class="text-xs text-slate-400 mt-2">Requires creating a full object on the heap before the CPU can route to the code.</p>
+                        </button>
+                    </div>
+
+                    <!-- Flowchart Graphic (Interactive SVG/HTML hybrid) -->
+                    <div class="relative bg-slate-900/80 p-6 rounded-xl border border-slate-800 flex flex-col justify-between min-h-[220px]">
+                        <!-- Step 1 -->
+                        <div class="flex items-center justify-between">
+                            <div class="bg-indigo-600 text-white font-mono text-xs px-3 py-2 rounded-lg font-bold">
+                                JVM Code Trigger
+                            </div>
+                            <div class="flex-grow border-t-2 border-dashed border-slate-700 mx-2 transition-colors duration-500" id="sim1-line-1"></div>
+                            <div id="sim1-class-box" class="bg-emerald-600 text-white font-mono text-xs px-3 py-2 rounded-lg font-bold shadow-lg shadow-emerald-500/20">
+                                Class Blueprint
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex justify-center my-4">
+                            <div class="w-0.5 h-10 border-l-2 border-dashed border-slate-700 transition-colors duration-500" id="sim1-line-down"></div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex items-center justify-between">
+                            <div id="sim1-heap-box" class="bg-slate-800 text-slate-400 font-mono text-xs px-3 py-2 rounded-lg transition-all duration-500">
+                                Heap Object instance
+                            </div>
+                            <div class="flex-grow border-t-2 border-dashed border-slate-700 mx-2 transition-colors duration-500" id="sim1-line-2"></div>
+                            <div id="sim1-result-box" class="bg-indigo-900/80 border border-indigo-500/30 text-indigo-200 font-mono text-xs px-3 py-2 rounded-lg font-bold">
+                                Output: 2.12
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 1)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. Why must the main method in Java be declared as static?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(1, 1, false, 'Incorrect. Java requires objects for instance variables, but main must run without object instances.')" class="q1-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) To prevent any modifications to the code.
+                            </button>
+                            <button onclick="checkAnswer(1, 2, true, 'Correct! The JVM can run the program entry point directly without constructing an instance of the class.')" class="q1-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) So that JVM can invoke it directly without constructing an object first.
+                            </button>
+                            <button onclick="checkAnswer(1, 3, false, 'Incorrect. Primitive arguments have nothing to do with why main() is static.')" class="q1-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) To enable parsing string arrays into primitives.
+                            </button>
+                            <button onclick="checkAnswer(1, 4, false, 'Incorrect. Non-static variables inside main require instantiation inside main.')" class="q1-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                D) Because it is forbidden to allocate memory inside main.
+                            </button>
+                        </div>
+                        <div id="q1-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="space-y-3 pt-4 border-t border-slate-800">
+                        <p class="text-sm font-medium text-slate-200">2. Which of the following statements represents the correct way to call the static sqrt() method of class Math?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(2, 1, false, 'Incorrect. You do not need the new operator to invoke static methods.')" class="q2-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) Math m = new Math(); m.sqrt(4.5);
+                            </button>
+                            <button onclick="checkAnswer(2, 2, false, 'Incorrect. Methods belong to class names, not packages directly like java.lang without reference.')" class="q2-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) sqrt(Math.4.5);
+                            </button>
+                            <button onclick="checkAnswer(2, 3, true, 'Correct! You call static methods using ClassName.methodName().')" class="q2-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) Math.sqrt(4.5);
+                            </button>
+                            <button onclick="checkAnswer(2, 4, false, 'Incorrect. This isn\'t correct Java syntax.')" class="q2-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                D) sqrt.Math(4.5);
+                            </button>
+                        </div>
+                        <div id="q2-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2: ACCESSING STATIC METHODS AND VARIABLES -->
+        <section id="section2" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 2</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Accessing Static Methods &amp; Variables</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Shared State (UnitsLeft)</span>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Shared Class State
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        When a variable is declared as <code class="bg-slate-800 text-emerald-400 px-1 py-0.5 rounded font-mono text-sm">static</code>, it behaves as a single shared storage location for the <strong class="text-white">entire class</strong>. If one instance modifies it, all other instances observe the modified value immediately!
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        Consider the <code class="bg-slate-800 text-indigo-400 px-1 py-0.5 rounded font-mono text-sm">SPApartmentRental</code> class. Every time we rent an apartment, we decrement the global variable <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">UnitsLeft</code>.
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <h4 class="text-xs font-mono font-semibold text-amber-400 mb-2">⭐ Invocation Syntaxes (Preferred Method)</h4>
+                        <ul class="text-xs text-slate-400 list-disc list-inside space-y-1 font-mono">
+                            <li><strong class="text-white">SPApartmentRental.getUnitsLeft()</strong> (Preferred: explicit, does not hide class-level mechanics)</li>
+                            <li><strong class="text-slate-400">s1.getUnitsLeft()</strong> (Syntactically legal, but bad style because it disguises static fields as instance fields)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Code Block -->
+                <div class="space-y-4">
+                    <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-emerald-400 font-mono">SPApartmentRental.java</span>
+                            <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 rounded text-[10px] font-mono">Complete Code</span>
+                        </div>
+                        <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto h-[250px] overflow-y-auto"><code>class SPApartmentRental {
+    private double rental;
+    <span class="text-indigo-400 font-bold">private static int UnitsLeft = 10;</span> <span class="text-slate-500">// Static Variable</span>
+
+    SPApartmentRental(double r) {
+        UnitsLeft--; <span class="text-slate-500">// Decrements global shared counter</span>
+        rental = r;
+    }
+
+    <span class="text-indigo-400 font-bold">static int getUnitsLeft() {</span> <span class="text-slate-500">// Static Method</span>
+        return UnitsLeft;
+    }
+}
+
+public class TestStaticMethod {
+    public static void main(String[] args) {
+        System.out.println(SPApartmentRental.getUnitsLeft()); <span class="text-slate-500">// prints 10</span>
+        SPApartmentRental s1 = new SPApartmentRental(1800.50);
+        System.out.println(s1.getUnitsLeft()); <span class="text-slate-500">// prints 9</span>
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Access Static Methods (State Sandbox) -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Simulator: The Shared State Sandbox
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Run the simulation step-by-step to observe how constructing objects modifies the shared <code class="font-mono text-amber-400 text-xs">UnitsLeft</code> memory space inside the class blueprint, while individual rental rates sit independently on the objects.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Left: Control panel -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 flex flex-col justify-between space-y-4">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Controls</h4>
+                            <div class="space-y-2">
+                                <button onclick="sim2CreateRental()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 px-3 rounded-lg font-semibold text-xs transition">
+                                    + Instantiate SPApartmentRental Object
+                                </button>
+                                <button onclick="sim2Reset()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 py-1 px-3 rounded-lg text-xs font-mono transition">
+                                    Reset Class &amp; Counter
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950 p-3 rounded-lg border border-slate-800 text-[11px] font-mono text-slate-400">
+                            <strong>System output console:</strong>
+                            <div id="sim2-console" class="text-cyan-400 mt-1 h-16 overflow-y-auto">
+                                [JVM Executed] getUnitsLeft() -> 10
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle: The Class blueprint (Static) -->
+                    <div class="bg-slate-900 p-4 rounded-xl border-2 border-dashed border-indigo-500/50 relative">
+                        <span class="absolute top-2 right-2 text-[9px] font-mono bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-500/20">Class Level Memory</span>
+                        <h4 class="text-xs font-mono font-bold text-white mb-2">SPApartmentRental Class Blueprint</h4>
+                        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 space-y-3">
+                            <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+                                <span class="text-xs font-mono text-slate-400">static int UnitsLeft</span>
+                                <span id="sim2-units-left" class="text-lg font-mono font-extrabold text-emerald-400 transition-all duration-300">10</span>
+                            </div>
+                            <div class="text-[11px] text-slate-400">
+                                This variable is shared across all objects. Any modification is observed instantly by all.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Heap Objects -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative">
+                        <span class="absolute top-2 right-2 text-[9px] font-mono bg-emerald-500/10 text-emerald-400 px-1.5 py-0.5 rounded border border-emerald-500/20">Heap Allocation</span>
+                        <h4 class="text-xs font-mono font-bold text-white mb-2">Instantiated Objects (Instance Memory)</h4>
+                        <div id="sim2-heap-container" class="space-y-2 h-[120px] overflow-y-auto pr-1">
+                            <div class="text-center text-xs text-slate-500 py-6">
+                                No objects instantiated yet. Click "Instantiate" to create one.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 2)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. If five SPApartmentRental objects are instantiated in sequence, how many independent memory locations exist for the static variable UnitsLeft?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(3, 1, false, 'Incorrect. Instance variables get copied five times, but static variables only get one allocated block.')" class="q3-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) Five (one for each object)
+                            </button>
+                            <button onclick="checkAnswer(3, 2, true, 'Correct! Static variables exist inside a single shared memory location attached directly to the class blueprint.')" class="q3-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) Exactly one (shared class context)
+                            </button>
+                            <button onclick="checkAnswer(3, 3, false, 'Incorrect. There is exactly one static variable.')" class="q3-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) Six (five for the instances and one class level)
+                            </button>
+                        </div>
+                        <div id="q3-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="space-y-3 pt-4 border-t border-slate-800">
+                        <p class="text-sm font-medium text-slate-200">2. Although s1.getUnitsLeft() is compiled successfully by Java, why is SPApartmentRental.getUnitsLeft() the strongly preferred convention?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(4, 1, false, 'Incorrect. Both syntaxes produce identical code during execution.')" class="q4-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) Calling it with the class name reduces CPU clock cycles.
+                            </button>
+                            <button onclick="checkAnswer(4, 2, true, 'Correct! Calling through the class name clearly signals that the method is static and does not rely on an object state.')" class="q4-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) It makes it immediately obvious to developers that the method is static and doesn\'t rely on individual instance state.
+                            </button>
+                            <button onclick="checkAnswer(4, 3, false, 'Incorrect. Java allow both syntaxes; s1.getUnitsLeft() will not trigger compilation errors.')" class="q4-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) The compiler will warn against using object selectors with static variables.
+                            </button>
+                        </div>
+                        <div id="q4-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3: THE RULES AND SCOPE OF STATIC METHODS -->
+        <section id="section3" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 3</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">The Rules and Scope of Static Methods</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Static-to-Static Only</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> The "Static Context" Ruleset
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        Because static methods are initialized when the application launches (before any objects have been constructed), they have strict interaction restrictions.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        The key restriction is the <strong class="text-indigo-300">Static-to-Static Rule</strong>:
+                    </p>
+                    <div class="bg-red-500/10 text-red-200 p-4 rounded-xl border border-red-500/20">
+                        <h4 class="font-bold text-xs font-mono text-red-400">⚠️ Fatal Compiler Restriction</h4>
+                        <p class="text-xs leading-relaxed mt-1 font-mono">
+                            A static method can call ONLY other static methods and static variables. If you attempt to access an instance field directly, the compiler halts build production with: <br>
+                            <span class="text-amber-400">"non-static variable cannot be referenced from a static context"</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Scope Checklist Reference
+                    </h3>
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 space-y-3 text-sm">
+                        <div class="flex items-center gap-3">
+                            <span class="text-emerald-400 text-base">✔</span>
+                            <span class="text-slate-300 font-mono text-xs">Class_name.method_name() <strong class="text-emerald-400">(Valid Direct Access)</strong></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-emerald-400 text-base">✔</span>
+                            <span class="text-slate-300 font-mono text-xs">Can read any other Static Variable in scope</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-red-400 text-base">✘</span>
+                            <span class="text-slate-300 font-mono text-xs">No reference to <code class="bg-slate-800 text-pink-400 px-1 py-0.5 rounded text-[11px]">this</code> keyword exists</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="text-red-400 text-base">✘</span>
+                            <span class="text-slate-300 font-mono text-xs">Cannot call non-static instance methods directly</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Static Context Guard -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Interactive Inspector: Static Context Analyzer
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Try connecting different method contexts to target fields. Inspect which pathways generate immediate JVM compliance, and which prompt instant compile crashes.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Configurator Panel -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">1. Select Current Calling Method Context</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setSim3Caller('static')" id="sim3-caller-static" class="p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white">
+                                    static void process()
+                                </button>
+                                <button onclick="setSim3Caller('instance')" id="sim3-caller-instance" class="p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400">
+                                    void process() (Instance)
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase mb-2">2. Select Targeted Target Variable/Method</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="setSim3Target('static')" id="sim3-target-static" class="p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400">
+                                    static int data
+                                </button>
+                                <button onclick="setSim3Target('instance')" id="sim3-target-instance" class="p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white">
+                                    int data (Instance)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Visualization Box -->
+                    <div id="sim3-display-box" class="bg-red-950/20 border border-red-500/30 p-6 rounded-xl flex flex-col justify-between min-h-[180px]">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-widest text-red-400 block mb-1">COMPILER STATUS INDICATOR</span>
+                            <div id="sim3-status-text" class="text-lg font-bold text-red-500">❌ Compilation Failure</div>
+                        </div>
+                        
+                        <div id="sim3-explanation" class="text-xs font-mono bg-slate-950 p-3 rounded-lg text-slate-300 border border-slate-800 mt-2">
+                            Compiler Error: non-static variable data cannot be referenced from a static context.
+                        </div>
+
+                        <div class="mt-4 flex justify-end">
+                            <span id="sim3-light" class="w-4.5 h-4.5 rounded-full bg-red-500 shadow-lg shadow-red-500/50 animate-pulse"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 3)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. Why are you forbidden from using the "this" keyword inside a static method?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(5, 1, false, 'Incorrect. This relates to static versus instance contexts.')" class="q5-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) It is a legacy C++ mechanism disabled in modern versions of Java.
+                            </button>
+                            <button onclick="checkAnswer(5, 2, true, 'Correct! \'this\' points directly to the active calling object. Because static methods do not belong to an object, \'this\' is completely meaningless.')" class="q5-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) Because "this" refers to the current object instance, and static methods can execute without any instance existing.
+                            </button>
+                            <button onclick="checkAnswer(5, 3, false, 'Incorrect. Syntactic length is not a restriction.')" class="q5-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) To prevent methods from exceeding length limits.
+                            </button>
+                        </div>
+                        <div id="q5-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="space-y-3 pt-4 border-t border-slate-800">
+                        <p class="text-sm font-medium text-slate-200">2. What happens if a static method calls a non-static method of the same class without instantiating an object first?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(6, 1, false, 'Incorrect. Java checks static linkages during compilation and will flag it immediately.')" class="q6-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) The program compiles, but will crash at runtime.
+                            </button>
+                            <button onclick="checkAnswer(6, 2, true, 'Correct! Java throws a compilation error during the build phase.')" class="q6-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) The compiler immediately fails to compile the source code.
+                            </button>
+                            <button onclick="checkAnswer(6, 3, false, 'Incorrect. Java never converts instance targets to static targets silently.')" class="q6-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) The compiler automatically converts the non-static method to static.
+                            </button>
+                        </div>
+                        <div id="q6-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4: INVALID NON-STATIC REFERENCES FROM STATIC CONTEXTS -->
+        <section id="section4" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 4</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Invalid Non-Static References</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Intentional Compilation Bugs</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Code Alteration Breakdown
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        To truly grasp the static concept, let us intentionally break our previous <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">SPApartmentRental</code> class example.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        Imagine removing the word <strong class="text-red-400">static</strong> from the declaration of <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-xs">UnitsLeft</code>, changing it into a plain instance field. Here's what goes wrong:
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+                        <div class="text-xs font-mono text-red-400 font-semibold">❌ The Critical Fail Sequence:</div>
+                        <ol class="list-decimal list-inside text-xs font-mono text-slate-400 space-y-1">
+                            <li>JVM reaches line <code class="text-slate-300">SPApartmentRental.getUnitsLeft()</code>.</li>
+                            <li>The class blueprint exists, but absolutely no rental objects have been made yet.</li>
+                            <li>The static method attempts to load <code class="text-slate-300">UnitsLeft</code>.</li>
+                            <li>Because it is now an instance variable, it requires a specific object's memory location to read.</li>
+                            <li><strong class="text-amber-400">Crash!</strong> The compiler prevents this contradiction entirely.</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Code view with highlight markers -->
+                    <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl relative">
+                        <span class="absolute top-2 right-2 text-[9px] font-mono bg-red-500/10 text-red-400 px-1.5 py-0.5 rounded border border-red-500/20">BUG INDUCED CODE</span>
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800">
+                            <span class="text-xs text-slate-400 font-mono">BrokenSPApartmentRental.java</span>
+                        </div>
+                        <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto"><code>class SPApartmentRental {
+    private double rental;
+    <span class="bg-red-500/20 border border-red-500/40 text-red-400 px-1 py-0.5 rounded font-bold">private int UnitsLeft = 10;</span> <span class="text-slate-500">// ERROR: Non-static!</span>
+
+    SPApartmentRental(double r) {
+        UnitsLeft--;
+        rental = r;
+    }
+
+    static int getUnitsLeft() {
+        <span class="bg-red-500/20 border border-red-500/40 text-red-400 px-1 py-0.5 rounded font-bold">return UnitsLeft;</span> <span class="text-slate-500">// COMPILER ERROR DETECTED HERE</span>
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Try It Compiler Sandpit -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Try It! Play Compiler Debugger
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Press the fix buttons to resolve this compiler error. Toggle the modifiers and read the immediate reaction from the simulated console.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Editor Box -->
+                    <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-4">
+                        <div class="flex justify-between items-center pb-2 border-b border-slate-800">
+                            <span class="text-xs font-bold text-slate-300 font-mono">Line Inspector</span>
+                        </div>
+                        
+                        <div class="space-y-4 font-mono text-xs">
+                            <div>
+                                <span class="text-slate-500 block mb-1">// Declaration:</span>
+                                <div class="flex items-center space-x-2 bg-slate-950 p-2 rounded border border-slate-800">
+                                    <span class="text-pink-400">private</span>
+                                    <button onclick="toggleSim4Field()" id="sim4-field-toggle" class="px-2 py-0.5 bg-red-600/20 border border-red-500 text-red-400 rounded hover:bg-red-600/30 transition">
+                                        [instance (no static)]
+                                    </button>
+                                    <span class="text-indigo-400">int</span>
+                                    <span class="text-slate-300">UnitsLeft = 10;</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-slate-500 block mb-1">// Getter Accessor Method:</span>
+                                <div class="flex items-center space-x-2 bg-slate-950 p-2 rounded border border-slate-800">
+                                    <button onclick="toggleSim4Method()" id="sim4-method-toggle" class="px-2 py-0.5 bg-emerald-600/20 border border-emerald-500 text-emerald-400 rounded hover:bg-emerald-600/30 transition">
+                                        static
+                                    </button>
+                                    <span class="text-indigo-400">int</span>
+                                    <span class="text-slate-300">getUnitsLeft() { ... }</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compilation output -->
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col justify-between min-h-[180px]">
+                        <div>
+                            <span class="text-xs font-bold text-slate-500 block mb-2 font-mono">BUILD LOGS OUTPUT</span>
+                            <div id="sim4-build-status" class="text-sm font-bold text-red-500 font-mono">
+                                compilation error: UnitsLeft cannot be referenced from static context
+                            </div>
+                        </div>
+                        <div id="sim4-build-explanation" class="text-xs text-slate-400 leading-relaxed font-mono mt-2">
+                            The method is declared STATIC, but it's attempting to read the instance field 'UnitsLeft'. Since multiple objects could have different 'UnitsLeft' values, the class doesn't know which one to look at!
+                        </div>
+                        <div class="mt-4 flex justify-between items-center text-xs">
+                            <span class="text-slate-500">Status Code: 500</span>
+                            <span id="sim4-status-dot" class="w-3 h-3 rounded-full bg-red-500"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 4)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. Which change to BrokenSPApartmentRental would immediately resolve the compilation error?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(7, 1, true, 'Correct! Making UnitsLeft static links it back to the class blueprint, allowing static getUnitsLeft() to read it directly.')" class="q7-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) Change "private int UnitsLeft" to "private static int UnitsLeft"
+                            </button>
+                            <button onclick="checkAnswer(7, 2, false, 'Incorrect. This does not address the static-to-instance context bridge issue.')" class="q7-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) Change the class name to lower-case.
+                            </button>
+                            <button onclick="checkAnswer(7, 3, false, 'Incorrect. Making the method return double has no impact on static access control restrictions.')" class="q7-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) Change the return type of getUnitsLeft() to double.
+                            </button>
+                        </div>
+                        <div id="q7-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5: MECHANISMS OF PASSING VARIABLES TO METHODS -->
+        <section id="section5" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 5</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Mechanisms of Passing Variables</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Value vs. Reference Pointer</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Primitive Memory Routing
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        When you pass variables to Java methods, how Java manages the hardware memory depends entirely on whether the variable is a <strong class="text-white">Primitive Type</strong> or an <strong class="text-white">Object Reference Type</strong>.
+                    </p>
+                    
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <h4 class="text-xs font-mono font-bold text-amber-400 mb-1">🎯 Passed by Value (Primitives)</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Includes basic types: <code class="text-slate-200">int, double, float, boolean, char</code>. <br>
+                            An entirely <strong class="text-white">independent copy</strong> of the data value is created inside the method's local stack block. Changes inside the method <strong class="text-pink-400">never propagate back</strong> to the caller environment!
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Object Reference Handling
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        When passing complex entities like Object variables, custom structures, Arrays, or Strings, Java copies the <strong class="text-indigo-400">reference pointer address</strong> instead of copying the massive object payload.
+                    </p>
+
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                        <h4 class="text-xs font-mono font-bold text-cyan-400 mb-1">🔗 Passed by Reference Pointer</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            No separate copy of the variable values is generated on the heap. <br>
+                            The method parameters reference the <strong class="text-white">identical system memory slot</strong> as the caller. Modifying properties inside the method <strong class="text-emerald-400">mutates the object permanently</strong>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FLOWCHART / INTERACTIVE MEMORY SCHEMATIC -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Concept Flowchart: RAM Stack &amp; Heap Representation
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Click the buttons below to trace how data structures allocate and migrate inside the computer's memory architecture.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-3">
+                        <button onclick="setMemoryFlow('primitive')" id="btn-mem-primitive" class="w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 transition">
+                            <div class="font-bold text-white text-sm font-mono">1. Visualize Primitive Value Passing (int)</div>
+                            <p class="text-xs text-slate-400 mt-1">Generates secondary independent value variables in active stack allocation.</p>
+                        </button>
+                        
+                        <button onclick="setMemoryFlow('object')" id="btn-mem-object" class="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 transition">
+                            <div class="font-bold text-slate-300 text-sm font-mono">2. Visualize Object Reference Passing (Animal)</div>
+                            <p class="text-xs text-slate-400 mt-1">Duplicating memory addresses referencing a shared block in the Heap.</p>
+                        </button>
+                    </div>
+
+                    <!-- Flowchart Display -->
+                    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between min-h-[220px]">
+                        <div class="flex justify-between items-center text-xs font-mono text-slate-500 pb-2 border-b border-slate-800">
+                            <span>STACK (Local execution frames)</span>
+                            <span>HEAP (Global Memory)</span>
+                        </div>
+
+                        <!-- Primitive Mode Drawing -->
+                        <div id="mem-flow-primitive" class="space-y-4 py-4">
+                            <div class="flex justify-between items-center">
+                                <div class="bg-slate-950 p-2 rounded border border-slate-800 font-mono text-xs w-[140px]">
+                                    <span class="text-slate-500">main():</span><br>
+                                    <span class="text-pink-400">int i = 100</span>
+                                </div>
+                                <div class="text-pink-500 font-mono text-xs animate-pulse">Copies Value (100) ➜</div>
+                                <div class="bg-indigo-950 p-2 rounded border border-indigo-800 font-mono text-xs w-[140px]">
+                                    <span class="text-indigo-400">ABC():</span><br>
+                                    <span class="text-emerald-400">int y = 100</span>
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-slate-400 font-mono text-center">
+                                * Notice how 'y' can change to 200 without affecting 'i' at all.
+                            </p>
+                        </div>
+
+                        <!-- Object Mode Drawing -->
+                        <div id="mem-flow-object" class="space-y-4 py-4 hidden">
+                            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                                <div class="space-y-2 w-full sm:w-auto">
+                                    <div class="bg-slate-950 p-2 rounded border border-slate-800 font-mono text-xs w-[150px]">
+                                        <span class="text-slate-500">main():</span><br>
+                                        <span class="text-cyan-400">caterpillar (Addr: @8F2)</span>
+                                    </div>
+                                    <div class="bg-indigo-950 p-2 rounded border border-indigo-800 font-mono text-xs w-[150px]">
+                                        <span class="text-indigo-400">ChopLeg():</span><br>
+                                        <span class="text-emerald-400">X (Addr: @8F2)</span>
+                                    </div>
+                                </div>
+                                <div class="text-cyan-400 font-mono text-xs hidden sm:block animate-bounce">Both reference Address @8F2 ➔</div>
+                                <div class="bg-slate-950 p-4 rounded-xl border border-slate-700 font-mono text-xs w-[160px] text-center">
+                                    <span class="text-amber-400">HEAP MEMORY (@8F2)</span><br>
+                                    <span class="text-slate-300">Animal instance</span><br>
+                                    <span class="text-emerald-400 font-bold">LegCount = 14</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 5)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. When you pass an Object (such as an array) to a method in Java, what actually gets copied?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(8, 1, false, 'Incorrect. Java never duplicates entire objects in heap memory unless you clone them.')" class="q8-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) A complete new deep-copy duplicate of the object on the heap.
+                            </button>
+                            <button onclick="checkAnswer(8, 2, true, 'Correct! Java copies the object\'s memory address reference by value, pointing both methods to the same object.')" class="q8-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) The memory address reference pointing to the existing object on the heap.
+                            </button>
+                            <button onclick="checkAnswer(8, 3, false, 'Incorrect. Java does not convert objects into primitive integers when passed.')" class="q8-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) A hashed signature representing class code.
+                            </button>
+                        </div>
+                        <div id="q8-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 6: PASSING OBJECTS BY REFERENCE -->
+        <section id="section6" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 6</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Passing Objects by Reference Pointer</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Persistent Mutations</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Code Visualization: Animal Class
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        To verify this reference sharing mechanism, let us trace an interactive simulation using our <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">Animal</code> leg chopper program.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        We create a caterpillar with <span class="text-emerald-400 font-bold">16 legs</span>. Then, we pass it into method <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-xs">ChopLeg(caterpillar, 2)</code>.
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-400">
+                        <strong class="text-white block mb-1">🔍 Persistent Mutations:</strong>
+                        Because the parameter variable <code class="text-slate-200">X</code> copies the pointer to the exact same heap coordinates, <code class="text-slate-200">X.LegCount = X.LegCount - y</code> changes the caterpillar object itself!
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Complete Code Block -->
+                    <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-400 font-mono">TestPassByRef.java</span>
+                        </div>
+                        <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto h-[220px] overflow-y-auto"><code>class Animal {
+    int LegCount;
+    int age;
+    Animal(int LC, int a) { LegCount=LC; age=a; }
+}
+
+public class TestPassByRef {
+    public static void main(String[] args) {
+        Animal caterpillar = new Animal(16, 1);
+        ChopLeg(caterpillar, 2);
+        System.out.println("Legs left:" + caterpillar.LegCount);
+        <span class="text-emerald-400 font-semibold">// Terminal output: Legs left: 14</span>
+    }
+
+    static void ChopLeg(Animal X, int y) {
+        X.LegCount = X.LegCount - y;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Interactive Caterpillar Leg Chopper -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Simulator: The Caterpillar Memory Playground
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Trigger the ChopLeg method to visually slice legs off our SVG caterpillar. Observe that the original object inside the main method scope changes synchronously.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Left Graphic and Legs count -->
+                    <div class="bg-slate-900 p-6 rounded-xl border border-slate-800 flex flex-col justify-between items-center relative">
+                        <!-- Simulated caterpillar drawing -->
+                        <div class="flex items-center space-x-1.5 my-6">
+                            <!-- Head -->
+                            <div class="w-10 h-10 rounded-full bg-emerald-500 border-2 border-slate-950 flex items-center justify-center relative">
+                                <div class="w-1.5 h-1.5 bg-slate-950 rounded-full absolute top-2 left-2"></div>
+                                <div class="w-1.5 h-1.5 bg-slate-950 rounded-full absolute top-2 right-2"></div>
+                            </div>
+                            <!-- Segment 1 -->
+                            <div class="w-8 h-8 rounded-full bg-emerald-400 border border-slate-950 flex flex-col items-center justify-end">
+                                <div class="flex space-x-1" id="leg-seg-1">
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                </div>
+                            </div>
+                            <!-- Segment 2 -->
+                            <div class="w-8 h-8 rounded-full bg-emerald-400 border border-slate-950 flex flex-col items-center justify-end">
+                                <div class="flex space-x-1" id="leg-seg-2">
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                </div>
+                            </div>
+                            <!-- Segment 3 -->
+                            <div class="w-8 h-8 rounded-full bg-emerald-400 border border-slate-950 flex flex-col items-center justify-end">
+                                <div class="flex space-x-1" id="leg-seg-3">
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                </div>
+                            </div>
+                            <!-- Tail -->
+                            <div class="w-6 h-6 rounded-full bg-emerald-300 border border-slate-950 flex flex-col items-center justify-end">
+                                <div class="flex space-x-1" id="leg-seg-4">
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                    <span class="w-1 h-2 bg-amber-500 rounded-full sim-leg"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Memory Readout -->
+                        <div class="bg-slate-950 p-4 rounded-lg w-full border border-slate-800 flex justify-around text-center">
+                            <div>
+                                <span class="text-xs text-slate-400 font-mono block">caterpillar.LegCount (main)</span>
+                                <span id="caterpillar-leg-val" class="text-lg font-mono font-bold text-cyan-400">16</span>
+                            </div>
+                            <div class="border-l border-slate-800"></div>
+                            <div>
+                                <span class="text-xs text-slate-400 font-mono block">X.LegCount (ChopLeg)</span>
+                                <span id="param-leg-val" class="text-lg font-mono font-bold text-amber-400">16</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actions and debug steps -->
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Simulate Actions</h4>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="sim6Chop(2)" class="bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs py-2 px-3 rounded-lg transition">
+                                Execute ChopLeg(X, 2)
+                            </button>
+                            <button onclick="sim6Reset()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs py-2 px-3 rounded-lg transition">
+                                Reset Caterpillar
+                            </button>
+                        </div>
+
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono space-y-2 text-slate-300">
+                            <div class="font-semibold text-indigo-400">Debugger Output:</div>
+                            <div class="h-16 overflow-y-auto" id="sim6-console-log">
+                                [JVM] Caterpillar initialized with 16 legs.<br>
+                                [JVM] References pointing to identical address slot in Heap memory.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 6)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. After calling ChopLeg(caterpillar, 2), what will caterpillar.LegCount print in the main method?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(9, 1, false, 'Incorrect. 16 was the value before execution.')" class="q9-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) 16 (modifications within other scopes are destroyed)
+                            </button>
+                            <button onclick="checkAnswer(9, 2, true, 'Correct! Because caterpillar and parameters share the same reference, mutating the fields changes it globally.')" class="q9-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) 14 (changes to properties are preserved globally)
+                            </button>
+                            <button onclick="checkAnswer(9, 3, false, 'Incorrect. Legs cannot be added.')" class="q9-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) 18 (error triggers double bounds)
+                            </button>
+                        </div>
+                        <div id="q9-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 7: PASSING PRIMITIVES BY VALUE -->
+        <section id="section7" class="bg-slate-900/40 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-xl transition-all hover:border-indigo-500/20 scroll-mt-6">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-slate-800">
+                <div>
+                    <span class="text-indigo-400 text-sm font-mono tracking-widest uppercase font-semibold">Section 7</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Passing Primitives by Value</h2>
+                </div>
+                <div class="flex items-center space-x-2 bg-indigo-500/10 px-3 py-1.5 rounded-lg border border-indigo-500/20 text-indigo-300 text-xs font-mono">
+                    <span>Key Concept: Value Isolation</span>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
+                        <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Primitive Isolation Demonstration
+                    </h3>
+                    <p class="text-slate-300 leading-relaxed">
+                        To contrast with Section 6, let's explore what happens when we pass a primitive integer <code class="bg-slate-800 text-pink-400 px-1 py-0.5 rounded font-mono text-sm">int</code> instead of an object.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed">
+                        We initialize <code class="bg-slate-800 text-slate-200 px-1 py-0.5 rounded font-mono text-sm">int i = 100;</code> inside main. We then call the method <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">ABC(i)</code>, which does <code class="bg-slate-800 text-indigo-300 px-1 py-0.5 rounded font-mono text-sm">y = y + 100;</code> inside its body.
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-400 space-y-1">
+                        <span class="text-emerald-400 font-semibold block mb-1">💡 What Actually Happens:</span>
+                        The value 100 is copied into local variable <code class="text-indigo-300">y</code>. When <code class="text-indigo-300">y</code> becomes 200, it stays completely isolated within the stack frame of <code class="text-indigo-300">ABC()</code>. The original <code class="text-slate-200">i</code> back in the main scope remains unchanged at 100!
+                    </div>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Code view -->
+                    <div class="bg-slate-950 rounded-xl overflow-hidden border border-slate-800 shadow-2xl">
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+                            <span class="text-xs text-slate-400 font-mono">TestPassByValue.java</span>
+                        </div>
+                        <pre class="p-4 text-xs font-mono text-slate-300 overflow-x-auto h-[220px] overflow-y-auto"><code>public class TestPassByValue {
+    public static void main(String[] args) {
+        int i = 100;
+        ABC(i);
+        System.out.println("i : " + i);
+        <span class="text-emerald-400 font-semibold">// Terminal output: i : 100</span>
+    }
+
+    static void ABC(int y) {
+        y = y + 100;
+    }
+}</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIMULATOR: Variable Stack Tracer -->
+            <div class="bg-slate-950/80 rounded-2xl p-6 border border-slate-800 mb-8">
+                <h3 class="text-lg font-semibold text-emerald-400 flex items-center gap-2 mb-4">
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 animate-pulse"></span> Simulator: Primitive Value Isolation Machine
+                </h3>
+                <p class="text-sm text-slate-400 mb-6">
+                    Step through the code execution. Notice how modifying <code class="font-mono text-amber-400 text-xs">y</code> does not leak out of its stack scope back to <code class="font-mono text-cyan-400 text-xs">i</code>.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Simulator view -->
+                    <div class="space-y-4">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Memory Frames</h4>
+                        
+                        <div class="space-y-3">
+                            <!-- Main Frame -->
+                            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative">
+                                <span class="absolute top-2 right-2 text-[9px] font-mono bg-indigo-500/10 text-indigo-400 px-1.5 py-0.5 rounded border border-indigo-500/20">main() Stack Frame</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400">int i</span>
+                                    <span id="sim7-i-val" class="text-lg font-mono font-bold text-cyan-400">100</span>
+                                </div>
+                            </div>
+
+                            <!-- ABC Frame -->
+                            <div id="sim7-abc-frame" class="bg-slate-900 p-4 rounded-xl border border-slate-800 relative transition-all opacity-50">
+                                <span class="absolute top-2 right-2 text-[9px] font-mono bg-amber-500/10 text-amber-400 px-1.5 py-0.5 rounded border border-amber-500/20">ABC() Stack Frame</span>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400">int y (parameter copy)</span>
+                                    <span id="sim7-y-val" class="text-lg font-mono font-bold text-amber-400">N/A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Steps Control -->
+                    <div class="space-y-4 flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">Debugger Controls</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="sim7Step(1)" id="sim7-btn-step1" class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs py-2 px-3 rounded-lg transition">
+                                    1. Execute ABC(i)
+                                </button>
+                                <button onclick="sim7Step(2)" id="sim7-btn-step2" disabled class="bg-slate-800 text-slate-500 font-semibold text-xs py-2 px-3 rounded-lg transition cursor-not-allowed">
+                                    2. Add 100 to y
+                                </button>
+                            </div>
+                            <button onclick="sim7Reset()" class="w-full mt-2 bg-slate-850 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs py-1 px-3 rounded-lg font-mono transition">
+                                Reset Simulation
+                            </button>
+                        </div>
+
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs font-mono text-slate-400 h-24 overflow-y-auto" id="sim7-console">
+                            [System] Ready. Click Step 1 to call the method.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CHECKPOINT QUIZ -->
+            <div class="bg-slate-900/60 p-6 rounded-2xl border border-slate-800">
+                <h3 class="text-lg font-semibold text-amber-400 flex items-center gap-2 mb-4">
+                    <span class="text-base">📝</span> Checkpoint Quiz (Section 7)
+                </h3>
+                <div class="space-y-6">
+                    <!-- Q1 -->
+                    <div class="space-y-3">
+                        <p class="text-sm font-medium text-slate-200">1. After executing the class TestPassByValue, why does variable "i" still print as 100 instead of 200?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <button onclick="checkAnswer(10, 1, false, 'Incorrect. Primitive data parameters are passed entirely by value copy.')" class="q10-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                A) Because ABC() only receives the memory reference.
+                            </button>
+                            <button onclick="checkAnswer(10, 2, true, 'Correct! Primitives are passed entirely by value copy. Any changes remain completely isolated inside the local execution frame.')" class="q10-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                B) Because Java copied the literal value of "i" into an isolated local variable "y" inside method ABC().
+                            </button>
+                            <button onclick="checkAnswer(10, 3, false, 'Incorrect. Java stack parameters run immediately, regardless of final tags.')" class="q10-btn text-left p-3 rounded-lg bg-slate-900 border border-slate-800 hover:border-slate-700 text-xs transition">
+                                C) Because variables named "y" can only increment floats.
+                            </button>
+                        </div>
+                        <div id="q10-feedback" class="text-xs font-semibold hidden transition p-3 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer of Curriculum -->
+    <footer class="bg-slate-950 border-t border-slate-900 py-12 mt-16 text-center text-slate-500 text-sm">
+        <p>© 2026 Interactive Java Curriculum Suite. Designed for clear classroom presentation.</p>
+        <p class="mt-2 text-xs">Scroll to the top to restart the lesson sequence.</p>
+    </footer>
+
+    <script>
+        // GLOBAL MCQ HELPER
+        function checkAnswer(questionNum, selectionNum, isCorrect, explanationText) {
+            const feedbackBox = document.getElementById(`q${questionNum}-feedback`);
+            const buttons = document.querySelectorAll(`.q${questionNum}-btn`);
+
+            // Disable other buttons
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-40');
+            });
+
+            // Highlight status
+            feedbackBox.classList.remove('hidden', 'bg-emerald-500/10', 'text-emerald-400', 'border-emerald-500/20', 'bg-red-500/10', 'text-red-400', 'border-red-500/20');
+            
+            if (isCorrect) {
+                feedbackBox.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/20', 'block');
+                feedbackBox.innerHTML = `🎉 Correct! ${explanationText}`;
+            } else {
+                feedbackBox.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/20', 'block');
+                feedbackBox.innerHTML = `❌ ${explanationText}`;
+            }
+        }
+
+        // SIMULATOR 1 controller
+        function triggerSim1(mode) {
+            const btnStatic = document.getElementById('sim1-static-btn');
+            const btnInstance = document.getElementById('sim1-instance-btn');
+            const line1 = document.getElementById('sim1-line-1');
+            const line2 = document.getElementById('sim1-line-2');
+            const lineDown = document.getElementById('sim1-line-down');
+            const classBox = document.getElementById('sim1-class-box');
+            const heapBox = document.getElementById('sim1-heap-box');
+            const resultBox = document.getElementById('sim1-result-box');
+
+            if (mode === 'static') {
+                btnStatic.className = "w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 hover:bg-indigo-500/20 transition-all";
+                btnInstance.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-all";
+                
+                // Route Class Direct
+                line1.className = "flex-grow border-t-2 border-dashed border-indigo-500 mx-2 transition-all duration-300";
+                lineDown.className = "w-0.5 h-10 border-l-2 border-dashed border-slate-700 transition-all duration-300";
+                line2.className = "flex-grow border-t-2 border-dashed border-slate-700 mx-2 transition-all duration-300";
+                classBox.className = "bg-emerald-600 text-white font-mono text-xs px-3 py-2 rounded-lg font-bold shadow-lg shadow-emerald-500/50 scale-105 transition-all duration-300";
+                heapBox.className = "bg-slate-800 text-slate-500 font-mono text-xs px-3 py-2 rounded-lg transition-all duration-300";
+                resultBox.innerHTML = "Output: 2.12";
+            } else {
+                btnInstance.className = "w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 hover:bg-indigo-500/20 transition-all";
+                btnStatic.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 hover:border-slate-700 transition-all";
+
+                // Route through heap allocation
+                line1.className = "flex-grow border-t-2 border-dashed border-slate-700 mx-2 transition-all duration-300";
+                lineDown.className = "w-0.5 h-10 border-l-2 border-dashed border-indigo-500 transition-all duration-300";
+                line2.className = "flex-grow border-t-2 border-dashed border-indigo-500 mx-2 transition-all duration-300";
+                classBox.className = "bg-slate-800 text-slate-500 font-mono text-xs px-3 py-2 rounded-lg transition-all duration-300";
+                heapBox.className = "bg-emerald-600 text-white font-mono text-xs px-3 py-2 rounded-lg font-bold shadow-lg shadow-emerald-500/50 scale-105 transition-all duration-300";
+                resultBox.innerHTML = "Output: 2.12";
+            }
+        }
+
+        // SIMULATOR 2 controller
+        let sim2Units = 10;
+        let rentalCount = 0;
+        function sim2CreateRental() {
+            if (sim2Units <= 0) {
+                const consoleDiv = document.getElementById('sim2-console');
+                consoleDiv.innerHTML += "<br><span class='text-red-400'>[System Error] No Units Left to Rent!</span>";
+                consoleDiv.scrollTop = consoleDiv.scrollHeight;
+                return;
+            }
+            sim2Units--;
+            rentalCount++;
+            
+            document.getElementById('sim2-units-left').innerText = sim2Units;
+            const consoleDiv = document.getElementById('sim2-console');
+            consoleDiv.innerHTML += `<br>[New Object s${rentalCount}] Created at rate $1800.50 -> Global UnitsLeft decremented.`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+
+            // Add Object widget
+            const heapContainer = document.getElementById('sim2-heap-container');
+            if (rentalCount === 1) heapContainer.innerHTML = '';
+            
+            const widget = document.createElement('div');
+            widget.className = "bg-slate-950 p-2 rounded border border-slate-800 text-[10px] font-mono text-slate-300 flex justify-between items-center";
+            widget.innerHTML = `
+                <span>s${rentalCount} (Rental: $1800.50)</span>
+                <span class="text-amber-400">s${rentalCount}.getUnitsLeft() -> ${sim2Units}</span>
+            `;
+            heapContainer.appendChild(widget);
+        }
+        function sim2Reset() {
+            sim2Units = 10;
+            rentalCount = 0;
+            document.getElementById('sim2-units-left').innerText = "10";
+            document.getElementById('sim2-console').innerHTML = "[JVM Executed] Reset Complete. UnitsLeft -> 10";
+            document.getElementById('sim2-heap-container').innerHTML = `
+                <div class="text-center text-xs text-slate-500 py-6">
+                    No objects instantiated yet. Click "Instantiate" to create one.
+                </div>
+            `;
+        }
+
+        // SIMULATOR 3 controller
+        let sim3Caller = 'static';
+        let sim3Target = 'instance';
+        function setSim3Caller(type) {
+            sim3Caller = type;
+            document.getElementById('sim3-caller-static').className = type === 'static' ? "p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white" : "p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400";
+            document.getElementById('sim3-caller-instance').className = type === 'instance' ? "p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white" : "p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400";
+            evalSim3();
+        }
+        function setSim3Target(type) {
+            sim3Target = type;
+            document.getElementById('sim3-target-static').className = type === 'static' ? "p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white" : "p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400";
+            document.getElementById('sim3-target-instance').className = type === 'instance' ? "p-3 text-xs font-mono font-semibold rounded-lg border-2 border-indigo-500 bg-indigo-500/10 text-white" : "p-3 text-xs font-mono font-semibold rounded-lg border border-slate-800 bg-slate-900 text-slate-400";
+            evalSim3();
+        }
+        function evalSim3() {
+            const displayBox = document.getElementById('sim3-display-box');
+            const statusText = document.getElementById('sim3-status-text');
+            const explanation = document.getElementById('sim3-explanation');
+            const light = document.getElementById('sim3-light');
+
+            if (sim3Caller === 'static' && sim3Target === 'instance') {
+                displayBox.className = "bg-red-950/20 border border-red-500/30 p-6 rounded-xl flex flex-col justify-between min-h-[180px]";
+                statusText.className = "text-lg font-bold text-red-500";
+                statusText.innerText = "❌ Compilation Failure";
+                explanation.innerHTML = "Compiler Error: non-static variable 'data' cannot be referenced from a static context.";
+                light.className = "w-4 h-4 rounded-full bg-red-500 shadow-lg shadow-red-500/50 animate-pulse";
+            } else {
+                displayBox.className = "bg-emerald-950/20 border border-emerald-500/30 p-6 rounded-xl flex flex-col justify-between min-h-[180px]";
+                statusText.className = "text-lg font-bold text-emerald-500";
+                statusText.innerText = "✔ Code Compiles Correctly";
+                if (sim3Caller === 'static' && sim3Target === 'static') {
+                    explanation.innerHTML = "Valid: Static method accessing a static class variable. Clear state connection.";
+                } else if (sim3Caller === 'instance' && sim3Target === 'static') {
+                    explanation.innerHTML = "Valid: Instance methods have full clearance to read static/class variables.";
+                } else {
+                    explanation.innerHTML = "Valid: Standard object method modifying standard object data properties.";
+                }
+                light.className = "w-4 h-4 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/50 animate-pulse";
+            }
+        }
+
+        // SIMULATOR 4 controller
+        let sim4IsStaticField = false;
+        let sim4IsStaticMethod = true;
+        function toggleSim4Field() {
+            sim4IsStaticField = !sim4IsStaticField;
+            const btn = document.getElementById('sim4-field-toggle');
+            if (sim4IsStaticField) {
+                btn.className = "px-2 py-0.5 bg-emerald-600/20 border border-emerald-500 text-emerald-400 rounded hover:bg-emerald-600/30 transition";
+                btn.innerText = "static";
+            } else {
+                btn.className = "px-2 py-0.5 bg-red-600/20 border border-red-500 text-red-400 rounded hover:bg-red-600/30 transition";
+                btn.innerText = "[instance (no static)]";
+            }
+            evalSim4();
+        }
+        function toggleSim4Method() {
+            sim4IsStaticMethod = !sim4IsStaticMethod;
+            const btn = document.getElementById('sim4-method-toggle');
+            if (sim4IsStaticMethod) {
+                btn.className = "px-2 py-0.5 bg-emerald-600/20 border border-emerald-500 text-emerald-400 rounded hover:bg-emerald-600/30 transition";
+                btn.innerText = "static";
+            } else {
+                btn.className = "px-2 py-0.5 bg-slate-800 border border-slate-700 text-slate-400 rounded hover:bg-slate-700 transition";
+                btn.innerText = "[instance (no static)]";
+            }
+            evalSim4();
+        }
+        function evalSim4() {
+            const buildStatus = document.getElementById('sim4-build-status');
+            const explanation = document.getElementById('sim4-build-explanation');
+            const dot = document.getElementById('sim4-status-dot');
+
+            if (sim4IsStaticMethod && !sim4IsStaticField) {
+                buildStatus.className = "text-sm font-bold text-red-500 font-mono";
+                buildStatus.innerText = "compilation error: UnitsLeft cannot be referenced from static context";
+                explanation.innerText = "The method is declared STATIC, but it's attempting to read the instance field 'UnitsLeft'. Since multiple objects could have different values, the compiler fails.";
+                dot.className = "w-3 h-3 rounded-full bg-red-500";
+            } else {
+                buildStatus.className = "text-sm font-bold text-emerald-400 font-mono";
+                buildStatus.innerText = "Build Successful! SPApartmentRental is compilable.";
+                explanation.innerText = "No bridging errors detected. If both are static (Class storage) or both are non-static (instance storage), variables map cleanly.";
+                dot.className = "w-3 h-3 rounded-full bg-emerald-500";
+            }
+        }
+
+        // SIMULATOR 5 controller
+        function setMemoryFlow(type) {
+            const flowPrim = document.getElementById('mem-flow-primitive');
+            const flowObj = document.getElementById('mem-flow-object');
+            const btnPrim = document.getElementById('btn-mem-primitive');
+            const btnObj = document.getElementById('btn-mem-object');
+
+            if (type === 'primitive') {
+                flowPrim.classList.remove('hidden');
+                flowObj.classList.add('hidden');
+                btnPrim.className = "w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 transition";
+                btnObj.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 transition";
+            } else {
+                flowPrim.classList.add('hidden');
+                flowObj.classList.remove('hidden');
+                btnPrim.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900 transition";
+                btnObj.className = "w-full text-left p-4 rounded-xl border-2 border-indigo-500 bg-indigo-500/10 transition";
+            }
+        }
+
+        // SIMULATOR 6 controller
+        let legs = 16;
+        function sim6Chop(val) {
+            legs = Math.max(0, legs - val);
+            document.getElementById('caterpillar-leg-val').innerText = legs;
+            document.getElementById('param-leg-val').innerText = legs;
+
+            // Log update
+            const logBox = document.getElementById('sim6-console-log');
+            logBox.innerHTML += `<br>[ChopLeg] Sliced off ${val} legs. Legs count mutated to ${legs}.`;
+            logBox.scrollTop = logBox.scrollHeight;
+
+            // Visual legs chop
+            const legSegs = document.querySelectorAll('.sim-leg');
+            for (let i = 0; i < legSegs.length; i++) {
+                if (i >= legs / 2) {
+                    legSegs[i].classList.add('opacity-0');
+                }
+            }
+        }
+        function sim6Reset() {
+            legs = 16;
+            document.getElementById('caterpillar-leg-val').innerText = 16;
+            document.getElementById('param-leg-val').innerText = 16;
+            document.getElementById('sim6-console-log').innerHTML = "[JVM] Caterpillar initialized with 16 legs.";
+            
+            const legSegs = document.querySelectorAll('.sim-leg');
+            legSegs.forEach(seg => seg.classList.remove('opacity-0'));
+        }
+
+        // SIMULATOR 7 controller
+        let sim7I = 100;
+        let sim7Y = "N/A";
+        function sim7Step(step) {
+            const consoleDiv = document.getElementById('sim7-console');
+            const abcFrame = document.getElementById('sim7-abc-frame');
+            const btnStep1 = document.getElementById('sim7-btn-step1');
+            const btnStep2 = document.getElementById('sim7-btn-step2');
+
+            if (step === 1) {
+                sim7Y = 100;
+                document.getElementById('sim7-y-val').innerText = sim7Y;
+                abcFrame.classList.remove('opacity-50');
+                abcFrame.classList.add('border-indigo-500/40');
+                
+                consoleDiv.innerHTML += "<br>[Method ABC()] Activated on stack frame. Local copy parameter 'y' initialized to 100.";
+                btnStep1.disabled = true;
+                btnStep1.classList.add('opacity-40', 'cursor-not-allowed');
+                btnStep2.disabled = false;
+                btnStep2.classList.remove('opacity-40', 'cursor-not-allowed');
+                btnStep2.classList.add('bg-indigo-600', 'text-white');
+            } else if (step === 2) {
+                sim7Y = 200;
+                document.getElementById('sim7-y-val').innerText = sim7Y;
+                consoleDiv.innerHTML += "<br>[Method ABC()] Executed: y = y + 100. Parameter value y is now 200.";
+                consoleDiv.innerHTML += "<br><strong class='text-emerald-400'>[Observe]</strong> Back in main(), variable 'i' remains exactly 100!";
+                btnStep2.disabled = true;
+                btnStep2.classList.add('opacity-40', 'cursor-not-allowed');
+            }
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+        function sim7Reset() {
+            sim7I = 100;
+            sim7Y = "N/A";
+            document.getElementById('sim7-y-val').innerText = "N/A";
+            document.getElementById('sim7-abc-frame').className = "bg-slate-900 p-4 rounded-xl border border-slate-800 relative transition-all opacity-50";
+            
+            const btnStep1 = document.getElementById('sim7-btn-step1');
+            const btnStep2 = document.getElementById('sim7-btn-step2');
+            btnStep1.disabled = false;
+            btnStep1.classList.remove('opacity-40', 'cursor-not-allowed');
+            btnStep2.disabled = true;
+            btnStep2.classList.add('opacity-40', 'cursor-not-allowed');
+
+            document.getElementById('sim7-console').innerHTML = "[System] Ready. Click Step 1 to call the method.";
+        }
+    </script>
+</body>
+</html>
