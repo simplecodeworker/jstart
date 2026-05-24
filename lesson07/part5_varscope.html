@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Variable Scoping Masterclass</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono for code -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f19;
+            color: #f3f4f6;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+    <!-- Hero / Intro Header -->
+    <header class="relative overflow-hidden bg-slate-950 py-16 border-b border-slate-800">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.15),transparent_60%)]"></div>
+        <div class="max-w-6xl mx-auto px-4 relative z-10 text-center">
+            <span class="px-3 py-1 bg-indigo-500/10 text-indigo-400 text-xs font-semibold rounded-full uppercase tracking-wider border border-indigo-500/20">Java Basics Track</span>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mt-4 mb-6">
+                Scope of Variables <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Masterclass</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                An interactive, step-by-step visual curriculum designed for Java beginners. 
+                Scroll down through the sections to teach, simulate, and quiz learners on how scope governs memory.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#section-1" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-medium rounded-lg shadow-lg hover:shadow-indigo-500/20 transition-all duration-200">
+                    Get Started
+                </a>
+                <div class="px-6 py-3 bg-slate-800/80 text-slate-300 font-medium rounded-lg border border-slate-700">
+                    Scroll Down to Teach ↓
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-6xl mx-auto px-4 py-12 space-y-24">
+
+        <!-- ================= SECTION 1 ================= -->
+        <section id="section-1" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">01 / 06</span>
+            </div>
+            
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 1: Introduction to Variable Scopes and Lifecycles
+                </h2>
+                <p class="text-slate-300 leading-relaxed mb-6">
+                    In Java, a variable's <strong>scope</strong> defines where it exists in memory, who has access to it, and when it gets destroyed. 
+                    Depending on where they are declared, variables are split into class-level (Instance &amp; Static) and block-level (Local) scopes.
+                </p>
+            </div>
+
+            <!-- Core Concepts Cards -->
+            <div class="grid md:grid-cols-2 gap-6 mb-8">
+                <!-- Class Level -->
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 hover:border-indigo-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-indigo-400">Instance &amp; Static Variables</h3>
+                    </div>
+                    <ul class="space-y-3 text-slate-300 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-400 font-bold">•</span>
+                            <span>Declared directly inside a class, but <strong>never</strong> inside a method.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-400 font-bold">•</span>
+                            <span>Scope spans the <strong>entire class</strong>. Any method within the class can see them.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-indigo-400 font-bold">•</span>
+                            <span><strong>Default values apply:</strong> Automatically initialized if omitted (e.g., numbers default to <code>0</code>, objects to <code>null</code>, booleans to <code>false</code>).</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Local Level -->
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 hover:border-emerald-500/30 transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-emerald-400">Local Variables</h3>
+                    </div>
+                    <ul class="space-y-3 text-slate-300 text-sm">
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Declared inside methods, parameters, loops, or conditional blocks.</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span>Scope starts <strong>from declaration</strong> and ends when that block closes (<code>}</code>).</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <span class="text-emerald-400 font-bold">•</span>
+                            <span><strong>No default values:</strong> They <strong>must</strong> be initialized explicitly before reading, or the compiler throws an error!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Section 1 Simulator -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-850 mb-8">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
+                    Interactive Sandbox: Compile Check Simulator
+                </h4>
+                <p class="text-xs text-slate-400 mb-4">Toggle declarations and see if the Java compiler approves or throws a fit!</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 items-center">
+                    <!-- Configurator Panel -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Instance Variables:</label>
+                            <div class="flex items-center gap-2 bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                <span class="text-indigo-400 text-xs font-mono">int totalPoints;</span>
+                                <span class="text-xs text-indigo-300 ml-auto bg-indigo-500/10 px-2 py-0.5 rounded">Initialized automatically to 0</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase text-slate-400 mb-2">Local Variable Setup:</label>
+                            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-slate-300">Initialize Local Variable?</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="sec1_init" class="sr-only peer" checked onchange="updateSec1Simulator()">
+                                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-slate-300">Attempt to read Local Variable?</span>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="sec1_read" class="sr-only peer" checked onchange="updateSec1Simulator()">
+                                        <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Output Screen -->
+                    <div class="bg-slate-900 rounded-xl p-4 border border-slate-800 flex flex-col h-56 justify-between">
+                        <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+                            <span class="text-xs font-semibold tracking-wider text-slate-400">JAVA COMPILER STATUS</span>
+                            <span id="sec1_badge" class="px-2 py-0.5 rounded text-[10px] font-bold tracking-wider">SUCCESS</span>
+                        </div>
+                        <div class="font-mono text-xs text-slate-300 py-3 flex-grow overflow-y-auto space-y-1" id="sec1_code_output">
+                            <!-- Code output dynamically injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="bg-indigo-950/20 border border-indigo-900/40 rounded-xl p-5 mb-8">
+                <h4 class="font-bold text-white mb-2 text-sm flex items-center gap-2">
+                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Section 1 Key Takeaways
+                </h4>
+                <ul class="list-disc list-inside space-y-1.5 text-xs text-indigo-200">
+                    <li>Instance/static variables always reside directly at the class template level.</li>
+                    <li>Because of their wide visibility, Java defaults instance variable values safely to prevent application crashes.</li>
+                    <li>Local variables are short-lived utility declarations that reside strictly on the temporary stack of execution.</li>
+                </ul>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. What is the default value of an uninitialized instance <code class="text-indigo-400">int</code> variable in Java?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! Java instance numerical variables are automatically assigned 0.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) 0</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Instance variables are safely assigned default values by the compiler.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) It throws a compile error</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Object instances default to null, while integers default to 0.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">C) null</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. What happens if you try to compile code that references an uninitialized local variable?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! Unlike instance variables, local variables are not given a default.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) It compiles and uses default value 0 or null</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! Local variables must be initialized before they are read, or compile errors occur.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) The compiler throws a compile-time error</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2 ================= -->
+        <section id="section-2" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">02 / 06</span>
+            </div>
+
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 2: Identifying Scope Boundaries and Categories in Code
+                </h2>
+                <p class="text-slate-300 leading-relaxed">
+                    A variable's physical declaration location determines its category and accessibility. 
+                    Let's practice tracing exactly where variables are declared inside classes and methods to build visual memory.
+                </p>
+            </div>
+
+            <!-- Code Highlighting Tool -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 overflow-hidden mb-8">
+                <div class="bg-slate-900 px-4 py-3 border-b border-slate-800 flex flex-wrap gap-2 items-center justify-between">
+                    <span class="text-xs font-semibold text-slate-400">CLICK TO HIGHLIGHT VARIATIONS:</span>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="highlightScope('instance')" class="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 rounded text-amber-300 text-xs font-medium transition">
+                            Instance Variables
+                        </button>
+                        <button onclick="highlightScope('parameter')" class="px-2.5 py-1 bg-cyan-500/10 hover:bg-cyan-500/25 border border-cyan-500/30 rounded text-cyan-300 text-xs font-medium transition">
+                            Parameters
+                        </button>
+                        <button onclick="highlightScope('local')" class="px-2.5 py-1 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 rounded text-emerald-300 text-xs font-medium transition">
+                            Method Locals
+                        </button>
+                        <button onclick="highlightScope('static')" class="px-2.5 py-1 bg-fuchsia-500/10 hover:bg-fuchsia-500/25 border border-fuchsia-500/30 rounded text-fuchsia-300 text-xs font-medium transition">
+                            Static Class Scope
+                        </button>
+                        <button onclick="highlightScope('clear')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium rounded transition">
+                            Clear Highlights
+                        </button>
+                    </div>
+                </div>
+
+                <div class="p-6 font-mono text-sm leading-relaxed overflow-x-auto text-slate-300 bg-slate-950" id="code-inspector-block">
+                    <!-- Custom structured code markup -->
+                    <div><span class="text-blue-400">class</span> <span class="text-purple-300">ABC</span> {</div>
+                    <div class="pl-4"><span class="text-blue-400">int</span> <span class="scope-target scope-instance rounded px-1 py-0.5 transition-all">a=10</span>, <span class="scope-target scope-instance rounded px-1 py-0.5 transition-all">b=20</span>; <span class="text-slate-500 text-xs">// 1. Instance variables (entire class ABC scope)</span></div>
+                    <br>
+                    <div class="pl-4"><span class="text-blue-400">public void</span> <span class="text-yellow-300">Method1</span>() {</div>
+                    <div class="pl-8"><span class="text-purple-300">System</span>.out.println(<span class="text-green-300">"a="</span>+a);</div>
+                    <div class="pl-8"><span class="text-purple-300">System</span>.out.println(<span class="text-green-300">"b="</span>+b);</div>
+                    <div class="pl-4">}</div>
+                    <br>
+                    <div class="pl-4"><span class="text-blue-400">public void</span> <span class="text-yellow-300">Method2</span>(<span class="text-blue-400">int</span> <span class="scope-target scope-parameter rounded px-1 py-0.5 transition-all font-bold text-cyan-400">a</span>) { <span class="text-slate-500 text-xs">// 2. Parameter Local Variable</span></div>
+                    <div class="pl-8"><span class="text-blue-400">int</span> <span class="scope-target scope-local rounded px-1 py-0.5 transition-all font-bold text-emerald-400">b=888</span>; <span class="text-slate-500 text-xs">// 2. Method Local Variable</span></div>
+                    <div class="pl-8"><span class="text-purple-300">System</span>.out.println(<span class="text-green-300">"a="</span>+a);</div>
+                    <div class="pl-8"><span class="text-purple-300">System</span>.out.println(<span class="text-green-300">"b="</span>+b);</div>
+                    <div class="pl-4">}</div>
+                    <div>}</div>
+                    <br>
+                    <div><span class="text-blue-400">public class</span> <span class="text-purple-300">TestLocal</span> {</div>
+                    <div class="pl-4"><span class="text-blue-400">static int</span> <span class="scope-target scope-static rounded px-1 py-0.5 transition-all font-bold text-fuchsia-400">b=555</span>; <span class="text-slate-500 text-xs">// 3. Static Variable (Class TestLocal)</span></div>
+                    <br>
+                    <div class="pl-4"><span class="text-blue-400">public static void</span> <span class="text-yellow-300">main</span>(<span class="text-purple-300">String</span>[] args) {</div>
+                    <div class="pl-8"><span class="text-blue-400">int</span> <span class="scope-target scope-local rounded px-1 py-0.5 transition-all font-bold text-emerald-400">b=777</span>; <span class="text-slate-500 text-xs">// 4. Local Variable in main()</span></div>
+                    <div class="pl-8"><span class="text-purple-300">ABC</span> x = <span class="text-blue-400">new</span> <span class="text-purple-300">ABC</span>();</div>
+                    <div class="pl-8">x.Method1();</div>
+                    <div class="pl-8">x.Method2(b);</div>
+                    <div class="pl-4">}</div>
+                    <div>}</div>
+                </div>
+            </div>
+
+            <!-- Descriptive Text Boxes -->
+            <div class="grid sm:grid-cols-2 gap-4 mb-8 text-xs">
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                    <span class="text-amber-400 font-bold uppercase block mb-1">Instance Class Scope (a and b)</span>
+                    These are accessible by any non-static method (e.g., Method1 or Method2) throughout the entire class ABC.
+                </div>
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                    <span class="text-cyan-400 font-bold uppercase block mb-1">Local Shadowing Scope (Method2 Parameter a)</span>
+                    A completely separate variable "a" exists only inside the execution frame of Method2. It is passed via parameter logic.
+                </div>
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                    <span class="text-fuchsia-400 font-bold uppercase block mb-1">Static Scope (TestLocal b)</span>
+                    Static variables exist globally on the meta-class memory plane. Independent of standard instance object creations.
+                </div>
+                <div class="p-4 bg-slate-900 rounded-xl border border-slate-800">
+                    <span class="text-emerald-400 font-bold uppercase block mb-1">Main Scope (Local b)</span>
+                    Resides exclusively on the stack frame of the execution of the main thread method. Confined within its opening/closing bracket.
+                </div>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. Where is an instance variable declared within a Java source file?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! Instance variables are defined directly inside the class scope but outside any method boundaries.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) Directly inside the class body, outside any methods</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Variables declared inside static loops/methods are classified as local variables.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Inside the main method with static modifiers</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. In the code above, which variable is only visible within the boundaries of <code class="text-indigo-400">Method2</code>?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! Instance Variable \'a\' belongs to class ABC and is visible to Method1 as well.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) Instance variable a</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! The variable b declared inside Method2 is local and only accessible within Method2\'s curly braces.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) The local variable b initialized to 888</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Static int b=555 belongs to the TestLocal class.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">C) Static int b=555</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3 ================= -->
+        <section id="section-3" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">03 / 06</span>
+            </div>
+
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 3: Understanding Variable Shadowing and Priority Rules
+                </h2>
+                <p class="text-slate-300 leading-relaxed">
+                    What happens when a class-level variable and a local variable share the exact same name? 
+                    Java triggers a resolution hierarchy rule called <strong>Variable Shadowing</strong>. The narrower scope (local variable) masks the wider scope (instance variable).
+                </p>
+            </div>
+
+            <!-- Priority Interactive Sandbox -->
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 mb-8">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Live Shadowing Priority Engine
+                </h4>
+                <p class="text-xs text-slate-400 mb-4">Toggle parameters and run calculations dynamically to observe how Java resolves competing scope values.</p>
+
+                <div class="grid md:grid-cols-2 gap-6 items-stretch">
+                    <!-- Config Controls -->
+                    <div class="bg-slate-900 p-4 rounded-lg border border-slate-800 space-y-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-2">Class ABC Values</span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase mb-1">Instance variable 'a'</label>
+                                    <input type="number" id="sec3_inst_a" value="10" class="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-xs text-white" onchange="runShadowingEngine()">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase mb-1">Instance variable 'b'</label>
+                                    <input type="number" id="sec3_inst_b" value="20" class="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-xs text-white" onchange="runShadowingEngine()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-slate-800 pt-3">
+                            <span class="text-xs font-bold text-cyan-400 uppercase tracking-widest block mb-2">Method2 Parameters &amp; Locals</span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase mb-1">Parameter local 'a'</label>
+                                    <input type="number" id="sec3_local_a" value="777" class="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-xs text-white" onchange="runShadowingEngine()">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-slate-400 uppercase mb-1">Method local 'b'</label>
+                                    <input type="number" id="sec3_local_b" value="888" class="w-full bg-slate-950 border border-slate-800 px-3 py-1.5 rounded text-xs text-white" onchange="runShadowingEngine()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Display -->
+                    <div class="bg-slate-900 rounded-lg border border-slate-850 p-4 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block border-b border-slate-850 pb-2">Active JVM Execution Screen</span>
+                            <div class="mt-4 space-y-2">
+                                <div class="p-2.5 bg-slate-950 rounded border border-slate-800 flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400">Method1() Output</span>
+                                    <span class="text-xs font-mono text-indigo-400 font-semibold" id="sec3_m1_out">Method1 a=10, b=20</span>
+                                </div>
+                                <div class="p-2.5 bg-slate-950 rounded border border-slate-800 flex items-center justify-between">
+                                    <span class="text-xs font-mono text-slate-400">Method2() Output</span>
+                                    <span class="text-xs font-mono text-cyan-400 font-semibold" id="sec3_m2_out">Method2 a=777, b=888</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 p-3 bg-indigo-500/5 rounded border border-indigo-500/10 text-[11px] text-indigo-300">
+                            <strong>Priority Ruleset:</strong> Inside Method2, the parameter local <span class="font-semibold text-cyan-400">'a'</span> and method local <span class="font-semibold text-cyan-400">'b'</span> completely shadow class instances because of physical proximity during stack initialization.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. If a class has an instance variable named <code class="text-indigo-400">score</code>, and a method has a local variable named <code class="text-indigo-400">score</code>, which one takes priority when executing inside that method?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! The local variable shadows the instance variable, taking full priority within that scope.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) The local variable</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Instance variables have wider scope but lower priority inside method blocks containing matching variable names.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) The instance variable</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. How can we explicitly bypass shadowing inside a method to access the instance variable of an object?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! Writing this.varName directs Java explicitly to reference the instance variable of the active object state.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) Prefix the variable with the keyword &quot;this.&quot;</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! The static keyword is only for accessing class variables without instance context, not bypassing instance shadowing.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Prefix the variable with &quot;static.&quot;</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4 ================= -->
+        <section id="section-4" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">04 / 06</span>
+            </div>
+
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 4: Applying Scope Lifecycles and Resolution Rules
+                </h2>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Now we focus on the practical application of lifecycles and scope resolution rules using the <code>VariableScope</code> gold/silver medal example. 
+                    Let's trace how the variables are resolved line-by-line during runtime execution.
+                </p>
+            </div>
+
+            <!-- Dynamic Interactive Visual Flowchart -->
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 mb-8">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Interactive Timeline Flowchart: Variable Lifespan Tracing
+                </h4>
+                <p class="text-xs text-slate-400 mb-6">Select a line below to see which variables are "Alive" and their active values in the memory timeline!</p>
+
+                <div class="grid md:grid-cols-2 gap-8 items-start">
+                    <!-- Left Column: Code Selector -->
+                    <div class="space-y-2">
+                        <!-- Line 1 -->
+                        <div onclick="setTimelineStep(1)" id="t-line-1" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 1</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">int noOfGold = 5;</code>
+                                <span class="text-[10px] text-slate-400">Instance variable declared in Class context</span>
+                            </div>
+                        </div>
+                        <!-- Line 2 -->
+                        <div onclick="setTimelineStep(2)" id="t-line-2" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 2</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">int noOfSilver = 6;</code>
+                                <span class="text-[10px] text-slate-400">Instance variable declared in Class context</span>
+                            </div>
+                        </div>
+                        <!-- Line 3 -->
+                        <div onclick="setTimelineStep(3)" id="t-line-3" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 3</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">int noOfGold = 2; // Inside method</code>
+                                <span class="text-[10px] text-slate-400">Local variable declared inside method scope</span>
+                            </div>
+                        </div>
+                        <!-- Line 4 -->
+                        <div onclick="setTimelineStep(4)" id="t-line-4" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 4</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">System.out.println(... noOfGold ...);</code>
+                                <span class="text-[10px] text-slate-400">Print gold medals dynamically</span>
+                            </div>
+                        </div>
+                        <!-- Line 5 -->
+                        <div onclick="setTimelineStep(5)" id="t-line-5" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 5</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">System.out.println(... noOfSilver ...);</code>
+                                <span class="text-[10px] text-slate-400">Print silver medals dynamically</span>
+                            </div>
+                        </div>
+                        <!-- Line 6 -->
+                        <div onclick="setTimelineStep(6)" id="t-line-6" class="timeline-line-item cursor-pointer p-3 bg-slate-900 border border-slate-800 hover:border-indigo-500/30 rounded-lg transition flex items-center gap-3">
+                            <span class="text-xs font-mono font-bold text-slate-500">LINE 6</span>
+                            <div>
+                                <code class="text-xs text-slate-200 block">} // Method ends</code>
+                                <span class="text-[10px] text-slate-400">Exit scope and run garbage collection</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Visualizer Graphic State -->
+                    <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 space-y-4">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Real-time Scope Monitor</span>
+                        
+                        <!-- Instance Frame -->
+                        <div class="p-3 bg-indigo-500/10 border border-indigo-500/20 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-indigo-400">HEAP MEMORY (OBJECT STATE)</span>
+                                <span class="text-[10px] text-indigo-300 font-mono">VariableScope f</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono text-slate-300">
+                                    <span>noOfGold (Instance)</span>
+                                    <span id="sec4_heap_gold" class="text-slate-400">Not Instantiated</span>
+                                </div>
+                                <div class="flex justify-between text-xs font-mono text-slate-300">
+                                    <span>noOfSilver (Instance)</span>
+                                    <span id="sec4_heap_silver" class="text-slate-400">Not Instantiated</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stack Frame -->
+                        <div class="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs font-bold text-emerald-400">STACK MEMORY (LOCAL EXECUTION)</span>
+                                <span class="text-[10px] text-emerald-300 font-mono">dCPE3ABPP() Frame</span>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex justify-between text-xs font-mono text-slate-300">
+                                    <span>noOfGold (Local)</span>
+                                    <span id="sec4_stack_gold" class="text-slate-400">Frame Not Created</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Explanatory Box -->
+                        <div id="sec4_explanation" class="p-3 bg-slate-950 rounded border border-slate-800 text-xs text-slate-300 leading-relaxed min-h-16">
+                            Click a line on the left to trace execution!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. Why does the class compile successfully when utilizing <code class="text-indigo-400">noOfSilver</code> inside the method without declaring it locally?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! Instance variables possess class-wide scope, granting access to every member method inside the class.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) It is an instance variable whose scope spans the entire class</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Java does not allow uninitialized local access; it is resolved strictly via the wider class scope.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Local variables are shared globally across methods by default</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. When does the local variable <code class="text-indigo-400">noOfGold = 2</code> get cleared or garbage collected from the JVM Memory?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! The instance variable stays as long as the object f exists on the Heap. The local variable has a much shorter lifespan.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) When the entire class is destroyed</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! Local variables are popped off the thread stack immediately as soon as the execution block exits.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Instantly when the method execution block ends</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! JVM does not clean local scope references based on method calls elsewhere.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">C) When a new method is called on the object</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5 ================= -->
+        <section id="section-5" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">05 / 06</span>
+            </div>
+
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 5: Validating Program Output and Execution Behavior
+                </h2>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    Let's confirm and execute the actual program output. Learners often make mistakes when calculating variable priorities during execution. 
+                    This interactive debugger lets you run the code step-by-step and inspect output changes dynamically!
+                </p>
+            </div>
+
+            <!-- Debugger Engine Box -->
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-850 pb-4 mb-6">
+                    <div>
+                        <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400">Interactive Line-by-Line Debugger</h4>
+                        <p class="text-[11px] text-slate-500">Walk through the class execution to build absolute certainty on console outputs.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="resetDebugger()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded text-xs transition font-medium">
+                            Reset
+                        </button>
+                        <button onclick="stepDebugger()" id="step-btn" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs transition font-medium flex items-center gap-1.5">
+                            Step Forward →
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Code view with highlight indicator -->
+                    <div class="bg-slate-900 rounded-lg p-4 border border-slate-800 font-mono text-xs leading-relaxed text-slate-300 space-y-1 relative overflow-x-auto">
+                        <div id="debug-line-1" class="px-2 py-0.5 rounded transition">public class VariableScope {</div>
+                        <div id="debug-line-2" class="px-2 py-0.5 rounded transition pl-4">int noOfGold = 5;</div>
+                        <div id="debug-line-3" class="px-2 py-0.5 rounded transition pl-4">int noOfSilver = 6;</div>
+                        <br>
+                        <div id="debug-line-4" class="px-2 py-0.5 rounded transition pl-4">void dCPE3ABPP() {</div>
+                        <div id="debug-line-5" class="px-2 py-0.5 rounded transition pl-8">int noOfGold = 2;</div>
+                        <div id="debug-line-6" class="px-2 py-0.5 rounded transition pl-8 text-rose-400">System.out.println("Class DCPE3ABPP got " + noOfGold + " gold medals");</div>
+                        <div id="debug-line-7" class="px-2 py-0.5 rounded transition pl-8 text-emerald-400">System.out.println("There are altogether " + noOfSilver + " silver medals");</div>
+                        <div id="debug-line-8" class="px-2 py-0.5 rounded transition pl-4">}</div>
+                        <div id="debug-line-9" class="px-2 py-0.5 rounded transition">}</div>
+                    </div>
+
+                    <!-- Sandbox terminal monitor and memory values -->
+                    <div class="flex flex-col justify-between space-y-4">
+                        <!-- Active Scope Watch -->
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-800">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest block mb-2">Debugger Variable Watch</span>
+                            <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                                <div class="bg-slate-950 p-2 rounded border border-slate-850">
+                                    <span class="text-slate-500 block text-[9px]">noOfGold (Instance)</span>
+                                    <span id="watch-gold-inst" class="text-slate-300">-</span>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded border border-slate-850">
+                                    <span class="text-slate-500 block text-[9px]">noOfSilver (Instance)</span>
+                                    <span id="watch-silver-inst" class="text-slate-300">-</span>
+                                </div>
+                                <div class="bg-slate-950 p-2 rounded border border-slate-850 col-span-2">
+                                    <span class="text-slate-500 block text-[9px]">noOfGold (Local Method Scope)</span>
+                                    <span id="watch-gold-local" class="text-slate-300">-</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fake Console Terminal -->
+                        <div class="bg-slate-900 rounded-lg border border-slate-800 overflow-hidden flex-grow flex flex-col justify-between">
+                            <div class="bg-slate-950 px-3 py-1.5 border-b border-slate-800 flex items-center justify-between">
+                                <span class="text-[9px] font-bold text-slate-500 uppercase tracking-wider">OUTPUT CONSOLE</span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            </div>
+                            <div id="debugger-console" class="p-4 font-mono text-xs text-emerald-400 space-y-1 flex-grow overflow-y-auto min-h-24">
+                                <span class="text-slate-500">&gt;_ Console listening. Click 'Step Forward' to begin.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. Based on the validation execution above, what is the exact printout in the console regarding gold medals?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, true, 'Correct! The local variable (value 2) shadowed the instance variable (value 5).')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) Class DCPE3ABPP got 2 gold medals</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! Shadowing masks the instance variable value of 5, making the output read 2.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Class DCPE3ABPP got 5 gold medals</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. If we completely deleted the line <code class="text-indigo-400">int noOfGold = 2;</code> from the method scope, what would the output regarding gold medals be?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! Since noOfGold is defined at the instance level, Java successfully falls back to that instance variable instead of crashing.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) It throws a compile-time error due to missing initialization</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! In the absence of a shadowing local variable, the method safely resolves the reference to the instance variable value of 5.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Class DCPE3ABPP got 5 gold medals</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6 ================= -->
+        <section id="section-6" class="scroll-mt-6 bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8 relative">
+            <div class="absolute top-0 right-0 p-4">
+                <span class="text-xs font-bold text-slate-600 tracking-widest uppercase">06 / 06</span>
+            </div>
+
+            <div class="max-w-3xl mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">
+                    ## SECTION 6: Deconstructing the System.out.println Command Structure
+                </h2>
+                <p class="text-slate-300 leading-relaxed mb-4">
+                    To completely round out scope understanding, let's peek behind the magic of Java's standard printing mechanism: 
+                    <code>System.out.println()</code>. Beginners use this every single day without understanding how scope and class relationships govern it!
+                </p>
+            </div>
+
+            <!-- Interactive API Inspector -->
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 mb-8">
+                <h4 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-4 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.754 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    Interactive Deconstructor Map: System.out.println
+                </h4>
+                <p class="text-xs text-slate-400 mb-6">Click on any section of the statement below to break down its underlying Java class and package architecture.</p>
+
+                <!-- Command interactive button block -->
+                <div class="flex justify-center items-center py-6 bg-slate-900 rounded-xl border border-slate-800 gap-1 font-mono text-sm md:text-lg mb-6 overflow-x-auto px-4">
+                    <button onclick="inspectPrintPart('system')" class="px-3 py-2 bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300 rounded font-semibold transition tracking-wide shrink-0">
+                        System
+                    </button>
+                    <span class="text-slate-500 shrink-0">.</span>
+                    <button onclick="inspectPrintPart('out')" class="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300 rounded font-semibold transition tracking-wide shrink-0">
+                        out
+                    </button>
+                    <span class="text-slate-500 shrink-0">.</span>
+                    <button onclick="inspectPrintPart('println')" class="px-3 py-2 bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 rounded font-semibold transition tracking-wide shrink-0">
+                        println()
+                    </button>
+                </div>
+
+                <!-- API Card Details Display -->
+                <div class="bg-slate-900 rounded-xl p-5 border border-slate-800 min-h-32 flex flex-col justify-center" id="sec6_api_display">
+                    <p class="text-sm text-slate-400 text-center font-medium">Click one of the components above to inspect its real Java Class architecture details.</p>
+                </div>
+            </div>
+
+            <!-- Overload Simulator Visual -->
+            <div class="bg-slate-950 rounded-xl p-6 border border-slate-800 mb-8">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-4">JVM Method Overload Selector</span>
+                <p class="text-xs text-slate-400 mb-4">Select what data you are printing to see which overloaded method signature the Java Virtual Machine binds to at compile time.</p>
+                
+                <div class="grid sm:grid-cols-3 gap-3 mb-6">
+                    <button onclick="selectOverload('String')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left text-xs transition">
+                        <span class="block text-[10px] text-slate-500 uppercase font-mono">Input Type</span>
+                        <code class="text-indigo-400 font-bold">"Hello World" (String)</code>
+                    </button>
+                    <button onclick="selectOverload('Integer')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left text-xs transition">
+                        <span class="block text-[10px] text-slate-500 uppercase font-mono">Input Type</span>
+                        <code class="text-indigo-400 font-bold">123 (int)</code>
+                    </button>
+                    <button onclick="selectOverload('Object')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left text-xs transition">
+                        <span class="block text-[10px] text-slate-500 uppercase font-mono">Input Type</span>
+                        <code class="text-indigo-400 font-bold">new Object() (Object)</code>
+                    </button>
+                </div>
+
+                <div class="bg-slate-900 p-4 rounded border border-slate-850 font-mono text-xs text-slate-300" id="overload_result_box">
+                    Select an input type above to trace Java's execution path.
+                </div>
+            </div>
+
+            <!-- Quiz Block -->
+            <div class="border-t border-slate-800 pt-6">
+                <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Practice Questions</h4>
+                <div class="space-y-4">
+                    <!-- Q1 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">1. To which specific Java class does the static stream object variable <code class="text-indigo-400">out</code> belong?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! System is the container class, but out itself is of type PrintStream.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) System</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! System.out is a static instance of the PrintStream class inside java.io.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) PrintStream</button>
+                            <button onclick="checkAnswer(this, false, 'Wrong! String is the class of typical parameters passed inside println().')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">C) String</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="bg-slate-950/60 p-4 rounded-xl border border-slate-850">
+                        <p class="text-sm font-semibold text-white mb-3">2. How does the single command <code class="text-indigo-400">println</code> manage to successfully print both integers, strings, and custom objects?</p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            <button onclick="checkAnswer(this, false, 'Wrong! Dynamic script casting belongs to Javascript, not Java.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">A) Via dynamic loose typing conversion at runtime</button>
+                            <button onclick="checkAnswer(this, true, 'Correct! Java relies on method overloading to provide multiple signatures for print methods inside PrintStream.')" class="p-3 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300">B) Via static Method Overloading inside the PrintStream class</button>
+                        </div>
+                        <div class="mt-2 text-xs hidden feedback-box"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="bg-slate-950 py-12 border-t border-slate-850 text-center">
+        <div class="max-w-6xl mx-auto px-4 text-slate-500 text-xs space-y-2">
+            <p>Designed as an Interactive Teaching Companion for Java Classrooms.</p>
+            <p>&copy; 2026 Java Scoping Masterclass. No rights reserved. Educational Public Domain.</p>
+        </div>
+    </footer>
+
+    <!-- Core Javascript logic -->
+    <script>
+        // ================== SECTION 1: SIMULATOR LOGIC ==================
+        function updateSec1Simulator() {
+            const isInitialized = document.getElementById('sec1_init').checked;
+            const attemptRead = document.getElementById('sec1_read').checked;
+
+            const badge = document.getElementById('sec1_badge');
+            const codeBox = document.getElementById('sec1_code_output');
+
+            let codeHTML = "";
+            let success = true;
+
+            codeHTML += `<div><span class="text-blue-400">class</span> <span class="text-purple-300">VariableScope</span> {</div>`;
+            codeHTML += `<div class="pl-4 text-slate-500">// Instance field auto-initializes to 0</div>`;
+            codeHTML += `<div class="pl-4"><span class="text-blue-400">int</span> totalPoints;</div><br>`;
+            codeHTML += `<div class="pl-4"><span class="text-blue-400">void</span> <span class="text-yellow-300">runCode</span>() {</div>`;
+            
+            if (isInitialized) {
+                codeHTML += `<div class="pl-8"><span class="text-blue-400">int</span> localBonus = <span class="text-amber-300">500</span>;</div>`;
+            } else {
+                codeHTML += `<div class="pl-8"><span class="text-blue-400">int</span> localBonus; <span class="text-slate-500">// declared, not initialized</span></div>`;
+            }
+
+            if (attemptRead) {
+                if (isInitialized) {
+                    codeHTML += `<div class="pl-8 text-emerald-300">System.out.println(localBonus); <span class="text-emerald-500">// Approved!</span></div>`;
+                } else {
+                    codeHTML += `<div class="pl-8 text-rose-400 bg-rose-500/10 border-l-2 border-rose-500">System.out.println(localBonus); <span class="text-rose-500">// COMPILE ERROR!</span></div>`;
+                    success = false;
+                }
+            } else {
+                codeHTML += `<div class="pl-8 text-slate-500">// localBonus is declared but never read</div>`;
+            }
+
+            codeHTML += `<div class="pl-4">}</div></div>`;
+
+            codeBox.innerHTML = codeHTML;
+
+            if (success) {
+                badge.textContent = "COMPILES SUCCESSFULLY";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            } else {
+                badge.textContent = "COMPILE ERROR";
+                badge.className = "px-2 py-0.5 rounded text-[10px] font-bold tracking-wider bg-rose-500/10 text-rose-400 border border-rose-500/20";
+            }
+        }
+
+        // Initialize Section 1 Simulator State
+        updateSec1Simulator();
+
+        // ================== SECTION 2: SYNTAX HIGHLIGHTING ==================
+        function highlightScope(type) {
+            // clear prior highlights
+            const elements = document.querySelectorAll('.scope-target');
+            elements.forEach(el => {
+                el.className = el.className.replace(/\bbg-[a-z0-9\/-]+\b/g, '');
+                el.classList.remove('text-slate-900');
+            });
+
+            if (type === 'instance') {
+                const targets = document.querySelectorAll('.scope-instance');
+                targets.forEach(el => {
+                    el.classList.add('bg-amber-400', 'text-slate-900');
+                });
+            } else if (type === 'parameter') {
+                const targets = document.querySelectorAll('.scope-parameter');
+                targets.forEach(el => {
+                    el.classList.add('bg-cyan-400', 'text-slate-900');
+                });
+            } else if (type === 'local') {
+                const targets = document.querySelectorAll('.scope-local');
+                targets.forEach(el => {
+                    el.classList.add('bg-emerald-400', 'text-slate-900');
+                });
+            } else if (type === 'static') {
+                const targets = document.querySelectorAll('.scope-static');
+                targets.forEach(el => {
+                    el.classList.add('bg-fuchsia-400', 'text-slate-900');
+                });
+            }
+        }
+
+        // ================== SECTION 3: SHADOWING ENGINE ==================
+        function runShadowingEngine() {
+            const instA = document.getElementById('sec3_inst_a').value;
+            const instB = document.getElementById('sec3_inst_b').value;
+            const localA = document.getElementById('sec3_local_a').value;
+            const localB = document.getElementById('sec3_local_b').value;
+
+            document.getElementById('sec3_m1_out').textContent = `Method1 a=${instA}, b=${instB}`;
+            document.getElementById('sec3_m2_out').textContent = `Method2 a=${localA}, b=${localB}`;
+        }
+
+        // Initialize Section 3
+        runShadowingEngine();
+
+        // ================== SECTION 4: TIMELINE TRACING ==================
+        function setTimelineStep(step) {
+            // Clean previous line selects
+            const lines = document.querySelectorAll('.timeline-line-item');
+            lines.forEach(el => el.classList.remove('border-indigo-500', 'bg-indigo-950/20'));
+
+            // highlight selection
+            const activeLine = document.getElementById(`t-line-${step}`);
+            if (activeLine) {
+                activeLine.classList.add('border-indigo-500', 'bg-indigo-950/20');
+            }
+
+            const goldHeap = document.getElementById('sec4_heap_gold');
+            const silverHeap = document.getElementById('sec4_heap_silver');
+            const goldStack = document.getElementById('sec4_stack_gold');
+            const explanation = document.getElementById('sec4_explanation');
+
+            if (step === 1) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-slate-500">Unassigned (0)</span>`;
+                goldStack.innerHTML = `<span class="text-slate-500">Method Not Running</span>`;
+                explanation.innerHTML = `<strong>Object Created:</strong> VariableScope object instantiated. Instance field <code>noOfGold</code> receives its declared value of <strong>5</strong>.`;
+            } else if (step === 2) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-indigo-400 font-bold">6</span>`;
+                goldStack.innerHTML = `<span class="text-slate-500">Method Not Running</span>`;
+                explanation.innerHTML = `<strong>Fields Initialized:</strong> Both instance fields are now loaded into heap memory. <code>noOfSilver</code> reads <strong>6</strong>.`;
+            } else if (step === 3) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-indigo-400 font-bold">6</span>`;
+                goldStack.innerHTML = `<span class="text-emerald-400 font-bold">2</span>`;
+                explanation.innerHTML = `<strong>Method Stack Frame Created:</strong> Execution enters the dCPE3ABPP method context. A brand-new local variable <code>noOfGold</code> is initialized with a value of <strong>2</strong>. This shadows the instance variable!`;
+            } else if (step === 4) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-indigo-400 font-bold">6</span>`;
+                goldStack.innerHTML = `<span class="text-emerald-400 font-bold">2</span>`;
+                explanation.innerHTML = `<strong>Printing Gold Medals:</strong> System reads <code>noOfGold</code> inside the local stack scope first. It retrieves the shadowed value: <strong>2</strong>.`;
+            } else if (step === 5) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-indigo-400 font-bold">6</span>`;
+                goldStack.innerHTML = `<span class="text-emerald-400 font-bold">2</span>`;
+                explanation.innerHTML = `<strong>Printing Silver Medals:</strong> No local <code>noOfSilver</code> variable is found in the stack. JVM traverses outward and fetches the instance field from heap storage: <strong>6</strong>.`;
+            } else if (step === 6) {
+                goldHeap.innerHTML = `<span class="text-indigo-400 font-bold">5</span>`;
+                silverHeap.innerHTML = `<span class="text-indigo-400 font-bold">6</span>`;
+                goldStack.innerHTML = `<span class="text-rose-500 font-semibold">DESTROYED</span>`;
+                explanation.innerHTML = `<strong>Garbage Collection Lifecycle:</strong> The execution frame exits. The local variable <code>noOfGold</code> is completely dropped off memory. Instance fields are still preserved on the Heap.`;
+            }
+        }
+
+        // Initialize Timeline step
+        setTimelineStep(1);
+
+        // ================== SECTION 5: DEBUGGER STEPPER ==================
+        let currentDebugStep = 0;
+        const debugLinesCount = 9;
+
+        function resetDebugger() {
+            currentDebugStep = 0;
+            // Clear highlights
+            for (let i = 1; i <= debugLinesCount; i++) {
+                const el = document.getElementById(`debug-line-${i}`);
+                if (el) el.className = el.className.replace(/\bbg-indigo-500\/20\b/g, '');
+            }
+            document.getElementById('watch-gold-inst').textContent = "-";
+            document.getElementById('watch-silver-inst').textContent = "-";
+            document.getElementById('watch-gold-local').textContent = "-";
+            document.getElementById('debugger-console').innerHTML = `<span class="text-slate-500">&gt;_ Console listening. Click 'Step Forward' to begin.</span>`;
+            document.getElementById('step-btn').disabled = false;
+        }
+
+        function stepDebugger() {
+            currentDebugStep++;
+            // clear prior classes
+            for (let i = 1; i <= debugLinesCount; i++) {
+                const el = document.getElementById(`debug-line-${i}`);
+                if (el) el.className = el.className.replace(/\bbg-indigo-500\/20\b/g, '');
+            }
+
+            // highlight active
+            const activeLine = document.getElementById(`debug-line-${currentDebugStep}`);
+            if (activeLine) {
+                activeLine.classList.add('bg-indigo-500/20');
+            }
+
+            const consoleObj = document.getElementById('debugger-console');
+            const watchGoldInst = document.getElementById('watch-gold-inst');
+            const watchSilverInst = document.getElementById('watch-silver-inst');
+            const watchGoldLocal = document.getElementById('watch-gold-local');
+
+            if (currentDebugStep === 1) {
+                consoleObj.innerHTML = `<div>&gt;_ Loading VariableScope class template...</div>`;
+            } else if (currentDebugStep === 2) {
+                watchGoldInst.innerHTML = `<span class="text-amber-400 font-bold">5</span>`;
+                consoleObj.innerHTML += `<div>&gt;_ Allocated instance field noOfGold = 5</div>`;
+            } else if (currentDebugStep === 3) {
+                watchSilverInst.innerHTML = `<span class="text-amber-400 font-bold">6</span>`;
+                consoleObj.innerHTML += `<div>&gt;_ Allocated instance field noOfSilver = 6</div>`;
+            } else if (currentDebugStep === 4) {
+                consoleObj.innerHTML += `<div>&gt;_ Calling dCPE3ABPP() method execution block...</div>`;
+            } else if (currentDebugStep === 5) {
+                watchGoldLocal.innerHTML = `<span class="text-emerald-400 font-bold">2</span>`;
+                consoleObj.innerHTML += `<div>&gt;_ Declared local stack variable noOfGold = 2</div>`;
+            } else if (currentDebugStep === 6) {
+                consoleObj.innerHTML += `<div class="text-white font-bold">&gt;_ Class DCPE3ABPP got 2 gold medals</div>`;
+            } else if (currentDebugStep === 7) {
+                consoleObj.innerHTML += `<div class="text-white font-bold">&gt;_ There are altogether 6 silver medals</div>`;
+            } else if (currentDebugStep === 8) {
+                watchGoldLocal.innerHTML = `<span class="text-rose-500 font-semibold">DESTROYED</span>`;
+                consoleObj.innerHTML += `<div>&gt;_ Exiting method dCPE3ABPP(). Cleaning stack frames...</div>`;
+            } else if (currentDebugStep === 9) {
+                consoleObj.innerHTML += `<div>&gt;_ Execution complete.</div>`;
+                document.getElementById('step-btn').disabled = true;
+            }
+        }
+
+        // ================== SECTION 6: API DECONSTRUCTOR ==================
+        function inspectPrintPart(part) {
+            const display = document.getElementById('sec6_api_display');
+            if (part === 'system') {
+                display.innerHTML = `
+                    <div class="space-y-2">
+                        <span class="px-2 py-0.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-bold rounded">CLASS SUMMARY</span>
+                        <h5 class="text-sm font-bold text-white font-mono">java.lang.System</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            A final built-in core class in Java. Because it is part of <code>java.lang</code>, it is loaded automatically without import statements. 
+                            It cannot be instantiated, and provides system facility wrappers like streams, environment variables, and memory clean control.
+                        </p>
+                    </div>
+                `;
+            } else if (part === 'out') {
+                display.innerHTML = `
+                    <div class="space-y-2">
+                        <span class="px-2 py-0.5 bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold rounded">STATIC FIELD MEMBER</span>
+                        <h5 class="text-sm font-bold text-white font-mono">public static final PrintStream out</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            An automatically open static reference object pointing directly to standard output console stream. 
+                            It is initialized by the host operating system platform and belongs to the type <strong>PrintStream</strong> class.
+                        </p>
+                    </div>
+                `;
+            } else if (part === 'println') {
+                display.innerHTML = `
+                    <div class="space-y-2">
+                        <span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-bold rounded">OVERLOADED CLASS METHOD</span>
+                        <h5 class="text-sm font-bold text-white font-mono">void println(String text) / void println(int value)</h5>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Prints whatever argument is provided, appends a line break character, and flushes output buffers. 
+                            Belongs to the <strong>PrintStream</strong> class, heavily overloaded to accept all primitives & objects.
+                        </p>
+                    </div>
+                `;
+            }
+        }
+
+        function selectOverload(type) {
+            const box = document.getElementById('overload_result_box');
+            if (type === 'String') {
+                box.innerHTML = `
+                    <span class="text-[10px] text-emerald-400 uppercase tracking-wider font-bold block mb-1">Method Bind Match Found:</span>
+                    <code>void println(String x)</code> in <strong>PrintStream</strong>. Converts characters dynamically to bytecode stream output.
+                `;
+            } else if (type === 'Integer') {
+                box.innerHTML = `
+                    <span class="text-[10px] text-emerald-400 uppercase tracking-wider font-bold block mb-1">Method Bind Match Found:</span>
+                    <code>void println(int x)</code> in <strong>PrintStream</strong>. Internal logic optimizes the direct output of primitive numerical conversions.
+                `;
+            } else if (type === 'Object') {
+                box.innerHTML = `
+                    <span class="text-[10px] text-emerald-400 uppercase tracking-wider font-bold block mb-1">Method Bind Match Found:</span>
+                    <code>void println(Object x)</code> in <strong>PrintStream</strong>. Invokes <code>String.valueOf(x)</code> which internally executes the object's <code>toString()</code>!
+                `;
+            }
+        }
+
+        // ================== GENERAL QUIZ ENGINE ==================
+        function checkAnswer(buttonEl, isCorrect, explanationText) {
+            // Find parent wrapper of the specific question to manage its sibling buttons
+            const parent = buttonEl.parentElement;
+            const buttons = parent.querySelectorAll('button');
+
+            // Reset look of all buttons in this block
+            buttons.forEach(btn => {
+                btn.className = "p-3 bg-slate-900 border border-slate-800 rounded-lg text-left transition duration-150 text-slate-300";
+            });
+
+            // Set states depending on selection
+            if (isCorrect) {
+                buttonEl.className = "p-3 bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 rounded-lg text-left transition duration-150 font-medium";
+            } else {
+                buttonEl.className = "p-3 bg-rose-500/10 border border-rose-500/40 text-rose-300 rounded-lg text-left transition duration-150 font-medium";
+            }
+
+            // Unveil explanation box
+            const parentBlock = parent.parentElement;
+            const explanationBox = parentBlock.querySelector('.feedback-box');
+            if (explanationBox) {
+                explanationBox.classList.remove('hidden');
+                explanationBox.innerHTML = `
+                    <div class="p-3 ${isCorrect ? 'bg-emerald-500/5 border-l-2 border-emerald-500 text-emerald-300' : 'bg-rose-500/5 border-l-2 border-rose-500 text-rose-300'} rounded flex items-start gap-2">
+                        <span class="font-bold text-xs">${isCorrect ? '✓ Correct:' : '✗ Incorrect:'}</span>
+                        <span class="text-xs">${explanationText}</span>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>
