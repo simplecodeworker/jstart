@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP Foundations: Interactive Learning Journey</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* Custom animation for code token pulses */
+        @keyframes pulse-subtle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        .pulse-effect {
+            animation: pulse-subtle 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white min-h-screen">
+
+    <!-- Top Hero Banner (No sticky header as per requirements) -->
+    <header class="relative overflow-hidden bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-950 py-16 px-4 border-b border-slate-800">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.1),transparent)] pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase tracking-widest">
+                Interactive Lecture Companion
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mt-4 text-white">
+                Java Object-Oriented <br class="hidden sm:inline"/>Foundations
+            </h1>
+            <p class="text-slate-400 mt-6 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+                A live scroll-through curriculum for Java beginners. Use this interactive deck to walk through syntax breakdown, error debugging, object lifecycles, and compiler simulators in real-time.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#section-1" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/20 transition-all duration-200">
+                    Get Started (Section 1)
+                </a>
+                <a href="#curriculum-roadmap" class="px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl border border-slate-700 transition-all duration-200">
+                    View Lesson Plan
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Interactive Lesson Index Roadmap -->
+    <section id="curriculum-roadmap" class="max-w-5xl mx-auto px-4 py-12">
+        <div class="bg-slate-900/50 rounded-2xl border border-slate-800 p-6 md:p-8">
+            <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                Lesson Curriculum Roadmap
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="#section-1" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 01</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Java Syntax Anatomy</span>
+                </a>
+                <a href="#section-2" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 02</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Architecture & Signatures</span>
+                </a>
+                <a href="#section-3" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 03</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Debugging Parameter Mismatch</span>
+                </a>
+                <a href="#section-4" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 04</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Void Return Constraints</span>
+                </a>
+                <a href="#section-5" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 05</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Object Memory Lifecycle</span>
+                </a>
+                <a href="#section-6" class="group p-4 bg-slate-900 hover:bg-indigo-950/40 border border-slate-800 hover:border-indigo-500/30 rounded-xl transition-all duration-200">
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 06</span>
+                    <span class="font-semibold text-slate-200 group-hover:text-white block">Data Hiding & Encapsulation</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Flow -->
+    <main class="max-w-5xl mx-auto px-4 pb-24 space-y-20">
+
+        <!-- ==========================================
+             SECTION 1
+             ========================================== -->
+        <section id="section-1" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 01</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Anatomy of Java Syntax: Classes, Objects, and Methods</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    In Java, everything centers around Object-Oriented Principles. For developers, correctly breaking down statements into classes, variables, constructor calls, and methods is key to understanding execution. Let us analyze a fundamental input statement:
+                </p>
+            </div>
+
+            <!-- Main Interactive Component: Syntax Visualizer & Explainer -->
+            <div class="mb-8">
+                <h4 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-3">Interactive Code Breakdown (Hover or tap tokens):</h4>
+                
+                <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 overflow-x-auto">
+                    <div class="min-w-[600px] font-mono text-lg md:text-xl py-4 space-y-4">
+                        <!-- Line 1 -->
+                        <div class="flex items-center space-x-2">
+                            <!-- Scanner -->
+                            <span id="t1-scanner" class="px-2 py-1 bg-yellow-500/10 text-yellow-300 hover:bg-yellow-500/20 border border-yellow-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('class-scanner')" onclick="showSection1Detail('class-scanner')">Scanner</span>
+                            
+                            <!-- sc -->
+                            <span id="t1-sc1" class="px-2 py-1 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('obj-sc')" onclick="showSection1Detail('obj-sc')">sc</span>
+                            
+                            <!-- = -->
+                            <span class="text-slate-400">=</span>
+                            
+                            <!-- new Scanner(System.in) -->
+                            <span id="t1-new" class="px-2 py-1 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 border border-indigo-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('constructor')" onclick="showSection1Detail('constructor')">new Scanner(</span>
+                            
+                            <!-- System -->
+                            <span id="t1-system" class="px-2 py-1 bg-yellow-500/10 text-yellow-300 hover:bg-yellow-500/20 border border-yellow-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('class-system')" onclick="showSection1Detail('class-system')">System</span>
+                            
+                            <span class="text-indigo-300">.</span>
+                            
+                            <!-- in -->
+                            <span id="t1-in" class="px-2 py-1 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('obj-in')" onclick="showSection1Detail('obj-in')">in</span>
+                            
+                            <span class="text-indigo-300">);</span>
+                        </div>
+
+                        <!-- Line 2 -->
+                        <div class="flex items-center space-x-2 pt-2">
+                            <span class="text-purple-400">double</span>
+                            <span class="text-slate-300">data</span>
+                            <span class="text-slate-400">=</span>
+                            
+                            <!-- sc -->
+                            <span id="t1-sc2" class="px-2 py-1 bg-cyan-500/10 text-cyan-300 hover:bg-cyan-500/20 border border-cyan-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('obj-sc')" onclick="showSection1Detail('obj-sc')">sc</span>
+                            
+                            <span class="text-slate-400">.</span>
+                            
+                            <!-- nextDouble() -->
+                            <span id="t1-next" class="px-2 py-1 bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 border border-rose-500/30 rounded cursor-pointer transition-all duration-200" onmouseover="showSection1Detail('method')" onclick="showSection1Detail('method')">nextDouble();</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Dynamic Info Card -->
+                <div id="section1-details-box" class="mt-4 p-5 bg-slate-900 border border-slate-800 rounded-xl transition-all duration-300">
+                    <p class="text-slate-400 text-sm">💡 <span class="font-semibold text-slate-300">Pro-Tip:</span> Hover over any colored piece of code above to unpack its syntactic structure and role in memory.</p>
+                </div>
+            </div>
+
+            <!-- Deep Learning Materials -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="p-5 rounded-xl bg-slate-900 border border-slate-800">
+                    <h5 class="text-indigo-300 font-bold mb-2">Key Core Rules</h5>
+                    <ul class="space-y-2 text-sm text-slate-300 list-disc list-inside">
+                        <li><strong>Classes</strong> act as templates or reference types. They are statically defined blueprints.</li>
+                        <li><strong>Objects</strong> are living entities in heap memory created from those blueprint types.</li>
+                        <li><strong>Methods</strong> are specialized behavioral pathways attached to objects.</li>
+                    </ul>
+                </div>
+                <div class="p-5 rounded-xl bg-slate-900 border border-slate-800">
+                    <h5 class="text-emerald-300 font-bold mb-2">Takeaway Summary</h5>
+                    <p class="text-sm text-slate-300 leading-relaxed">
+                        Never assume syntax is just boilerplate. In <code class="text-indigo-300 font-mono">System.in</code>, <code class="text-yellow-300 font-mono">System</code> is a Class and <code class="text-cyan-300 font-mono">in</code> is a static Object variable. Knowing this prevents errors when chaining methods or copying arguments.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 1 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. In the statement <code class="text-indigo-400 font-mono">Scanner sc = new Scanner(System.in);</code>, what is the role of "sc"?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s1q1', 1, false, 'Wrong! Scanner is the class; sc is the created variable pointing to the instance.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) It is the Class blueprint definition</button>
+                        <button onclick="checkMCQ('s1q1', 2, true, 'Correct! sc is an instance variable referencing a newly constructed Scanner object in memory.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) It is an Object (reference variable to an instance)</button>
+                        <button onclick="checkMCQ('s1q1', 3, false, 'Wrong! nextDouble() is an example of a method; sc is an object.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) It is a dynamic behavior/method call</button>
+                    </div>
+                    <div id="feedback-s1q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. In the statement <code class="text-indigo-400 font-mono">System.in</code>, what are "System" and "in" respectively?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s1q2', 1, false, 'Wrong! System is a standard utility class, not a method.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) A Method and a Variable</button>
+                        <button onclick="checkMCQ('s1q2', 2, true, 'Correct! System is a final Class, and in is a static final public InputStream Object within it.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) A Class and an Object reference variable</button>
+                        <button onclick="checkMCQ('s1q2', 3, false, 'Wrong! It is not a new constructor call. There is no new keyword.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) A Constructor and a Method signature</button>
+                    </div>
+                    <div id="feedback-s1q2" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 2
+             ========================================== -->
+        <section id="section-2" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 02</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Critical Analysis of Class Blueprints and Method Signatures</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    A Java class contains variables (attributes) and methods (behaviors). For compile-time success, methods must declare precise parameter counts, positions, and return types. Let us analyze our <strong>Rect Class Architecture Map</strong> to view how constructors and methods are structured.
+                </p>
+            </div>
+
+            <!-- Code Blueprint Visual Guide -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+                <!-- Code Block -->
+                <div class="lg:col-span-7 bg-slate-950 rounded-xl border border-slate-800 overflow-hidden">
+                    <div class="bg-slate-900 px-4 py-2 flex items-center justify-between border-b border-slate-800">
+                        <span class="text-xs font-mono text-indigo-400">Rect.java (Class Blueprint Definition)</span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    </div>
+                    <pre class="p-4 text-xs md:text-sm font-mono text-slate-300 overflow-x-auto"><code><span class="text-purple-400">class</span> <span class="text-yellow-300">Rect</span> {
+    <span class="text-slate-500">// Attributes (Private State Variables)</span>
+    <span class="text-purple-400">private double</span> l, b;
+
+    <span class="text-slate-500">// No-Arg Constructor</span>
+    <span class="text-purple-400">public</span> <span class="text-yellow-300">Rect</span>() { 
+        l = b = 0.0; 
+    }
+
+    <span class="text-slate-500">// Overloaded Parameterized Constructor</span>
+    <span class="text-purple-400">public</span> <span class="text-yellow-300">Rect</span>(<span class="text-purple-400">double</span> len, <span class="text-purple-400">double</span> b) { 
+        l = len; 
+        <span class="text-purple-400">this</span>.b = b; 
+    }
+
+    <span class="text-slate-500">// void Method (Returns absolutely nothing)</span>
+    <span class="text-purple-400">public void</span> <span class="text-rose-400">setRect</span>(<span class="text-purple-400">double</span> lth, <span class="text-purple-400">double</span> bth) {
+        l = lth;
+        b = bth;
+    }
+
+    <span class="text-slate-500">// double Method (Returns computed value)</span>
+    <span class="text-purple-400">public double</span> <span class="text-rose-400">calArea</span>() { 
+        <span class="text-purple-400">return</span> l * b; 
+    }
+}</code></pre>
+                </div>
+
+                <!-- Architectural Flowchart Visualized in HTML/CSS -->
+                <div class="lg:col-span-5 flex flex-col justify-between bg-slate-900/60 p-5 rounded-xl border border-slate-800">
+                    <div>
+                        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-4">Class Blueprint Analysis Map:</h4>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between">
+                                <span class="text-xs font-mono text-purple-400 font-semibold">private double l, b</span>
+                                <span class="text-xs px-2 py-0.5 bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 rounded">Private Attributes</span>
+                            </div>
+                            
+                            <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between">
+                                <span class="text-xs font-mono text-indigo-400 font-semibold">Rect() / Rect(double, double)</span>
+                                <span class="text-xs px-2 py-0.5 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded">Constructors</span>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between">
+                                <span class="text-xs font-mono text-rose-400 font-semibold">setRect(double, double)</span>
+                                <span class="text-xs px-2 py-0.5 bg-rose-500/10 text-rose-400 border border-rose-500/20 rounded">void Return Method</span>
+                            </div>
+
+                            <div class="p-3 bg-slate-950 border border-slate-800 rounded-lg flex items-center justify-between">
+                                <span class="text-xs font-mono text-emerald-400 font-semibold">calArea()</span>
+                                <span class="text-xs px-2 py-0.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded">double Return Method</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 pt-4 border-t border-slate-800 text-xs text-slate-400 leading-relaxed">
+                        💡 <span class="font-semibold text-slate-300">Observation:</span> A class defines *potential* parameters. At compile-time, Java inspects the method's unique signature, matching parameters based on name, argument size, and type sequence.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Takeaways -->
+            <div class="p-5 rounded-xl bg-slate-900 border border-slate-800 mb-8">
+                <h5 class="text-indigo-300 font-bold mb-2">Key Section Takeaway</h5>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Method signatures are calculated by the method name plus parameter sequence. Return type is *not* part of the signature check for calling, but acts as a rule for how the method output can be written or consumed.
+                </p>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 2 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. Why does Java allow both <code class="text-indigo-400 font-mono">public Rect()</code> and <code class="text-indigo-400 font-mono">public Rect(double len, double b)</code> to exist simultaneously?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s2q1', 1, true, 'Correct! Java supports method/constructor overloading as long as their parameter signatures differ.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) It is constructor overloading (different parameter signatures)</button>
+                        <button onclick="checkMCQ('s2q1', 2, false, 'Wrong! They cannot have the same parameters; constructor parameters must be explicitly different.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) It is overriding a parent class constructor</button>
+                        <button onclick="checkMCQ('s2q1', 3, false, 'Wrong! Constructors must share the exact name of the Class they instantiate.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) Java chooses constructors completely at random at runtime</button>
+                    </div>
+                    <div id="feedback-s2q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. What constitutes a unique Method Signature in Java?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s2q2', 1, false, 'Wrong! Return types and access levels are NOT a part of the method signature evaluated for binding.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Only the return type and access modifiers</button>
+                        <button onclick="checkMCQ('s2q2', 2, true, 'Correct! A signature is purely made of the method name and the structured parameter list.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) The method name and its parameter list (number, order, types)</button>
+                        <button onclick="checkMCQ('s2q2', 3, false, 'Wrong! Variable names inside methods do not affect signatures.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) The name of local variables defined inside the method</button>
+                    </div>
+                    <div id="feedback-s2q2" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 3
+             ========================================== -->
+        <section id="section-3" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 03</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Debugging Parameter Mismatches in Method Calls</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    One of the most frequent beginner mistakes is executing a method call with the wrong number or types of parameters. When the Java compiler scans a call such as <code class="text-rose-400 font-mono">rt.setRect()</code>, it tries to match it to a defined method block containing exactly zero arguments. Since <code class="text-rose-400 font-mono">setRect(double, double)</code> requires arguments, a <strong>compile-time compilation failure</strong> is triggered.
+                </p>
+            </div>
+
+            <!-- Live Simulator: Parameter Match compiler simulator -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-6 mb-8">
+                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">🖥️ Interactive Java Parameter Match Simulator:</h4>
+                <p class="text-xs text-slate-400 mb-4">Choose parameter configurations to simulate compiler binding with our instantiated variable <code class="text-indigo-400 font-mono">rt</code> (created via <code class="text-indigo-400 font-mono">new Rect(3.0, 4.0)</code>).</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Select Code Line to Execute:</label>
+                            <select id="s3-selector" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-indigo-500 transition-all duration-200" onchange="runS3Simulation()">
+                                <option value="correct-set">rt.setRect(5.5, 10.0);</option>
+                                <option value="empty-set">rt.setRect();</option>
+                                <option value="correct-area">rt.calArea();</option>
+                                <option value="param-area">rt.calArea(10, 1.0);</option>
+                            </select>
+                        </div>
+
+                        <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-800">
+                            <span class="text-xs font-semibold text-slate-400 block mb-1">Expected Match Signature:</span>
+                            <p id="s3-expected" class="text-xs font-mono text-slate-300">lth: double, bth: double</p>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Output Console -->
+                    <div class="flex flex-col justify-between bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
+                        <div class="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-indigo-400">Compiler Diagnostic Logs</span>
+                            <span id="s3-status-dot" class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        </div>
+                        <div id="s3-console" class="p-4 flex-1 font-mono text-xs text-emerald-400 h-28 overflow-y-auto whitespace-pre-line leading-relaxed">
+                            Compiling project...
+                            Success! No compile errors.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Learning Takeaway -->
+            <div class="p-5 rounded-xl bg-slate-900 border border-slate-800 mb-8">
+                <h5 class="text-indigo-300 font-bold mb-2">Clear Teaching Point</h5>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    Java is a statically typed language. The type, count, and order of values passed into any method *must* match its definition exactly. When calling <code class="text-indigo-300 font-mono">rt.calArea(10, 1.0)</code>, compiler checks fail because <code class="text-indigo-300 font-mono">calArea()</code> is defined to accept zero arguments.
+                </p>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 3 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. Why does the line <code class="text-rose-400 font-mono">rt.setRect();</code> trigger a compilation error?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s3q1', 1, false, 'Wrong! Rect has a parameterless constructor, but setRect() is a method requiring arguments.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Because setRect has private access and cannot be accessed</button>
+                        <button onclick="checkMCQ('s3q1', 2, true, 'Correct! The compiler expects two arguments of type double. Passing zero arguments results in a mismatched signature error.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) Because setRect() requires two double arguments and none were supplied</button>
+                        <button onclick="checkMCQ('s3q1', 3, false, 'Wrong! setRect returns void, which is legal for non-print calls.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) Because you can only call a method on instantiations inside loops</button>
+                    </div>
+                    <div id="feedback-s3q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. What occurs if you call <code class="text-indigo-400 font-mono">rt.calArea(10, 1.0)</code>?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s3q2', 1, false, 'Wrong! Rect does not support automatic parameter overloading unless a method with arguments is declared.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Java will dynamically adjust to multiply 10 * 1.0 instead of using internal data attributes</button>
+                        <button onclick="checkMCQ('s3q2', 2, true, 'Correct! The calArea() method is defined with no parameter constraints. Providing parameters generates a compiler syntax error.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) A compilation failure because calArea() expects exactly zero arguments</button>
+                        <button onclick="checkMCQ('s3q2', 3, false, 'Wrong! This is not a runtime exception; the compiler catches this mismatch and blocks generation.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) A runtime NullPointerException is thrown instantly during execution</button>
+                    </div>
+                    <div id="feedback-s3q2" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 4
+             ========================================== -->
+        <section id="section-4" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 04</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Void Return Constraints in Console Print Operations</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    A key concept to grasp is <strong>Return Types</strong>. When a method declares its return type as <code class="text-rose-400 font-mono">void</code>, it indicates the method performs calculations or side-effects, but returns *no* data back to the calling statement. Consequently, trying to pass a void statement output directly as an argument inside <code class="text-indigo-400 font-mono">System.out.print()</code> yields a compiler error. There is literally nothing to print.
+                </p>
+            </div>
+
+            <!-- Simulator Tool: Console Printer Simulator -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-6 mb-8">
+                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">📺 System.out.print() Argument Evaluation Simulator</h4>
+                <p class="text-xs text-slate-400 mb-4">Test feeding return values into a terminal output call and observe how Java evaluates the argument.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-900 rounded-lg border border-slate-800 space-y-3">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block">Expression inside Print Method:</span>
+                            
+                            <div class="flex flex-col space-y-2">
+                                <label class="flex items-center space-x-3 p-2 bg-slate-950 rounded border border-slate-800 hover:bg-slate-900 cursor-pointer">
+                                    <input type="radio" name="printer-expr" value="calArea" checked class="text-indigo-600 focus:ring-indigo-500" onchange="runS4Simulation()">
+                                    <span class="text-xs font-mono text-emerald-300">rt.calArea() (returns double)</span>
+                                </label>
+                                <label class="flex items-center space-x-3 p-2 bg-slate-950 rounded border border-slate-800 hover:bg-slate-900 cursor-pointer">
+                                    <input type="radio" name="printer-expr" value="setRect" class="text-indigo-600 focus:ring-indigo-500" onchange="runS4Simulation()">
+                                    <span class="text-xs font-mono text-rose-300">rt.setRect(1.0, 10.0) (returns void)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-800 text-xs text-slate-300 leading-relaxed">
+                            💡 <span class="font-semibold text-white">How Java Compiler checks:</span>
+                            <pre class="mt-2 text-indigo-400 font-mono">System.out.print( [argument] );</pre>
+                            The argument block inside must evaluate to a valid primitive type, String, or object to print. Void returns literally produce no variable space.
+                        </div>
+                    </div>
+
+                    <!-- Output Console View -->
+                    <div class="flex flex-col bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
+                        <div class="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-indigo-400">Standard Virtual Terminal Screen</span>
+                            <span id="s4-status-label" class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase font-semibold">Active</span>
+                        </div>
+                        <div class="p-4 flex-1 bg-slate-950 flex flex-col justify-between font-mono text-sm min-h-[140px]">
+                            <div class="text-slate-400">
+                                <span class="text-indigo-400">$</span> java MainExecution
+                            </div>
+                            <div id="s4-console" class="text-emerald-400 py-3 whitespace-pre-line text-xs">
+                                Output: 12.0
+                            </div>
+                            <div class="text-[10px] text-slate-500 border-t border-slate-800/60 pt-2">
+                                Process finished with code 0
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 4 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. What error message does the compiler output when it parses <code class="text-rose-400 font-mono">System.out.print(rt.setRect(1.0, 10));</code>?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s4q1', 1, false, 'Wrong! Memory space limit is for storage/allocations, not primitive compiler type checking.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) OutOfMemoryError: Class size limit exceeded</button>
+                        <button onclick="checkMCQ('s4q1', 2, true, 'Correct! System.out.print expects a printable type. A void return means there is absolutely nothing to print, triggering a strict type error.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) Cannot print void: setRect does not return a printable type</button>
+                        <button onclick="checkMCQ('s4q1', 3, false, 'Wrong! The arguments are completely correct, the structural return is the source of failure.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) ArgumentCountException: too many values provided inside println</button>
+                    </div>
+                    <div id="feedback-s4q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. How should you invoke <code class="text-rose-300 font-mono">setRect(1.0, 10.0)</code> correctly in Java?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s4q2', 1, false, 'Wrong! Placing a void statement in a return clause produces a type error.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Return it from inside another void method via double brackets</button>
+                        <button onclick="checkMCQ('s4q2', 2, true, 'Correct! Since setRect() returns void, you simply run it as a standalone statement on its own line: rt.setRect(1.0, 10.0);', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) Call it as a standalone statement on its own line</button>
+                        <button onclick="checkMCQ('s4q2', 3, false, 'Wrong! Creating mathematical comparisons with void types triggers compilation failures.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) Assign it to an double variable: double ans = rt.setRect(1.0, 10.0)</button>
+                    </div>
+                    <div id="feedback-s4q2" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 5
+             ========================================== -->
+        <section id="section-5" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 05</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Managing Object Lifecycle and Uninitialized References</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    Declaring a reference variable does not build an object. For instance, writing <code class="text-indigo-400 font-mono">Rect rec;</code> creates a reference space on the <strong>Stack</strong>, but it points to nothing (<code class="text-rose-400 font-mono">null</code>). If you try to run <code class="text-rose-400 font-mono">rec.calArea();</code> before instantiating it, the compiler or local JVM throws an error because there is no allocated object block in <strong>Heap memory</strong> to process.
+                </p>
+            </div>
+
+            <!-- Visual Memory Map Simulator (Stack vs Heap) -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-6 mb-8">
+                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">🧠 Stack & Heap Virtual Memory Layout Simulator</h4>
+                <p class="text-xs text-slate-400 mb-6">Cycle through different lifecycle states to see how references and actual objects bind inside the JVM.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <button onclick="setMemoryState('declared')" class="p-4 rounded-xl text-left border bg-slate-900 border-slate-800 hover:border-indigo-500 transition-all duration-200">
+                        <span class="text-xs font-bold text-indigo-400 block mb-1">STATE A</span>
+                        <code class="text-xs font-mono text-white block">Rect rec;</code>
+                        <span class="text-[10px] text-slate-400 mt-2 block">Reference declared on stack, points to null.</span>
+                    </button>
+                    
+                    <button onclick="setMemoryState('instantiated')" class="p-4 rounded-xl text-left border bg-indigo-950/20 border-indigo-500/30 hover:border-indigo-500 transition-all duration-200">
+                        <span class="text-xs font-bold text-indigo-400 block mb-1">STATE B</span>
+                        <code class="text-xs font-mono text-white block">rec = new Rect();</code>
+                        <span class="text-[10px] text-slate-400 mt-2 block">Heap allocation occurs, pointer binds.</span>
+                    </button>
+
+                    <button onclick="setMemoryState('execution-error')" class="p-4 rounded-xl text-left border bg-rose-950/20 border-rose-500/30 hover:border-rose-500 transition-all duration-200">
+                        <span class="text-xs font-bold text-rose-400 block mb-1">STATE C</span>
+                        <code class="text-xs font-mono text-white block">rec.calArea(); // prior to instantiate</code>
+                        <span class="text-[10px] text-rose-400 mt-2 block">Visualizing Null Pointer Exception.</span>
+                    </button>
+                </div>
+
+                <!-- Live Visual Representation of Memory -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-900 p-6 rounded-xl border border-slate-800">
+                    <!-- Stack Block -->
+                    <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 text-center relative">
+                        <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-4">JVM Stack Memory</span>
+                        
+                        <div class="space-y-3">
+                            <div class="p-3 bg-slate-900 rounded border border-slate-800">
+                                <span class="text-xs text-slate-400 block">Primitive Local Variables</span>
+                                <span class="text-xs font-mono font-bold text-white">double data = 12.0</span>
+                            </div>
+                            <div class="p-3 bg-slate-900 rounded border border-slate-800 relative">
+                                <span class="text-xs text-indigo-400 block">Object Reference Variable</span>
+                                <span class="text-xs font-mono font-bold text-white block">rec</span>
+                                <div id="stack-pointer" class="text-xs text-yellow-400 font-semibold mt-2">
+                                    Points to: null
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heap Block -->
+                    <div class="p-4 bg-slate-950 rounded-lg border border-slate-800 text-center">
+                        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-4">JVM Heap Memory</span>
+                        
+                        <div id="heap-block-container" class="p-6 bg-slate-900/40 border border-slate-800/80 rounded h-32 flex flex-col items-center justify-center transition-all duration-300">
+                            <span class="text-xs text-slate-500 font-mono">No object allocated yet</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Warning Text -->
+                <div id="memory-explainer" class="mt-4 p-4 bg-slate-900 rounded-lg text-xs text-slate-300 leading-relaxed">
+                    Select a memory state button above to run the interactive JVM memory traces.
+                </div>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 5 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. When you execute <code class="text-indigo-400 font-mono">Rect rec;</code> without assigning anything, what space in memory gets built?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s5q1', 1, false, 'Wrong! Heap allocation ONLY occurs when the new keyword is actively executed.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) An actual object gets built inside the JVM Heap</button>
+                        <button onclick="checkMCQ('s5q1', 2, true, 'Correct! Java reserves space on the program stack for the reference variable. Since it is not assigned, it points to null.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) A reference variable slot is created on the Stack pointing to null</button>
+                        <button onclick="checkMCQ('s5q1', 3, false, 'Wrong! Standard garbage collectors only scan and reclaim memory in Heap space.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) The Garbage Collector instantly deletes the declaration</button>
+                    </div>
+                    <div id="feedback-s5q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. What happens at runtime when you call a method like <code class="text-rose-400 font-mono">rec.calArea()</code> on an uninstantiated object reference variable?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s5q2', 1, false, 'Wrong! Java cannot default properties without instantiate bindings.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Java executes safely, outputting a value of 0.0</button>
+                        <button onclick="checkMCQ('s5q2', 2, true, 'Correct! Attempting to invoke instance methods or modify state on null references triggers a NullPointerException.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) It throws a Runtime NullPointerException (either caught at compile or runtime)</button>
+                        <button onclick="checkMCQ('s5q2', 3, false, 'Wrong! The compiler can identify uninstantiated local variables, but calling fields from them results in error.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) It executes a system-wide restart of the program</button>
+                    </div>
+                    <div id="feedback-s5q2" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             SECTION 6
+             ========================================== -->
+        <section id="section-6" class="bg-slate-900/40 rounded-2xl border border-slate-800 p-6 md:p-8 shadow-xl transition-all scroll-mt-6">
+            <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
+                <div>
+                    <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-1">Section 06</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">Enforcing Data Hiding and Encapsulation Rules</h2>
+                </div>
+                <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg hidden sm:block">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Teaching Materials -->
+            <div class="prose prose-invert max-w-none mb-8">
+                <p class="text-slate-300 leading-relaxed">
+                    <strong>Encapsulation</strong> is the core mechanism of data hiding in OOP. By declaring attributes like <code class="text-indigo-400 font-mono">l</code> and <code class="text-indigo-400 font-mono">b</code> as <code class="text-rose-400 font-mono">private</code> inside the <code class="text-indigo-400 font-mono">Rect</code> class, we prevent external code blocks from directly modifying them. If a programmer writes <code class="text-rose-400 font-mono">rt.b = 10;</code> from inside the <code class="text-indigo-400 font-mono">main()</code> block of another class, the compiler stops compilation with an access violation error. Access must instead go through secure public methods like <code class="text-emerald-400 font-mono">setRect(1.0, 10.0)</code>.
+                </p>
+            </div>
+
+            <!-- Interactive Modifier Sandbox -->
+            <div class="bg-slate-950 rounded-xl border border-slate-800 p-6 mb-8">
+                <h4 class="text-sm font-bold text-slate-300 uppercase tracking-wider mb-4">🛡️ Encapsulation & Access Modifier Sandbox Simulator</h4>
+                <p class="text-xs text-slate-400 mb-6">Toggle the accessibility modifier of the Rect attributes below and see how the compiler evaluates direct manipulation from main().</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-900 rounded-lg border border-slate-800">
+                            <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-3">Set Attribute Access Level inside Rect:</span>
+                            
+                            <div class="flex space-x-3">
+                                <button id="btn-mod-private" onclick="setAccessModifier('private')" class="flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-rose-500/30 bg-rose-500/10 text-rose-400 transition-all duration-200">
+                                    private double b;
+                                </button>
+                                <button id="btn-mod-public" onclick="setAccessModifier('public')" class="flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all duration-200">
+                                    public double b;
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-slate-900/60 rounded-lg border border-slate-800 text-xs text-slate-300 space-y-2">
+                            <p class="font-semibold text-white">Current Access Rule Context:</p>
+                            <div id="access-rule-desc">
+                                ❌ <strong class="text-rose-400">Private Access:</strong> Only internal methods within <code class="text-indigo-300 font-mono">Rect</code> can touch or read <code class="text-indigo-300 font-mono">b</code>. Statements in external classes (like <code class="text-indigo-300 font-mono">main()</code>) will cause compiler failures if attempting direct writes like <code class="text-rose-300 font-mono">rt.b = 10;</code>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sandbox Logs -->
+                    <div class="flex flex-col bg-slate-900 rounded-lg border border-slate-800 overflow-hidden">
+                        <div class="bg-slate-950 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-indigo-400">Compile Sandbox Diagnostic Console</span>
+                            <span id="s6-status-dot" class="w-2 h-2 rounded-full bg-rose-500"></span>
+                        </div>
+                        <div id="s6-console" class="p-4 flex-1 font-mono text-xs text-rose-400 min-h-[140px] whitespace-pre-line leading-relaxed">
+                            Error: b has private access in Rect.
+                            Cannot write directly to rt.b!
+                            Compilation failed due to access violation.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assessment / Interactive MCQ -->
+            <div class="bg-slate-950 p-6 rounded-xl border border-slate-800">
+                <h4 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-indigo-500 text-xs text-white">?</span>
+                    Section 6 Quick Knowledge Test
+                </h4>
+
+                <!-- MCQ 1 -->
+                <div class="mb-6">
+                    <p class="text-sm font-semibold text-slate-300 mb-2">1. Why does Java prefer private data members combined with public methods instead of just public data variables?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s6q1', 1, false, 'Wrong! Access speeds are practically identical regardless of variable modifier settings.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) Because private variables consume 50% less space in Heap memory</button>
+                        <button onclick="checkMCQ('s6q1', 2, true, 'Correct! Encapsulation allows validation of arguments (data protection) and prevents external direct corruption of object state.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) It enforces encapsulation, letting the class control validation rules and restrict direct modification</button>
+                        <button onclick="checkMCQ('s6q1', 3, false, 'Wrong! Private classes do not enforce automatic inheritance overrides.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) It makes the class override all inheritance structures automatically</button>
+                    </div>
+                    <div id="feedback-s6q1" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+
+                <!-- MCQ 2 -->
+                <div>
+                    <p class="text-sm font-semibold text-slate-300 mb-2">2. If you try to run <code class="text-indigo-400 font-mono">rt.b = 10;</code> inside <code class="text-indigo-400 font-mono">main()</code> when <code class="text-indigo-400 font-mono">b</code> is private, at what stage is the issue caught?</p>
+                    <div class="space-y-2">
+                        <button onclick="checkMCQ('s6q2', 1, true, 'Correct! Access control checks are done strictly by the compiler at compile-time, halting build actions on failure.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">A) At Compile-time (the compiler checks keywords and raises access errors)</button>
+                        <button onclick="checkMCQ('s2q2_alt', 2, false, 'Wrong! This is a compile error, not a runtime exception.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">B) At Runtime (the JVM throws a security access crash block)</button>
+                        <button onclick="checkMCQ('s2q2_alt', 3, false, 'Wrong! This is a critical access violation that prevents the program from building.', this)" class="w-full text-left p-3 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 transition text-sm">C) Java ignores this and runs fine with no output warnings</button>
+                    </div>
+                    <div id="feedback-s2q2_alt" class="mt-2 text-xs font-medium hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Code Compilation Challenge Playground -->
+        <section class="bg-indigo-950/30 rounded-2xl border border-indigo-500/20 p-6 md:p-8 shadow-xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(99,102,241,0.1),transparent)] pointer-events-none"></div>
+            
+            <div class="relative z-10">
+                <span class="px-2 py-1 rounded bg-indigo-500/20 text-indigo-400 text-xs font-semibold tracking-wider uppercase">Interactive Recap Sandbox</span>
+                <h3 class="text-xl md:text-2xl font-extrabold text-white mt-3 mb-2">The Ultimate Interactive Execution Playground</h3>
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                    Let's put everything we've learned together! Click on various lines of the `main()` method below to see if they compile successfully or fail, alongside detailed explanations.
+                </p>
+
+                <!-- Sandbox Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-7 bg-slate-950 border border-slate-800 rounded-xl overflow-hidden">
+                        <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex items-center justify-between">
+                            <span class="text-xs font-mono text-slate-300">Main.java</span>
+                            <span class="text-xs text-indigo-400">Click a line to test execute</span>
+                        </div>
+                        <div class="p-4 font-mono text-xs md:text-sm text-slate-300 space-y-1">
+                            <div><span class="text-purple-400">public static void</span> <span class="text-blue-400">main</span>(String[] args) {</div>
+                            
+                            <!-- Line 1 -->
+                            <button onclick="testSandboxLine(1, 'success', 'Valid line! Instantiates variable r using the no-arg constructor.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-emerald-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;Rect r = new Rect();</span>
+                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-emerald-400">Valid</span>
+                            </button>
+
+                            <!-- Line 2 -->
+                            <button onclick="testSandboxLine(2, 'success', 'Valid line! Instantiates variable rt using overloaded parameterized constructor with values 3.0 and 4.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-emerald-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;Rect rt = new Rect(3.0, 4);</span>
+                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-emerald-400">Valid</span>
+                            </button>
+
+                            <!-- Line 3 -->
+                            <button onclick="testSandboxLine(3, 'success', 'Valid line! Reserves reference variable space for rec on stack. Holds a value of null until instantiated.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-emerald-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;Rect rec;</span>
+                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-emerald-400">Valid</span>
+                            </button>
+
+                            <!-- Line 4 -->
+                            <button onclick="testSandboxLine(4, 'fail-private', 'Encapsulation error! Attribute b inside the Rect class is private and cannot be written directly from main.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-rose-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;rt.b = 10;</span>
+                                <span class="text-[10px] bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-rose-400">Compiler Error</span>
+                            </button>
+
+                            <!-- Line 5 -->
+                            <button onclick="testSandboxLine(5, 'fail-param', 'Parameter match error! setRect expects lth: double, bth: double. Providing zero arguments triggers mismatched signatures.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-rose-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;rt.setRect();</span>
+                                <span class="text-[10px] bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-rose-400">Compiler Error</span>
+                            </button>
+
+                            <!-- Line 6 -->
+                            <button onclick="testSandboxLine(6, 'fail-void', 'Void expression error! System.out.print cannot display setRect since its return type is void.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-rose-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(rt.setRect(1.0, 10));</span>
+                                <span class="text-[10px] bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-rose-400">Compiler Error</span>
+                            </button>
+
+                            <!-- Line 7 -->
+                            <button onclick="testSandboxLine(7, 'fail-null', 'Null Pointer Error! reference rec has not been instantiated using new Rect(). calling methods on it triggers execution crashes.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-rose-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;rec.calArea();</span>
+                                <span class="text-[10px] bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-rose-400">Compiler Error</span>
+                            </button>
+
+                            <!-- Line 8 -->
+                            <button onclick="testSandboxLine(8, 'fail-extra-param', 'Parameter mismatch error! calArea() is defined with zero argument requirements. Passing two doubles triggers mismatches.')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-rose-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(rt.calArea(10, 1.0));</span>
+                                <span class="text-[10px] bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded text-rose-400">Compiler Error</span>
+                            </button>
+
+                            <!-- Line 9 -->
+                            <button onclick="testSandboxLine(9, 'success-print', 'Valid statement! prints rt.calArea() which evaluates correctly to 12.0 (length 3.0 * width 4).')" class="w-full text-left py-1 px-2 rounded hover:bg-slate-900/80 font-mono text-emerald-400 transition flex items-center justify-between">
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp;System.out.print(rt.calArea());</span>
+                                <span class="text-[10px] bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded text-emerald-400">Valid</span>
+                            </button>
+
+                            <div>}</div>
+                        </div>
+                    </div>
+
+                    <!-- Diagnostics & Compiler Box -->
+                    <div class="lg:col-span-5 flex flex-col justify-between bg-slate-900 rounded-xl border border-indigo-500/20 p-5 overflow-hidden">
+                        <div>
+                            <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4">Live Sandbox Compiler Diagnostic Engine</h4>
+                            <div id="sandbox-verdict-box" class="p-4 rounded-lg bg-slate-950 border border-slate-800 min-h-[140px] flex flex-col justify-center">
+                                <span class="text-xs text-slate-500 block mb-2 font-mono">Status: Idle</span>
+                                <p class="text-sm text-slate-400">Select any method line inside the sandbox main method code editor on the left to test and dry-run compiled logic.</p>
+                            </div>
+                        </div>
+                        <div class="mt-4 text-[11px] text-slate-400 leading-relaxed pt-4 border-t border-slate-800">
+                            💡 <span class="font-bold text-slate-200">Tip:</span> This simulator lets you test all constraints in real-time (data-hiding, parameter count, return values, void operations, and stack null pointers).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Global Javascript Utility Logic -->
+    <script>
+        // Section 1 - Code Line Info breakdown
+        function showSection1Detail(type) {
+            const detailBox = document.getElementById('section1-details-box');
+            let content = '';
+
+            switch (type) {
+                case 'class-scanner':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-yellow-400 uppercase tracking-wide">Class Token</span>
+                            <p class="text-sm text-slate-200 font-mono">Scanner</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">This is a standard reference type imported from <code class="bg-slate-950 p-1 rounded font-mono text-xs text-indigo-300">java.util.Scanner</code>. It acts as a static blueprint for building custom objects to process input values.</p>
+                        </div>
+                    `;
+                    break;
+                case 'obj-sc':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wide">Object Variable Reference</span>
+                            <p class="text-sm text-slate-200 font-mono">sc</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">This is a reference variable. Declaring it sets aside variable room on the stack that will hold the reference memory address pointing to the actual Scanner object inside Heap space.</p>
+                        </div>
+                    `;
+                    break;
+                case 'constructor':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-indigo-400 uppercase tracking-wide">Constructor Trigger & Allocation</span>
+                            <p class="text-sm text-slate-200 font-mono">new Scanner( ... )</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">The <code class="bg-slate-950 p-1 rounded text-xs font-mono text-indigo-300">new</code> keyword instantiates class attributes and runs the constructor method to set initial states. It establishes memory storage for the object.</p>
+                        </div>
+                    `;
+                    break;
+                case 'class-system':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-yellow-400 uppercase tracking-wide">Utility Class</span>
+                            <p class="text-sm text-slate-200 font-mono">System</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">A final Java class belonging to <code class="bg-slate-950 p-1 rounded text-xs font-mono text-indigo-300">java.lang</code>. You do not need to create instances of it. It offers essential system utility wrappers.</p>
+                        </div>
+                    `;
+                    break;
+                case 'obj-in':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-cyan-400 uppercase tracking-wide">Static Stream Object</span>
+                            <p class="text-sm text-slate-200 font-mono">in</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">A static variable defined inside class System that references the standard input keyboard stream, acting as a pipeline constructor argument.</p>
+                        </div>
+                    `;
+                    break;
+                case 'method':
+                    content = `
+                        <div class="space-y-1">
+                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wide">Behavioral Method Instance</span>
+                            <p class="text-sm text-slate-200 font-mono">nextDouble();</p>
+                            <p class="text-xs text-slate-400 leading-relaxed">An active function method linked to the Scanner class definition. It prompts the keyboard stream to listen for and parse input into a double variable.</p>
+                        </div>
+                    `;
+                    break;
+                default:
+                    content = `
+                        <p class="text-slate-400 text-sm">💡 <span class="font-semibold text-slate-300">Pro-Tip:</span> Hover over any colored piece of code above to unpack its syntactic structure and role in memory.</p>
+                    `;
+            }
+
+            detailBox.innerHTML = content;
+        }
+
+        // Section 3: Run Interactive Parameter Simulator
+        function runS3Simulation() {
+            const selector = document.getElementById('s3-selector').value;
+            const expectedBox = document.getElementById('s3-expected');
+            const consoleBox = document.getElementById('s3-console');
+            const statusDot = document.getElementById('s3-status-dot');
+
+            let expectedText = '';
+            let consoleLogs = '';
+            let isSuccess = false;
+
+            if (selector === 'correct-set') {
+                expectedText = 'lth: double, bth: double';
+                consoleLogs = `Compiling code:
+rt.setRect(5.5, 10.0);
+
+✔ Binding successful!
+Signature: setRect(double, double) matches perfectly.
+Updated values inside rt instance: length = 5.5, b = 10.0`;
+                isSuccess = true;
+            } else if (selector === 'empty-set') {
+                expectedText = 'lth: double, bth: double';
+                consoleLogs = `Compiling code:
+rt.setRect();
+
+✖ Compiler Error:
+method setRect in class Rect cannot be applied to given types;
+required: double, double
+found: no arguments
+reason: actual and formal argument lists differ in length`;
+                isSuccess = false;
+            } else if (selector === 'correct-area') {
+                expectedText = 'none (zero parameters)';
+                consoleLogs = `Compiling code:
+rt.calArea();
+
+✔ Binding successful!
+Signature: calArea() matches perfectly.
+Returns computed output value: 12.0`;
+                isSuccess = true;
+            } else if (selector === 'param-area') {
+                expectedText = 'none (zero parameters)';
+                consoleLogs = `Compiling code:
+rt.calArea(10, 1.0);
+
+✖ Compiler Error:
+method calArea in class Rect cannot be applied to given types;
+required: no arguments
+found: int, double
+reason: actual and formal argument lists differ in length`;
+                isSuccess = false;
+            }
+
+            expectedBox.innerText = expectedText;
+            consoleBox.innerText = consoleLogs;
+
+            if (isSuccess) {
+                statusDot.className = "w-2 h-2 rounded-full bg-emerald-500";
+                consoleBox.className = "p-4 flex-1 font-mono text-xs text-emerald-400 h-28 overflow-y-auto whitespace-pre-line leading-relaxed";
+            } else {
+                statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
+                consoleBox.className = "p-4 flex-1 font-mono text-xs text-rose-400 h-28 overflow-y-auto whitespace-pre-line leading-relaxed";
+            }
+        }
+
+        // Section 4: Run Print Statement Simulator
+        function runS4Simulation() {
+            const selectedExpr = document.querySelector('input[name="printer-expr"]:checked').value;
+            const consoleBox = document.getElementById('s4-console');
+            const statusLabel = document.getElementById('s4-status-label');
+
+            if (selectedExpr === 'calArea') {
+                statusLabel.innerText = "Success";
+                statusLabel.className = "text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase font-semibold";
+                consoleBox.innerText = `Output: 12.0`;
+            } else {
+                statusLabel.innerText = "Compiler Error";
+                statusLabel.className = "text-[10px] px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/20 uppercase font-semibold";
+                consoleBox.innerText = `Error compilation trace:
+Main.java:9: error: void type not allowed here
+    System.out.print( rt.setRect(1.0, 10.0) );
+                                ^
+Explanation: The print stream cannot accept void expressions.`;
+            }
+        }
+
+        // Section 5: Heap and Stack Visual Memory state controller
+        function setMemoryState(state) {
+            const stackPointer = document.getElementById('stack-pointer');
+            const heapContainer = document.getElementById('heap-block-container');
+            const explainer = document.getElementById('memory-explainer');
+
+            if (state === 'declared') {
+                stackPointer.innerHTML = `Points to: <span class="text-rose-400 font-mono font-bold">null</span>`;
+                heapContainer.innerHTML = `<span class="text-xs text-slate-500 font-mono">No object allocated yet</span>`;
+                heapContainer.className = "p-6 bg-slate-900/40 border border-slate-800/80 rounded h-32 flex flex-col items-center justify-center transition-all duration-300";
+                explainer.innerHTML = `👉 <strong>State A (Declared):</strong> Declaring <code class="text-indigo-400 font-mono">Rect rec;</code> sets up variable storage space for the pointer on the Stack but does not build the actual object. The reference value is initialized to <code class="text-rose-400 font-mono">null</code>.`;
+            } else if (state === 'instantiated') {
+                stackPointer.innerHTML = `Points to Heap Address: <span class="text-emerald-400 font-mono font-bold">0x7F2C</span>`;
+                heapContainer.innerHTML = `
+                    <div class="space-y-1 text-center">
+                        <span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20">Address: 0x7F2C</span>
+                        <p class="text-xs font-mono font-bold text-white">new Rect() Object Instance</p>
+                        <p class="text-[10px] text-slate-400">l = 0.0, b = 0.0</p>
+                    </div>
+                `;
+                heapContainer.className = "p-6 bg-emerald-950/20 border border-emerald-500/30 rounded h-32 flex flex-col items-center justify-center transition-all duration-300 shadow-lg shadow-emerald-500/5";
+                explainer.innerHTML = `👉 <strong>State B (Instantiated):</strong> Running <code class="text-indigo-400 font-mono">rec = new Rect();</code> triggers class constructor logic. It reserves living storage space in JVM Heap memory, default-sets attributes, and binds the stack variable's pointer address.`;
+            } else if (state === 'execution-error') {
+                stackPointer.innerHTML = `Points to: <span class="text-rose-400 font-mono font-bold">null</span>`;
+                heapContainer.innerHTML = `<span class="text-xs text-slate-500 font-mono">No object allocated yet</span>`;
+                heapContainer.className = "p-6 bg-rose-950/20 border border-rose-500/30 rounded h-32 flex flex-col items-center justify-center transition-all duration-300";
+                explainer.innerHTML = `🚨 <strong>State C (Runtime Failure):</strong> If you run <code class="text-indigo-400 font-mono">rec.calArea();</code> when the Stack reference is <code class="text-rose-400 font-mono">null</code>, there is no heap instance to refer to, triggering an immediate crash with a <strong class="text-rose-400">NullPointerException (NPE)</strong>.`;
+            }
+        }
+
+        // Section 6: Encapsulation settings switcher
+        function setAccessModifier(mod) {
+            const btnPrivate = document.getElementById('btn-mod-private');
+            const btnPublic = document.getElementById('btn-mod-public');
+            const ruleDesc = document.getElementById('access-rule-desc');
+            const consoleBox = document.getElementById('s6-console');
+            const statusDot = document.getElementById('s6-status-dot');
+
+            if (mod === 'private') {
+                btnPrivate.className = "flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-rose-500/30 bg-rose-500/10 text-rose-400 transition-all duration-200";
+                btnPublic.className = "flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all duration-200";
+                
+                ruleDesc.innerHTML = `❌ <strong class="text-rose-400">Private Access:</strong> Only internal methods within <code class="text-indigo-300 font-mono">Rect</code> can touch or read <code class="text-indigo-300 font-mono">b</code>. Statements in external classes (like <code class="text-indigo-300 font-mono">main()</code>) will cause compiler failures if attempting direct writes like <code class="text-rose-300 font-mono">rt.b = 10;</code>.`;
+                
+                consoleBox.innerText = `Error compilation trace:
+Main.java:5: error: b has private access in Rect
+    rt.b = 10;
+      ^
+Compilation failed due to access control restriction.`;
+                consoleBox.className = "p-4 flex-1 font-mono text-xs text-rose-400 min-h-[140px] whitespace-pre-line leading-relaxed";
+                statusDot.className = "w-2 h-2 rounded-full bg-rose-500";
+            } else {
+                btnPrivate.className = "flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-slate-800 bg-slate-900 text-slate-400 hover:bg-slate-800 transition-all duration-200";
+                btnPublic.className = "flex-1 py-2 px-3 text-xs rounded-lg font-bold border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 transition-all duration-200";
+                
+                ruleDesc.innerHTML = `✔ <strong class="text-emerald-400">Public Access Allowed:</strong> Any outside class is allowed to read or directly edit attribute variable <code class="text-indigo-300 font-mono">b</code>. However, this violates the principles of Object-Oriented Encapsulation by exposing core internal state fields.`;
+                
+                consoleBox.innerText = `Compiling code:
+rt.b = 10;
+
+✔ Direct state modification accepted.
+Compile finished successfully!`;
+                consoleBox.className = "p-4 flex-1 font-mono text-xs text-emerald-400 min-h-[140px] whitespace-pre-line leading-relaxed";
+                statusDot.className = "w-2 h-2 rounded-full bg-emerald-500";
+            }
+        }
+
+        // Ultimate Sandbox line simulator
+        function testSandboxLine(lineNumber, resultType, message) {
+            const verdictBox = document.getElementById('sandbox-verdict-box');
+            let panelClass = '';
+            let label = '';
+            let textClass = '';
+
+            if (resultType === 'success' || resultType === 'success-print') {
+                panelClass = 'p-4 rounded-lg bg-emerald-950/20 border border-emerald-500/30 min-h-[140px] transition-all duration-300 shadow-md';
+                label = 'Status: Compilation Success ✔';
+                textClass = 'text-sm text-emerald-300 mt-2';
+            } else {
+                panelClass = 'p-4 rounded-lg bg-rose-950/20 border border-rose-500/30 min-h-[140px] transition-all duration-300 shadow-md';
+                label = 'Status: Compile Error ❌';
+                textClass = 'text-sm text-rose-300 mt-2';
+            }
+
+            verdictBox.className = panelClass;
+            verdictBox.innerHTML = `
+                <span class="text-xs font-bold font-mono block ${resultType.startsWith('success') ? 'text-emerald-400' : 'text-rose-400'}">${label}</span>
+                <p class="${textClass} leading-relaxed">${message}</p>
+                <div class="mt-4 pt-3 border-t border-slate-800/60 text-[10px] text-slate-400">Tested line #${lineNumber} of main() block</div>
+            `;
+        }
+
+        // Shared MCQ logic
+        function checkMCQ(questionId, optionId, isCorrect, explanation, element) {
+            const parent = element.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            const feedback = document.getElementById('feedback-' + questionId);
+
+            // Reset state styling on options
+            buttons.forEach(btn => {
+                btn.className = "w-full text-left p-3 rounded-lg bg-slate-900 border border-slate-800 transition text-sm text-slate-300";
+            });
+
+            if (isCorrect) {
+                element.className = "w-full text-left p-3 rounded-lg bg-emerald-500/10 border border-emerald-500/40 text-emerald-300 transition text-sm font-semibold";
+                feedback.className = "mt-2 text-xs font-medium text-emerald-400 p-2 bg-emerald-500/5 rounded border border-emerald-500/10 block";
+                feedback.innerHTML = `🎉 Correct! ${explanation}`;
+            } else {
+                element.className = "w-full text-left p-3 rounded-lg bg-rose-500/10 border border-rose-500/40 text-rose-300 transition text-sm font-semibold";
+                feedback.className = "mt-2 text-xs font-medium text-rose-400 p-2 bg-rose-500/5 rounded border border-rose-500/10 block";
+                feedback.innerHTML = `❌ Wrong. ${explanation}`;
+            }
+        }
+
+        // Trigger simulations on load
+        window.onload = function() {
+            runS3Simulation();
+            runS4Simulation();
+        }
+    </script>
+</body>
+</html>
