@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java String Class - Interactive Masterclass</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        pre, code {
+            font-family: 'Fira Code', monospace;
+        }
+        .scroller::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .scroller::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .scroller::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .scroller::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- Hero / Welcome Board -->
+    <header class="bg-gradient-to-br from-indigo-900 via-slate-900 to-indigo-950 text-white py-12 px-6 shadow-xl relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(99,102,241,0.15),transparent_40%)]"></div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider">
+                <i class="fa-solid fa-code mr-1"></i> Interactive Java Lesson
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold mt-4 tracking-tight">
+                Mastering the <span class="bg-gradient-to-r from-amber-400 via-orange-300 to-indigo-300 bg-clip-text text-transparent">String Class</span> in Java
+            </h1>
+            <p class="text-slate-300 mt-3 text-base md:text-lg max-w-3xl">
+                A structured, interactive guide designed for Java beginners. Use this resource step-by-step to demonstrate syntax mechanics, explore heap-pool memory dynamics, and test your knowledge.
+            </p>
+
+            <!-- Table of Contents Section Grid -->
+            <div class="mt-8 bg-slate-900/50 backdrop-blur border border-slate-800 rounded-2xl p-5">
+                <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center">
+                    <i class="fa-solid fa-map mr-2 text-indigo-400"></i> Lesson Index Map (Scroll or Click to Jump)
+                </h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2 text-sm text-slate-300">
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec1')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 1</span> Object Creation
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec2')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 2</span> String Literals
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec3')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 3</span> Java API Docs
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec4')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 4</span> Built-in Methods
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec5')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 5</span> Practical Trial
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec6')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 6</span> Immutability
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec7')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 7</span> convert TO String
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec8')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 8</span> convert FROM String
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec9')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 9</span> Reference (==)
+                    </a>
+                    <a href="javascript:void(0)" onclick="scrollToSection('sec10')" class="hover:bg-indigo-500/20 border border-slate-800 hover:border-indigo-500/30 p-2.5 rounded-lg transition-all">
+                        <span class="text-amber-400 font-bold block">Section 10</span> Equality (equals)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-6 py-12 space-y-16">
+
+        <!-- ================= SECTION 1 ================= -->
+        <section id="sec1" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">01. Initialization</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Introduction to the String Class and Object Creation</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <!-- Pedagogical Block -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            In Java, a <strong class="text-slate-900">String</strong> is not a simple primitive type (like <code class="text-rose-600 bg-rose-50 px-1 py-0.5 rounded">int</code> or <code class="text-rose-600 bg-rose-50 px-1 py-0.5 rounded">char</code>). Instead, it is an <strong>object instance</strong> of the class <code class="text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded font-bold">java.lang.String</code>.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Important Takeaway:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li><strong>String Literals:</strong> Easiest syntax. Reuses pool data.</li>
+                                <li><strong>Constructor with <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-semibold">new</code>:</strong> Allocates a brand-new distinct block in memory.</li>
+                                <li><strong>Constructor with <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-semibold">char[]</code>:</strong> Converts character sequences to structured text.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Code block -->
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Slide Concept Code</h3>
+                        <div class="bg-slate-950 rounded-2xl p-4 shadow-inner text-slate-300 text-sm overflow-x-auto">
+                            <pre><code class="text-emerald-400">// Method 1: Using string literal assignment</span>
+<span class="text-amber-300">String</span> m1 = <span class="text-orange-400">"Welcome to Java!"</span>;
+
+<span class="text-emerald-400">// Method 2: Explicit Heap construction</span>
+<span class="text-amber-300">String</span> m2 = <span class="text-pink-400">new</span> <span class="text-amber-300">String</span>(<span class="text-orange-400">"Welcome to Java!"</span>);
+
+<span class="text-emerald-400">// Method 3: Converting char array</span>
+<span class="text-pink-400">char</span>[] c = <span class="text-pink-400">new</span> <span class="text-pink-400">char</span>[] {<span class="text-orange-400">'c'</span>,<span class="text-orange-400">'o'</span>,<span class="text-orange-400">'v'</span>,<span class="text-orange-400">'i'</span>,<span class="text-orange-400">'d'</span>};
+<span class="text-amber-300">String</span> m3 = <span class="text-pink-400">new</span> <span class="text-amber-300">String</span>(c); <span class="text-slate-400">// "covid"</span>
+
+<span class="text-emerald-400">// Method 4: Constructor copying</span>
+<span class="text-amber-300">String</span> m4 = <span class="text-pink-400">new</span> <span class="text-amber-300">String</span>(m3);</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-flask mr-2 text-indigo-500"></i> Interactive Sandbox: String Instantiation Constructor
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Toggle different variable constructor styles to inspect live Java output statements.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-3 bg-white p-4 rounded-xl border border-slate-200">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Select Constructor Type:</label>
+                                <select id="s1-constructor" onchange="updateS1Simulator()" class="w-full text-sm bg-slate-100 border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <option value="literal">String Literal ("...")</option>
+                                    <option value="new">new String("...")</option>
+                                    <option value="char">char[] array construction</option>
+                                    <option value="copy">new String(copyOfOtherString)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Text Input Value:</label>
+                                <input id="s1-input" type="text" value="Welcome to Java!" oninput="updateS1Simulator()" class="w-full text-sm bg-slate-100 border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                            </div>
+                        </div>
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1 font-mono">Generated Code Context:</span>
+                                <code id="s1-code" class="text-xs text-amber-300 block bg-slate-950 p-2 rounded border border-slate-800 overflow-x-auto whitespace-nowrap">String str = "Welcome to Java!";</code>
+                            </div>
+                            <div class="mt-3 border-t border-slate-800 pt-2">
+                                <span class="text-xs text-slate-400 block mb-1">Simulated Memory Layout:</span>
+                                <span id="s1-memory" class="text-xs font-semibold bg-indigo-950 text-indigo-300 border border-indigo-800/40 px-2 py-1 rounded inline-block">Heap Memory Reference Allocated</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 1: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Which constructor approach creates an object using primitive sequences of character types?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s1q1', 1, 'Wrong. String literals use double quotes directly.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. String s = "text";</button>
+                                <button onclick="checkAnswer('s1q1', 2, 'Correct! char[] constructs custom strings directly from individual character arrays.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. String s = new String(charArray);</button>
+                                <button onclick="checkAnswer('s1q1', 3, 'Wrong. This is a copying constructor copy matching existing Strings.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. String s = new String(anotherString);</button>
+                            </div>
+                            <div id="s1q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                        <!-- Q2 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">2. How many distinct String objects are guaranteed to be allocated directly in Heap memory by the line "String s = new String("Hi");"?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s1q2', 1, 'Correct! The new keyword forces one complete separate instance on the JVM Heap.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. 1 instance in heap</button>
+                                <button onclick="checkAnswer('s1q2', 2, 'Wrong. Only 1 unique object is safely formed in heap memory. The literal might already exist in the constant pool.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. 2 instances in heap</button>
+                                <button onclick="checkAnswer('s1q2', 3, 'Wrong. 0 indicates no objects allocated. Heap creation always sets up memory.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. 0 instances inside heap</button>
+                            </div>
+                            <div id="s1q2-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 2 ================= -->
+        <section id="sec2" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">02. Optimization</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Understanding String Literals and Memory Optimization</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Java handles strings using a special optimization memory called the <strong>String Constant Pool (SCP)</strong> inside the Heap.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Memory Pool Principle:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>When a string literal is created, the JVM checks the Pool first.</li>
+                                <li>If it already exists, the reference is reused. No duplicate objects are allocated.</li>
+                                <li>Using the <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-semibold">new</code> keyword bypasses pool reuse, creating distinct separate objects.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart/Diagram Card -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">String Constant Pool vs Heap Memory Layout</h3>
+                        <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200 flex flex-col justify-center items-center space-y-4 min-h-[220px]">
+                            <!-- Visual flow -->
+                            <div class="w-full space-y-2 text-xs">
+                                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-300">
+                                    <span class="font-bold text-indigo-700">s1 = "Hi"</span>
+                                    <span class="text-slate-400">→</span>
+                                    <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-mono font-bold">Registers "Hi" in Pool</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-300">
+                                    <span class="font-bold text-indigo-700">s2 = "Hi"</span>
+                                    <span class="text-slate-400">→</span>
+                                    <span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-mono font-bold">Reuses Pool Reference</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-white p-2.5 rounded-lg border border-slate-300">
+                                    <span class="font-bold text-indigo-700">s3 = new String("Hi")</span>
+                                    <span class="text-slate-400">→</span>
+                                    <span class="bg-rose-50 text-rose-700 px-2 py-0.5 rounded font-mono font-bold">Creates NEW Object on general Heap</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator Widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-network-wired mr-2 text-indigo-500"></i> Interactive Pool Pointer Simulator
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Create string variables to see where their pointers resolve within the JVM String pool.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Input triggers -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400">Construct Two Pointers</h4>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-0.5">Variable A Selection:</label>
+                                <select id="s2-v1-type" onchange="runS2Simulator()" class="w-full text-xs bg-slate-50 border rounded p-1.5 focus:ring-1 focus:ring-indigo-500">
+                                    <option value="pool">Literal ("Welcome")</option>
+                                    <option value="heap">new String("Welcome")</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-slate-700 mb-0.5">Variable B Selection:</label>
+                                <select id="s2-v2-type" onchange="runS2Simulator()" class="w-full text-xs bg-slate-50 border rounded p-1.5 focus:ring-1 focus:ring-indigo-500">
+                                    <option value="pool">Literal ("Welcome")</option>
+                                    <option value="heap">new String("Welcome")</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Graphical Pointers -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 col-span-2 flex flex-col justify-between">
+                            <div class="flex justify-around items-center h-full min-h-[100px] border border-dashed border-slate-200 rounded-lg p-2 bg-slate-50 relative">
+                                <!-- Vars -->
+                                <div class="flex flex-col space-y-4">
+                                    <div class="bg-amber-100 border border-amber-300 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-mono font-bold" id="s2-var1-box">varA</div>
+                                    <div class="bg-amber-100 border border-amber-300 text-amber-800 px-3 py-1.5 rounded-lg text-xs font-mono font-bold" id="s2-var2-box">varB</div>
+                                </div>
+                                <!-- Direction arrows -->
+                                <div class="text-slate-400 flex flex-col space-y-4 text-xs font-bold">
+                                    <div id="arrow1">════▶</div>
+                                    <div id="arrow2">════▶</div>
+                                </div>
+                                <!-- Memory Spaces -->
+                                <div class="flex flex-col space-y-2">
+                                    <div class="bg-emerald-100 border border-emerald-300 text-emerald-800 px-3 py-1.5 rounded-lg text-xs text-center" id="s2-pool-box">
+                                        <div class="font-bold text-[10px] uppercase text-emerald-600">String Pool (SCP)</div>
+                                        <span>"Welcome"</span>
+                                    </div>
+                                    <div class="bg-rose-100 border border-rose-300 text-rose-800 px-3 py-1.5 rounded-lg text-xs text-center" id="s2-heap-box">
+                                        <div class="font-bold text-[10px] uppercase text-rose-600">Standard Heap Instance</div>
+                                        <span id="s2-heap-text">"Welcome"</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3 text-center">
+                                <span class="text-xs font-mono text-slate-600">Result of <code class="bg-slate-100 px-1 py-0.5 rounded text-indigo-700 font-bold">varA == varB</code>: <strong id="s2-comparison-text" class="text-rose-600">false</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 2: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Where does Java cache literals to minimize overhead?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s2q1', 1, 'Wrong. The Stack mainly stores temporary execution frames and primitive local variables.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. Main Runtime Execution Stack</button>
+                                <button onclick="checkAnswer('s2q1', 2, 'Correct! The String Constant Pool is explicitly dedicated to this optimization.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. String Constant Pool (SCP)</button>
+                                <button onclick="checkAnswer('s2q1', 3, 'Wrong. Method Area contains metadata and class structures, not the string cache.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. Class Static Method Area</button>
+                            </div>
+                            <div id="s2q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 3 ================= -->
+        <section id="sec3" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">03. Documentation</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Navigating and Reading the Java API Documentation</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Professional developers rely heavily on documentation. The official API docs describe the String class as belonging to package <code class="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded font-mono font-semibold">java.lang</code>, inheriting from <code class="text-slate-700 bg-slate-100 px-1 py-0.5 rounded font-mono">java.lang.Object</code>.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Documentation Navigation:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li><strong>Left Side Header:</strong> Indicates the returned data structure (e.g. `char`, `boolean`, `int`).</li>
+                                <li><strong>Method Parameter:</strong> Declares what parameters must be supplied.</li>
+                                <li><strong>Class Summary:</strong> Describes constructor overload types.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart/Diagram Card -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Official Class Inheritance Structure Flow</h3>
+                        <div class="bg-slate-900 rounded-2xl p-6 text-slate-300 text-xs flex flex-col space-y-3">
+                            <div class="bg-slate-800 p-2.5 rounded-xl border border-slate-700">
+                                <span class="font-bold text-slate-400 block uppercase tracking-wider text-[9px]">Ultimate Superclass</span>
+                                <span class="text-amber-300 font-mono">java.lang.Object</span>
+                            </div>
+                            <div class="text-center text-slate-500 font-bold">▼ Inherited By</div>
+                            <div class="bg-indigo-950 p-2.5 rounded-xl border border-indigo-800">
+                                <span class="font-bold text-indigo-400 block uppercase tracking-wider text-[9px]">Class of Interest</span>
+                                <span class="text-emerald-300 font-mono">java.lang.String</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-book-open mr-2 text-indigo-500"></i> Interactive Sandbox: API Mock Explorer
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Click a tab parameter method signature below to inspect its Return Type & Description as formatted by Oracle Doc templates.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <button onclick="showDoc('charAt')" class="p-3 text-left bg-white border border-slate-200 rounded-xl hover:shadow transition-all text-xs focus:ring-2 focus:ring-indigo-500">
+                            <span class="font-mono text-indigo-600 block font-bold">charAt(int index)</span>
+                            <span class="text-slate-400">Fetch individual characters</span>
+                        </button>
+                        <button onclick="showDoc('substring')" class="p-3 text-left bg-white border border-slate-200 rounded-xl hover:shadow transition-all text-xs focus:ring-2 focus:ring-indigo-500">
+                            <span class="font-mono text-indigo-600 block font-bold">substring(int begin, int end)</span>
+                            <span class="text-slate-400">Extract inner slice ranges</span>
+                        </button>
+                        <button onclick="showDoc('indexOf')" class="p-3 text-left bg-white border border-slate-200 rounded-xl hover:shadow transition-all text-xs focus:ring-2 focus:ring-indigo-500">
+                            <span class="font-mono text-indigo-600 block font-bold">indexOf(String str)</span>
+                            <span class="text-slate-400">Find occurrence indexes</span>
+                        </button>
+                    </div>
+                    <!-- Display block -->
+                    <div id="doc-viewer" class="mt-4 bg-slate-900 text-slate-200 p-4 rounded-xl text-xs space-y-2 font-mono">
+                        Select a method signature above to see its Java API Details...
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 3: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Which package contains the String class implicitly in every single standard compilation unit?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s3q1', 1, 'Wrong. java.util contains Collections framework maps and lists.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. java.util</button>
+                                <button onclick="checkAnswer('s3q1', 2, 'Correct! java.lang is the base core language package imported implicitly.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. java.lang</button>
+                                <button onclick="checkAnswer('s3q1', 3, 'Wrong. java.io handles streams and files.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. java.io</button>
+                            </div>
+                            <div id="s3q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 4 ================= -->
+        <section id="sec4" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">04. Library reference</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Overview of Useful Built-in String Methods</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            The String class supplies a variety of built-in methods. These make operations like searching, string splicing, length determination, and substring creation direct and straightforward.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Method Categories:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li><strong>Querying:</strong> `.length()`, `.charAt(i)`</li>
+                                <li><strong>Searching:</strong> `.indexOf()`, `.lastIndexOf()`</li>
+                                <li><strong>Extracting & Joining:</strong> `.substring()`, `.concat()`</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Layout Card -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Popular Instance Utility Methods</h3>
+                        <div class="bg-slate-50 border rounded-2xl overflow-hidden">
+                            <table class="w-full text-xs text-left">
+                                <thead class="bg-slate-100 text-slate-600 uppercase font-bold text-[10px]">
+                                    <tr>
+                                        <th class="p-3">Return Type</th>
+                                        <th class="p-3">Method Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-3 font-mono text-emerald-600 font-bold">int</td>
+                                        <td class="p-3 font-mono">length()</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-mono text-emerald-600 font-bold">char</td>
+                                        <td class="p-3 font-mono">charAt(int idx)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-mono text-emerald-600 font-bold">String</td>
+                                        <td class="p-3 font-mono">substring(int begin, int end)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-mono text-emerald-600 font-bold">int</td>
+                                        <td class="p-3 font-mono">indexOf(String str)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-gamepad mr-2 text-indigo-500"></i> Interactive Method Playground Sandbox
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Input a base text and test how different Java utility operations process the characters.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Target Base String:</label>
+                                <input id="s4-target" type="text" value="Welcome to Java!" oninput="runS4Playground()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Select Action:</label>
+                                <select id="s4-action" onchange="runS4Playground()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <option value="length">Check Length</option>
+                                    <option value="charAt">Retrieve charAt(0)</option>
+                                    <option value="index">Find indexOf("Java")</option>
+                                    <option value="sub">Extract substring(3, 9)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Result output -->
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Java Statement Executed:</span>
+                                <code id="s4-java-code" class="text-xs text-amber-300 block bg-slate-950 p-2 rounded">m1.length()</code>
+                            </div>
+                            <div class="mt-4 border-t border-slate-800 pt-3">
+                                <span class="text-xs text-slate-400 block mb-1">Interactive Return Output:</span>
+                                <span id="s4-output" class="text-lg font-mono font-bold text-emerald-400">16</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 4: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Which operation should you invoke to get the total character count of a String variable?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s4q1', 1, 'Wrong. size() is used on ArrayLists and collections, not Strings.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. s.size()</button>
+                                <button onclick="checkAnswer('s4q1', 2, 'Wrong. length is a property for primitive arrays, not an object method.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. s.length</button>
+                                <button onclick="checkAnswer('s4q1', 3, 'Correct! length() is the proper instance method for counting string characters.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. s.length()</button>
+                            </div>
+                            <div id="s4q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 5 ================= -->
+        <section id="sec5" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">05. Implementation Debugging</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Practical Execution of Core String Methods</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            A solid understanding of string methods requires hands-on practice. Pay close attention to <strong>0-based indexing</strong> and the parameters of methods like <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono font-semibold">substring(beginIndex, endIndex)</code>.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Substring Rule of Thumb:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>The start index parameter is <strong>inclusive</strong>.</li>
+                                <li>The end index parameter is <strong>exclusive</strong>.</li>
+                                <li>Length extracted will always be <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">(endIndex - beginIndex)</code>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Diagrams with exact Slide indices -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Slide 81 Memory & Index Map</h3>
+                        <div class="bg-slate-900 p-4 rounded-2xl text-white overflow-x-auto text-xs scroller">
+                            <div class="flex space-x-1 font-mono text-center">
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">0</div>W</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">1</div>e</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">2</div>l</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">3</div>c</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">4</div>o</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">5</div>m</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">6</div>e</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">7</div> </div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-indigo-400 text-[9px]">8</div>t</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">9</div>o</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">10</div> </div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-amber-400 text-[9px]">11</div>J</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">12</div>a</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">13</div>v</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">14</div>a</div>
+                                <div class="bg-slate-800 p-1.5 rounded min-w-[28px]"><div class="text-slate-500 text-[9px]">15</div>!</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Virtual Debugger Simulator -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-bug mr-2 text-indigo-500"></i> Step-By-Step Classroom Debugger
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Step through the slides code line-by-line and watch the terminal update in real time.</p>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <!-- Left Code Column -->
+                        <div class="bg-slate-900 text-slate-300 rounded-xl p-4 font-mono text-xs space-y-1 relative lg:col-span-2">
+                            <div class="absolute right-3 top-3 text-emerald-400 flex items-center text-[10px]">
+                                <i class="fa-solid fa-circle animate-pulse mr-1.5"></i> Running Execution Frame
+                            </div>
+                            <div class="py-1 px-2 rounded" id="db-line1">1: String m1 = "Welcome to Java!";</div>
+                            <div class="py-1 px-2 rounded" id="db-line2">2: System.out.println(m1.charAt(11));</div>
+                            <div class="py-1 px-2 rounded" id="db-line3">3: System.out.println(m1.length());</div>
+                            <div class="py-1 px-2 rounded" id="db-line4">4: System.out.println(m1.indexOf("Java"));</div>
+                            <div class="py-1 px-2 rounded" id="db-line5">5: String m2 = m1.substring(3, 9);</div>
+                            <div class="py-1 px-2 rounded" id="db-line6">6: System.out.println(m2);</div>
+                            <div class="py-1 px-2 rounded" id="db-line7">7: String m3 = m2.concat(m1);</div>
+                            <div class="py-1 px-2 rounded" id="db-line8">8: System.out.println(m3);</div>
+
+                            <div class="flex space-x-2 pt-4">
+                                <button onclick="nextDebugStep()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3 py-1.5 rounded transition text-[11px] uppercase tracking-wide">
+                                    <i class="fa-solid fa-forward mr-1"></i> Next Step
+                                </button>
+                                <button onclick="resetDebugger()" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-3 py-1.5 rounded transition text-[11px] uppercase tracking-wide">
+                                    Reset Run
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Column -->
+                        <div class="bg-slate-950 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-2"><i class="fa-solid fa-terminal mr-1"></i> Console Log Output</span>
+                                <div id="db-console" class="font-mono text-emerald-400 text-xs space-y-1 h-[140px] overflow-y-auto">
+                                    Click "Next Step" to start debugging...
+                                </div>
+                            </div>
+                            <div class="border-t border-slate-800 pt-2 text-[11px] text-slate-400 font-sans">
+                                Current Pointer: <code id="db-pointer" class="text-amber-400">Idle</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 5: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. If you run "Welcome to Java!".substring(3, 9), what is the correct return value?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s5q1', 1, 'Wrong. Index 9 (o) is excluded.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. "come to"</button>
+                                <button onclick="checkAnswer('s5q1', 2, 'Correct! Index 3 (\'c\') is included, index 9 (\'o\') is excluded, matching \'come t\' exactly.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. "come t"</button>
+                                <button onclick="checkAnswer('s5q1', 3, 'Wrong. Index 3 is \'c\', not \'l\'.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. "lcome t"</button>
+                            </div>
+                            <div id="s5q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 6 ================= -->
+        <section id="sec6" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">06. Critical Rules</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Essential Characteristics: Immutability and Character Retrieval</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Two core rules to remember:
+                            1. <strong>Strings are immutable.</strong> You cannot change a String's content. Any modification method (like `substring`) returns a new String instead of modifying the original.
+                            2. <strong>No Bracket Access:</strong> Unlike C++ or Python, Java strings are objects, not simple primitive arrays. Access characters using <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono font-bold">.charAt(index)</code>, not brackets like <code class="text-xs bg-rose-100 text-rose-700 px-1 py-0.5 rounded font-mono font-bold">s[index]</code>.
+                        </p>
+                    </div>
+
+                    <!-- Layout Flowchart -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Immutability vs Mutation Flowchart</h3>
+                        <div class="bg-indigo-50/50 p-4 rounded-2xl border border-indigo-100 space-y-2 text-xs">
+                            <div class="flex items-center space-x-2 bg-white p-2 rounded border border-slate-200">
+                                <span class="bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">s1 = "text"</span>
+                                <span>⟶</span>
+                                <span class="text-slate-500">Points to "text" in pool</span>
+                            </div>
+                            <div class="flex items-center space-x-2 bg-white p-2 rounded border border-slate-200">
+                                <span class="bg-amber-100 text-amber-800 font-bold px-1.5 py-0.5 rounded">s1.substring(0,2)</span>
+                                <span>⟶</span>
+                                <span class="text-rose-600 font-semibold">Creates NEW separate String object "te". s1 remains unchanged!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator Sandbox widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-shield-halved mr-2 text-indigo-500"></i> Interactive Immutability Sandbox
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Toggle between operations to see why the base variable's content remains unchanged in memory.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Interactive Statements:</label>
+                                <select id="s6-code-opt" onchange="runS6Playground()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                    <option value="modify">Run: s1.substring(0, 4);</option>
+                                    <option value="bracket">Run (Illegal): s1[4];</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Result output -->
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Execution Status:</span>
+                                <code id="s6-status" class="text-xs text-emerald-400 block bg-slate-950 p-2 rounded border border-slate-800">Success</code>
+                            </div>
+                            <div class="mt-4 border-t border-slate-800 pt-3">
+                                <span class="text-xs text-slate-400 block mb-1">State of Original Variable s1 in memory:</span>
+                                <span id="s6-val" class="text-sm font-mono font-bold text-amber-400">"some text"</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 6: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. If you run: String s = "Hello"; s.concat(" World"); System.out.println(s); what prints out?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s6q1', 1, 'Wrong. Strings are immutable; the return value of concat must be saved back to s for changes to apply.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. "Hello World"</button>
+                                <button onclick="checkAnswer('s6q1', 2, 'Correct! Because strings are immutable, the original s remains completely untouched.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. "Hello"</button>
+                                <button onclick="checkAnswer('s6q1', 3, 'Wrong. A RuntimeException is not triggered by immutability.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. java.lang.NullPointerException</button>
+                            </div>
+                            <div id="s6q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 7 ================= -->
+        <section id="sec7" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">07. Format Parsers</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Converting Non-String Data Types to Strings</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            To convert primitive types (like ints, doubles, and booleans) or arrays into a String object, use the static utility method <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono font-bold">String.valueOf(...)</code>.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Method Insights:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>It is a <strong>static</strong> class method, not an instance method.</li>
+                                <li>It is overloaded to handle almost all primitive data types in Java.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Code Box -->
+                    <div class="space-y-2">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Slide Static Overloads Code</h3>
+                        <div class="bg-slate-950 text-slate-300 font-mono text-xs p-4 rounded-2xl shadow-inner overflow-x-auto">
+                            <pre><code><span class="text-amber-300">String</span> s1 = <span class="text-amber-300">String</span>.<span class="text-emerald-400">valueOf</span>(<span class="text-orange-400">'t'</span>);    <span class="text-slate-400">// "t"</span>
+<span class="text-amber-300">String</span> s2 = <span class="text-amber-300">String</span>.<span class="text-emerald-400">valueOf</span>(<span class="text-orange-400">23</span>);     <span class="text-slate-400">// "23"</span>
+<span class="text-amber-300">String</span> s3 = <span class="text-amber-300">String</span>.<span class="text-emerald-400">valueOf</span>(<span class="text-orange-400">56.78</span>);  <span class="text-slate-400">// "56.78"</span></code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Converter Simulator -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-arrows-spin mr-2 text-indigo-500"></i> Interactive static valueOf() Live Parser Factory
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Input any primitive value below to watch Java parse it instantly into a String object.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Select Primitive Input Type:</label>
+                                <select id="s7-type" onchange="runS7Parser()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="int">int (Primitive Integer)</option>
+                                    <option value="double">double (Double Floating-point)</option>
+                                    <option value="boolean">boolean (True / False State)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Primitive Value Input:</label>
+                                <input id="s7-val-input" type="text" value="457" oninput="runS7Parser()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                        </div>
+
+                        <!-- Result output -->
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Generated Static Code Statement:</span>
+                                <code id="s7-stat-code" class="text-xs text-amber-300 block bg-slate-950 p-2 rounded border border-slate-800">String.valueOf(457)</code>
+                            </div>
+                            <div class="mt-4 border-t border-slate-800 pt-3">
+                                <span class="text-xs text-slate-400 block mb-1">Resulting Output String Variable:</span>
+                                <span id="s7-out-type" class="text-sm font-mono font-bold text-emerald-400">"457" (String Class Object)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 7: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Which statement correctly converts primitive double variables into string instances?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s7q1', 1, 'Wrong. valueOf is a static utility, not an instance method.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. myDouble.valueOf()</button>
+                                <button onclick="checkAnswer('s7q1', 2, 'Correct! Calling the static class method String.valueOf(double) is the standard approach.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. String.valueOf(myDouble)</button>
+                                <button onclick="checkAnswer('s7q1', 3, 'Wrong. parseDouble is used to parse a String back into a double.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. Double.parseDouble(myDouble)</button>
+                            </div>
+                            <div id="s7q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 8 ================= -->
+        <section id="sec8" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">08. Type Wrapper Handling</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Converting Strings to Numeric Data Types</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            To convert a String back into numeric primitive types, use Java wrapper classes like <strong class="text-slate-900">Integer</strong> and <strong class="text-slate-900">Double</strong>.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Parsing Safeguard:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>Use <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">Integer.parseInt(string)</code> to convert to an int.</li>
+                                <li>Use <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">Double.parseDouble(string)</code> to convert to a double.</li>
+                                <li><strong>Warning:</strong> If the string contains non-numeric characters, Java throws a <code class="text-xs bg-rose-100 text-rose-700 px-1 py-0.5 rounded font-mono font-bold">NumberFormatException</code>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Flowchart visualization of potential errors -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">String Parsing Exception Flowchart</h3>
+                        <div class="bg-slate-900 text-slate-300 text-xs p-4 rounded-2xl flex flex-col space-y-2">
+                            <div class="bg-slate-800 p-2 rounded flex justify-between items-center">
+                                <span>Input String: <strong class="text-emerald-400">"123"</strong></span>
+                                <span class="text-slate-400 font-bold">⟶</span>
+                                <span class="bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded">Success (123)</span>
+                            </div>
+                            <div class="bg-slate-800 p-2 rounded flex justify-between items-center">
+                                <span>Input String: <strong class="text-rose-400">"12.3a"</strong></span>
+                                <span class="text-slate-400 font-bold">⟶</span>
+                                <span class="bg-rose-950 text-rose-300 px-2 py-0.5 rounded">Throws Exception!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator widget -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation mr-2 text-indigo-500"></i> Interactive Wrapper Parser & Exception Shield Simulator
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Try parsing different text values into integers. If the format is invalid, watch how the JVM triggers a NumberFormatException.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Target String Input to Parse:</label>
+                                <input id="s8-input" type="text" value="356" oninput="runS8Parser()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="setS8Val('356')" class="text-xs bg-slate-200 px-2.5 py-1 rounded hover:bg-slate-300">"356"</button>
+                                <button onclick="setS8Val('3.789')" class="text-xs bg-slate-200 px-2.5 py-1 rounded hover:bg-slate-300">"3.789"</button>
+                                <button onclick="setS8Val('I am 8.8')" class="text-xs bg-rose-100 text-rose-700 px-2.5 py-1 rounded hover:bg-rose-200">"I am 8.8"</button>
+                            </div>
+                        </div>
+
+                        <!-- Result output -->
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div>
+                                <span class="text-xs text-slate-400 block mb-1">Statement Executed:</span>
+                                <code id="s8-stmt" class="text-xs text-amber-300 block bg-slate-950 p-2 rounded">Integer.parseInt("356")</code>
+                            </div>
+                            <div class="mt-4 border-t border-slate-800 pt-3">
+                                <span class="text-xs text-slate-400 block mb-1">Evaluation & Output:</span>
+                                <span id="s8-output" class="text-sm font-mono font-bold text-emerald-400">Success: 356</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 8: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. What exception is thrown by the JVM if you attempt to run Double.parseDouble("3.14a")?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s8q1', 1, 'Wrong. ClassCastException occurs when casting incompatible objects.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. java.lang.ClassCastException</button>
+                                <button onclick="checkAnswer('s8q1', 2, 'Correct! NumberFormatException is thrown when a string has an invalid numeric format.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. java.lang.NumberFormatException</button>
+                                <button onclick="checkAnswer('s8q1', 3, 'Wrong. ArithmeticException is thrown for illegal math operations, like dividing by zero.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. java.lang.ArithmeticException</button>
+                            </div>
+                            <div id="s8q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 9 ================= -->
+        <section id="sec9" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">09. Pointer evaluation</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Reference Comparison vs. Content Comparison using ==</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            The relational comparison operator <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono font-bold">==</code> does <strong>not</strong> check the text characters inside String objects. Instead, it checks if they point to the exact same <strong>memory reference</strong> (address).
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Key Rule:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>Two separate <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-semibold">new String()</code> instances always reside at different memory locations.</li>
+                                <li>Therefore, <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono">s1 == s2</code> evaluates to <strong class="text-rose-600 font-semibold">false</strong>, even if they contain the exact same characters.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Layout Flowchart of pool optimization addresses -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Memory Allocation Reference Layout</h3>
+                        <div class="bg-slate-100 rounded-2xl p-4 border flex flex-col justify-center space-y-2 text-xs">
+                            <div class="bg-white p-2.5 rounded-lg border flex justify-between items-center">
+                                <span class="font-mono">s1 = new String("Hi")</span>
+                                <span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px]">Reference: Heap Address A</span>
+                            </div>
+                            <div class="bg-white p-2.5 rounded-lg border flex justify-between items-center">
+                                <span class="font-mono">s2 = new String("Hi")</span>
+                                <span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px]">Reference: Heap Address B</span>
+                            </div>
+                            <div class="bg-slate-900 text-white p-2.5 rounded-lg flex justify-between items-center">
+                                <span class="font-mono">s1 == s2</span>
+                                <span class="text-red-400 font-bold">FALSE (Addresses Differ)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Pointer sandbox -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-calculator mr-2 text-indigo-500"></i> Interactive Reference Address Comparator Simulator
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Toggle the creation method for the string variables below. Notice how the heap addresses change, causing the == operator to evaluate to false.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Inputs -->
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">String A Creation:</label>
+                                <select id="s9-m1" onchange="runS9()" class="w-full text-xs bg-slate-50 border rounded p-1.5 focus:outline-none">
+                                    <option value="new">new String("Java")</option>
+                                    <option value="pool">Literal "Java"</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">String B Creation:</label>
+                                <select id="s9-m2" onchange="runS9()" class="w-full text-xs bg-slate-50 border rounded p-1.5 focus:outline-none">
+                                    <option value="new">new String("Java")</option>
+                                    <option value="pool">Literal "Java"</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Memory visualizer map -->
+                        <div class="bg-slate-950 rounded-xl p-4 text-white flex flex-col justify-between">
+                            <div class="text-xs font-mono space-y-1.5">
+                                <div class="text-slate-400 block mb-1">Resolved Virtual Memory Layout:</div>
+                                <div>s1 Reference Address: <span id="s9-addr1" class="text-amber-400">@HeapX01</span></div>
+                                <div>s2 Reference Address: <span id="s9-addr2" class="text-amber-400">@HeapX02</span></div>
+                            </div>
+                            <div class="mt-4 border-t border-slate-800 pt-3">
+                                <span class="text-xs text-slate-400 block mb-1">Result of comparison <code class="text-amber-300">s1 == s2</code>:</span>
+                                <span id="s9-outcome" class="text-lg font-mono font-bold text-red-500">FALSE</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 9: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. If s1 = new String("Hi") and s2 = new String("Hi"), why does s1 == s2 evaluate to false?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s9q1', 1, 'Correct! The new keyword forces separate allocations in the heap, resulting in different memory addresses.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. They reside at different memory addresses</button>
+                                <button onclick="checkAnswer('s9q1', 2, 'Wrong. Their character content is identical.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. Their content is different</button>
+                                <button onclick="checkAnswer('s9q1', 3, 'Wrong. The virtual machine doesn\'t randomly discard reference evaluations.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. Java lacks support for comparisons using ==</button>
+                            </div>
+                            <div id="s9q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SECTION 10 ================= -->
+        <section id="sec10" class="scroll-mt-10 bg-white border border-slate-200 shadow-sm rounded-3xl overflow-hidden transition-all hover:border-indigo-200">
+            <div class="p-6 md:p-8 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
+                <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase block mb-1">10. True Equality</span>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900">Value Evaluation using the equals() Method</h2>
+            </div>
+            
+            <div class="p-6 md:p-8 space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <h3 class="text-lg font-bold text-slate-800 flex items-center">
+                            <span class="w-7 h-7 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mr-2">🎯</span>
+                            Key Learnings & Takeaways
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            To compare the actual character content inside two Strings, you should use the <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-mono font-bold">.equals(...)</code> method instead of `==`.
+                        </p>
+                        <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
+                            <div class="font-semibold text-indigo-900 text-sm">💡 Core Takeaways:</div>
+                            <ul class="list-disc list-inside text-sm text-slate-700 space-y-1">
+                                <li>The <code class="text-xs bg-slate-100 px-1 py-0.5 rounded font-semibold">equals()</code> method compares character sequences index-by-index.</li>
+                                <li>This method is <strong>case-sensitive</strong>. For case-insensitive comparisons, use <code class="text-xs bg-indigo-100 text-indigo-700 px-1 py-0.5 rounded font-semibold">.equalsIgnoreCase(...)</code>.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Visual Code Box Comparison -->
+                    <div class="space-y-3">
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">Reference vs Value Equality comparison</h3>
+                        <div class="bg-slate-900 rounded-2xl p-4 text-white text-xs space-y-2 font-mono">
+                            <div>String s1 = new String("Java");</div>
+                            <div>String s2 = new String("Java");</div>
+                            <div class="border-t border-slate-800 pt-2 flex justify-between items-center">
+                                <span>s1 == s2</span>
+                                <span class="bg-rose-950 text-rose-300 px-2 rounded">false</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span>s1.equals(s2)</span>
+                                <span class="bg-emerald-950 text-emerald-300 px-2 rounded">true</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ultimate Comparison Simulator Sandbox -->
+                <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5">
+                    <h3 class="text-base font-bold text-slate-800 mb-3 flex items-center">
+                        <i class="fa-solid fa-circle-check mr-2 text-indigo-500"></i> Interactive Ultimate String Comparison Simulator
+                    </h3>
+                    <p class="text-xs text-slate-500 mb-4">Input custom values for two strings below. Notice the difference in evaluation outcomes between `==`, `equals()`, and `equalsIgnoreCase()` in real time.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200 space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">String A Content:</label>
+                                <input id="s10-val1" type="text" value="Welcome to Java!" oninput="runS10Playground()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">String B Content:</label>
+                                <input id="s10-val2" type="text" value="welcome to java!" oninput="runS10Playground()" class="w-full text-sm bg-slate-100 border rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                            </div>
+                        </div>
+
+                        <!-- Result output -->
+                        <div class="bg-slate-900 rounded-xl p-4 text-white flex flex-col justify-around">
+                            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-2">
+                                <span>Reference comparison (s1 == s2):</span>
+                                <span id="s10-res-ref" class="text-red-400 font-bold">false</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-mono border-b border-slate-800 pb-2">
+                                <span>Case-sensitive content (s1.equals(s2)):</span>
+                                <span id="s10-res-equals" class="text-red-400 font-bold">false</span>
+                            </div>
+                            <div class="flex justify-between items-center text-xs font-mono">
+                                <span>Case-insensitive (s1.equalsIgnoreCase(s2)):</span>
+                                <span id="s10-res-ignore" class="text-emerald-400 font-bold">true</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs -->
+                <div class="border-t border-slate-100 pt-6">
+                    <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4 flex items-center">
+                        <i class="fa-solid fa-circle-question mr-2 text-indigo-500"></i> Section 10: Knowledge Check
+                    </h4>
+                    <div class="space-y-4">
+                        <!-- Q1 -->
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-200">
+                            <p class="font-semibold text-sm text-slate-800 mb-3">1. Which operation correctly evaluates characters without throwing false negatives for uppercase/lowercase mismatches?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <button onclick="checkAnswer('s10q1', 1, 'Wrong. equals() is case-sensitive.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. s1.equals(s2)</button>
+                                <button onclick="checkAnswer('s10q1', 2, 'Correct! equalsIgnoreCase() ignores differences in letter case.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. s1.equalsIgnoreCase(s2)</button>
+                                <button onclick="checkAnswer('s10q1', 3, 'Wrong. == compares reference memory addresses, not the characters themselves.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. s1 == s2</button>
+                            </div>
+                            <div id="s10q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 px-6 mt-16 text-center border-t border-slate-800">
+        <div class="max-w-4xl mx-auto space-y-3 text-xs">
+            <p class="font-semibold tracking-wider text-slate-300 uppercase">Interactive Java String Class Notebook</p>
+            <p>Designed using Tailwind CSS & Vanilla JavaScript. Built to help programming classes visually trace execution lines, references, and memory values step-by-step.</p>
+            <p class="text-[10px] text-slate-500">No cookies stored. Memory simulation uses basic in-memory execution states.</p>
+        </div>
+    </footer>
+
+    <!-- Vanilla Javascript Logic -->
+    <script>
+        // Smooth scroll to sections
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Section 1: Constructors Simulator
+        function updateS1Simulator() {
+            const type = document.getElementById('s1-constructor').value;
+            const textVal = document.getElementById('s1-input').value;
+            const codeOutput = document.getElementById('s1-code');
+            const memoryOutput = document.getElementById('s1-memory');
+
+            if (type === 'literal') {
+                codeOutput.innerText = `String str = "${textVal}";`;
+                memoryOutput.innerText = "Pointer resolves directly to pool memory reference";
+                memoryOutput.className = "text-xs font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800/40 px-2 py-1 rounded inline-block";
+            } else if (type === 'new') {
+                codeOutput.innerText = `String str = new String("${textVal}");`;
+                memoryOutput.innerText = "Forces allocation of a brand new object on the heap!";
+                memoryOutput.className = "text-xs font-semibold bg-rose-950 text-rose-300 border border-rose-800/40 px-2 py-1 rounded inline-block";
+            } else if (type === 'char') {
+                const charElements = textVal.split('').map(char => `'${char}'`).join(',');
+                codeOutput.innerText = `char[] c = new char[]{${charElements}};\nString str = new String(c);`;
+                memoryOutput.innerText = "Converts basic character arrays into heap strings";
+                memoryOutput.className = "text-xs font-semibold bg-indigo-950 text-indigo-300 border border-indigo-800/40 px-2 py-1 rounded inline-block";
+            } else if (type === 'copy') {
+                codeOutput.innerText = `String original = "${textVal}";\nString str = new String(original);`;
+                memoryOutput.innerText = "Creates a distinct copy of an existing string object on the heap";
+                memoryOutput.className = "text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-800/40 px-2 py-1 rounded inline-block";
+            }
+        }
+
+        // Section 2: String Pool Arena Simulator
+        function runS2Simulator() {
+            const v1 = document.getElementById('s2-v1-type').value;
+            const v2 = document.getElementById('s2-v2-type').value;
+
+            const arrow1 = document.getElementById('arrow1');
+            const arrow2 = document.getElementById('arrow2');
+            const comparison = document.getElementById('s2-comparison-text');
+
+            // Set pointing lines
+            if (v1 === 'pool') {
+                arrow1.innerText = "════▶ [Pool]";
+                arrow1.className = "text-emerald-500 font-bold";
+            } else {
+                arrow1.innerText = "════▶ [Heap]";
+                arrow1.className = "text-rose-500 font-bold";
+            }
+
+            if (v2 === 'pool') {
+                arrow2.innerText = "════▶ [Pool]";
+                arrow2.className = "text-emerald-500 font-bold";
+            } else {
+                arrow2.innerText = "════▶ [Heap]";
+                arrow2.className = "text-rose-500 font-bold";
+            }
+
+            // Reference check
+            if (v1 === 'pool' && v2 === 'pool') {
+                comparison.innerText = "true (Both point to pool reference)";
+                comparison.className = "text-emerald-600 font-bold";
+            } else {
+                comparison.innerText = "false (References point to different memory addresses)";
+                comparison.className = "text-rose-600 font-bold";
+            }
+        }
+
+        // Section 3: API summary details
+        function showDoc(method) {
+            const viewer = document.getElementById('doc-viewer');
+            if (method === 'charAt') {
+                viewer.innerHTML = `<strong>Method Signatures:</strong> public char charAt(int index)<br>
+<strong>Returns:</strong> the char value at the specified index.<br>
+<strong>Throws:</strong> IndexOutOfBoundsException - if the index argument is negative or not less than the length of this string.`;
+            } else if (method === 'substring') {
+                viewer.innerHTML = `<strong>Method Signatures:</strong> public String substring(int beginIndex, int endIndex)<br>
+<strong>Returns:</strong> the specified substring.<br>
+<strong>Throws:</strong> IndexOutOfBoundsException - if beginIndex is negative, or endIndex is larger than the length of this String object.`;
+            } else if (method === 'indexOf') {
+                viewer.innerHTML = `<strong>Method Signatures:</strong> public int indexOf(String str)<br>
+<strong>Returns:</strong> the index of the first occurrence of the specified substring, or -1 if there is no such occurrence.`;
+            }
+        }
+
+        // Section 4: Built-in sandbox playground
+        function runS4Playground() {
+            const val = document.getElementById('s4-target').value;
+            const action = document.getElementById('s4-action').value;
+            const code = document.getElementById('s4-java-code');
+            const output = document.getElementById('s4-output');
+
+            if (action === 'length') {
+                code.innerText = `int len = m1.length();`;
+                output.innerText = val.length;
+            } else if (action === 'charAt') {
+                code.innerText = `char ch = m1.charAt(0);`;
+                output.innerText = val.length > 0 ? `'${val.charAt(0)}'` : "Empty String Exception";
+            } else if (action === 'index') {
+                code.innerText = `int idx = m1.indexOf("Java");`;
+                output.innerText = val.indexOf("Java");
+            } else if (action === 'sub') {
+                code.innerText = `String slice = m1.substring(3, 9);`;
+                output.innerText = val.length >= 9 ? `"${val.substring(3, 9)}"` : `"Out of Bounds Range"`;
+            }
+        }
+
+        // Section 5: Debugger Simulator
+        let debugIdx = 0;
+        function resetDebugger() {
+            debugIdx = 0;
+            document.getElementById('db-console').innerHTML = `Click "Next Step" to run line by line...`;
+            document.getElementById('db-pointer').innerText = "Idle";
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById(`db-line${i}`).className = "py-1 px-2 rounded";
+            }
+        }
+
+        function nextDebugStep() {
+            debugIdx++;
+            if (debugIdx > 8) {
+                resetDebugger();
+                return;
+            }
+
+            // Highlight current debugger line
+            for (let i = 1; i <= 8; i++) {
+                if (i === debugIdx) {
+                    document.getElementById(`db-line${i}`).className = "py-1 px-2 rounded bg-indigo-500 text-white font-bold";
+                } else {
+                    document.getElementById(`db-line${i}`).className = "py-1 px-2 rounded text-slate-500";
+                }
+            }
+
+            const consoleDiv = document.getElementById('db-console');
+            if (debugIdx === 1) {
+                consoleDiv.innerHTML = `<div class="text-blue-300">// Step 1: String variable m1 initialized</div>`;
+                document.getElementById('db-pointer').innerText = "m1 initialized in pool";
+            } else if (debugIdx === 2) {
+                consoleDiv.innerHTML += `<div>'J'</div>`;
+                document.getElementById('db-pointer').innerText = "Printed character at index 11";
+            } else if (debugIdx === 3) {
+                consoleDiv.innerHTML += `<div>16</div>`;
+                document.getElementById('db-pointer').innerText = "Printed total length of string m1";
+            } else if (debugIdx === 4) {
+                consoleDiv.innerHTML += `<div>11</div>`;
+                document.getElementById('db-pointer').innerText = "Printed first index of substring 'Java'";
+            } else if (debugIdx === 5) {
+                consoleDiv.innerHTML += `<div class="text-blue-300">// Step 5: m2 assigned substring "come t"</div>`;
+                document.getElementById('db-pointer').innerText = "m2 initialized with inclusive/exclusive range";
+            } else if (debugIdx === 6) {
+                consoleDiv.innerHTML += `<div>"come t"</div>`;
+                document.getElementById('db-pointer').innerText = "Printed m2";
+            } else if (debugIdx === 7) {
+                consoleDiv.innerHTML += `<div class="text-blue-300">// Step 7: Concatenating m2 + m1</div>`;
+                document.getElementById('db-pointer').innerText = "m3 initialized with combined text";
+            } else if (debugIdx === 8) {
+                consoleDiv.innerHTML += `<div>"come tWelcome to Java!"</div>`;
+                document.getElementById('db-pointer').innerText = "Execution complete";
+            }
+        }
+
+        // Section 6: Immutability playground
+        function runS6Playground() {
+            const opt = document.getElementById('s6-code-opt').value;
+            const status = document.getElementById('s6-status');
+            const val = document.getElementById('s6-val');
+
+            if (opt === 'modify') {
+                status.innerText = "Success: Returns value 'some' but s1 remains unchanged!";
+                status.className = "text-xs text-emerald-400 block bg-slate-950 p-2 rounded border border-slate-800";
+                val.innerText = '"some text"';
+            } else {
+                status.innerText = "Compile Error: Array bracket access is forbidden on objects in Java!";
+                status.className = "text-xs text-rose-400 block bg-slate-950 p-2 rounded border border-slate-800";
+                val.innerText = '"some text"';
+            }
+        }
+
+        // Section 7: Converting values to Strings
+        function runS7Parser() {
+            const type = document.getElementById('s7-type').value;
+            const input = document.getElementById('s7-val-input').value;
+            const code = document.getElementById('s7-stat-code');
+            const output = document.getElementById('s7-out-type');
+
+            code.innerText = `String s = String.valueOf(${input});`;
+            output.innerText = `"${input}" (String Object)`;
+        }
+
+        // Section 8: Parsing wrapper strings to numbers
+        function setS8Val(val) {
+            document.getElementById('s8-input').value = val;
+            runS8Parser();
+        }
+
+        function runS8Parser() {
+            const input = document.getElementById('s8-input').value;
+            const stmt = document.getElementById('s8-stmt');
+            const output = document.getElementById('s8-output');
+
+            stmt.innerText = `int value = Integer.parseInt("${input}");`;
+
+            // Simple try parse simulation
+            const parsed = parseInt(input);
+            if (isNaN(parsed) || input.includes('.')) {
+                output.innerText = "Throws: java.lang.NumberFormatException";
+                output.className = "text-sm font-mono font-bold text-rose-500";
+            } else {
+                output.innerText = `Success: ${parsed}`;
+                output.className = "text-sm font-mono font-bold text-emerald-400";
+            }
+        }
+
+        // Section 9: == Pointer comparison
+        function runS9() {
+            const m1 = document.getElementById('s9-m1').value;
+            const m2 = document.getElementById('s9-m2').value;
+
+            const addr1 = document.getElementById('s9-addr1');
+            const addr2 = document.getElementById('s9-addr2');
+            const outcome = document.getElementById('s9-outcome');
+
+            if (m1 === 'new') {
+                addr1.innerText = "@HeapReference_X0A";
+            } else {
+                addr1.innerText = "@PoolConstantPool_Z99";
+            }
+
+            if (m2 === 'new') {
+                addr2.innerText = "@HeapReference_Y0B";
+            } else {
+                addr2.innerText = "@PoolConstantPool_Z99";
+            }
+
+            // Check if pointer match
+            if (m1 === 'pool' && m2 === 'pool') {
+                outcome.innerText = "TRUE (Both point to the same pool address)";
+                outcome.className = "text-lg font-mono font-bold text-emerald-400";
+            } else {
+                outcome.innerText = "FALSE (References point to different memory locations)";
+                outcome.className = "text-lg font-mono font-bold text-rose-400";
+            }
+        }
+
+        // Section 10: Comparison tests
+        function runS10Playground() {
+            const val1 = document.getElementById('s10-val1').value;
+            const val2 = document.getElementById('s10-val2').value;
+
+            const resRef = document.getElementById('s10-res-ref');
+            const resEquals = document.getElementById('s10-res-equals');
+            const resIgnore = document.getElementById('s10-res-ignore');
+
+            // == comparison is always false since they are separate inputs
+            resRef.innerText = "false";
+            resRef.className = "text-rose-400 font-bold";
+
+            if (val1 === val2) {
+                resEquals.innerText = "true";
+                resEquals.className = "text-emerald-400 font-bold";
+            } else {
+                resEquals.innerText = "false";
+                resEquals.className = "text-rose-400 font-bold";
+            }
+
+            if (val1.toLowerCase() === val2.toLowerCase()) {
+                resIgnore.innerText = "true";
+                resIgnore.className = "text-emerald-400 font-bold";
+            } else {
+                resIgnore.innerText = "false";
+                resIgnore.className = "text-rose-400 font-bold";
+            }
+        }
+
+        // Check Answer Utility
+        function checkAnswer(questionId, optionId, explanation, buttonEl) {
+            const explanationDiv = document.getElementById(`${questionId}-explanation`);
+            
+            // Highlight select response state
+            const parent = buttonEl.parentElement;
+            const buttons = parent.querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.className = "text-left text-xs bg-white border border-slate-300 p-2.5 rounded-lg transition-all font-medium text-slate-400 cursor-not-allowed pointer-events-none";
+            });
+
+            if (explanation.includes('Correct')) {
+                buttonEl.className = "text-left text-xs bg-emerald-50 border border-emerald-500 text-emerald-700 p-2.5 rounded-lg font-bold pointer-events-none";
+                explanationDiv.className = "mt-3 text-xs p-3 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200 block";
+            } else {
+                buttonEl.className = "text-left text-xs bg-rose-50 border border-rose-500 text-rose-700 p-2.5 rounded-lg font-bold pointer-events-none";
+                explanationDiv.className = "mt-3 text-xs p-3 rounded-lg bg-rose-50 text-rose-800 border border-rose-200 block";
+            }
+
+            explanationDiv.innerHTML = `<i class="fa-solid fa-circle-info mr-1"></i> ${explanation}`;
+        }
+
+        // Init on Window Load
+        window.onload = function() {
+            updateS1Simulator();
+            runS2Simulator();
+            showDoc('charAt');
+            runS4Playground();
+            resetDebugger();
+            runS6Playground();
+            runS7Parser();
+            runS8Parser();
+            runS9();
+            runS10Playground();
+        };
+    </script>
+</body>
+</html>
