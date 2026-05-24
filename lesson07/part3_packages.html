@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Packages Masterclass</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter & Fira Code) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Custom styling to enhance interactivity and overall aesthetics -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .code-font {
+            font-family: 'Fira Code', monospace;
+        }
+        /* Custom scrollbar to match the high-end developer theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6366f1;
+        }
+        /* Active dot indication styling */
+        .dot-active {
+            background-color: #6366f1;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen">
+
+
+<!-- Hero Section and Main Layout -->
+<div class="relative w-full overflow-hidden bg-slate-950 pb-12 pt-16">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.15),transparent_50%)]"></div>
+    <div class="max-w-6xl mx-auto px-6 relative z-10 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 text-sm font-semibold mb-4 animate-pulse">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            Interactive Java Curriculum
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            Java Packages <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Masterclass</span>
+        </h1>
+        <p class="text-slate-400 text-lg max-w-2xl mx-auto">
+            Step-by-step interactive lesson plan specifically crafted for beginners. Simply scroll down to teach or learn each core modular section.
+        </p>
+    </div>
+</div>
+
+<!-- Layout Wrapper with Navigation Indicators on the Side -->
+<div class="max-w-6xl mx-auto px-4 md:px-6 py-8 relative flex gap-8">
+    
+    <!-- Sidebar navigation (Non-sticky header alternative) -->
+    <aside class="hidden xl:flex flex-col gap-4 w-64 shrink-0 h-fit sticky top-8 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+        <h4 class="text-xs font-semibold uppercase tracking-wider text-slate-500">Lesson Roadmap</h4>
+        <nav class="flex flex-col gap-3">
+            <a href="#section-1" class="text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> Sec 1: Introduction
+            </a>
+            <a href="#section-2" class="text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> Sec 2: Declaration Syntax
+            </a>
+            <a href="#section-3" class="text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> Sec 3: Importing Classes
+            </a>
+            <a href="#section-4" class="text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> Sec 4: Directory Mapping
+            </a>
+            <a href="#section-5" class="text-sm font-medium text-slate-400 hover:text-indigo-400 transition-colors flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> Sec 5: Inter-Package App
+            </a>
+        </nav>
+        <div class="mt-4 pt-4 border-t border-slate-700/60">
+            <div class="text-xs text-slate-400">Scroll to progress through the curriculum.</div>
+        </div>
+    </aside>
+
+    <!-- Main Scrollable Content Container -->
+    <main class="flex-1 space-y-24 pb-32">
+
+        
+        <!-- SECTION 1 -->
+        <section id="section-1" class="scroll-mt-12 group">
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 md:p-8 hover:border-indigo-500/40 transition-all duration-300 shadow-xl">
+                <!-- Section Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-bold border border-indigo-500/30">
+                        1
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">## SECTION 1: INTRODUCTION AND PURPOSE OF JAVA PACKAGES</h2>
+                </div>
+
+                <!-- Original Curricular Narrative Box -->
+                <div class="bg-indigo-950/20 border border-indigo-500/20 rounded-xl p-5 mb-6 text-slate-300 space-y-4">
+                    <p class="leading-relaxed">
+                        A Java <strong>package</strong> serves as a robust namespace mechanism designed to organize related classes, interfaces, and custom libraries systematically. Think of packages like structured folders on your computer or a cabinet filing system, preventing naming collisions when multiple developers name their classes identically.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-sm">
+                        <div class="flex gap-2">
+                            <span class="text-indigo-400">✔</span>
+                            <span><strong>Organizational Blueprint:</strong> Keeps hundreds of application source files easily categorized.</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="text-indigo-400">✔</span>
+                            <span><strong>Encapsulation Boundary:</strong> Helps restrict class and member variables access from unauthorized outsiders.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key Takeaways Panel -->
+                <div class="mb-8">
+                    <h4 class="text-indigo-300 font-semibold mb-3 flex items-center gap-2 text-sm tracking-wider uppercase">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        Key Takeaways
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-indigo-400 font-bold block mb-1">CORE PURPOSE</span>
+                            <p class="text-sm text-slate-300">Packages organize and partition Java classes to prevent naming conflicts.</p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-indigo-400 font-bold block mb-1">BEST PRACTICE</span>
+                            <p class="text-sm text-slate-300">Defining classes inside concrete user-defined packages is highly recommended compared to standard default packages.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator 1: Interactive Namespace Collision Visualizer -->
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-700 mb-8">
+                    <div class="mb-4">
+                        <span class="px-2 py-1 text-xs rounded bg-purple-500/20 text-purple-300 font-mono uppercase tracking-widest">Interactive Simulator</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Class Namespace Collision Simulator</h4>
+                        <p class="text-xs text-slate-400">See how packages allow two distinct classes with the exact same name <code class="bg-slate-800 text-indigo-300 px-1 rounded">Product</code> to co-exist without error.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Package 1 Card -->
+                        <div class="p-4 rounded-lg bg-indigo-950/20 border border-indigo-500/20">
+                            <span class="text-xs font-mono text-indigo-400">package billing;</span>
+                            <h5 class="text-md font-bold text-slate-100 mt-1">class Product</h5>
+                            <div class="mt-2 text-xs text-slate-400 font-mono bg-slate-950 p-3 rounded">
+                                public double getPrice() { <br>
+                                &nbsp;&nbsp;return 199.99;<br>
+                                }
+                            </div>
+                            <button onclick="triggerCollisionSim('billing')" class="mt-3 w-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold py-2 rounded transition-all">
+                                Instantiate billing.Product
+                            </button>
+                        </div>
+
+                        <!-- Package 2 Card -->
+                        <div class="p-4 rounded-lg bg-purple-950/20 border border-purple-500/20">
+                            <span class="text-xs font-mono text-purple-400">package shipping;</span>
+                            <h5 class="text-md font-bold text-slate-100 mt-1">class Product</h5>
+                            <div class="mt-2 text-xs text-slate-400 font-mono bg-slate-950 p-3 rounded">
+                                public double getWeight() { <br>
+                                &nbsp;&nbsp;return 2.5; // kg<br>
+                                }
+                            </div>
+                            <button onclick="triggerCollisionSim('shipping')" class="mt-3 w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-2 rounded transition-all">
+                                Instantiate shipping.Product
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Simulator Output Console -->
+                    <div class="mt-4 bg-black/50 rounded-lg p-3 border border-slate-800 font-mono text-xs">
+                        <div class="text-slate-500">// Execution Console Logs</div>
+                        <div id="collision-output" class="text-emerald-400 mt-1">Click a button above to run compiler namespace simulation...</div>
+                    </div>
+                </div>
+
+                <!-- MCQs for Section 1 -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/80">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-indigo-500 text-slate-900 text-xs px-2 py-0.5 rounded-full font-extrabold">QUIZ</span> 
+                        Check Your Understanding (Section 1)
+                    </h4>
+                    
+                    <div class="space-y-6">
+                        <!-- MCQ 1 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">1. What is the key primary purpose of a Java Package?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! Packages prevent identical names from conflicting and help keep huge codebases neatly structured.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) To prevent naming conflicts and group related classes.
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Java files are compiled into bytecode (.class), but packages are used to group and organize them.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) To compile Java bytecode automatically into machines.
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MCQ 2 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">2. What happens to a Java class if you do not declare any package at all?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Compilation runs smoothly, but it is placed into a specific default, unnamed space.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) It causes an immediate compile-time syntax error.
+                                </button>
+                                <button onclick="checkAnswer(this, true, 'Correct! Unpackaged files land in the unnamed default package, which is generally discouraged.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) It is automatically placed into an unnamed default package.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 2 -->
+        <section id="section-2" class="scroll-mt-12 group">
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 md:p-8 hover:border-violet-500/40 transition-all duration-300 shadow-xl">
+                <!-- Section Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-xl bg-violet-500/10 flex items-center justify-center text-violet-400 font-bold border border-violet-500/30">
+                        2
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">## SECTION 2: PACKAGE DECLARATION AND STATEMENT ORDER RULES</h2>
+                </div>
+
+                <!-- Narrative content -->
+                <div class="bg-violet-950/20 border border-violet-500/20 rounded-xl p-5 mb-6 text-slate-300 space-y-4">
+                    <p class="leading-relaxed">
+                        In Java, defining a package requires strict code layout alignment. The declaration is declared via the keyword <code>package</code> followed by the package identifier. However, the exact syntax and placement of this code is non-negotiable for the Java Compiler:
+                    </p>
+                    <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-sm text-indigo-300 space-y-1">
+                        <div><span class="text-slate-500">// Comments can safely be placed anywhere</span></div>
+                        <div class="text-white"><strong class="text-pink-400">package</strong> pkgName;</div>
+                        <div><span class="text-slate-500">// Empty spaces are ignored here</span></div>
+                    </div>
+                </div>
+
+                <!-- Takeaways -->
+                <div class="mb-8">
+                    <h4 class="text-violet-300 font-semibold mb-3 flex items-center gap-2 text-sm tracking-wider uppercase">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        Key Takeaways
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-violet-400 font-bold block mb-1">STRICT SEQUENCE ORDER</span>
+                            <p class="text-sm text-slate-300">The package statement must always be the very first non-comment and non-blank line in your Java source file.</p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-violet-400 font-bold block mb-1">SYNTAX RULES</span>
+                            <p class="text-sm text-slate-300">Format is always <code class="text-emerald-400 font-mono">package pkgName;</code> followed strictly by a semicolon.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator 2: Sequence Arranger Puzzle -->
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-700 mb-8">
+                    <div class="mb-4">
+                        <span class="px-2 py-1 text-xs rounded bg-violet-500/20 text-violet-300 font-mono uppercase tracking-widest">Interactive Simulator</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Java Class Order Puzzle</h4>
+                        <p class="text-xs text-slate-400">Order is absolute in Java files. Drag/click the blocks below to re-arrange the lines of a standard class. Achieve the perfect syntax order!</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                        <div class="space-y-2" id="puzzle-pool">
+                            <!-- Drag items rendered dynamically via Javascript for easy layout shifts -->
+                            <div onclick="shiftBlock(this)" class="p-3 bg-slate-800 rounded border border-slate-700 text-xs font-mono text-slate-300 cursor-pointer hover:border-violet-400 transition-all select-none" data-val="class">
+                                public class PaymentService { ... }
+                            </div>
+                            <div onclick="shiftBlock(this)" class="p-3 bg-slate-800 rounded border border-slate-700 text-xs font-mono text-slate-300 cursor-pointer hover:border-violet-400 transition-all select-none" data-val="package">
+                                package core.finance;
+                            </div>
+                            <div onclick="shiftBlock(this)" class="p-3 bg-slate-800 rounded border border-slate-700 text-xs font-mono text-slate-300 cursor-pointer hover:border-violet-400 transition-all select-none" data-val="import">
+                                import java.util.List;
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-950 p-4 rounded-lg border border-slate-800">
+                            <span class="text-xs text-slate-500 block mb-2 font-mono">// Your Arranged File Target:</span>
+                            <div class="space-y-2 min-h-[140px] flex flex-col justify-center border-2 border-dashed border-slate-850 rounded p-2" id="puzzle-target">
+                                <!-- Users drop or select elements to land here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4 flex flex-wrap gap-2 items-center justify-between">
+                        <button onclick="resetPuzzle()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs font-bold rounded text-slate-300 transition-all">
+                            Reset Arrangement
+                        </button>
+                        <button onclick="verifyPuzzle()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-xs font-bold rounded text-white transition-all">
+                            Compile & Test Order
+                        </button>
+                    </div>
+                    <div id="puzzle-feedback" class="mt-3 text-xs font-mono text-slate-400">Click a snippet to move it to the file simulator.</div>
+                </div>
+
+                <!-- MCQs for Section 2 -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/80">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-violet-500 text-slate-900 text-xs px-2 py-0.5 rounded-full font-extrabold">QUIZ</span> 
+                        Check Your Understanding (Section 2)
+                    </h4>
+                    
+                    <div class="space-y-6">
+                        <!-- MCQ 1 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">1. Where must a package statement be declared within a Java file?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! Java demands package as the absolute first statements, safe for white space or standard code comments.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) The very first non-comment, non-blank line of code.
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Imports must go immediately after the package declaration but before class code definitions.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) Immediately after all external import declarations.
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MCQ 2 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">2. What separates the package statement from standard Java syntax errors?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Java strictly requires standard statements to finish using semicolons (;).')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) It must terminate with a period sign (.) at all times.
+                                </button>
+                                <button onclick="checkAnswer(this, true, 'Correct! Ending statements in Java demands a terminating semicolon (;) like package myPkg;')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) It uses the package keyword and terminates with a semicolon (;).
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 3 -->
+        <section id="section-3" class="scroll-mt-12 group">
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 md:p-8 hover:border-emerald-500/40 transition-all duration-300 shadow-xl">
+                <!-- Section Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 font-bold border border-emerald-500/30">
+                        3
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">## SECTION 3: IMPORTING EXTERNAL CLASSES AND STATEMENT PLACEMENT</h2>
+                </div>
+
+                <!-- Section Narrative -->
+                <div class="bg-emerald-950/20 border border-emerald-500/20 rounded-xl p-5 mb-6 text-slate-300 space-y-4">
+                    <p class="leading-relaxed">
+                        To utilize a class residing outside of your current package, you must instruct the Java compiler where to locate it. This lookup is accomplished by declaring an <code>import</code> statement. There are two primary techniques to load classes into scope:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm font-mono mt-2">
+                        <div class="bg-slate-950 p-4 rounded-lg border border-slate-850">
+                            <span class="text-emerald-400 block mb-1">// Method A: Import single class</span>
+                            <code class="text-slate-100">import pkgName.className;</code>
+                            <p class="text-xs text-slate-400 mt-2 font-sans">Loads ONLY the precise targeted class. Keeps compiler bindings precise and easy to debug.</p>
+                        </div>
+                        <div class="bg-slate-950 p-4 rounded-lg border border-slate-850">
+                            <span class="text-emerald-400 block mb-1">// Method B: Wildcard Import</span>
+                            <code class="text-slate-100">import pkgName.*;</code>
+                            <p class="text-xs text-slate-400 mt-2 font-sans">Loads every single public class available inside the target package into accessible scope.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Takeaways -->
+                <div class="mb-8">
+                    <h4 class="text-emerald-300 font-semibold mb-3 flex items-center gap-2 text-sm tracking-wider uppercase">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        Key Takeaways
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-emerald-400 font-bold block mb-1">IMPORT ORDER RULE</span>
+                            <p class="text-sm text-slate-300">Import statements MUST reside strictly between your package declaration and your public class definition.</p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-emerald-400 font-bold block mb-1">WILDCARD MECHANICS</span>
+                            <p class="text-sm text-slate-300">Using the <code class="text-yellow-400 font-mono">*</code> symbol imports all sibling classes inside that specific package folder level only.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator 3: Wildcard Scope Visualizer -->
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-700 mb-8">
+                    <div class="mb-4">
+                        <span class="px-2 py-1 text-xs rounded bg-emerald-500/20 text-emerald-300 font-mono uppercase tracking-widest">Interactive Simulator</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Scope Lookup Explorer</h4>
+                        <p class="text-xs text-slate-400">Toggle between Specific vs Wildcard declarations to observe how Java loads files into memory.</p>
+                    </div>
+
+                    <div class="flex gap-4 mb-6">
+                        <button onclick="setScopeMode('specific')" id="btn-scope-specific" class="flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-emerald-600 text-white border border-emerald-500 transition-all shadow">
+                            Method A: Specific (import util.Calculator;)
+                        </button>
+                        <button onclick="setScopeMode('wildcard')" id="btn-scope-wildcard" class="flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-slate-800 text-slate-300 border border-slate-700 transition-all">
+                            Method B: Wildcard (import util.*;)
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                        <div id="card-calc" class="p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/50 transition-all duration-300">
+                            <span class="text-xs font-semibold text-slate-400 font-mono">Calculator.java</span>
+                            <span class="block text-emerald-400 font-bold text-xs mt-1">✓ Loaded in Scope</span>
+                        </div>
+                        <div id="card-validator" class="p-4 rounded-lg bg-slate-800/50 border border-slate-750 transition-all duration-300">
+                            <span class="text-xs font-semibold text-slate-400 font-mono">Validator.java</span>
+                            <span id="label-validator" class="block text-slate-500 text-xs mt-1">✖ Locked</span>
+                        </div>
+                        <div id="card-logger" class="p-4 rounded-lg bg-slate-800/50 border border-slate-750 transition-all duration-300">
+                            <span class="text-xs font-semibold text-slate-400 font-mono">Logger.java</span>
+                            <span id="label-logger" class="block text-slate-500 text-xs mt-1">✖ Locked</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs for Section 3 -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/80">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-emerald-500 text-slate-900 text-xs px-2 py-0.5 rounded-full font-extrabold">QUIZ</span> 
+                        Check Your Understanding (Section 3)
+                    </h4>
+                    
+                    <div class="space-y-6">
+                        <!-- MCQ 1 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">1. Where must Java import statements reside inside class files?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! They reside directly between the initial package declaration and the actual class body declaration.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) After the package statement but before the class definition.
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Java files demand packages at the very top, before imports or classes.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) Before the package statement at the top of the file.
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MCQ 2 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">2. What syntax matches importing all classes inside the "org.utility" package?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, false, 'Incorrect. The star (*) wildcards all package items, but it requires trailing semicolons (;) to validate syntax.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) import org.utility.*;;
+                                </button>
+                                <button onclick="checkAnswer(this, true, 'Correct! Star syntax imports all files on the immediate directory tree path.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) import org.utility.*;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 4 -->
+        <section id="section-4" class="scroll-mt-12 group">
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 md:p-8 hover:border-amber-500/40 transition-all duration-300 shadow-xl">
+                <!-- Section Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-400 font-bold border border-amber-500/30">
+                        4
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">## SECTION 4: TYPES OF PACKAGES AND IDE DIRECTORY MAPPING</h2>
+                </div>
+
+                <!-- Section Narrative -->
+                <div class="bg-amber-950/20 border border-amber-500/20 rounded-xl p-5 mb-6 text-slate-300 space-y-4">
+                    <p class="leading-relaxed">
+                        Java divides packages into two foundational types:
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 text-sm pl-2">
+                        <li><strong>Built-in Packages:</strong> Predefined core system libraries provided directly with the JDK (Java Development Kit) to simplify tasks. Common paths include <code>java.lang</code>, <code>java.io</code>, and <code>java.util</code>.</li>
+                        <li><strong>User-defined Packages:</strong> Custom modules created by developers to group their own application layers (e.g., controllers, services, repositories).</li>
+                    </ul>
+                    <p class="leading-relaxed pt-2">
+                        <strong>The IDE File System Connection:</strong> Modern IDEs like Eclipse, IntelliJ, or NetBeans match package namespaces with physical disk structures. A namespace declaration maps directly to nested disk folders.
+                    </p>
+                </div>
+
+                <!-- Takeaways -->
+                <div class="mb-8">
+                    <h4 class="text-amber-300 font-semibold mb-3 flex items-center gap-2 text-sm tracking-wider uppercase">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        Key Takeaways
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-amber-400 font-bold block mb-1">BUILT-IN VS CUSTOM</span>
+                            <p class="text-sm text-slate-300">Core utility modules are bundled in the JDK (like java.util), while developers build user-defined packages for application modularity.</p>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-xl border border-slate-700/60">
+                            <span class="text-xs text-amber-400 font-bold block mb-1">PHYSICAL DIRECTORY MATCHING</span>
+                            <p class="text-sm text-slate-300">Package declarations inside your Java files must map identically to your physical directory and IDE project folders.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Simulator 4: Project IDE Explorer Simulator -->
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-700 mb-8">
+                    <div class="mb-4">
+                        <span class="px-2 py-1 text-xs rounded bg-amber-500/20 text-amber-300 font-mono uppercase tracking-widest">Interactive IDE Simulator</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Directory-to-Code Mapping Explorer</h4>
+                        <p class="text-xs text-slate-400">Click folders in our mock Eclipse IDE workspace. Observe how the active directory path dictates the file's package statement.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                        <!-- File Tree Explorer (2 Columns) -->
+                        <div class="md:col-span-2 bg-slate-950 p-4 rounded-lg border border-slate-800 font-mono text-xs select-none space-y-2">
+                            <div class="text-slate-500 text-[10px] uppercase font-bold tracking-wider mb-2">Workspace Explorer</div>
+                            <div class="flex items-center gap-1.5 text-slate-300">
+                                <span class="text-amber-500">📁</span> <span>Experiment5 (Project root)</span>
+                            </div>
+                            <div class="pl-4 flex items-center gap-1.5 text-slate-300">
+                                <span class="text-amber-500">📁</span> <span>src (Source root)</span>
+                            </div>
+                            
+                            <!-- Package 1 File Link -->
+                            <div onclick="selectIdeFile('FirstPackage', 'TestMy1stPackage.java')" class="pl-8 py-1.5 rounded cursor-pointer transition-all hover:bg-slate-800 flex items-center gap-1.5 text-indigo-300 border-l-2 border-slate-800" id="ide-node-1">
+                                <span>📄</span> <span>FirstPackage/TestMy1stPackage.java</span>
+                            </div>
+
+                            <!-- Package 2 File Link -->
+                            <div onclick="selectIdeFile('SecongPackage', 'TestMy2ndPackage.java')" class="pl-8 py-1.5 rounded cursor-pointer transition-all hover:bg-slate-800 flex items-center gap-1.5 text-purple-300 border-l-2 border-slate-800" id="ide-node-2">
+                                <span>📄</span> <span>SecongPackage/TestMy2ndPackage.java</span>
+                            </div>
+                        </div>
+
+                        <!-- IDE Editor View (3 Columns) -->
+                        <div class="md:col-span-3 bg-slate-950 rounded-lg border border-slate-800 overflow-hidden flex flex-col">
+                            <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+                                <span id="ide-editor-filename" class="text-slate-300 font-semibold">TestMy1stPackage.java</span>
+                                <span class="text-slate-500">Read-Only View</span>
+                            </div>
+                            <div class="p-4 flex-1 font-mono text-xs text-slate-300 whitespace-pre leading-relaxed min-h-[160px]" id="ide-editor-content">
+                                <!-- Loaded Code content will render here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs for Section 4 -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/80">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-amber-500 text-slate-900 text-xs px-2 py-0.5 rounded-full font-extrabold">QUIZ</span> 
+                        Check Your Understanding (Section 4)
+                    </h4>
+                    
+                    <div class="space-y-6">
+                        <!-- MCQ 1 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">1. Which of the following is a core built-in Java class package?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! java.util contains crucial core data structures such as Lists, Maps, and Scanner.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) java.util
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. java.app is not a built-in standard package provided with Java class foundations.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) java.app
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MCQ 2 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">2. What directory naming standard must a user-defined package strictly match?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Custom package declarations must map perfectly with physical nested paths in folders.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) Directories can be randomly structured; package tags keep track automatically.
+                                </button>
+                                <button onclick="checkAnswer(this, true, 'Correct! Sub-packages require actual nested folders on the workspace disk exactly.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) The package name written in code must match the actual folder structure exactly.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- SECTION 5 -->
+        <section id="section-5" class="scroll-mt-12 group">
+            <div class="bg-slate-800/80 rounded-2xl border border-slate-700 p-6 md:p-8 hover:border-pink-500/40 transition-all duration-300 shadow-xl">
+                <!-- Section Header -->
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="h-10 w-10 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 font-bold border border-pink-500/30">
+                        5
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-white">## SECTION 5: PRACTICAL APPLICATION OF INTER-PACKAGE COMMUNICATION</h2>
+                </div>
+
+                <!-- Section Narrative -->
+                <div class="bg-pink-950/20 border border-pink-500/20 rounded-xl p-5 mb-6 text-slate-300 space-y-4">
+                    <p class="leading-relaxed">
+                        To successfully instantiate a class located in another package (e.g., calling class <code>TestMy2ndPackage</code> in package <code>SecongPackage</code> inside our master file <code>TestMy1stPackage</code> inside package <code>FirstPackage</code>), we follow these precise structural rules:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700/50">
+                            <span class="text-pink-400 block font-mono text-xs font-bold">1. Declaration Order:</span>
+                            <span class="text-xs text-slate-300 leading-relaxed block mt-1">First declare our package, then provide the precise import statements, and finally define the main wrapper class.</span>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-lg border border-slate-700/50">
+                            <span class="text-pink-400 block font-mono text-xs font-bold">2. Instantiation Scope:</span>
+                            <span class="text-xs text-slate-300 leading-relaxed block mt-1">Once imported correctly, standard class constructor instantiation (using the <code>new</code> keyword) can safely resolve in the compiler engine.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Simulator 5: Inter-package Compiler sandbox -->
+                <div class="bg-slate-900/90 rounded-xl p-6 border border-slate-700 mb-8">
+                    <div class="mb-4">
+                        <span class="px-2 py-1 text-xs rounded bg-pink-500/20 text-pink-300 font-mono uppercase tracking-widest">Compiler Sandbox Simulator</span>
+                        <h4 class="text-lg font-bold text-white mt-1">Cross-Package Run Engine</h4>
+                        <p class="text-xs text-slate-400">Click compile below. Trace how class imports translate from memory allocation to standard CLI execution pipelines.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Left pane: Code Source -->
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-xs text-indigo-400 block font-semibold mb-1">Source: TestMy1stPackage.java</span>
+                                <div class="bg-slate-950 p-4 rounded-lg border border-slate-850 font-mono text-xs text-slate-300 overflow-x-auto whitespace-pre">
+package FirstPackage;
+<span class="text-pink-400 font-bold">import SecongPackage.TestMy2ndPackage;</span>
+
+public class TestMy1stPackage {
+    public static void main(String[] args) {
+        // Instantiate class from another package
+        TestMy2ndPackage x = new TestMy2ndPackage();
+        System.out.println("Object successfully initialized!");
+    }
+}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right pane: Action execution -->
+                        <div class="flex flex-col justify-between">
+                            <div class="bg-slate-950 p-4 rounded-lg border border-slate-800 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <span class="text-xs text-slate-500 font-mono block mb-2">// Virtual JVM Stack Trace Traceboard</span>
+                                    <div class="space-y-2 text-xs" id="sandbox-trace-output">
+                                        <div class="text-slate-500">System Ready. Click button to begin JVM validation...</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 pt-4 border-t border-slate-850">
+                                    <span class="text-[10px] uppercase font-bold text-emerald-400 block mb-1">Standard Console Output:</span>
+                                    <div class="bg-black/40 p-3 rounded font-mono text-xs text-slate-300 min-h-[50px] flex items-center" id="sandbox-console-out">
+                                        <em>No output yet.</em>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="runSandboxEngine()" class="mt-4 w-full py-3 bg-gradient-to-r from-pink-600 to-indigo-600 hover:from-pink-500 hover:to-indigo-500 text-white font-bold rounded-lg transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5 transform">
+                                Compile & Execute Code Workspace
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MCQs for Section 5 -->
+                <div class="bg-slate-900/60 p-6 rounded-xl border border-slate-700/80">
+                    <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                        <span class="bg-pink-500 text-slate-900 text-xs px-2 py-0.5 rounded-full font-extrabold">QUIZ</span> 
+                        Check Your Understanding (Section 5)
+                    </h4>
+                    
+                    <div class="space-y-6">
+                        <!-- MCQ 1 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">1. If class 'A' in package 'FirstPackage' wants to use class 'B' in 'SecongPackage', what must occur?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! To access Class B across distinct packages, Class A must explicitly import it using its namespace.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) Class A must explicitly import SecongPackage.TestMy2ndPackage;
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Classes residing in separate user-defined packages cannot see each other implicitly.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) Classes in separate packages run together automatically without import structures.
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- MCQ 2 -->
+                        <div>
+                            <p class="text-sm font-semibold text-slate-200 mb-2">2. What is the correct structure of a Java program file implementing external packages?</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs">
+                                <button onclick="checkAnswer(this, true, 'Correct! First package declaration, next all imports, and finally public class bodies.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    A) Package statement first, import statements second, class definition third.
+                                </button>
+                                <button onclick="checkAnswer(this, false, 'Incorrect. Class definitions must always be compiled last inside standard Java layout sequences.')" class="mcq-btn text-left p-3 rounded-lg bg-slate-800 hover:bg-slate-750 border border-slate-700 transition-all text-slate-300">
+                                    B) Class definition first, package statement second, import statements third.
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- Footer with global stats / completion details -->
+<footer class="bg-slate-950 border-t border-slate-800 py-12 text-slate-500 text-xs mt-24">
+    <div class="max-w-6xl mx-auto px-6 text-center space-y-2">
+        <p>Interactive Java Packages Curriculum Companion. Crafted for seamless presentation & scrolling navigation teaching modes.</p>
+        <p>&copy; 2026 Core Java Systems Lab.</p>
+    </div>
+</footer>
+
+
+<script>
+    // Global initial state setup for Interactive Elements
+    window.onload = function() {
+        // Init Simulator State
+        selectIdeFile('FirstPackage', 'TestMy1stPackage.java');
+        resetPuzzle();
+    };
+
+    // MCQ Verification handler
+    function checkAnswer(buttonElement, isCorrect, explanationText) {
+        // Prevent clicking multiple times in same parent group
+        const siblingButtons = buttonElement.parentElement.querySelectorAll('.mcq-btn');
+        siblingButtons.forEach(btn => {
+            btn.disabled = true;
+            btn.classList.add('opacity-50');
+            // Remove previous answer class styling
+            btn.classList.remove('border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40');
+        });
+
+        // Re-enable and style active target button
+        buttonElement.classList.remove('opacity-50');
+        
+        // Remove previous dynamic explanations if user is retrying
+        const existingAlert = buttonElement.parentElement.parentElement.querySelector('.quiz-feedback-box');
+        if (existingAlert) {
+            existingAlert.remove();
+        }
+
+        // Apply visual styling based on correctness
+        if (isCorrect) {
+            buttonElement.classList.add('border-emerald-500', 'bg-emerald-950/40', 'text-emerald-300');
+        } else {
+            buttonElement.classList.add('border-rose-500', 'bg-rose-950/40', 'text-rose-300');
+        }
+
+        // Render explanation panel smoothly
+        const alertBox = document.createElement('div');
+        alertBox.className = `quiz-feedback-box mt-3 p-3 rounded-lg text-xs font-medium border ${
+            isCorrect ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-400' : 'bg-rose-950/30 border-rose-500/30 text-rose-400'
+        }`;
+        alertBox.innerHTML = `<strong>${isCorrect ? 'Correct!' : 'Incorrect.'}</strong> ${explanationText} 
+        <button onclick="resetQuizGroup(this)" class="underline ml-2 text-slate-300 hover:text-white">Retry</button>`;
+        
+        buttonElement.parentElement.parentElement.appendChild(alertBox);
+    }
+
+    // Reset MCQ groups for continuous user trials
+    function resetQuizGroup(resetBtn) {
+        const parentDiv = resetBtn.parentElement.parentElement;
+        const buttons = parentDiv.querySelectorAll('.mcq-btn');
+        buttons.forEach(btn => {
+            btn.disabled = false;
+            btn.classList.remove('opacity-50', 'border-emerald-500', 'bg-emerald-950/40', 'border-rose-500', 'bg-rose-950/40', 'text-emerald-300', 'text-rose-300');
+        });
+        resetBtn.parentElement.remove();
+    }
+
+    // SECTION 1: Namespace Collision Simulator Logic
+    function triggerCollisionSim(pkgType) {
+        const consoleEl = document.getElementById('collision-output');
+        consoleEl.innerHTML = "";
+        
+        if (pkgType === 'billing') {
+            consoleEl.innerHTML = `
+<span class="text-blue-400 font-bold">[JVM INIT]</span> Resolving classpath references...<br>
+<span class="text-slate-300">> billing.Product p1 = new billing.Product();</span><br>
+<span class="text-emerald-400">Successfully Allocated Heap Space! Object Reference: billing.Product@5d5a991b</span><br>
+<span class="text-slate-400">Loaded variables: price = $199.99</span>
+            `;
+        } else {
+            consoleEl.innerHTML = `
+<span class="text-blue-400 font-bold">[JVM INIT]</span> Resolving classpath references...<br>
+<span class="text-slate-300">> shipping.Product p2 = new shipping.Product();</span><br>
+<span class="text-emerald-400">Successfully Allocated Heap Space! Object Reference: shipping.Product@2a1e3b52</span><br>
+<span class="text-slate-400">Loaded variables: weight = 2.5kg</span>
+            `;
+        }
+    }
+
+    // SECTION 2: Order Puzzle Drag & Drop Simulator
+    let puzzleState = [];
+
+    function shiftBlock(block) {
+        const puzzlePool = document.getElementById('puzzle-pool');
+        const puzzleTarget = document.getElementById('puzzle-target');
+        
+        if (block.parentElement.id === 'puzzle-pool') {
+            // Move block into target layout
+            puzzleTarget.appendChild(block);
+        } else {
+            // Move back to pool selection
+            puzzlePool.appendChild(block);
+        }
+    }
+
+    function resetPuzzle() {
+        const pool = document.getElementById('puzzle-pool');
+        const target = document.getElementById('puzzle-target');
+        
+        // Put everything back into pool
+        const items = Array.from(target.children);
+        items.forEach(item => pool.appendChild(item));
+        
+        document.getElementById('puzzle-feedback').innerHTML = "Click code snippets above to line them up in the correct sequence.";
+        document.getElementById('puzzle-feedback').className = "mt-3 text-xs font-mono text-slate-400";
+    }
+
+    function verifyPuzzle() {
+        const target = document.getElementById('puzzle-target');
+        const children = Array.from(target.children);
+        const feedback = document.getElementById('puzzle-feedback');
+
+        if (children.length < 3) {
+            feedback.innerHTML = "✖ Error: Arrange all three blocks to satisfy complete Java Class file structure validation.";
+            feedback.className = "mt-3 text-xs font-mono text-rose-400 font-bold";
+            return;
+        }
+
+        const sequence = children.map(el => el.getAttribute('data-val')).join(',');
+
+        if (sequence === 'package,import,class') {
+            feedback.innerHTML = "✔ Excellent! Compiler successfully parsed layout structure! Order matches: Package -> Imports -> Class Declaration.";
+            feedback.className = "mt-3 text-xs font-mono text-emerald-400 font-bold";
+        } else {
+            feedback.innerHTML = "✖ Syntax Compiler Error: Standard rules violated! Package must precede all imports, which in turn must precede classes.";
+            feedback.className = "mt-3 text-xs font-mono text-rose-400 font-bold";
+        }
+    }
+
+    // SECTION 3: Wildcard Scope Toggle Simulator
+    function setScopeMode(mode) {
+        const btnSpecific = document.getElementById('btn-scope-specific');
+        const btnWildcard = document.getElementById('btn-scope-wildcard');
+        const cardVal = document.getElementById('card-validator');
+        const cardLog = document.getElementById('card-logger');
+        const labelVal = document.getElementById('label-validator');
+        const labelLog = document.getElementById('label-logger');
+
+        if (mode === 'specific') {
+            btnSpecific.className = "flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-emerald-600 text-white border border-emerald-500 transition-all shadow";
+            btnWildcard.className = "flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-slate-800 text-slate-300 border border-slate-700 transition-all";
+            
+            cardVal.className = "p-4 rounded-lg bg-slate-800/50 border border-slate-750 transition-all duration-300";
+            cardLog.className = "p-4 rounded-lg bg-slate-800/50 border border-slate-750 transition-all duration-300";
+            
+            labelVal.innerHTML = "✖ Locked";
+            labelVal.className = "block text-slate-500 text-xs mt-1";
+            labelLog.innerHTML = "✖ Locked";
+            labelLog.className = "block text-slate-500 text-xs mt-1";
+        } else {
+            btnSpecific.className = "flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-slate-800 text-slate-300 border border-slate-700 transition-all";
+            btnWildcard.className = "flex-1 py-3 px-4 rounded-lg font-bold text-xs bg-emerald-600 text-white border border-emerald-500 transition-all shadow";
+            
+            cardVal.className = "p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/50 transition-all duration-300";
+            cardLog.className = "p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/50 transition-all duration-300";
+            
+            labelVal.innerHTML = "✔ Loaded in Scope";
+            labelVal.className = "block text-emerald-400 font-bold text-xs mt-1";
+            labelLog.innerHTML = "✔ Loaded in Scope";
+            labelLog.className = "block text-emerald-400 font-bold text-xs mt-1";
+        }
+    }
+
+    // SECTION 4: IDE File Tree Selector Simulator
+    function selectIdeFile(packageName, fileName) {
+        const titleEl = document.getElementById('ide-editor-filename');
+        const contentEl = document.getElementById('ide-editor-content');
+        
+        const node1 = document.getElementById('ide-node-1');
+        const node2 = document.getElementById('ide-node-2');
+
+        titleEl.textContent = fileName;
+
+        if (packageName === 'FirstPackage') {
+            node1.classList.add('bg-indigo-950/60', 'border-indigo-500');
+            node2.classList.remove('bg-purple-950/60', 'border-purple-500');
+
+            contentEl.innerHTML = `
+<span class="text-pink-400 font-bold">package FirstPackage;</span>
+
+<span class="text-blue-400">import SecongPackage.TestMy2ndPackage;</span>
+
+<span class="text-yellow-400">public class TestMy1stPackage</span> {
+    <span class="text-slate-400">public static void main(String[] args) {</span>
+        <span class="text-slate-300">TestMy2ndPackage x = new TestMy2ndPackage();</span>
+    <span class="text-slate-400">}</span>
+}`;
+        } else {
+            node2.classList.add('bg-purple-950/60', 'border-purple-500');
+            node1.classList.remove('bg-indigo-950/60', 'border-indigo-500');
+
+            contentEl.innerHTML = `
+<span class="text-pink-400 font-bold">package SecongPackage;</span>
+
+<span class="text-yellow-400">public class TestMy2ndPackage</span> {
+    <span class="text-slate-500">// Contains core definitions & logic templates</span>
+    <span class="text-slate-400">public TestMy2ndPackage() {</span>
+        <span class="text-slate-300">System.out.println("Second Package Class Init!");</span>
+    <span class="text-slate-400">}</span>
+}`;
+        }
+    }
+
+    // SECTION 5: Live cross-package virtual runtime tracing sandbox
+    function runSandboxEngine() {
+        const traceEl = document.getElementById('sandbox-trace-output');
+        const consoleEl = document.getElementById('sandbox-console-out');
+
+        traceEl.innerHTML = `
+            <div class="text-blue-400 font-semibold">[STEP 1] Initializing mock Compiler compiler thread...</div>
+        `;
+        consoleEl.innerHTML = `<span class="text-yellow-400">Compiling classes...</span>`;
+
+        setTimeout(() => {
+            traceEl.innerHTML += `
+                <div class="text-blue-400 font-semibold">[STEP 2] Parsing TestMy1stPackage.java for package alignments...</div>
+                <div class="text-slate-400 pl-4">> Found: package FirstPackage; (Verified matching directory 'src/FirstPackage')</div>
+            `;
+        }, 600);
+
+        setTimeout(() => {
+            traceEl.innerHTML += `
+                <div class="text-blue-400 font-semibold">[STEP 3] Resolving external package imports...</div>
+                <div class="text-slate-400 pl-4">> Loading SecongPackage.TestMy2ndPackage...</div>
+                <div class="text-emerald-400 pl-4 font-bold">> Successfully linked classes in workspace environment!</div>
+            `;
+        }, 1200);
+
+        setTimeout(() => {
+            traceEl.innerHTML += `
+                <div class="text-indigo-400 font-semibold">[STEP 4] Executing Main method pipeline thread...</div>
+                <div class="text-slate-400 pl-4">> Initializing Class Reference (TestMy2ndPackage x)</div>
+            `;
+            consoleEl.innerHTML = `
+                <div>
+                    <div class="text-emerald-400 font-bold">> Second Package Class Init!</div>
+                    <div class="text-emerald-400 font-bold">> Object successfully initialized!</div>
+                </div>
+            `;
+        }, 1800);
+    }
+</script>
+</body>
+</html>
