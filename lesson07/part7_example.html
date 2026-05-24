@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Variable Scope Masterclass</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen selection:bg-indigo-500 selection:text-white">
+
+  <!-- Header section -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 py-4 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-lg shadow-indigo-600/30">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-extrabold tracking-tight text-white flex items-center gap-2">
+            Java Variable Scope <span class="text-xs font-semibold px-2 py-0.5 bg-indigo-500/20 text-indigo-400 rounded-full border border-indigo-500/30">Beginner's Guide</span>
+          </h1>
+          <p class="text-xs text-slate-400">Visualizing the boundaries of Instance vs. Local Scope in Object-Oriented Programming</p>
+        </div>
+      </div>
+      <div class="flex gap-2 text-xs">
+        <span class="px-3 py-1.5 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Complete Code Displayed
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Introduction & Core Definitions -->
+  <main class="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <div class="bg-gradient-to-r from-slate-850 to-indigo-950 rounded-2xl p-6 sm:p-8 border border-indigo-500/20 shadow-xl mb-12">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Understanding Variables Scope in Java</h2>
+      <p class="text-slate-300 leading-relaxed max-w-4xl text-sm sm:text-base mb-6">
+        In Java, where you declare a variable determines its <strong class="text-indigo-300">scope</strong>—meaning where in your program that variable can be read, written, and recognized. 
+        There are two primary scopes demonstrated in this program:
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/50">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <h3 class="font-bold text-white text-base">1. Instance Variables (Fields)</h3>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Declared directly inside a <strong class="text-slate-300">Class</strong> but outside any method. They belong to the <strong class="text-amber-400">Object</strong> (stored in the Heap memory). 
+            Every method inside the class has access to them. They persist as long as the object exists.
+          </p>
+        </div>
+        <div class="bg-slate-900/60 p-5 rounded-xl border border-slate-700/50">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="w-3 h-3 rounded-full bg-sky-500"></span>
+            <h3 class="font-bold text-white text-base">2. Local Variables</h3>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Declared inside a <strong class="text-slate-300">Method</strong> block <code class="bg-slate-800 text-sky-300 px-1 py-0.5 rounded text-xs">{ ... }</code>. 
+            They are temporary, stored in the Stack memory, and are destroyed once the method finishes. They cannot be seen outside their parent method.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 1: Class Definition & Instance Variables -->
+    <div class="space-y-4 mb-16">
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">1</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">The Class Blueprint & Instance Variables</h3>
+          <p class="text-xs text-slate-400">Defining the outer blueprint and global object states</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Code Column -->
+        <div class="lg:col-span-6 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col">
+          <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs text-slate-400 font-semibold code-font">TestVariableScope.java</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase tracking-wider">Class Blueprint</span>
+          </div>
+          <div class="p-4 sm:p-6 flex-grow code-font text-xs sm:text-sm leading-relaxed text-slate-300">
+            <pre class="whitespace-pre-wrap break-words"><code><span class="text-pink-400">package</span> oop6TestVariableScope;
+
+<span class="text-slate-500">// TestVariableScope.java: example for variable scope</span>
+<span class="text-purple-400">public class</span> <span class="text-emerald-400">TestVariableScope</span> {  
+  <span class="text-slate-500">// Instance variables (declared inside class, but outside methods)</span>
+  <span class="text-amber-400">int</span> <span class="text-yellow-400 font-semibold">noOfGold</span> = <span class="text-indigo-300">5</span>;
+  <span class="text-amber-400">int</span> <span class="text-yellow-400 font-semibold">noOfSilver</span> = <span class="text-indigo-300">6</span>;
+
+  <span class="text-slate-500">// [Other methods declared here...]</span>
+}</code></pre>
+          </div>
+        </div>
+
+        <!-- Explanation & Visuals Column -->
+        <div class="lg:col-span-6 bg-slate-850 rounded-xl p-6 border border-slate-800 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest block mb-2">How it works</span>
+            <h4 class="text-lg font-bold text-white mb-3">Initializing the State Fields</h4>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              When we instantiate (create) a new object using this class, Java sets aside space in the <strong class="text-amber-400 font-semibold">Heap Memory</strong>. 
+              The variables <code class="text-yellow-400">noOfGold (5)</code> and <code class="text-yellow-400">noOfSilver (6)</code> are bound directly to that newly created object.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>Any non-static method in this class can read and write to these two variables directly.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>They hold default values for the object state unless overridden inside a local method frame.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Mini Heap Diagram -->
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <div class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-3 flex justify-between">
+              <span>Heap Memory Visualization</span>
+              <span class="text-amber-400">Object State</span>
+            </div>
+            <div class="border border-dashed border-amber-500/30 p-3 rounded-lg bg-amber-500/5 flex flex-col items-center">
+              <div class="text-xs font-bold text-amber-300 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/30 mb-3">
+                medals : TestVariableScope Object
+              </div>
+              <div class="grid grid-cols-2 gap-4 w-full">
+                <div class="bg-slate-950 p-2 rounded border border-slate-850 text-center">
+                  <div class="text-[10px] text-slate-500 font-bold">noOfGold</div>
+                  <div class="text-lg font-extrabold text-yellow-400">5</div>
+                  <div class="text-[9px] text-slate-400">(Instance Field)</div>
+                </div>
+                <div class="bg-slate-950 p-2 rounded border border-slate-850 text-center">
+                  <div class="text-[10px] text-slate-500 font-bold">noOfSilver</div>
+                  <div class="text-lg font-extrabold text-yellow-400">6</div>
+                  <div class="text-[9px] text-slate-400">(Instance Field)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: dCPE3APP Method & Variable Shadowing -->
+    <div class="space-y-4 mb-16">
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">2</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">Method 1: Shadowing the Gold Variables</h3>
+          <p class="text-xs text-slate-400">How local variables block instance variables with identical names</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Code Column -->
+        <div class="lg:col-span-6 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col">
+          <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs text-slate-400 font-semibold code-font">TestVariableScope.java</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-500/10 text-sky-400 border border-sky-500/20 uppercase tracking-wider">Method A Scope</span>
+          </div>
+          <div class="p-4 sm:p-6 flex-grow code-font text-xs sm:text-sm leading-relaxed text-slate-300">
+            <pre class="whitespace-pre-wrap break-words"><code>  <span class="text-purple-400">void</span> <span class="text-blue-400">dCPE3APP</span>() {
+    <span class="text-slate-500">// Local variable for method dCPE3APP()</span>
+    <span class="text-amber-400">int</span> <span class="text-sky-400 font-semibold">noOfGold</span> = <span class="text-indigo-300">2</span>; <span class="text-slate-500">// This SHADOWS the instance variable!</span>
+
+    <span class="text-emerald-400">System</span>.out.println(<span class="text-orange-300">"Class DCPE3APP got "</span> + <span class="text-sky-400 font-semibold">noOfGold</span> + <span class="text-orange-300">" gold medals"</span>);
+    <span class="text-slate-500">// Outputs: 2 (Uses Local)</span>
+
+    <span class="text-emerald-400">System</span>.out.println(<span class="text-orange-300">"There are altogether "</span> + <span class="text-yellow-400 font-semibold">noOfSilver</span> + <span class="text-orange-300">" silver medals"</span>);
+    <span class="text-slate-500">// Outputs: 6 (No local duplicate, looks up to Instance)</span>
+  }</code></pre>
+          </div>
+        </div>
+
+        <!-- Explanation & Visuals Column -->
+        <div class="lg:col-span-6 bg-slate-850 rounded-xl p-6 border border-slate-800 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-bold text-sky-400 uppercase tracking-widest block mb-2">Scope Mechanics</span>
+            <h4 class="text-lg font-bold text-white mb-3">Variable Shadowing Explained</h4>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              Inside <code class="text-blue-400">dCPE3APP()</code>, we declare a local variable named <code class="text-sky-400">noOfGold</code> and set it to <code class="text-indigo-300">2</code>. 
+              Because this variable matches the name of our instance field (<code class="text-yellow-400">noOfGold = 5</code>), it temporarily <strong class="text-sky-300">shadows</strong> or conceals the instance field within this block.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-amber-500 font-bold">⚠</span>
+                <span>Any reference to <code class="text-sky-400">noOfGold</code> inside this method resolves to <code class="text-sky-300">2</code> (the local copy).</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>For <code class="text-yellow-400">noOfSilver</code>, Java checks the local scope, doesn't find a local version, and automatically retrieves the instance field's value (<code class="text-yellow-400">6</code>).</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Shadowing Scope Diagram -->
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <div class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-3 flex justify-between">
+              <span>Stack Frame: dCPE3APP()</span>
+              <span class="text-sky-400">Local Scope</span>
+            </div>
+            <div class="space-y-3">
+              <!-- Local Gold Row -->
+              <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded border border-sky-500/20">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                  <span class="text-xs font-bold text-slate-300">local noOfGold</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-extrabold text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded border border-sky-500/20">2</span>
+                  <span class="text-[10px] text-emerald-400 font-semibold">★ Shadows Instance (5)</span>
+                </div>
+              </div>
+              <!-- Instance Silver Fallback -->
+              <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded border border-slate-800">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span class="text-xs font-bold text-slate-300">noOfSilver (Instance fallback)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-extrabold text-yellow-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">6</span>
+                  <span class="text-[10px] text-slate-400">No local match, reads class level</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 3: dCPE3BQQ Method & Local Scope Isolation -->
+    <div class="space-y-4 mb-16">
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">3</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">Method 2: Clean, Isolated Local Scope</h3>
+          <p class="text-xs text-slate-400">How separate methods maintain their own private local states</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Code Column -->
+        <div class="lg:col-span-6 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col">
+          <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs text-slate-400 font-semibold code-font">TestVariableScope.java</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 uppercase tracking-wider">Method B Scope</span>
+          </div>
+          <div class="p-4 sm:p-6 flex-grow code-font text-xs sm:text-sm leading-relaxed text-slate-300">
+            <pre class="whitespace-pre-wrap break-words"><code>  <span class="text-purple-400">void</span> <span class="text-blue-400">dCPE3BQQ</span>() {
+    <span class="text-slate-500">// Local variable for method dCPE3BQQ()</span>
+    <span class="text-amber-400">int</span> <span class="text-indigo-400 font-semibold">noOfGold</span> = <span class="text-indigo-300">3</span>; <span class="text-slate-500">// Isolated: totally separate from dCPE3APP!</span>
+
+    <span class="text-emerald-400">System</span>.out.println(<span class="text-orange-300">"Class DCPE3BQQ got "</span> + <span class="text-indigo-400 font-semibold">noOfGold</span> + <span class="text-orange-300">" gold medals"</span>);
+    <span class="text-slate-500">// Outputs: 3 (Uses Local)</span>
+
+    <span class="text-emerald-400">System</span>.out.println(<span class="text-orange-300">"There are altogether "</span> + <span class="text-yellow-400 font-semibold">noOfSilver</span> + <span class="text-orange-300">" silver medals"</span>);
+    <span class="text-slate-500">// Outputs: 6 (Accesses same instance variable)</span>
+  }</code></pre>
+          </div>
+        </div>
+
+        <!-- Explanation & Visuals Column -->
+        <div class="lg:col-span-6 bg-slate-850 rounded-xl p-6 border border-slate-800 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-bold text-purple-400 uppercase tracking-widest block mb-2">Method Boundaries</span>
+            <h4 class="text-lg font-bold text-white mb-3">Scope Encapsulation</h4>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              The method <code class="text-blue-400">dCPE3BQQ()</code> resides in its own isolated stack bubble. Even though both methods define a variable named <code class="text-indigo-300">noOfGold</code>, they cannot see each other’s variables.
+            </p>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>The local variable <code class="text-indigo-300">noOfGold = 2</code> inside <code class="text-blue-400">dCPE3APP()</code> is already destroyed or completely inaccessible here.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>This method introduces its own local <code class="text-indigo-400">noOfGold = 3</code>, shadowing the instance variable independently.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Isolated Frame Visual -->
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <div class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-3 flex justify-between">
+              <span>Stack Frame: dCPE3BQQ()</span>
+              <span class="text-purple-400">Isolated Local Scope</span>
+            </div>
+            <div class="space-y-3">
+              <!-- Local Gold Row (B) -->
+              <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded border border-purple-500/20">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+                  <span class="text-xs font-bold text-slate-300">local noOfGold</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-extrabold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20 font-mono">3</span>
+                  <span class="text-[10px] text-purple-400 font-semibold">★ Independent Local Shadow</span>
+                </div>
+              </div>
+              <!-- Shared instance indicator -->
+              <div class="flex items-center justify-between bg-slate-950 p-2.5 rounded border border-slate-800">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span class="text-xs font-bold text-slate-300">noOfSilver (Instance fallback)</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-xs font-extrabold text-yellow-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">6</span>
+                  <span class="text-[10px] text-slate-400">Reads same class level field</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4: Application Code / Main Execution -->
+    <div class="space-y-4 mb-16">
+      <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 font-bold border border-indigo-500/20">4</span>
+        <div>
+          <h3 class="text-lg font-bold text-white">The Application Code (The Entry Point)</h3>
+          <p class="text-xs text-slate-400">Instantiating objects and tracing the program output</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Code Column -->
+        <div class="lg:col-span-6 bg-slate-950 rounded-xl overflow-hidden border border-slate-800 flex flex-col">
+          <div class="bg-slate-900 px-4 py-2 border-b border-slate-800 flex justify-between items-center">
+            <span class="text-xs text-slate-400 font-semibold code-font">TestVariableScope.java</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-wider">Application Main</span>
+          </div>
+          <div class="p-4 sm:p-6 flex-grow code-font text-xs sm:text-sm leading-relaxed text-slate-300">
+            <pre class="whitespace-pre-wrap break-words"><code>  <span class="text-purple-400">public static void</span> <span class="text-blue-400">main</span>(<span class="text-emerald-400">String</span>[] a) {
+    <span class="text-slate-500">// 1. Create instance (the Object)</span>
+    <span class="text-emerald-400">TestVariableScope</span> <span class="text-indigo-300">medals</span> = <span class="text-purple-400">new</span> <span class="text-emerald-400">TestVariableScope</span>();
+
+    <span class="text-slate-500">// 2. Invoke method A</span>
+    <span class="text-indigo-300">medals</span>.dCPE3APP(); 
+
+    <span class="text-slate-500">// 3. Invoke method B</span>
+    <span class="text-indigo-300">medals</span>.dCPE3BQQ(); 
+    
+    <span class="text-slate-500">// 4. Direct access of the instance field from main</span>
+    <span class="text-emerald-400">System</span>.out.println(<span class="text-orange-300">"There are altogether "</span> + <span class="text-indigo-300">medals</span>.<span class="text-yellow-400 font-semibold">noOfGold</span> + <span class="text-orange-300">" gold medals"</span>);
+    <span class="text-slate-500">// Outputs: 5 (Because direct access queries the instance field!)</span>
+  }</code></pre>
+          </div>
+        </div>
+
+        <!-- Explanation & Visuals Column -->
+        <div class="lg:col-span-6 bg-slate-850 rounded-xl p-6 border border-slate-800 flex flex-col justify-between space-y-6">
+          <div>
+            <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest block mb-2">Execution Flow</span>
+            <h4 class="text-lg font-bold text-white mb-3">Running the Application</h4>
+            <p class="text-slate-300 text-sm leading-relaxed mb-4">
+              The <code class="text-blue-400">main</code> method is the driver of the application. Notice step 4: when we access <code class="text-yellow-400">medals.noOfGold</code>, we do so by explicitly referencing the object variable (<code class="text-indigo-300">medals</code>).
+            </p>
+            <ul class="space-y-2 text-xs text-slate-400">
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>The local variables initialized inside <code class="text-blue-400">dCPE3APP</code> and <code class="text-blue-400">dCPE3BQQ</code> are completely dead at this point.</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-400 font-bold">✔</span>
+                <span>Thus, accessing <code class="text-indigo-300">medals</code>.<code class="text-yellow-400">noOfGold</code> gets the original, untouched instance value of <strong class="text-amber-400 font-semibold">5</strong>.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Flow Mapping Diagram -->
+          <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+            <div class="text-[11px] uppercase tracking-wider text-slate-500 font-bold mb-3 flex justify-between">
+              <span>Stack to Heap Mapping</span>
+              <span class="text-indigo-400">Application Frame</span>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4 items-center justify-center p-3 rounded-lg bg-indigo-950/20 border border-indigo-500/10">
+              <div class="bg-slate-950 p-2.5 rounded border border-slate-800 text-center w-full md:w-auto">
+                <div class="text-[10px] text-slate-500 font-bold">Stack Reference</div>
+                <div class="text-xs font-bold text-indigo-400">medals</div>
+                <div class="text-[9px] text-slate-400">Points to Object Address</div>
+              </div>
+              <div class="text-slate-500 text-xl font-bold hidden md:block">➔</div>
+              <div class="bg-slate-950 p-2.5 rounded border border-amber-500/20 text-center w-full md:w-auto">
+                <div class="text-[10px] text-amber-400 font-bold">Heap Object Instance</div>
+                <div class="text-xs font-bold text-yellow-400">noOfGold = 5</div>
+                <div class="text-[9px] text-slate-400">Instance field directly read!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Console Terminal Output -->
+    <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden mb-16">
+      <div class="bg-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+          <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+          <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+          <span class="text-xs font-bold text-slate-400 font-mono ml-2">Console Output Frame</span>
+        </div>
+        <span class="text-xs font-semibold px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20">SUCCESS</span>
+      </div>
+      
+      <div class="p-6 font-mono text-sm leading-relaxed text-slate-300 space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 rounded-lg bg-slate-900/40 border border-slate-900">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-600 font-bold">Line 1:</span>
+            <span class="text-emerald-400">Class DCPE3APP got <span class="underline underline-offset-4 decoration-sky-400 font-bold text-white">2</span> gold medals</span>
+          </div>
+          <span class="text-[10px] bg-sky-500/10 text-sky-400 px-2 py-0.5 rounded border border-sky-500/20">From local variable scope</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 rounded-lg bg-slate-900/40 border border-slate-900">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-600 font-bold">Line 2:</span>
+            <span class="text-emerald-400">There are altogether <span class="underline underline-offset-4 decoration-yellow-400 font-bold text-white">6</span> silver medals</span>
+          </div>
+          <span class="text-[10px] bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/20">From instance scope fallback</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 rounded-lg bg-slate-900/40 border border-slate-900">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-600 font-bold">Line 3:</span>
+            <span class="text-emerald-400">Class DCPE3BQQ got <span class="underline underline-offset-4 decoration-purple-400 font-bold text-white">3</span> gold medals</span>
+          </div>
+          <span class="text-[10px] bg-purple-500/10 text-purple-400 px-2 py-0.5 rounded border border-purple-500/20">From local variable scope</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 rounded-lg bg-slate-900/40 border border-slate-900">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-600 font-bold">Line 4:</span>
+            <span class="text-emerald-400">There are altogether <span class="underline underline-offset-4 decoration-yellow-400 font-bold text-white">6</span> silver medals</span>
+          </div>
+          <span class="text-[10px] bg-yellow-500/10 text-yellow-400 px-2 py-0.5 rounded border border-yellow-500/20">From instance scope fallback</span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 p-3 rounded-lg bg-slate-900/40 border border-slate-900">
+          <div class="flex items-center gap-3">
+            <span class="text-slate-600 font-bold">Line 5:</span>
+            <span class="text-emerald-400">There are altogether <span class="underline underline-offset-4 decoration-amber-400 font-bold text-white">5</span> gold medals</span>
+          </div>
+          <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20">Direct call to instance heap variable</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scope Summary Rules Cheat Sheet -->
+    <div class="bg-gradient-to-br from-indigo-950/40 to-slate-900 rounded-2xl p-6 sm:p-8 border border-indigo-500/20 mb-8">
+      <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Java Variable Scope Rule Book for Beginners
+      </h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+        <div class="space-y-2">
+          <h4 class="font-bold text-slate-200">1. Declaration Zone determines Scope</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Where you write <code class="bg-slate-800 text-slate-200 px-1 rounded">type name = value</code> is the blueprint. Variables declared outside methods are Instance variables, inside are local.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h4 class="font-bold text-slate-200">2. Shadowing Blocks but Doesn't Destroy</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Declaring a local variable with the identical name as an instance variable hides the instance variable. But the instance variable value on the object remains unchanged!
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h4 class="font-bold text-slate-200">3. Life Span (Garbage Collection)</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Local variables disappear as soon as the method ends. Instance variables persist in Heap memory as long as your object instance (<code class="text-indigo-400">medals</code>) remains alive in code.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8 px-6 text-center text-xs text-slate-500">
+    <div class="max-w-7xl mx-auto">
+      <p>Designed for Java beginners. Built beautifully with Tailwind CSS and semantic markup.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
