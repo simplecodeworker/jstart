@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Tutor: Static vs. Instance Variables</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts for professional typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Smooth transitions */
+    .transition-all-300 {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    /* Simple custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 selection:bg-indigo-500 selection:text-white antialiased">
+
+  <!-- Welcome / Roadmap Header Block -->
+  <header class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-16 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.15),transparent)] pointer-events-none"></div>
+    <div class="max-w-5xl mx-auto relative z-10 text-center md:text-left">
+      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-500/20 text-indigo-300 mb-6 border border-indigo-500/30">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+        Java OOP Fundamentals
+      </span>
+      <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+        Mastering <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-amber-300">Static (Class)</span> vs. Instance Variables
+      </h1>
+      <p class="text-slate-300 text-lg max-w-2xl mb-8 leading-relaxed">
+        An interactive, step-by-step visual learning tool to help Java beginners grasp object states, shared variables, memory structures, and professional syntax guidelines.
+      </p>
+      
+      <!-- Quick Navigation Roadmap -->
+      <div class="bg-slate-800/40 backdrop-blur-md rounded-2xl p-6 border border-slate-700/50">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 text-center md:text-left">Curriculum Progress Map</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+          <a href="#section-1" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all-300">
+            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 text-xs flex items-center justify-center font-bold">1</span>
+            <span>Instance vs Class State</span>
+          </a>
+          <a href="#section-2" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all-300">
+            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 text-xs flex items-center justify-center font-bold">2</span>
+            <span>Static Syntax rules</span>
+          </a>
+          <a href="#section-3" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all-300">
+            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 text-xs flex items-center justify-center font-bold">3</span>
+            <span>Interactive Code Runner</span>
+          </a>
+          <a href="#section-4" class="flex items-center gap-3 p-3 rounded-xl bg-slate-900/50 hover:bg-slate-900 border border-slate-800 hover:border-indigo-500/50 text-slate-300 hover:text-white transition-all-300">
+            <span class="w-6 h-6 rounded-full bg-indigo-500/20 text-indigo-300 text-xs flex items-center justify-center font-bold">4</span>
+            <span>Memory Pointer Map</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-5xl mx-auto px-6 py-12 space-y-20">
+
+    <!-- ## SECTION 1: Instance Variables vs. Shared Class Needs -->
+    <section id="section-1" class="scroll-mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all-300 hover:shadow-md">
+      <!-- Section Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 border-b border-slate-800">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 1</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">## SECTION 1: Instance Variables vs. Shared Class Needs</h2>
+      </div>
+
+      <!-- Content Core -->
+      <div class="p-6 md:p-8 space-y-8">
+        
+        <!-- Original Curriculum Details -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="text-lg font-bold text-slate-800">Concept Breakdown</h3>
+            <div class="space-y-3 text-slate-600 leading-relaxed">
+              <p>
+                When coding in Java, every time you create an object, memory is set aside. Objects created from the <u>same class</u> have the <u>same set of variables</u> (called <span class="text-red-500 font-bold">instance variables</span>), but they may be of <u>different values</u>.
+              </p>
+              <p class="bg-amber-50 border-l-4 border-amber-500 p-4 text-amber-900 text-sm rounded-r-lg">
+                <strong>The Problem Statement:</strong> Sometimes, individual instance variables are not enough. There is a need to share a <u>common value</u> among every single instance of these objects without duplicating it in every object's unique properties.
+              </p>
+              <p>
+                <strong>The Solution:</strong> In situations like this, Java provides <span class="text-red-600 font-bold">static variables</span> (also called a <strong>Class Variable</strong>). Instead of copying the value into every instance, there is only one shared record tied to the Class itself.
+              </p>
+            </div>
+          </div>
+
+          <!-- Highlight Cards -->
+          <div class="space-y-4 bg-slate-50 p-6 rounded-xl border border-slate-150">
+            <div class="p-4 bg-white rounded-lg border border-slate-200">
+              <span class="text-xs font-bold text-indigo-600 uppercase">Lesson Objective</span>
+              <p class="text-sm text-slate-700 font-medium mt-1">Foundational distinction between individual object state and shared class state.</p>
+            </div>
+            <div class="p-4 bg-white rounded-lg border border-slate-200">
+              <span class="text-xs font-bold text-amber-600 uppercase">Clear Takeaway</span>
+              <p class="text-sm text-slate-700 mt-1">
+                While typical object properties (instance variables) are unique to each independent object, certain scenarios require data to be shared universally across every single object of that type. Java developers use static/class variables to establish a single, shared value.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Simulator 1 -->
+        <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-6 space-y-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+            <h4 class="text-base font-extrabold text-indigo-950 uppercase tracking-wider">Simulator 1: Individual Objects vs. Shared State Builder</h4>
+          </div>
+          <p class="text-slate-600 text-sm">
+            Instantiate your own customized <code>Circle</code> objects below. Notice how each instance receives its own isolated color and size (instance state), while the total instantiated count remains a singular shared variable.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Builder Controls -->
+            <div class="bg-white p-5 rounded-xl border border-indigo-100 shadow-sm space-y-4">
+              <h5 class="text-sm font-bold text-slate-800 border-b pb-2">Instance Configurator</h5>
+              
+              <div class="space-y-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Circle Color (Instance property)</label>
+                  <div class="flex gap-2">
+                    <button onclick="setCircleColor('red', this)" class="color-btn w-8 h-8 rounded-full bg-red-500 ring-2 ring-indigo-600 transition-all-300 focus:outline-none"></button>
+                    <button onclick="setCircleColor('blue', this)" class="color-btn w-8 h-8 rounded-full bg-blue-500 hover:scale-105 transition-all-300 focus:outline-none"></button>
+                    <button onclick="setCircleColor('green', this)" class="color-btn w-8 h-8 rounded-full bg-green-500 hover:scale-105 transition-all-300 focus:outline-none"></button>
+                    <button onclick="setCircleColor('amber', this)" class="color-btn w-8 h-8 rounded-full bg-amber-500 hover:scale-105 transition-all-300 focus:outline-none"></button>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Radius size (Instance property)</label>
+                  <input type="range" id="circle-radius-input" min="20" max="60" value="40" class="w-full accent-indigo-600">
+                  <div class="flex justify-between text-xs text-slate-400 mt-1">
+                    <span>Small (20px)</span>
+                    <span>Large (60px)</span>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="createSimulatedInstance()" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-bold shadow-sm transition-all-300">
+                Instantiate Object: new Circle()
+              </button>
+            </div>
+
+            <!-- Virtual Memory Canvas & Class Registry -->
+            <div class="bg-slate-900 text-slate-100 p-5 rounded-xl border border-slate-800 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-4">
+                  <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Heap Memory & Class Space</span>
+                  <button onclick="resetSim1()" class="text-xs text-slate-400 hover:text-white underline">Clear Memory</button>
+                </div>
+                
+                <!-- Objects Array display -->
+                <div id="objects-memory-space" class="flex flex-wrap gap-4 min-h-[120px] items-center justify-center p-3 bg-slate-950 rounded-lg border border-slate-800/80">
+                  <p id="memory-empty-state" class="text-slate-500 text-xs italic">No objects instantiated. Click "Instantiate" to construct a new Circle in heap memory.</p>
+                </div>
+              </div>
+
+              <!-- Static Variable Panel -->
+              <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between bg-slate-950/80 p-3 rounded-lg border border-slate-800">
+                <div>
+                  <span class="text-xs text-indigo-400 font-bold block uppercase tracking-wider">Class Variable (Static Copy)</span>
+                  <span class="text-xs text-slate-400 font-mono">Circle.count</span>
+                </div>
+                <div class="text-right">
+                  <span id="static-count-display" class="text-3xl font-extrabold text-amber-400 font-mono">0</span>
+                  <p class="text-[10px] text-slate-400">Shared by all circles</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MCQ Segment for Section 1 -->
+        <div class="border-t border-slate-200 pt-8 space-y-6">
+          <h4 class="text-md font-bold text-slate-800 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            Section 1 Review Challenge
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- MCQ 1 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q1.1: If you instantiate four different <code>Circle</code> objects, how many distinct copies of the instance variables (like <code>Radius</code>) exist in memory?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'Instance variables replicate for every single object created, so there are unique values for each.', '1-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) Only 1 copy is shared among all of them</button>
+                <button onclick="checkMCQ(this, true, 'Spot on! Each of the four instantiated objects retains its own distinct variables inside memory.', '1-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) 4 copies (1 unique copy per instantiated object)</button>
+                <button onclick="checkMCQ(this, false, 'No, static variables are stored as a single shared copy, but instance variables are duplicated.', '1-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) 0 copies because Circle is an abstract template</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q1.2: Which of the following state scenarios represents a perfect candidate for a shared static variable instead of an instance variable?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'Each circle can have a unique position, which represents distinct instance state.', '1-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) Storing the unique X and Y coordinates of each object</button>
+                <button onclick="checkMCQ(this, false, 'Color is a specific visual attribute of an individual circle instance.', '1-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) Storing the unique color preference of each object</button>
+                <button onclick="checkMCQ(this, true, 'Correct! To track aggregate data across all circle instances, a single shared counter is required.', '1-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) Keeping a tally of the total number of Circle objects constructed</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ## SECTION 2: Technical Properties and Syntax of Class Variables -->
+    <section id="section-2" class="scroll-mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all-300 hover:shadow-md">
+      <!-- Section Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 border-b border-slate-800">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 2</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">## SECTION 2: Technical Properties and Syntax of Class Variables</h2>
+      </div>
+
+      <!-- Content Core -->
+      <div class="p-6 md:p-8 space-y-8">
+        
+        <!-- Key Specifications Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-widest bg-indigo-100 text-indigo-800 rounded-md uppercase">Structural Scope</span>
+            <h4 class="text-md font-bold text-slate-800">Attached to Class</h4>
+            <p class="text-sm text-slate-600">
+              Unlike normal variables that live inside specific dynamic objects, a class variable is attached directly to the global <strong>class blueprint</strong> itself.
+            </p>
+          </div>
+
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-widest bg-red-100 text-red-800 rounded-md uppercase">Java Keyword</span>
+            <h4 class="text-md font-bold text-slate-800">The <code>static</code> Modifier</h4>
+            <p class="text-sm text-slate-600 font-medium">
+              It is explicitly declared with the <span class="text-red-600 font-bold">static</span> modifier inside the class definition, instructing the Java compiler to allocate a single shared field.
+            </p>
+          </div>
+
+          <div class="p-5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <span class="inline-block px-2.5 py-1 text-[10px] font-bold tracking-widest bg-emerald-100 text-emerald-800 rounded-md uppercase">Memory Model</span>
+            <h4 class="text-md font-bold text-slate-800">One Common Copy</h4>
+            <p class="text-sm text-slate-600">
+              There is strictly <u>one common copy</u> of the variable. Shared universally, modifications instantly cascade across every runtime space.
+            </p>
+          </div>
+        </div>
+
+        <!-- Syntactical Rules Box -->
+        <div class="bg-indigo-900 text-white rounded-2xl p-6 md:p-8 space-y-4">
+          <h3 class="text-lg font-bold flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            How to Access Static Variables: Syntax Best Practices
+          </h3>
+          <p class="text-indigo-200 text-sm">
+            In Java, class variables are accessed via two different routes. Understanding the preferred method is highly critical to writing clean, readable code.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+            <div class="bg-slate-950 p-5 rounded-xl border border-indigo-800 space-y-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                Recommended Access Path
+              </span>
+              <h4 class="text-md font-bold text-emerald-300 font-mono">ClassName.variable_name</h4>
+              <p class="text-slate-400 text-xs">
+                Directly references the Class structure. <strong>Crucial feature:</strong> This syntax is functional even if <u>no objects</u> of the class have been created in memory.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-5 rounded-xl border border-indigo-800 space-y-2">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                Alternative (Discouraged) Access
+              </span>
+              <h4 class="text-md font-bold text-amber-300 font-mono">ObjectName.variable_name</h4>
+              <p class="text-slate-400 text-xs">
+                Accesses the class variable through an individual object handle. Though permitted, this practice is highly discouraged as it misleads reader attention into assuming it is an instance variable.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Simulator 2 -->
+        <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-6 space-y-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+            <h4 class="text-base font-extrabold text-indigo-950 uppercase tracking-wider">Simulator 2: Interactive Access Path Evaluator</h4>
+          </div>
+          <p class="text-slate-600 text-sm">
+            Interact with the syntax buttons below to simulate compile-time evaluations and see the specific impact of each choice.
+          </p>
+
+          <div class="bg-white p-5 rounded-xl border border-indigo-100 shadow-sm space-y-6">
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 py-4 border-b">
+              <span class="text-xs font-bold text-slate-400 uppercase">Select Access Syntax:</span>
+              <button onclick="evaluateSyntax('class', this)" class="syntax-sel-btn px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg border border-indigo-700 transition-all-300">
+                Circle.count (Class Access)
+              </button>
+              <button onclick="evaluateSyntax('object', this)" class="syntax-sel-btn px-4 py-2 bg-white text-slate-700 hover:bg-slate-100 text-xs font-bold rounded-lg border border-slate-200 transition-all-300">
+                myCircle.count (Object Reference)
+              </button>
+            </div>
+
+            <div id="syntax-evaluation-display" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+              <div class="md:col-span-1 text-center bg-slate-900 text-slate-100 p-6 rounded-xl border font-mono">
+                <span class="text-[10px] text-slate-400 uppercase block mb-1">Compiler Check</span>
+                <span class="text-emerald-400 font-bold block text-lg">✓ SUCCESS</span>
+                <span class="text-xs text-slate-300 mt-2 block">Standard Practice</span>
+              </div>
+              <div class="md:col-span-2 space-y-3">
+                <h5 class="text-sm font-bold text-slate-800">Evaluation details:</h5>
+                <p class="text-slate-600 text-xs leading-relaxed">
+                  This direct call directly contacts the class metadata namespace. It does not require any live object inside memory, making it the cleanest way to query or update static state values.
+                </p>
+                <div class="text-xs bg-emerald-50 text-emerald-800 p-2.5 rounded border border-emerald-200">
+                  <strong>Standard Recommendation:</strong> Always default to using the Class identifier when accessing static attributes.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MCQ Segment for Section 2 -->
+        <div class="border-t border-slate-200 pt-8 space-y-6">
+          <h4 class="text-md font-bold text-slate-800 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            Section 2 Review Challenge
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- MCQ 1 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q2.1: Which keyword must be prefixed to a variable declaration inside a class to make it a Class Variable?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'The global keyword does not exist as a variable modifier in Java.', '2-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) global</button>
+                <button onclick="checkMCQ(this, true, 'Correct! The static modifier designates the property as belonging strictly to the class.', '2-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) static</button>
+                <button onclick="checkMCQ(this, false, 'The public keyword sets visibility access, not the memory allocation scope.', '2-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) public</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q2.2: Which of the following syntaxes is technically functional even before a single instance has been created?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, true, 'Brilliant! Class variables exist independently of object instantiation, and are safely accessed using Class_name.variable_name.', '2-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) Class_name.variable_name</button>
+                <button onclick="checkMCQ(this, false, 'If there is no object, Object_name does not reference any memory location and will result in a NullPointerException.', '2-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) Object_name.variable_name</button>
+                <button onclick="checkMCQ(this, false, 'This represents method calling format, not variable access.', '2-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) Class_name().variable_name</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ## SECTION 3: Practical Implementation and Preferred Access Methods -->
+    <section id="section-3" class="scroll-mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all-300 hover:shadow-md">
+      <!-- Section Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 border-b border-slate-800">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 3</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">## SECTION 3: Practical Implementation and Preferred Access Methods</h2>
+      </div>
+
+      <!-- Content Core -->
+      <div class="p-6 md:p-8 space-y-8">
+        
+        <!-- Java Code Editor Panel -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          
+          <div class="lg:col-span-7 bg-slate-900 text-slate-100 rounded-2xl border border-slate-800 p-5 md:p-6 overflow-x-auto relative">
+            <span class="absolute top-4 right-4 text-[10px] font-bold tracking-widest text-indigo-400 font-mono uppercase bg-indigo-950/80 px-2 py-1 rounded">Circle.java</span>
+            <div class="code-font text-xs sm:text-sm space-y-1.5 leading-relaxed">
+              <div><span class="text-rose-400 font-semibold">class</span> <span class="text-indigo-300">Circle</span> {</div>
+              <div class="pl-4 text-slate-400">// Instance variables (Unique copy per object)</div>
+              <div class="pl-4"><span class="text-emerald-300">String</span> Color;</div>
+              <div class="pl-4"><span class="text-emerald-300">double</span> Radius;</div>
+              <div class="pl-4 mt-2 text-slate-400">// Class variable (Shared copy across class)</div>
+              <div id="code-line-static" class="pl-4 transition-all-300"><span class="text-rose-400 font-semibold">static int</span> <span class="text-amber-300">count</span> = <span class="text-indigo-400">0</span>; <span class="text-slate-500">// <-- count is static</span></div>
+              <div class="pl-4 mt-2 text-slate-400 font-medium">// Constructor method</div>
+              <div id="code-line-constructor" class="pl-4 transition-all-300"><span class="text-indigo-300">Circle</span>(<span class="text-emerald-300">String</span> c, <span class="text-emerald-300">double</span> r) {</div>
+              <div class="pl-8">Color = c;</div>
+              <div class="pl-8">Radius = r;</div>
+              <div class="pl-8 font-semibold text-amber-400">count++; <span class="text-slate-500 font-normal">// Increments counter</span></div>
+              <div class="pl-4">}</div>
+              <div>} <span class="text-slate-400">// end class</span></div>
+              
+              <div class="pt-4"><span class="text-rose-400 font-semibold">public class</span> <span class="text-indigo-300">TestClassVariable</span> {</div>
+              <div class="pl-4"><span class="text-rose-400 font-semibold">public static void</span> <span class="text-indigo-300">main</span>(<span class="text-emerald-300">String</span>[] args) {</div>
+              <div id="line-x-init" class="pl-8 transition-all-300">Circle x = <span class="text-rose-400">new</span> Circle(<span class="text-amber-200">"red"</span>, <span class="text-indigo-300">1.0</span>);</div>
+              <div id="line-x-print" class="pl-8 transition-all-300">System.out.println(<span class="text-amber-200">"count="</span> + <span class="text-amber-400 font-semibold">Circle.count</span>); <span class="text-emerald-400">// Accessing via class</span></div>
+              <div id="line-y-init" class="pl-8 transition-all-300">Circle y = <span class="text-rose-400">new</span> Circle(<span class="text-amber-200">"red"</span>, <span class="text-indigo-300">5.0</span>);</div>
+              <div id="line-z-init" class="pl-8 transition-all-300">Circle z = <span class="text-rose-400">new</span> Circle(<span class="text-amber-200">"blue"</span>, <span class="text-indigo-300">10.0</span>);</div>
+              <div id="line-z-print" class="pl-8 transition-all-300">System.out.println(<span class="text-amber-200">"count="</span> + <span class="text-amber-400 font-semibold">y.count</span>); <span class="text-amber-500">// Accessing via object</span></div>
+              <div class="pl-4">}</div>
+              <div>}</div>
+            </div>
+          </div>
+
+          <!-- Code Trace / Output Explanations -->
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+            <div class="bg-slate-50 border border-slate-200 p-5 rounded-2xl space-y-3">
+              <h4 class="text-sm font-bold text-slate-800">Key Execution Details:</h4>
+              <ul class="space-y-3 text-xs text-slate-600">
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-500 mt-0.5">•</span>
+                  <span><strong>Static Increment:</strong> The constructor increments <code>count++</code> on every invocation, so every newly instantiated Circle automatically increments the global tally.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-500 mt-0.5">•</span>
+                  <span><strong>Preferred Class Access:</strong> Referencing <code>Circle.count</code> reads directly from class storage, safely yielding the value at that moment.</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-amber-500 mt-0.5">•</span>
+                  <span><strong>Alternative Object Access:</strong> Referencing <code>y.count</code> compiles correctly, but accesses the shared count indirectly.</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Program Output console -->
+            <div class="bg-black text-emerald-400 rounded-2xl p-4 border border-slate-800 font-mono text-xs">
+              <div class="flex items-center justify-between text-slate-500 text-[10px] pb-2 border-b border-slate-900 mb-2">
+                <span>VIRTUAL TERMINAL OUTPUT</span>
+                <span>SUCCESS</span>
+              </div>
+              <div>count=1</div>
+              <div>count=3</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Interactive Simulator 3 -->
+        <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-6 space-y-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+            <h4 class="text-base font-extrabold text-indigo-950 uppercase tracking-wider">Simulator 3: Line-by-Line Java Execution Stepper</h4>
+          </div>
+          <p class="text-slate-600 text-sm">
+            Step through the execution of the <code>TestClassVariable</code> program sequentially. Watch how the program memory and static counters respond in real-time as each line is evaluated.
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- Controls Panel -->
+            <div class="md:col-span-5 bg-white p-5 rounded-xl border border-indigo-100 flex flex-col justify-between">
+              <div class="space-y-4">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block">Execution Controls</span>
+                <div class="flex gap-2">
+                  <button id="step-btn" onclick="stepForwardExecution()" class="flex-1 py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-all-300 shadow-sm">
+                    Execute Next Line
+                  </button>
+                  <button onclick="resetExecutionStepper()" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-lg transition-all-300">
+                    Restart Trace
+                  </button>
+                </div>
+                
+                <div class="p-4 bg-slate-50 border rounded-lg">
+                  <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Current State Description</span>
+                  <p id="stepper-description-display" class="text-xs text-slate-600 italic">
+                    Press "Execute Next Line" to initialize variables and trace execution memory.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pt-4 border-t mt-4">
+                <span class="text-[10px] font-bold text-slate-400 uppercase block mb-1">State Monitoring Monitor</span>
+                <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                  <div class="bg-slate-50 p-2 rounded">
+                    <span class="text-slate-400 block text-[9px]">CIRCLE.COUNT</span>
+                    <span id="stepper-static-count" class="font-bold text-amber-600">0</span>
+                  </div>
+                  <div class="bg-slate-50 p-2 rounded">
+                    <span class="text-slate-400 block text-[9px]">LIVE OBJECTS</span>
+                    <span id="stepper-live-objects" class="font-bold text-indigo-600">0</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Virtual Output Sandbox -->
+            <div class="md:col-span-7 bg-slate-950 p-5 rounded-xl border border-slate-900 flex flex-col justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-3 border-b border-slate-850 pb-2">Step Memory Monitor</span>
+                
+                <div id="sim3-memory-container" class="space-y-3 min-h-[140px] flex flex-col justify-center">
+                  <p id="sim3-empty-state" class="text-slate-600 text-xs italic text-center">Memory space empty. Step forward to allocate memory pointers.</p>
+                </div>
+              </div>
+
+              <!-- Sim Console -->
+              <div class="mt-4 pt-4 border-t border-slate-800 bg-black p-3 rounded font-mono text-xs text-emerald-400">
+                <span class="text-slate-600 text-[9px] block mb-1 uppercase tracking-widest">Sandbox System Output</span>
+                <div id="sim3-terminal-output" class="space-y-1 min-h-[40px] flex flex-col justify-end text-[11px]">
+                  <!-- dynamic outputs go here -->
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MCQ Segment for Section 3 -->
+        <div class="border-t border-slate-200 pt-8 space-y-6">
+          <h4 class="text-md font-bold text-slate-800 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            Section 3 Review Challenge
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- MCQ 1 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q3.1: Inside the <code>Circle</code> class constructor, why is the line <code>count++</code> critical for tracking variables?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'The JVM handles core garbage collection; constructors create objects.', '3-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) It signals to the JVM that memory can be reclaimed</button>
+                <button onclick="checkMCQ(this, true, 'Spot on! Since the constructor executes on every instantiation, count++ acts as an accurate global counter.', '3-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) It runs automatically every time a new object is created, incrementing the shared counter</button>
+                <button onclick="checkMCQ(this, false, 'Instance variables do not share scopes unless marked static; placing count inside does not link them.', '3-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) It binds the Color and Radius instance fields to the local scope</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q3.2: Why does accessing <code>y.count</code> in the second print statement output 3 instead of 1?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'y is instantiated before z, but both modify the identical class memory block.', '3-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) Object y was re-created at the end of the script execution</button>
+                <button onclick="checkMCQ(this, true, 'Perfect! Because count is static, all changes from any instance (like x, y, and z) modify the exact same common copy.', '3-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) count is shared, so subsequent construction calls modified the single memory location</button>
+                <button onclick="checkMCQ(this, false, 'The constructor only processes count increment by 1 each time.', '3-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) The constructor multiplies count based on parameters passed</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ## SECTION 4: Memory Visualization and State Synchronization -->
+    <section id="section-4" class="scroll-mt-12 bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden transition-all-300 hover:shadow-md">
+      <!-- Section Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 text-white p-6 border-b border-slate-800">
+        <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider block mb-1">Section 4</span>
+        <h2 class="text-xl sm:text-2xl font-extrabold tracking-tight">## SECTION 4: Memory Visualization and State Synchronization</h2>
+      </div>
+
+      <!-- Content Core -->
+      <div class="p-6 md:p-8 space-y-8">
+        
+        <!-- Memory Concept Architecture Text -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 space-y-4">
+            <h3 class="text-lg font-bold text-slate-800">How JVM Allocates Static Properties in Memory</h3>
+            <div class="space-y-3 text-slate-600 text-sm leading-relaxed">
+              <p>
+                In Java's memory allocation space (specifically inside Metaspace/Method Area), static attributes belong directly to the <strong>Class Template</strong>. Normal object properties, meanwhile, inhabit the garbage-collected <strong>Heap Space</strong>.
+              </p>
+              <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+                <span class="text-xs font-bold text-indigo-600 block uppercase">Real-Time Sync Mechanics:</span>
+                <p class="text-xs text-slate-600">
+                  When accessing a static property via an object reference like <code>z.count</code>, the compiler routes the request back to the class-level variable definition. 
+                </p>
+                <p class="text-xs font-semibold text-slate-800">
+                  Therefore: If <code>z.count = 3</code> is executed, checking <code>x.count</code> or <code>y.count</code> will automatically and immediately output <code>3</code> because they are querying the exact same memory space.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-indigo-50 border border-indigo-100 p-5 rounded-xl flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-indigo-800 uppercase block mb-1">Lesson Goal</span>
+              <p class="text-xs text-indigo-950 font-medium">To master the mental model of pointers and reference mappings.</p>
+            </div>
+            <div class="mt-4 pt-4 border-t border-indigo-200">
+              <span class="text-xs font-bold text-amber-800 uppercase block mb-1">Clear Takeaway</span>
+              <p class="text-xs text-indigo-950">
+                Individual object blocks do not store an independent value for a static variable; they reference back to a single shared memory space. Any mutation instantly synchronizes across all instances.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Simulator 4 (Memory Visualizer) -->
+        <div class="border border-indigo-100 bg-indigo-50/50 rounded-2xl p-6 space-y-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-indigo-600 animate-pulse"></span>
+            <h4 class="text-base font-extrabold text-indigo-950 uppercase tracking-wider">Simulator 4: Live Memory Reference & Pointer Synchronization Simulator</h4>
+          </div>
+          <p class="text-slate-600 text-sm">
+            Simulate a real-time memory landscape. Change individual instance variables (Radius/Color) to see them affect *only* that object. Then, edit the static variable <code>z.count</code> and watch how the change cascades across all instances.
+          </p>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            
+            <!-- Controls Interface (LHS) -->
+            <div class="lg:col-span-4 bg-white p-5 rounded-xl border border-indigo-100 flex flex-col justify-between space-y-4">
+              <div class="space-y-4">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block border-b pb-2">Modify State Variables</span>
+                
+                <!-- Edit instance vars -->
+                <div class="space-y-3">
+                  <span class="text-xs font-bold text-indigo-900 block uppercase">Instance Variables (Unique state)</span>
+                  <div>
+                    <label class="block text-[11px] text-slate-500 font-bold">Change Circle X's Color:</label>
+                    <select id="sim4-x-color" onchange="updateSim4Instance('x', 'color', this.value)" class="w-full text-xs p-2 border rounded mt-1 bg-slate-50 focus:outline-indigo-500">
+                      <option value="red" selected>Red</option>
+                      <option value="blue">Blue</option>
+                      <option value="green">Green</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-slate-500 font-bold">Change Circle Y's Radius:</label>
+                    <input type="range" min="1" max="15" value="5" oninput="updateSim4Instance('y', 'radius', this.value)" class="w-full accent-indigo-600 mt-1">
+                  </div>
+                </div>
+
+                <!-- Edit static variables -->
+                <div class="space-y-3 pt-3 border-t">
+                  <span class="text-xs font-bold text-amber-600 block uppercase">Static Variable (Shared State)</span>
+                  <div>
+                    <label class="block text-[11px] text-slate-500 font-bold mb-1">Mutate value via Object reference (z.count):</label>
+                    <div class="flex gap-2">
+                      <input type="number" id="sim4-static-input" value="3" min="0" max="99" class="w-20 text-xs p-2 border rounded bg-slate-50 text-center font-mono focus:outline-indigo-500">
+                      <button onclick="commitSim4StaticValue()" class="flex-1 py-1.5 px-3 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded shadow-sm transition-all-300">
+                        Commit Mutation
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-[11px] text-slate-400 bg-slate-50 p-2.5 rounded border">
+                <strong>Visual Tip:</strong> The purple lines represent references pointing directly back to the single, shared class variable space.
+              </div>
+            </div>
+
+            <!-- Memory Layout Visual Sandbox (RHS) -->
+            <div class="lg:col-span-8 bg-slate-900 p-6 rounded-xl border border-slate-800 text-white flex flex-col justify-between">
+              
+              <!-- Map Container -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center relative">
+                
+                <!-- Column 1: Objects (Heap Space) -->
+                <div class="md:col-span-2 space-y-4">
+                  <span class="text-[10px] text-indigo-400 uppercase tracking-wider font-mono block mb-2 text-center md:text-left">HEAP SPACE (OBJECT INSTANCES)</span>
+                  
+                  <!-- Object Box X -->
+                  <div id="sim4-box-x" class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 transition-all-300">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-xs font-bold font-mono text-slate-300">Circle: x</span>
+                      <span class="w-2 h-2 rounded-full" id="sim4-dot-x" style="background-color: red;"></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                      <div class="bg-slate-900 p-1 rounded">
+                        <span class="text-slate-500 block">x.radius</span>
+                        <span id="sim4-val-x-rad">1.0</span>
+                      </div>
+                      <div class="bg-slate-900 p-1 rounded relative">
+                        <span class="text-slate-500 block">x.count</span>
+                        <span class="sim4-count-shared-val text-amber-400 font-bold">3</span>
+                        <!-- Visual Arrow Indicator -->
+                        <span class="absolute right-1 top-1 text-slate-700">⤏</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Object Box Y -->
+                  <div id="sim4-box-y" class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 transition-all-300">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-xs font-bold font-mono text-slate-300">Circle: y</span>
+                      <span class="w-2 h-2 rounded-full bg-red-500" id="sim4-dot-y"></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                      <div class="bg-slate-900 p-1 rounded">
+                        <span class="text-slate-500 block">y.radius</span>
+                        <span id="sim4-val-y-rad">5.0</span>
+                      </div>
+                      <div class="bg-slate-900 p-1 rounded relative">
+                        <span class="text-slate-500 block">y.count</span>
+                        <span class="sim4-count-shared-val text-amber-400 font-bold">3</span>
+                        <span class="absolute right-1 top-1 text-slate-700">⤏</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Object Box Z -->
+                  <div id="sim4-box-z" class="bg-slate-950 p-3.5 rounded-lg border border-slate-800 transition-all-300">
+                    <div class="flex justify-between items-center mb-2">
+                      <span class="text-xs font-bold font-mono text-slate-300">Circle: z</span>
+                      <span class="w-2 h-2 rounded-full bg-blue-500" id="sim4-dot-z"></span>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                      <div class="bg-slate-900 p-1 rounded">
+                        <span class="text-slate-500 block">z.radius</span>
+                        <span id="sim4-val-z-rad">10.0</span>
+                      </div>
+                      <div class="bg-slate-900 p-1 rounded relative">
+                        <span class="text-slate-500 block">z.count</span>
+                        <span class="sim4-count-shared-val text-amber-400 font-bold">3</span>
+                        <span class="absolute right-1 top-1 text-slate-700">⤏</span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Column 2: Class Variables Namespace -->
+                <div class="md:col-span-1 mt-6 md:mt-0">
+                  <div class="bg-indigo-950 border border-indigo-800 p-4 rounded-xl text-center space-y-3 relative shadow-md">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                      Method Area
+                    </div>
+                    
+                    <span class="text-xs font-bold font-mono text-slate-300 block">Class Circle</span>
+                    
+                    <div class="bg-slate-950 p-3 rounded-lg border border-indigo-900">
+                      <span class="text-[9px] text-slate-400 uppercase tracking-widest block mb-1">static int count</span>
+                      <span id="sim4-static-count-cell" class="text-2xl font-extrabold text-amber-400 font-mono transition-all-300">3</span>
+                      <span class="text-[9px] text-slate-400 block mt-1">(Common Cell)</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- MCQ Segment for Section 4 -->
+        <div class="border-t border-slate-200 pt-8 space-y-6">
+          <h4 class="text-md font-bold text-slate-800 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            Section 4 Review Challenge
+          </h4>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- MCQ 1 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q4.1: If there are three instantiated Circle objects, and you run the command <code>y.count = 20;</code>, what will <code>x.count</code> immediately evaluate to?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'No, the update is shared globally across the entire class space immediately.', '4-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) It will remain unchanged at its previous value</button>
+                <button onclick="checkMCQ(this, true, 'Spot on! Both objects point back to the identical static memory space, so changing count via y immediately updates what x reads.', '4-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) 20</button>
+                <button onclick="checkMCQ(this, false, 'Java will not trigger errors here; object reference static access is valid, though syntactically discouraged.', '4-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) It will throw a compilation error</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-3">
+              <p class="text-sm font-bold text-slate-800">Q4.2: Why don't object instances store separate physical copies of static variables in their heap memory blocks?</p>
+              <div class="space-y-2">
+                <button onclick="checkMCQ(this, false, 'Heap memory can store integers; memory layout dictates where properties are allocated.', '4-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">A) Heap space does not support integer variables</button>
+                <button onclick="checkMCQ(this, false, 'Memory savings is a minor perk, but class-level data synchronization is the primary architectural purpose.', '4-1')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">B) It is done purely to limit RAM footprint on older hardware</button>
+                <button onclick="checkMCQ(this, true, 'Correct! To guarantee a single, synchronized, and universally shared value, static properties belong directly to class-level metadata.', '4-2')" class="mcq-opt w-full text-left p-3 text-xs bg-white hover:bg-slate-100 rounded-lg border border-slate-200 transition-all-300">C) Static variables belong to the Class template, allowing all instances to resolve references back to a single shared namespace location</button>
+              </div>
+              <div class="mcq-feedback hidden text-xs p-3 rounded-lg font-medium"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-12 px-6 border-t border-slate-800 text-center">
+    <div class="max-w-5xl mx-auto space-y-4">
+      <p class="text-xs">
+        © 2026 Java OOP Concepts Learning Suite. All Interactive Simulators, Code Traces, and Exercises are designed for educational instruction.
+      </p>
+      <div class="flex justify-center gap-6 text-xs text-slate-500">
+        <a href="#section-1" class="hover:text-white transition-all-300">Section 1</a>
+        <a href="#section-2" class="hover:text-white transition-all-300">Section 2</a>
+        <a href="#section-3" class="hover:text-white transition-all-300">Section 3</a>
+        <a href="#section-4" class="hover:text-white transition-all-300">Section 4</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script logics -->
+  <script>
+    // --- SIMULATOR 1 LOGICS ---
+    let sim1CirclesCount = 0;
+    let sim1ActiveColor = 'red';
+
+    function setCircleColor(color, btn) {
+      sim1ActiveColor = color;
+      document.querySelectorAll('.color-btn').forEach(b => {
+        b.classList.remove('ring-2', 'ring-indigo-600', 'scale-105');
+      });
+      btn.classList.add('ring-2', 'ring-indigo-600', 'scale-105');
+    }
+
+    function createSimulatedInstance() {
+      const radius = document.getElementById('circle-radius-input').value;
+      const space = document.getElementById('objects-memory-space');
+      const emptyState = document.getElementById('memory-empty-state');
+      
+      if (emptyState) {
+        emptyState.remove();
+      }
+
+      sim1CirclesCount++;
+      document.getElementById('static-count-display').innerText = sim1CirclesCount;
+
+      // Create visual object element representation in visual memory
+      const div = document.createElement('div');
+      div.className = "flex flex-col items-center justify-center p-3.5 bg-slate-900 border border-slate-800 rounded-lg animate-bounce relative group transition-all duration-300 hover:scale-105";
+      
+      let colorHex = '#ef4444';
+      if (sim1ActiveColor === 'blue') colorHex = '#3b82f6';
+      if (sim1ActiveColor === 'green') colorHex = '#22c55e';
+      if (sim1ActiveColor === 'amber') colorHex = '#f59e0b';
+
+      div.innerHTML = `
+        <div class="text-[9px] font-bold tracking-widest text-slate-500 uppercase font-mono mb-2">Circle #${sim1CirclesCount}</div>
+        <div class="rounded-full shadow-inner flex items-center justify-center text-white text-[10px] font-bold font-mono" style="background-color: ${colorHex}; width: ${radius}px; height: ${radius}px;">
+          r=${radius}
+        </div>
+        <div class="mt-2 text-[9px] font-mono text-indigo-400">Color="${sim1ActiveColor}"</div>
+        <div class="absolute -top-1 -right-1 text-[8px] font-bold bg-amber-500 text-slate-900 rounded px-1 group-hover:block hidden">Heap Node</div>
+      `;
+
+      space.appendChild(div);
+    }
+
+    function resetSim1() {
+      sim1CirclesCount = 0;
+      document.getElementById('static-count-display').innerText = '0';
+      const space = document.getElementById('objects-memory-space');
+      space.innerHTML = `<p id="memory-empty-state" class="text-slate-500 text-xs italic">No objects instantiated. Click "Instantiate" to construct a new Circle in heap memory.</p>`;
+    }
+
+    // --- SIMULATOR 2 LOGICS ---
+    function evaluateSyntax(type, buttonEl) {
+      document.querySelectorAll('.syntax-sel-btn').forEach(b => {
+        b.className = "syntax-sel-btn px-4 py-2 bg-white text-slate-700 hover:bg-slate-100 text-xs font-bold rounded-lg border border-slate-200 transition-all-300";
+      });
+      buttonEl.className = "syntax-sel-btn px-4 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg border border-indigo-700 transition-all-300";
+
+      const display = document.getElementById('syntax-evaluation-display');
+      if (type === 'class') {
+        display.innerHTML = `
+          <div class="md:col-span-1 text-center bg-slate-950 text-slate-100 p-6 rounded-xl border border-slate-800 font-mono">
+            <span class="text-[10px] text-slate-400 uppercase block mb-1">Compiler Check</span>
+            <span class="text-emerald-400 font-bold block text-lg">✓ RECOMMENDED</span>
+            <span class="text-xs text-slate-300 mt-2 block">Standard Practice</span>
+          </div>
+          <div class="md:col-span-2 space-y-3">
+            <h5 class="text-sm font-bold text-slate-800">Evaluation details:</h5>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              This access path immediately signals that you are interacting with structural class data. Because it uses the Class Name directly, it compiles and runs perfectly even if <strong>zero circle instances</strong> exist on the heap.
+            </p>
+            <div class="text-xs bg-emerald-50 text-emerald-800 p-2.5 rounded border border-emerald-200">
+              <strong>Tip:</strong> Always access static properties using the Class namespace.
+            </div>
+          </div>
+        `;
+      } else {
+        display.innerHTML = `
+          <div class="md:col-span-1 text-center bg-slate-950 text-slate-100 p-6 rounded-xl border border-slate-800 font-mono">
+            <span class="text-[10px] text-slate-400 uppercase block mb-1">Compiler Check</span>
+            <span class="text-amber-400 font-bold block text-lg">⚠️ DISCOURAGED</span>
+            <span class="text-xs text-slate-300 mt-2 block">Compiles but unsafe</span>
+          </div>
+          <div class="md:col-span-2 space-y-3">
+            <h5 class="text-sm font-bold text-slate-800">Evaluation details:</h5>
+            <p class="text-slate-600 text-xs leading-relaxed">
+              While Java permits accessing static fields via an object reference handles (like <code>myCircle.count</code>), this style is <strong>discouraged</strong> because it falsely implies that each circle has its own count instance variable.
+            </p>
+            <div class="text-xs bg-amber-50 text-amber-800 p-2.5 rounded border border-amber-200 font-medium">
+              <strong>Warning:</strong> If <code>myCircle</code> reference is ever <code>null</code>, accessing static fields this way still succeeds structurally, but can easily confuse programmers reading your script.
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // --- SIMULATOR 3 LOGICS (Java execution stepper) ---
+    let currentStepIndex = 0;
+    const stepsData = [
+      {
+        highlightCodeLineId: 'line-x-init',
+        desc: "Constructing Object x: <code>new Circle('red', 1.0)</code> is called. The Circle constructor executes, setting Color='red', Radius=1.0, and runs <code>count++</code> inside construction scope.",
+        staticCount: 1,
+        liveObjects: 1,
+        memoryHtml: `
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: x</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=1.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+        `,
+        terminalAdd: "x initialized. count updated to 1"
+      },
+      {
+        highlightCodeLineId: 'line-x-print',
+        desc: "Evaluating: <code>System.out.println('count=' + Circle.count);</code>. Directly reads the static count value from Class Circle template and outputs it to console.",
+        staticCount: 1,
+        liveObjects: 1,
+        memoryHtml: `
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: x</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=1.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+        `,
+        terminalAdd: "count=1"
+      },
+      {
+        highlightCodeLineId: 'line-y-init',
+        desc: "Constructing Object y: <code>new Circle('red', 5.0)</code> runs. Static count variable increments from 1 to 2.",
+        staticCount: 2,
+        liveObjects: 2,
+        memoryHtml: `
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: x</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=1.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: y</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=5.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+        `,
+        terminalAdd: "y initialized. count updated to 2"
+      },
+      {
+        highlightCodeLineId: 'line-z-init',
+        desc: "Constructing Object z: <code>new Circle('blue', 10.0)</code> runs. The constructor executes a third time, incrementing the shared count variable from 2 to 3.",
+        staticCount: 3,
+        liveObjects: 3,
+        memoryHtml: `
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: x</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=1.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: y</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=5.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: z</span>
+              <span class="font-bold text-slate-200">Color="blue", Radius=10.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+        `,
+        terminalAdd: "z initialized. count updated to 3"
+      },
+      {
+        highlightCodeLineId: 'line-z-print',
+        desc: "Evaluating output statement: <code>System.out.println('count=' + y.count);</code>. The compiler references count via object y, which resolves back to class Circle's shared value 3.",
+        staticCount: 3,
+        liveObjects: 3,
+        memoryHtml: `
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: x</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=1.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: y</span>
+              <span class="font-bold text-slate-200">Color="red", Radius=5.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+          <div class="p-3 bg-slate-900 border border-slate-800 rounded-lg flex justify-between items-center text-xs">
+            <div>
+              <span class="text-[10px] text-indigo-400 uppercase font-mono block">HEAP NODE: z</span>
+              <span class="font-bold text-slate-200">Color="blue", Radius=10.0</span>
+            </div>
+            <span class="px-2 py-0.5 bg-emerald-900 text-emerald-300 rounded font-mono text-[9px]">ACTIVE</span>
+          </div>
+        `,
+        terminalAdd: "count=3"
+      }
+    ];
+
+    function stepForwardExecution() {
+      if (currentStepIndex >= stepsData.length) {
+        document.getElementById('stepper-description-display').innerHTML = "Execution trace completed! Press 'Restart Trace' to replay the lines.";
+        return;
+      }
+
+      const activeStep = stepsData[currentStepIndex];
+
+      // Reset code backgrounds
+      stepsData.forEach(s => {
+        const line = document.getElementById(s.highlightCodeLineId);
+        if (line) {
+          line.classList.remove('bg-indigo-950', 'border-l-4', 'border-indigo-400', 'p-1', 'rounded-r');
+        }
+      });
+
+      // Highlight current executing code line
+      const currentLine = document.getElementById(activeStep.highlightCodeLineId);
+      if (currentLine) {
+        currentLine.classList.add('bg-indigo-950', 'border-l-4', 'border-indigo-400', 'p-1', 'rounded-r');
+      }
+
+      // Update descriptors
+      document.getElementById('stepper-description-display').innerHTML = activeStep.desc;
+      document.getElementById('stepper-static-count').innerText = activeStep.staticCount;
+      document.getElementById('stepper-live-objects').innerText = activeStep.liveObjects;
+
+      // Update memory space rendering
+      const memSpace = document.getElementById('sim3-memory-container');
+      memSpace.innerHTML = activeStep.memoryHtml;
+
+      // Update outputs block
+      const term = document.getElementById('sim3-terminal-output');
+      const msg = document.createElement('div');
+      msg.className = "text-emerald-300 border-l border-slate-800 pl-2";
+      msg.innerText = `> ${activeStep.terminalAdd}`;
+      term.appendChild(msg);
+
+      currentStepIndex++;
+      if (currentStepIndex >= stepsData.length) {
+        document.getElementById('step-btn').innerText = "Trace Completed";
+        document.getElementById('step-btn').className = "flex-1 py-2 px-3 bg-slate-600 text-white text-xs font-bold rounded-lg cursor-not-allowed";
+      }
+    }
+
+    function resetExecutionStepper() {
+      currentStepIndex = 0;
+      document.getElementById('step-btn').innerText = "Execute Next Line";
+      document.getElementById('step-btn').className = "flex-1 py-2 px-3 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition-all-300 shadow-sm";
+      document.getElementById('stepper-description-display').innerHTML = 'Press "Execute Next Line" to initialize variables and trace execution memory.';
+      document.getElementById('stepper-static-count').innerText = '0';
+      document.getElementById('stepper-live-objects').innerText = '0';
+      document.getElementById('sim3-memory-container').innerHTML = '<p id="sim3-empty-state" class="text-slate-600 text-xs italic text-center">Memory space empty. Step forward to allocate memory pointers.</p>';
+      document.getElementById('sim3-terminal-output').innerHTML = '';
+
+      stepsData.forEach(s => {
+        const line = document.getElementById(s.highlightCodeLineId);
+        if (line) {
+          line.classList.remove('bg-indigo-950', 'border-l-4', 'border-indigo-400', 'p-1', 'rounded-r');
+        }
+      });
+    }
+
+    // --- SIMULATOR 4 LOGICS ---
+    let sim4State = {
+      x: { radius: 1.0, color: 'red' },
+      y: { radius: 5.0, color: 'red' },
+      z: { radius: 10.0, color: 'blue' },
+      staticCount: 3
+    };
+
+    function updateSim4Instance(instanceKey, field, value) {
+      if (field === 'color') {
+        sim4State[instanceKey].color = value;
+        // Update color indicators visually
+        let hex = 'red';
+        if (value === 'blue') hex = 'blue';
+        if (value === 'green') hex = 'green';
+        document.getElementById(`sim4-dot-${instanceKey}`).style.backgroundColor = hex;
+      } else if (field === 'radius') {
+        sim4State[instanceKey].radius = parseFloat(value).toFixed(1);
+        document.getElementById(`sim4-val-${instanceKey}-rad`).innerText = sim4State[instanceKey].radius;
+      }
+
+      // Add simple structural glow to indicate which box was targeted
+      const box = document.getElementById(`sim4-box-${instanceKey}`);
+      box.classList.add('border-indigo-500', 'scale-102');
+      setTimeout(() => {
+        box.classList.remove('border-indigo-500', 'scale-102');
+      }, 400);
+    }
+
+    function commitSim4StaticValue() {
+      const val = parseInt(document.getElementById('sim4-static-input').value) || 0;
+      sim4State.staticCount = val;
+
+      // Trigger structural glowing animation across all targets
+      document.querySelectorAll('.sim4-count-shared-val').forEach(el => {
+        el.innerText = val;
+        el.classList.add('text-pink-400', 'scale-125');
+        setTimeout(() => {
+          el.classList.remove('text-pink-400', 'scale-125');
+        }, 800);
+      });
+
+      const cell = document.getElementById('sim4-static-count-cell');
+      cell.innerText = val;
+      cell.classList.add('text-pink-400', 'scale-125', 'bg-indigo-900/80');
+      setTimeout(() => {
+        cell.classList.remove('text-pink-400', 'scale-125', 'bg-indigo-900/80');
+      }, 800);
+    }
+
+    // --- MCQ GLOBAL LOGIC ---
+    function checkMCQ(btn, isCorrect, explanationText, id) {
+      const parent = btn.parentElement.parentElement;
+      const feedback = parent.querySelector('.mcq-feedback');
+      const allButtons = parent.querySelectorAll('.mcq-opt');
+
+      // disable sibling options once click is evaluated
+      allButtons.forEach(b => {
+        b.disabled = true;
+        b.classList.add('opacity-50', 'cursor-not-allowed');
+      });
+
+      // Show state styles on selected option
+      if (isCorrect) {
+        btn.classList.remove('opacity-50');
+        btn.classList.add('bg-emerald-500/10', 'border-emerald-500', 'text-emerald-950', 'font-semibold');
+        feedback.className = "mcq-feedback text-xs p-3.5 rounded-lg font-medium mt-3 block bg-emerald-50 text-emerald-900 border border-emerald-200 animate-fade-in";
+        feedback.innerHTML = `<strong>✓ CORRECT!</strong> ${explanationText}`;
+      } else {
+        btn.classList.remove('opacity-50');
+        btn.classList.add('bg-rose-500/10', 'border-rose-500', 'text-rose-950', 'font-semibold');
+        feedback.className = "mcq-feedback text-xs p-3.5 rounded-lg font-medium mt-3 block bg-rose-50 text-rose-900 border border-rose-200 animate-fade-in";
+        feedback.innerHTML = `<strong>✗ INCORRECT.</strong> ${explanationText}`;
+      }
+    }
+  </script>
+</body>
+</html>
