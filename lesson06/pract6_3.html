@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Donation Challenge Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-bg { background-color: #1e1e1e; }
+        .keyword { color: #569cd6; }
+        .type { color: #4ec9b0; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl font-bold text-blue-400 mb-2">Java Programming Solutions</h1>
+            <p class="text-gray-400">Q6.3.1 & Q6.3.2 - Object Oriented Programming</p>
+        </header>
+
+        <!-- Q6.3.1 -->
+        <section class="mb-12 bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-500">Q6.3.1: Donation Class Design</h2>
+            <div class="mb-4 text-gray-300 bg-gray-900 p-4 rounded text-sm">
+                Design a Donation class with public instance variables (donor, amount), a static property (totalAmount), a constructor, and a donate() method.
+            </div>
+            
+            <pre class="code-bg p-4 rounded font-mono text-sm overflow-x-auto border border-gray-600">
+<span class="keyword">public</span> <span class="keyword">class</span> Donation {
+    <span class="keyword">public</span> <span class="type">String</span> donor;
+    <span class="keyword">public</span> <span class="type">double</span> amount;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">double</span> totalAmount; <span class="comment">// Shared across all instances</span>
+
+    <span class="keyword">public</span> Donation(<span class="type">String</span> name, <span class="type">double</span> initialAmt) {
+        <span class="keyword">this</span>.donor = name;
+        <span class="keyword">this</span>.amount = initialAmt;
+        totalAmount += initialAmt;
+    }
+
+    <span class="keyword">public</span> <span class="keyword">void</span> donate(<span class="type">double</span> amt) {
+        <span class="keyword">this</span>.amount += amt;
+        totalAmount += amt;
+    }
+}</pre>
+            <div class="mt-4 p-4 bg-blue-900 bg-opacity-30 border-l-4 border-blue-500 rounded text-sm">
+                <strong class="text-blue-400">Beginner Tip:</strong> Note the use of the <code class="bg-black px-1 rounded">static</code> keyword. It makes <code class="bg-black px-1 rounded">totalAmount</code> belong to the class rather than a specific object, meaning every donation updates this single central value.
+            </div>
+        </section>
+
+        <!-- Q6.3.2 -->
+        <section class="bg-gray-800 rounded-lg p-6 shadow-xl border border-gray-700">
+            <h2 class="text-xl font-semibold mb-4 text-yellow-500">Q6.3.2: Testing Program</h2>
+            <div class="mb-4 text-gray-300 bg-gray-900 p-4 rounded text-sm">
+                Create a test program to handle donations for "Mr. Lee KC" and "Foundation Two", then display individual and total sums.
+            </div>
+            
+            <pre class="code-bg p-4 rounded font-mono text-sm overflow-x-auto border border-gray-600">
+<span class="keyword">public</span> <span class="keyword">class</span> Main {
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="type">String</span>[] args) {
+        Donation lee = <span class="keyword">new</span> Donation(<span class="string">"Mr. Lee KC"</span>, 100000);
+        lee.donate(8000);
+        lee.donate(5000);
+
+        Donation org = <span class="keyword">new</span> Donation(<span class="string">"Foundation Two"</span>, 10000);
+        org.donate(5000);
+        org.donate(3000);
+        org.donate(9000);
+
+        <span class="type">System</span>.out.println(<span class="string">"Lee Total: "</span> + lee.amount);
+        <span class="type">System</span>.out.println(<span class="string">"Org Total: "</span> + org.amount);
+        <span class="type">System</span>.out.println(<span class="string">"Grand Total: "</span> + Donation.totalAmount);
+    }
+}</pre>
+            <div class="mt-4 p-4 bg-orange-900 bg-opacity-30 border-l-4 border-orange-500 rounded text-sm">
+                <strong class="text-orange-400">Beginner Tip:</strong> Access static members like <code class="bg-black px-1 rounded">totalAmount</code> using the Class name (<code class="bg-black px-1 rounded">Donation.totalAmount</code>), not the object variable. This is standard Java practice to show that the variable is static.
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
