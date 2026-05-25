@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Practice Q6.5 Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .code-block {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+        }
+        .highlight { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .keyword { color: #569cd6; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-blue-400">Java Practice Q6.5 Solutions</h1>
+
+        <!-- Q6.5.1 Section -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-300">Q6.5.1: Convertor Class</h2>
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <p class="mb-4 text-gray-400">Design a <code>Convertor</code> class with static and non-static methods for temperature conversion.</p>
+                <pre class="code-block">
+public class Convertor {
+    <span class="comment">// (a) Static method: belongs to the class itself</span>
+    public static double cToF(double c) {
+        <span class="comment">// WARNING: Use 9.0/5.0 instead of 9/5. </span>
+        <span class="comment">// Integer division 9/5 would result in 1, not 1.8!</span>
+        return (9.0 / 5.0) * c + 32;
+    }
+
+    <span class="comment">// (b) Non-static method: belongs to an instance of the class</span>
+    public double fToC(double f) {
+        return (f - 32) * 5.0 / 9.0;
+    }
+}</pre>
+                <div class="mt-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded text-sm">
+                    <p class="font-bold text-yellow-500">Beginner Watch-out:</p>
+                    <p>When performing division in Java, <code>9 / 5</code> performs integer division (resulting in 1). Always ensure at least one operand is a double (<code>9.0 / 5.0</code>) to get the floating-point result.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Q6.5.2 Section -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4 text-gray-300">Q6.5.2: Testing Class</h2>
+            <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-700">
+                <p class="mb-4 text-gray-400">Design a testing class to verify the functionality of the Convertor.</p>
+                <pre class="code-block">
+import java.util.Scanner;
+
+public class TestConvertor {
+    public static void main(String[] args) {
+        Convertor myConv = new Convertor();
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter temp in Celsius: ");
+        double c = sc.nextDouble();
+
+        <span class="comment">// Calling static method (Class name way)</span>
+        System.out.println("F (static call): " + Convertor.cToF(c));
+
+        <span class="comment">// Calling static method (Instance way - NOT recommended but allowed)</span>
+        System.out.println("F (instance call): " + myConv.cToF(c));
+        
+        <span class="comment">// Note: There is no difference in the result.</span>
+
+        System.out.print("Enter temp in Fahrenheit: ");
+        double f = sc.nextDouble();
+        
+        <span class="comment">// Non-static method MUST be called via instance</span>
+        System.out.println("C: " + myConv.fToC(f));
+    }
+}</pre>
+                <div class="mt-4 p-4 bg-blue-900/30 border-l-4 border-blue-500 rounded text-sm">
+                    <p class="font-bold text-blue-500">Observation:</p>
+                    <p>While you <em>can</em> call a static method through an object reference (e.g., <code>myConv.cToF()</code>), it is considered bad practice in Java. Always use the class name (<code>Convertor.cToF()</code>) to indicate it is static.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
