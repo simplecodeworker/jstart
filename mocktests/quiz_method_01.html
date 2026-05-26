@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 1: Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; color: #065f46; }
+        .wrong { background-color: #fee2e2 !important; border-color: #dc2626 !important; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-10 px-4">
+
+    <div class="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Mock Quiz 1: Methods</h1>
+        <p class="text-gray-600 mb-8">Test your knowledge on Java methods and scope.</p>
+
+        <div id="quiz-container"></div>
+
+        <div id="result-area" class="mt-8 hidden p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p id="score-text" class="text-lg font-semibold text-blue-800"></p>
+            <button onclick="location.reload()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "How do you define a method in Java that takes two integers and returns their sum?", options: ["int sum(int a, b)", "int sum(int a, int b)", "void sum(int a, b)", "sum(int a, int b)"], a: 1, e: "Methods require explicit types for each parameter." },
+            { q: "Which feature allows multiple methods to have the same name but different parameters?", options: ["Overriding", "Overloading", "Encapsulation", "Inheritance"], a: 1, e: "Method overloading uses unique parameter signatures." },
+            { q: "What is the scope of a local variable declared inside a method?", options: ["The entire class", "The entire package", "Only inside that method", "Globally accessible"], a: 2, e: "Local variables exist only within the method body." },
+            { q: "What does the 'private' keyword ensure in encapsulation?", options: ["Global access", "Visible only within the class", "Visible within the package", "Accessible by subclasses only"], a: 1, e: "Private restricts visibility to the defining class." },
+            { q: "Which of these is a valid method invocation?", options: ["myMethod;", "myMethod(5);", "myMethod{5}", "define myMethod(5)"], a: 1, e: "Methods are invoked by their name followed by arguments in parentheses." },
+            { q: "When passing a primitive variable to a method, what happens to the original value?", options: ["It is modified by the method", "The method receives a copy, leaving the original unchanged", "The original is deleted", "It depends on the method name"], a: 1, e: "Java uses pass-by-value for primitives, so methods only modify a copy." },
+            { q: "Can a void method return a value?", options: ["Yes", "Only integers", "Only strings", "No"], a: 3, e: "Void methods perform actions but do not return data." },
+            { q: "What is the benefit of encapsulation?", options: ["Faster code", "Easier debugging", "Restricts direct access to data", "Increases variable scope"], a: 2, e: "Encapsulation hides internal state and exposes controlled access." },
+            { q: "If you declare a variable inside an 'if' block, is it visible outside?", options: ["Yes", "Only if it's static", "No", "Only if public"], a: 2, e: "Variables are scoped to the block they are declared in." },
+            { q: "Which modifier is used to call a method without creating an object?", options: ["static", "public", "void", "final"], a: 0, e: "Static methods belong to the class, not instances." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+        let score = 0;
+        let answeredCount = 0;
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'mb-8 p-4 border rounded-xl';
+            div.innerHTML = `<p class="font-medium text-gray-800 mb-4">${index + 1}. ${item.q}</p>`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'grid gap-2';
+            
+            item.options.forEach((opt, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'text-left p-3 rounded-lg border hover:bg-gray-50 transition';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    if (btn.parentElement.dataset.answered) return;
+                    btn.parentElement.dataset.answered = "true";
+                    answeredCount++;
+                    
+                    const correct = optIndex === item.a;
+                    if (correct) { score++; btn.classList.add('correct'); }
+                    else { btn.classList.add('wrong'); }
+                    
+                    const expl = document.createElement('p');
+                    expl.className = 'mt-2 text-sm italic text-gray-500';
+                    expl.textContent = item.e;
+                    optionsDiv.appendChild(expl);
+                    
+                    if (answeredCount === questions.length) showResults();
+                };
+                optionsDiv.appendChild(btn);
+            });
+            div.appendChild(optionsDiv);
+            container.appendChild(div);
+        });
+
+        function showResults() {
+            const res = document.getElementById('result-area');
+            document.getElementById('score-text').textContent = `You scored ${score} out of ${questions.length}!`;
+            res.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
