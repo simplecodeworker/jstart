@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 1: Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; color: #065f46; }
+        .wrong { background-color: #fee2e2 !important; border-color: #dc2626 !important; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-10 px-4">
+
+    <div class="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Mock Quiz 1: Methods</h1>
+        <p class="text-gray-600 mb-8">Test your knowledge on Java methods and scope.</p>
+
+        <div id="quiz-container"></div>
+
+        <div id="result-area" class="mt-8 hidden p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p id="score-text" class="text-lg font-semibold text-blue-800"></p>
+            <button onclick="location.reload()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the primary purpose of a return statement in a non-void method?", options: ["To terminate the program", "To send a result back to the caller", "To declare a new variable", "To invoke another method"], a: 1, e: "The return statement passes the result back to the calling site." },
+            { q: "If a method is defined with the same name as another method in the same class, what must be true?", options: ["They must have identical parameters", "They must have different parameter lists", "They must be static", "They must be private"], a: 1, e: "Method overloading requires unique parameter signatures (types or quantity)." },
+            { q: "Which of the following modifiers makes a method accessible only from within its own class?", options: ["public", "protected", "private", "default"], a: 2, e: "Private restricts visibility exclusively to the class where it is defined." },
+            { q: "What is a 'parameter' in the context of method definition?", options: ["The value passed to a method", "A variable defined in the method signature", "The name of the class", "The return type"], a: 1, e: "Parameters are the variables defined in the method's signature to accept data." },
+            { q: "Which scope level is most restrictive in Java?", options: ["Package-private", "Protected", "Public", "Private"], a: 3, e: "Private is the most restrictive access level." },
+            { q: "How can you differentiate between a local variable and a class field with the same name?", options: ["Use the 'this' keyword", "Use the 'super' keyword", "Use the 'static' keyword", "You cannot"], a: 0, e: "The 'this' keyword explicitly refers to the current object's instance variables." },
+            { q: "When are local variables initialized in Java?", options: ["They are automatically initialized to zero", "They must be explicitly initialized before use", "They are initialized by the JVM", "They are initialized in the constructor"], a: 1, e: "Local variables do not have default values and must be assigned before they are accessed." },
+            { q: "Which of these represents a valid way to call a void method named 'execute'?", options: ["execute();", "int x = execute();", "System.out.println(execute());", "new execute();"], a: 0, e: "Void methods do not return values, so they must be called as standalone statements." },
+            { q: "What does encapsulation help prevent in a well-designed Java class?", options: ["Variable naming conflicts", "Unintended external modification of internal data", "Method overloading errors", "Excessive memory usage"], a: 1, e: "Encapsulation protects internal state from being accessed or modified directly from outside." },
+            { q: "What happens if a method is missing a required return statement?", options: ["The program runs with random values", "The compiler throws an error", "It executes as a void method", "The JVM skips the method"], a: 1, e: "All non-void methods must guarantee a return path, or the compiler will reject the code." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+        let score = 0;
+        let answeredCount = 0;
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'mb-8 p-4 border rounded-xl';
+            div.innerHTML = `<p class="font-medium text-gray-800 mb-4">${index + 1}. ${item.q}</p>`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'grid gap-2';
+            
+            item.options.forEach((opt, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'text-left p-3 rounded-lg border hover:bg-gray-50 transition';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    if (btn.parentElement.dataset.answered) return;
+                    btn.parentElement.dataset.answered = "true";
+                    answeredCount++;
+                    
+                    const correct = optIndex === item.a;
+                    if (correct) { score++; btn.classList.add('correct'); }
+                    else { btn.classList.add('wrong'); }
+                    
+                    const expl = document.createElement('p');
+                    expl.className = 'mt-2 text-sm italic text-gray-500';
+                    expl.textContent = item.e;
+                    optionsDiv.appendChild(expl);
+                    
+                    if (answeredCount === questions.length) showResults();
+                };
+                optionsDiv.appendChild(btn);
+            });
+            div.appendChild(optionsDiv);
+            container.appendChild(div);
+        });
+
+        function showResults() {
+            const res = document.getElementById('result-area');
+            document.getElementById('score-text').textContent = `You scored ${score} out of ${questions.length}!`;
+            res.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
