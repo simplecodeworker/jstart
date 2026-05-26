@@ -32,7 +32,7 @@
             { q: "What does the 'final' keyword signify when applied to a variable?", a: ["It cannot be changed after initialization", "It is static", "It is private"], correct: 0, exp: "Final variables are constants; their value cannot be reassigned." },
             { q: "Where does a local variable live in memory?", a: ["The Stack", "The Heap", "The Method Area"], correct: 0, exp: "Local variables are stored on the stack and exist only during method execution." },
             { q: "What is a 'mutator' method?", a: ["A method that returns a value", "A method that changes an object's state", "A static helper method"], correct: 1, exp: "Mutators (setters) are designed to modify the values of an object's fields." },
-            { q: "How are packages typically named to avoid collisions?", a: ["Using reverse domain name notation", "Using underscores only", "They must start with a capital letter"], correct: 0, exp: "Reverse domain names (e.g., com.example) are the standard convention." }
+            { q: "What is the result of using a class member without initializing it if it is a primitive?", a: ["It defaults to null", "It defaults to 0 for numbers, false for boolean", "It causes a compilation error"], correct: 1, exp: "Instance variables of primitive types are automatically initialized to their default values (e.g., 0 for int, false for boolean)." }
         ];
 
         const container = document.getElementById('quiz-container');
