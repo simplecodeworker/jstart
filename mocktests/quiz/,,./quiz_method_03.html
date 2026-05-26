@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 1: Methods</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; color: #065f46; }
+        .wrong { background-color: #fee2e2 !important; border-color: #dc2626 !important; color: #991b1b; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen py-10 px-4">
+
+    <div class="max-w-2xl mx-auto bg-white shadow-xl rounded-2xl p-6 md:p-10">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Mock Quiz 1: Methods</h1>
+        <p class="text-gray-600 mb-8">Test your knowledge on Java methods and scope.</p>
+
+        <div id="quiz-container"></div>
+
+        <div id="result-area" class="mt-8 hidden p-4 rounded-xl bg-blue-50 border border-blue-200">
+            <p id="score-text" class="text-lg font-semibold text-blue-800"></p>
+            <button onclick="location.reload()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the primary difference between passing a primitive type and an object reference to a method?", options: ["Primitives are copied; objects are not", "Primitives cannot be changed; object state can be modified", "Objects are faster", "Primitives are stored on the heap"], a: 1, e: "Primitives are passed by value (copied), while object references are also passed by value, allowing modifications to the underlying object state." },
+            { q: "Which of the following is true about method overloading and return types?", options: ["Return types must be the same", "Return types can differ, but signatures must be unique", "Overloading is impossible with different return types", "The return type is part of the overloading signature"], a: 1, e: "Overloading depends on the parameter list; return types can vary, but that alone does not distinguish an overload." },
+            { q: "In Java, what happens if a method is called recursively without a base case?", options: ["The compiler catches it", "The program executes infinitely", "StackOverflowError occurs", "The JVM performs an automatic loop"], a: 2, e: "Recursive calls without a terminal condition exhaust the call stack memory." },
+            { q: "Can a private method be overloaded?", options: ["No, only public methods", "Yes, within the same class", "Only if declared static", "Only if declared final"], a: 1, e: "Encapsulation restricts visibility, but the same overloading rules apply within the class scope." },
+            { q: "What is 'shadowing' in the context of Java variables?", options: ["Making a variable private", "A local variable hiding an instance variable with the same name", "Forcing a variable to be final", "When a method has no return type"], a: 1, e: "Shadowing occurs when a local variable or parameter name identical to an instance variable makes the latter inaccessible without 'this'." },
+            { q: "Which statement best describes the life of a local variable?", options: ["Initialized when the object is created", "Created when the method starts, destroyed when it ends", "Stored in the heap memory", "Persists until the program terminates"], a: 1, e: "Local variables are stack-allocated and bound to the lifecycle of the method invocation." },
+            { q: "Why might a programmer choose a protected modifier over private?", options: ["To allow sub-class access", "To improve performance", "To make the method accessible to the whole package", "To prevent static calls"], a: 0, e: "Protected allows controlled inheritance while maintaining restricted access compared to public." },
+            { q: "What does a method signature technically include in Java?", options: ["Name, return type, and params", "Name and parameters", "Name and access modifier", "Name only"], a: 1, e: "Java method signatures are uniquely identified by the name and the parameter type list (order and types)." },
+            { q: "If a method is declared as 'final', how does this affect subclasses?", options: ["They must override the method", "They can overload but not override the method", "The method cannot be inherited", "The method cannot be overridden by subclasses"], a: 3, e: "The 'final' modifier on a method strictly forbids subclasses from providing their own implementation (overriding)." },
+            { q: "What is the consequence of declaring a method as 'abstract'?", options: ["It must be static", "It cannot have a body", "It can only be used in interfaces", "It automatically returns null"], a: 1, e: "Abstract methods are incomplete templates that must be implemented by concrete subclasses." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+        let score = 0;
+        let answeredCount = 0;
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'mb-8 p-4 border rounded-xl';
+            div.innerHTML = `<p class="font-medium text-gray-800 mb-4">${index + 1}. ${item.q}</p>`;
+            
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'grid gap-2';
+            
+            item.options.forEach((opt, optIndex) => {
+                const btn = document.createElement('button');
+                btn.className = 'text-left p-3 rounded-lg border hover:bg-gray-50 transition';
+                btn.textContent = opt;
+                btn.onclick = () => {
+                    if (btn.parentElement.dataset.answered) return;
+                    btn.parentElement.dataset.answered = "true";
+                    answeredCount++;
+                    
+                    const correct = optIndex === item.a;
+                    if (correct) { score++; btn.classList.add('correct'); }
+                    else { btn.classList.add('wrong'); }
+                    
+                    const expl = document.createElement('p');
+                    expl.className = 'mt-2 text-sm italic text-gray-500';
+                    expl.textContent = item.e;
+                    optionsDiv.appendChild(expl);
+                    
+                    if (answeredCount === questions.length) showResults();
+                };
+                optionsDiv.appendChild(btn);
+            });
+            div.appendChild(optionsDiv);
+            container.appendChild(div);
+        });
+
+        function showResults() {
+            const res = document.getElementById('result-area');
+            document.getElementById('score-text').textContent = `You scored ${score} out of ${questions.length}!`;
+            res.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
