@@ -575,6 +575,9 @@
               <p>
                 In Java's memory allocation space (specifically inside Metaspace/Method Area), static attributes belong directly to the <strong>Class Template</strong>. Normal object properties, meanwhile, inhabit the garbage-collected <strong>Heap Space</strong>.
               </p>
+              <p>
+                 Individual object blocks do not store an independent value for a static variable; they reference back to a single shared memory space. Any mutation instantly synchronizes across all instances.
+              </p>
               <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                 <span class="text-xs font-bold text-indigo-600 block uppercase">Real-Time Sync Mechanics:</span>
                 <p class="text-xs text-slate-600">
