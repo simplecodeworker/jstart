@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 2 - Arrays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border: 2px solid #059669; }
+        .wrong { background-color: #fee2e2 !important; border: 2px solid #dc2626; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 2 - Arrays</h1>
+            <p class="text-slate-600 mt-2">Level up your knowledge on Java Array advanced concepts.</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6">
+            <!-- Questions injected here -->
+        </div>
+
+        <div id="result" class="mt-8 text-center text-xl font-bold text-slate-700 hidden"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the result of using the enhanced for-loop (for-each) on an array?", a: ["You can modify the array length", "You cannot easily access the index", "You can only iterate backwards", "It is slower than a standard for-loop"], correct: 1, exp: "The for-each loop provides a simple way to iterate over elements but hides the index counter." },
+            { q: "Which statement is true regarding the '.clone()' method for arrays?", a: ["It performs a deep copy", "It performs a shallow copy", "It copies the array reference", "It works only for 2D arrays"], correct: 1, exp: "For arrays, clone performs a shallow copy of the array object." },
+            { q: "How are 2D arrays represented in Java memory?", a: ["As a single contiguous block", "As an array of arrays", "As a pointer to a matrix object", "As a list of objects"], correct: 1, exp: "Java 2D arrays are implemented as 'arrays of arrays', meaning rows are separate objects." },
+            { q: "What happens if you try to access an index out of bounds?", a: ["The program continues with 0", "A NullPointerException is thrown", "An ArrayIndexOutOfBoundsException is thrown", "The array auto-resizes"], correct: 2, exp: "Accessing an invalid index results in an ArrayIndexOutOfBoundsException at runtime." },
+            { q: "What is the return type of a method that accepts 'int... values'?", a: ["void", "int", "int[]", "None"], correct: 0, exp: "Varargs are treated as an array within the method, but the return type depends on your specific logic." },
+            { q: "Can you change the size of an array after it is initialized?", a: ["Yes, using .resize()", "Yes, using .length = newSize", "No, arrays have a fixed size", "Only for object arrays"], correct: 2, exp: "Java arrays are fixed-size once they are instantiated." },
+            { q: "What is the correct way to initialize a 2D array with specific dimensions?", a: ["int[][] arr = new int[3][4];", "int[][] arr = new int(3,4);", "int[][] arr = {3,4};", "int arr = new int[3][4];"], correct: 0, exp: "The correct syntax for allocating a 2D array is 'new type[rows][cols]'." },
+            { q: "Which property reveals the length of the first dimension of a 2D array?", a: ["array.size", "array.length", "array.rows", "array.getRows()"], correct: 1, exp: "Like 1D arrays, 2D arrays use the .length property for the primary dimension." },
+            { q: "When using System.arraycopy(src, srcPos, dest, destPos, length), what does 'length' represent?", a: ["The total size of the source array", "The number of elements to copy", "The size of the destination array", "The starting index"], correct: 1, exp: "The length argument specifies exactly how many elements should be copied." },
+            { q: "In a shallow copy of an array of objects, what is copied?", a: ["The actual objects themselves", "Only the references to the objects", "The entire heap memory", "The object values and references"], correct: 1, exp: "A shallow copy only copies the references; both the original and the new array point to the same object instances." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            div.innerHTML = `
+                <p class="font-semibold text-lg mb-4">${index + 1}. ${item.q}</p>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `
+                        <button onclick="checkAnswer(this, ${index}, ${i})" 
+                                class="text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+                <p id="exp-${index}" class="mt-4 text-sm italic text-slate-500 hidden font-medium"></p>
+            `;
+            container.appendChild(div);
+        });
+
+        function checkAnswer(btn, qIdx, aIdx) {
+            const parent = btn.parentElement;
+            const btns = parent.querySelectorAll('button');
+            const exp = document.getElementById('exp-' + qIdx);
+            
+            btns.forEach(b => b.disabled = true);
+            
+            if (aIdx === questions[qIdx].correct) {
+                btn.classList.add('correct');
+                exp.innerText = "Correct! " + questions[qIdx].exp;
+            } else {
+                btn.classList.add('wrong');
+                btns[questions[qIdx].correct].classList.add('correct');
+                exp.innerText = "Wrong. " + questions[qIdx].exp;
+            }
+            exp.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
