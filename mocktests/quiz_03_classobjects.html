@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 3: Classes and Objects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .option-btn { transition: all 0.2s; }
+        .correct { background-color: #22c55e !important; color: white !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 3: Classes and Objects</h1>
+            <p class="text-slate-600 mt-2">New challenges to test your Java knowledge</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the primary purpose of the 'static' modifier for a method?", a: ["To allow it to be overridden", "To allow it to be called without creating an object instance", "To make it private"], correct: 1, exp: "Static methods belong to the class and can be invoked directly using the class name." },
+            { q: "Which statement best describes an 'instance variable'?", a: ["A variable declared inside a method", "A variable declared within a class but outside any method", "A variable defined in a static block"], correct: 1, exp: "Instance variables are defined at the class level and have values unique to each object." },
+            { q: "What does a default access modifier (no modifier) imply?", a: ["Private access", "Public access", "Package-private access"], correct: 2, exp: "Without an explicit modifier, members are only accessible within the same package." },
+            { q: "When is a 'static' initializer block executed?", a: ["Every time an object is created", "Only once, when the class is first loaded by the JVM", "Every time a static method is called"], correct: 1, exp: "Static blocks run only once when the class is loaded into memory." },
+            { q: "What is the consequence of declaring a class as 'final'?", a: ["It cannot be instantiated", "It cannot be subclassed (extended)", "It must have static methods only"], correct: 1, exp: "A final class cannot be extended; it prevents inheritance." },
+            { q: "What happens if you try to assign a primitive value to a reference variable?", a: ["It works automatically", "It causes a compilation error", "It is converted to a string"], correct: 1, exp: "Reference variables hold object addresses, not primitive values; types must match." },
+            { q: "How can you prevent a field from being accessed directly from outside the class?", a: ["By making it public", "By making it private", "By making it final"], correct: 1, exp: "Private visibility encapsulates the data, requiring accessors/mutators." },
+            { q: "What is the scope of a formal parameter in a method definition?", a: ["The entire class", "The entire package", "The body of the method"], correct: 2, exp: "Parameters are local to the method they are defined in." },
+            { q: "What is a 'no-arg' constructor?", a: ["A constructor that takes no parameters", "A constructor with a void return type", "A constructor that is automatically deleted"], correct: 0, exp: "A no-arg constructor defines how an object is initialized with default values." },
+            { q: "Which of the following is true regarding class packages?", a: ["Classes in the same package must be in the same file", "Packages help in organizing large projects and preventing name conflicts", "Packages can only contain public classes"], correct: 1, exp: "Packages manage namespaces to avoid naming collisions in large applications." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            card.innerHTML = `
+                <h2 class="text-lg font-semibold mb-4">${index + 1}. ${item.q}</h2>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `<button class="option-btn text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50" onclick="check(this, ${i}, ${item.correct}, ${index})">${opt}</button>`).join('')}
+                </div>
+                <div id="exp-${index}" class="hidden mt-4 p-3 rounded-lg bg-slate-100 text-sm font-medium"></div>
+            `;
+            container.appendChild(card);
+        });
+
+        function check(btn, selected, correct, qIndex) {
+            const container = btn.parentElement;
+            const btns = container.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            const expDiv = document.getElementById(`exp-${qIndex}`);
+            expDiv.classList.remove('hidden');
+            expDiv.textContent = questions[qIndex].exp;
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                expDiv.classList.add('bg-green-100', 'text-green-800');
+            } else {
+                btn.classList.add('wrong');
+                btns[correct].classList.add('correct');
+                expDiv.classList.add('bg-red-100', 'text-red-800');
+            }
+        }
+    </script>
+</body>
+</html>
