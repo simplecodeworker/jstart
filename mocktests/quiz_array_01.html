@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 1 - Arrays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border: 2px solid #059669; }
+        .wrong { background-color: #fee2e2 !important; border: 2px solid #dc2626; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 1 - Arrays</h1>
+            <p class="text-slate-600 mt-2">Test your knowledge on Java Array fundamentals.</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6">
+            <!-- Questions injected here -->
+        </div>
+
+        <div id="result" class="mt-8 text-center text-xl font-bold text-slate-700 hidden"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Which syntax is valid for declaring an array of 5 integers?", a: ["int[] arr = new int[5];", "int arr = new int[5];", "new int arr[5];", "int[5] arr;"], correct: 0, exp: "The correct way to declare and instantiate an array is 'int[] arr = new int[5];'." },
+            { q: "What is the default value of an element in an int array in Java?", a: ["null", "0", "-1", "undefined"], correct: 1, exp: "Java automatically initializes primitive int array elements to 0." },
+            { q: "Arrays in Java are zero-indexed. What is the index of the last element in an array of length N?", a: ["N", "N-1", "N+1", "1"], correct: 1, exp: "Since indexing starts at 0, the last element is always at size - 1." },
+            { q: "Which of the following is an 'Instant' array literal?", a: ["int[] a = {1, 2, 3};", "int[] a = new int[]{1, 2, 3};", "int[] a = new int[3];", "int a[] = 1, 2, 3;"], correct: 0, exp: "The shorthand literal notation is {value1, value2, ...}." },
+            { q: "What happens when you pass an array to a method?", a: ["The array is copied", "Only the first element is passed", "A reference to the array is passed", "The array is cloned"], correct: 2, exp: "Java passes object references by value, meaning the method can modify the original array content." },
+            { q: "What is the output of 'int[] b = a;' if 'a' is an array?", a: ["b is a copy of a", "b is a reference to the same array as a", "b is a new empty array", "Compiler error"], correct: 1, exp: "Assignment merely copies the reference, not the array contents." },
+            { q: "Which method is the most high-performance way to copy arrays?", a: ["Arrays.copyOf()", "System.arraycopy()", "A for-loop", ".clone()"], correct: 1, exp: "System.arraycopy is a native method and is generally the fastest for bulk copying." },
+            { q: "What is a 'Ragged' array in Java?", a: ["An array with null values", "A 2D array where rows have different lengths", "An uninitialized array", "A 1D array with mixed types"], correct: 1, exp: "Ragged arrays allow each row in a 2D array to have a different length." },
+            { q: "How do you access the number of rows in a 2D array named 'matrix'?", a: ["matrix.length", "matrix.rows", "matrix.size()", "matrix[0].length"], correct: 0, exp: "matrix.length returns the number of rows in a 2D array." },
+            { q: "What is a Varargs parameter type in a method?", a: ["int[]... args", "int... args", "var... args", "args... int"], correct: 1, exp: "Varargs are defined using the type followed by three dots (e.g., int... args)." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            div.innerHTML = `
+                <p class="font-semibold text-lg mb-4">${index + 1}. ${item.q}</p>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `
+                        <button onclick="checkAnswer(this, ${index}, ${i})" 
+                                class="text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+                <p id="exp-${index}" class="mt-4 text-sm italic text-slate-500 hidden font-medium"></p>
+            `;
+            container.appendChild(div);
+        });
+
+        function checkAnswer(btn, qIdx, aIdx) {
+            const parent = btn.parentElement;
+            const btns = parent.querySelectorAll('button');
+            const exp = document.getElementById('exp-' + qIdx);
+            
+            btns.forEach(b => b.disabled = true);
+            
+            if (aIdx === questions[qIdx].correct) {
+                btn.classList.add('correct');
+                exp.innerText = "Correct! " + questions[qIdx].exp;
+            } else {
+                btn.classList.add('wrong');
+                btns[questions[qIdx].correct].classList.add('correct');
+                exp.innerText = "Wrong. " + questions[qIdx].exp;
+            }
+            exp.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
