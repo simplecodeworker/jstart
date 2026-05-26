@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Exception Handling Quiz 2 - Immediate Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; }
+        .wrong { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-10">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Quiz 2: Advanced Exception Handling</h1>
+        <p class="text-gray-600 mb-8">Click an option to see immediate feedback.</p>
+        
+        <div id="quiz-container" class="space-y-8">
+            <!-- Questions injected via JS -->
+        </div>
+
+        <button id="restart-btn" class="mt-10 w-full bg-gray-800 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-900 transition" onclick="location.reload()">
+            Restart Quiz
+        </button>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the primary difference between Checked and Unchecked exceptions?", a: ["Checked exceptions must be handled at compile-time", "Unchecked exceptions are fatal and cannot be caught", "Checked exceptions are for runtime failures only"], correct: 0, exp: "Checked exceptions must be handled or declared in the method signature; unchecked exceptions (RuntimeException) do not require it." },
+            { q: "Which class is the base class for all checked exceptions?", a: ["Exception", "RuntimeException", "Throwable"], correct: 0, exp: "Exception is the base class for all checked exceptions; RuntimeException is a subclass of Exception." },
+            { q: "What determines the order of multiple catch blocks?", a: ["Most specific exception type must be caught first", "Alphabetical order of exception class names", "The order in which exceptions are thrown"], correct: 0, exp: "Java requires catch blocks to be ordered from most specific exception type to most general (superclasses)." },
+            { q: "Can you have a try block without a catch block?", a: ["Yes, if you have a finally block", "No, it must have a catch block", "Yes, but it is deprecated"], correct: 0, exp: "A try block can be paired with only a finally block, provided it also contains resources in a try-with-resources." },
+            { q: "What is the recommended superclass when creating a custom checked exception?", a: ["Exception", "Error", "RuntimeException"], correct: 0, exp: "To create a checked exception, you should extend the Exception class." },
+            { q: "What is the impact of using System.exit() inside a finally block?", a: ["The JVM shuts down and finally does not finish", "It forces the finally block to execute twice", "It is the standard way to end a program"], correct: 0, exp: "System.exit() terminates the JVM immediately, preventing any remaining finally code from executing." },
+            { q: "Which statement is true about re-throwing exceptions?", a: ["You can wrap it in a new exception", "You must change the exception type", "You can only re-throw RuntimeExceptions"], correct: 0, exp: "Wrapping exceptions is common to provide more context to the caller." },
+            { q: "What happens if a finally block contains a return statement?", a: ["It overrides any return in try or catch blocks", "It is ignored by the compiler", "It causes a compilation error"], correct: 0, exp: "A return in finally will override any previous return values, often leading to subtle bugs." },
+            { q: "What is the effect of an empty catch block?", a: ["It hides the exception, often considered a code smell", "It improves performance", "It forces the program to exit"], correct: 0, exp: "Empty catch blocks silence exceptions, making debugging extremely difficult." },
+            { q: "Which of the following is true regarding 'Error' objects?", a: ["They represent serious problems that applications should generally not try to catch", "They are identical to Exception objects", "They can always be recovered from"], correct: 0, exp: "Errors like OutOfMemoryError indicate severe JVM issues that typically cannot be recovered from." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        function renderQuiz() {
+            questions.forEach((data, qIdx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "border-b pb-8";
+                qDiv.innerHTML = `<h2 class="text-lg font-medium mb-4">${qIdx + 1}. ${data.q}</h2>`;
+                
+                const buttonsDiv = document.createElement('div');
+                data.a.forEach((opt, aIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-3 border rounded-lg mb-2 hover:bg-gray-50 transition";
+                    btn.innerText = opt;
+                    btn.onclick = () => {
+                        Array.from(buttonsDiv.querySelectorAll('button')).forEach(b => b.disabled = true);
+                        
+                        const feedbackDiv = document.getElementById(`fb-${qIdx}`);
+                        feedbackDiv.classList.remove('hidden');
+                        
+                        if (aIdx === data.correct) {
+                            btn.classList.add('correct');
+                            feedbackDiv.innerHTML = `<p class="font-bold text-green-700">Correct!</p><p>${data.exp}</p>`;
+                            feedbackDiv.classList.add('correct');
+                        } else {
+                            btn.classList.add('wrong');
+                            buttonsDiv.querySelectorAll('button')[data.correct].classList.add('correct');
+                            feedbackDiv.innerHTML = `<p class="font-bold text-red-700">Incorrect.</p><p>${data.exp}</p>`;
+                            feedbackDiv.classList.add('wrong');
+                        }
+                    };
+                    buttonsDiv.appendChild(btn);
+                });
+                qDiv.appendChild(buttonsDiv);
+                
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.id = `fb-${qIdx}`;
+                feedbackDiv.className = "mt-4 p-4 rounded-lg hidden border text-sm";
+                qDiv.appendChild(feedbackDiv);
+                
+                container.appendChild(qDiv);
+            });
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>
