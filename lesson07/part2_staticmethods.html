@@ -751,7 +751,7 @@ public class TestStaticMethod {
             </div>
 
             <!-- Content -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
                 <div class="space-y-4">
                     <h3 class="text-lg font-semibold text-slate-200 flex items-center gap-2">
                         <span class="w-1.5 h-6 bg-indigo-500 rounded"></span> Primitive Memory Routing
@@ -761,8 +761,8 @@ public class TestStaticMethod {
                     </p>
                     
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <h4 class="text-xs font-mono font-bold text-amber-400 mb-1">🎯 Passed by Value (Primitives)</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
+                        <h4 class="font-mono font-bold text-amber-400 mb-1">🎯 Passed by Value (Primitives)</h4>
+                        <p class="text-slate-400 leading-relaxed">
                             Includes basic types: <code class="text-slate-200">int, double, float, boolean, char</code>. <br>
                             An entirely <strong class="text-white">independent copy</strong> of the data value is created inside the method's local stack block. Changes inside the method <strong class="text-pink-400">never propagate back</strong> to the caller environment!
                         </p>
@@ -778,8 +778,8 @@ public class TestStaticMethod {
                     </p>
 
                     <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                        <h4 class="text-xs font-mono font-bold text-cyan-400 mb-1">🔗 Passed by Reference Pointer</h4>
-                        <p class="text-xs text-slate-400 leading-relaxed">
+                        <h4 class="font-mono font-bold text-cyan-400 mb-1">🔗 Passed by Reference Pointer</h4>
+                        <p class="text-slate-400 leading-relaxed">
                             No separate copy of the variable values is generated on the heap. <br>
                             The method parameters reference the <strong class="text-white">identical system memory slot</strong> as the caller. Modifying properties inside the method <strong class="text-emerald-400">mutates the object permanently</strong>.
                         </p>
