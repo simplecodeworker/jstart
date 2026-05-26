@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 3 - Arrays</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border: 2px solid #059669; }
+        .wrong { background-color: #fee2e2 !important; border: 2px solid #dc2626; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 3 - Arrays</h1>
+            <p class="text-slate-600 mt-2">Challenge your expertise with advanced Java Array scenarios.</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6">
+            <!-- Questions injected here -->
+        </div>
+
+        <div id="result" class="mt-8 text-center text-xl font-bold text-slate-700 hidden"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is a 'Ragged Array' in Java?", a: ["An array that has been deleted", "A multi-dimensional array where rows have different lengths", "An array with negative indices", "An array containing only null values"], correct: 1, exp: "Ragged arrays (or jagged arrays) are multi-dimensional arrays where each inner array can have a different length." },
+            { q: "Which class provides static utility methods to manipulate arrays, such as sorting and searching?", a: ["ArrayUtils", "java.util.Arrays", "ArraysList", "java.lang.Array"], correct: 1, exp: "The java.util.Arrays class provides static methods for sorting, searching, comparing, and filling arrays." },
+            { q: "How can you check if two arrays contain the same elements in the same order?", a: ["using '=='", "using .equals()", "using Arrays.equals(arr1, arr2)", "using arr1.match(arr2)"], correct: 2, exp: "The '==' operator checks reference equality; Arrays.equals() is required to compare contents." },
+            { q: "What is the result of 'int[] arr = new int[0];'?", a: ["A NullPointerException", "An empty array of length 0", "A compilation error", "An array with one null element"], correct: 1, exp: "Java allows the creation of arrays with a size of zero; they are valid objects." },
+            { q: "What is the correct syntax for declaring an array of Strings with 3 elements?", a: ["String[3] str;", "String[] str = new String[3];", "String str = new String[3];", "String[] str = {null, null, null, null};"], correct: 1, exp: "The standard syntax requires the [] after the type and the 'new' keyword with the size." },
+            { q: "Which of the following is NOT a valid way to initialize an array?", a: ["int[] a = {1, 2};", "int[] a = new int[]{1, 2};", "int[] a = new int[2]{1, 2};", "int[] a = new int[2];"], correct: 2, exp: "You cannot specify both the size and the initializer block in the same declaration." },
+            { q: "When using Varargs (int... a), how do you treat 'a' inside the method?", a: ["As an Integer object", "As an array of ints", "As a list of values", "As an iterable object"], correct: 1, exp: "Java internally treats varargs as an array of the specified type." },
+            { q: "What is the memory impact of initializing a 3D array compared to a 1D array?", a: ["It consumes less memory", "It consumes more memory due to multiple object headers", "Memory usage is identical", "It cannot be measured"], correct: 1, exp: "Multi-dimensional arrays create multiple array objects, each with its own object header metadata." },
+            { q: "What does Arrays.fill(arr, 5) do?", a: ["Increments all elements by 5", "Sets all elements of the array to 5", "Fills the array with values from 0 to 5", "Throws an error if the array is null"], correct: 1, exp: "Arrays.fill(array, value) assigns the specified value to every element in the array." },
+            { q: "Is an array an Object in Java?", a: ["Yes, arrays extend java.lang.Object", "No, they are primitive types", "Only if it contains objects", "Only if it is a multi-dimensional array"], correct: 0, exp: "In Java, all arrays are objects, even those containing primitive types." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            div.innerHTML = `
+                <p class="font-semibold text-lg mb-4">${index + 1}. ${item.q}</p>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `
+                        <button onclick="checkAnswer(this, ${index}, ${i})" 
+                                class="text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
+                            ${opt}
+                        </button>
+                    `).join('')}
+                </div>
+                <p id="exp-${index}" class="mt-4 text-sm italic text-slate-500 hidden font-medium"></p>
+            `;
+            container.appendChild(div);
+        });
+
+        function checkAnswer(btn, qIdx, aIdx) {
+            const parent = btn.parentElement;
+            const btns = parent.querySelectorAll('button');
+            const exp = document.getElementById('exp-' + qIdx);
+            
+            btns.forEach(b => b.disabled = true);
+            
+            if (aIdx === questions[qIdx].correct) {
+                btn.classList.add('correct');
+                exp.innerText = "Correct! " + questions[qIdx].exp;
+            } else {
+                btn.classList.add('wrong');
+                btns[questions[qIdx].correct].classList.add('correct');
+                exp.innerText = "Wrong. " + questions[qIdx].exp;
+            }
+            exp.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
