@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Exception Handling Quiz - Immediate Feedback</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .correct { background-color: #d1fae5 !important; border-color: #059669 !important; }
+        .wrong { background-color: #fee2e2 !important; border-color: #dc2626 !important; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-4 md:p-8">
+
+    <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-10">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Mock Quiz 1: Exception Handling</h1>
+        <p class="text-gray-600 mb-8">Click an option to see immediate feedback.</p>
+        
+        <div id="quiz-container" class="space-y-8">
+            <!-- Questions injected via JS -->
+        </div>
+
+        <button id="restart-btn" class="mt-10 w-full bg-gray-800 text-white py-4 rounded-xl font-bold text-lg hover:bg-gray-900 transition" onclick="location.reload()">
+            Restart Quiz
+        </button>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the primary difference between an Exception and a generic Runtime Failure?", a: ["Exceptions are recoverable errors, failures are usually fatal", "There is no difference", "Exceptions are for hardware, failures for software"], correct: 0, exp: "Exceptions are expected conditions that can be handled; runtime failures often signify unrecoverable state." },
+            { q: "Which of the following occurs if you divide an integer by zero?", a: ["ArithmeticException", "NullPointerException", "ZeroDivisionError"], correct: 0, exp: "Java throws an ArithmeticException when performing integer division by zero." },
+            { q: "What exception is thrown when using Scanner to read an integer but receiving a character?", a: ["InputMismatchException", "TypeException", "NumberFormatException"], correct: 0, exp: "Scanner.nextInt() throws InputMismatchException if the next token doesn't match the expected type." },
+            { q: "Which keyword is used to explicitly generate an exception?", a: ["throw", "throws", "catch"], correct: 0, exp: "The 'throw' keyword is used to manually trigger an exception instance." },
+            { q: "What does the 'finally' block guarantee?", a: ["Code will execute regardless of whether an exception occurred", "Code will only run if an error happens", "The program will stop immediately"], correct: 0, exp: "The 'finally' block is used for cleanup, ensuring critical code always runs." },
+            { q: "Which structure is used to handle potential exceptions?", a: ["try-catch", "throw-run", "loop-catch"], correct: 0, exp: "The try-catch block is the standard mechanism to 'catch' and handle exceptions." },
+            { q: "What is the purpose of the 'throws' keyword in a method signature?", a: ["Declares that a method might throw an exception", "Handles the exception internally", "Forces the method to crash"], correct: 0, exp: "'throws' propagates the exception to the caller of the method." },
+            { q: "In the Exception lifecycle, what happens after an exception is thrown?", a: ["The normal flow stops and looks for a catch block", "The program continues normally", "The compiler fixes it"], correct: 0, exp: "The JVM halts current execution and looks up the stack for an appropriate handler." },
+            { q: "Can a try block have multiple catch blocks?", a: ["Yes, for different exception types", "No, only one", "Only if there is no finally"], correct: 0, exp: "Yes, you can catch specific exceptions individually to handle them differently." },
+            { q: "Which class is the superclass of all Exceptions in Java?", a: ["Throwable", "Exception", "Error"], correct: 0, exp: "Throwable is the root class for all errors and exceptions in Java." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        function renderQuiz() {
+            questions.forEach((data, qIdx) => {
+                const qDiv = document.createElement('div');
+                qDiv.className = "border-b pb-8";
+                qDiv.innerHTML = `<h2 class="text-lg font-medium mb-4">${qIdx + 1}. ${data.q}</h2>`;
+                
+                const buttonsDiv = document.createElement('div');
+                data.a.forEach((opt, aIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "w-full text-left p-3 border rounded-lg mb-2 hover:bg-gray-50 transition";
+                    btn.innerText = opt;
+                    btn.onclick = () => {
+                        // Disable all buttons in this question
+                        Array.from(buttonsDiv.querySelectorAll('button')).forEach(b => b.disabled = true);
+                        
+                        const feedbackDiv = document.getElementById(`fb-${qIdx}`);
+                        feedbackDiv.classList.remove('hidden');
+                        
+                        if (aIdx === data.correct) {
+                            btn.classList.add('correct');
+                            feedbackDiv.innerHTML = `<p class="font-bold text-green-700">Correct!</p><p>${data.exp}</p>`;
+                            feedbackDiv.classList.add('correct');
+                        } else {
+                            btn.classList.add('wrong');
+                            buttonsDiv.querySelectorAll('button')[data.correct].classList.add('correct');
+                            feedbackDiv.innerHTML = `<p class="font-bold text-red-700">Incorrect.</p><p>${data.exp}</p>`;
+                            feedbackDiv.classList.add('wrong');
+                        }
+                    };
+                    buttonsDiv.appendChild(btn);
+                });
+                qDiv.appendChild(buttonsDiv);
+                
+                const feedbackDiv = document.createElement('div');
+                feedbackDiv.id = `fb-${qIdx}`;
+                feedbackDiv.className = "mt-4 p-4 rounded-lg hidden border text-sm";
+                qDiv.appendChild(feedbackDiv);
+                
+                container.appendChild(qDiv);
+            });
+        }
+
+        renderQuiz();
+    </script>
+</body>
+</html>
