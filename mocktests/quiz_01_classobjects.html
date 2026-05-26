@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 1: Classes and Objects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .option-btn { transition: all 0.2s; }
+        .correct { background-color: #22c55e !important; color: white !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 1: Classes and Objects</h1>
+            <p class="text-slate-600 mt-2">Test your Java fundamentals</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What does UML stand for in the context of Java class design?", a: ["Unified Modeling Language", "Universal Method Library", "Unique Main Logic"], correct: 0, exp: "UML is a standard visual modeling language used to represent class structures." },
+            { q: "Which of the following is true about class constructors?", a: ["They have a return type", "They must have the same name as the class", "They cannot be overloaded"], correct: 1, exp: "Constructors must match the class name and have no return type, not even void." },
+            { q: "What is an accessor method primarily used for?", a: ["Modifying private fields", "Returning the value of a private field", "Creating new objects"], correct: 1, exp: "Accessors (getters) provide read access to private data members." },
+            { q: "Which modifier makes a variable accessible only within its own class?", a: ["public", "protected", "private"], correct: 2, exp: "The private modifier restricts access to the class where the variable is defined." },
+            { q: "What does method overloading mean?", a: ["Methods with same name but different parameters", "Methods with same name and same parameters", "Overriding a method in a subclass"], correct: 0, exp: "Overloading allows multiple methods to share a name if their parameter lists differ." },
+            { q: "How do reference variables differ from primitive variables?", a: ["References store the memory address of an object", "References store the actual value", "References are always faster"], correct: 0, exp: "Reference variables hold the memory address (reference) to an object, unlike primitives which hold values directly." },
+            { q: "A 'static' variable is shared among...", a: ["All instances of the class", "Only one instance", "Only the main method"], correct: 0, exp: "Static variables belong to the class itself, making them shared by all instances." },
+            { q: "Can a static method access non-static instance variables?", a: ["Yes", "No", "Only if it is public"], correct: 1, exp: "Static methods belong to the class and cannot access instance-specific data." },
+            { q: "What is the purpose of the 'package' keyword?", a: ["To name your file", "To group related classes and organize namespaces", "To import external libraries"], correct: 1, exp: "Packages provide a way to group related classes and avoid naming conflicts." },
+            { q: "What is 'variable scoping'?", a: ["The lifetime of a variable", "The region of the code where a variable is accessible", "The type of data a variable holds"], correct: 1, exp: "Scope defines the block of code where a variable is visible and accessible." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            card.innerHTML = `
+                <h2 class="text-lg font-semibold mb-4">${index + 1}. ${item.q}</h2>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `<button class="option-btn text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50" onclick="check(this, ${i}, ${item.correct}, ${index})">${opt}</button>`).join('')}
+                </div>
+                <div id="exp-${index}" class="hidden mt-4 p-3 rounded-lg bg-slate-100 text-sm font-medium"></div>
+            `;
+            container.appendChild(card);
+        });
+
+        function check(btn, selected, correct, qIndex) {
+            const container = btn.parentElement;
+            const btns = container.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            const expDiv = document.getElementById(`exp-${qIndex}`);
+            expDiv.classList.remove('hidden');
+            expDiv.textContent = questions[qIndex].exp;
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                expDiv.classList.add('bg-green-100', 'text-green-800');
+            } else {
+                btn.classList.add('wrong');
+                btns[correct].classList.add('correct');
+                expDiv.classList.add('bg-red-100', 'text-red-800');
+            }
+        }
+    </script>
+</body>
+</html>
