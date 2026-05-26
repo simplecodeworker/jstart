@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Quiz 2: Classes and Objects</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .option-btn { transition: all 0.2s; }
+        .correct { background-color: #22c55e !important; color: white !important; }
+        .wrong { background-color: #ef4444 !important; color: white !important; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-3xl mx-auto">
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-bold text-slate-800">Mock Quiz 2: Classes and Objects</h1>
+            <p class="text-slate-600 mt-2">Deepening your understanding of Java fundamentals</p>
+        </header>
+
+        <div id="quiz-container" class="space-y-6"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "Which keyword is used to refer to the current object instance?", a: ["super", "this", "static"], correct: 1, exp: "'this' refers to the specific instance of the object calling the method." },
+            { q: "What is the default value of an object reference variable before initialization?", a: ["null", "0", "false"], correct: 0, exp: "Uninitialized object references default to null." },
+            { q: "Which modifier allows access from any class in the same package or subclasses in other packages?", a: ["private", "public", "protected"], correct: 2, exp: "Protected visibility allows access within the package and to subclasses." },
+            { q: "Can a constructor call another constructor in the same class?", a: ["Yes, using super()", "Yes, using this()", "No"], correct: 1, exp: "The 'this()' keyword is used for constructor chaining within the same class." },
+            { q: "What happens if a class has no user-defined constructors?", a: ["The compiler creates a default no-arg constructor", "The class cannot be instantiated", "Compilation error"], correct: 0, exp: "Java provides an implicit default constructor if you define none." },
+            { q: "Which of these is NOT a valid access modifier in Java?", a: ["package-private", "internal", "protected"], correct: 1, exp: "'internal' is not a Java access modifier; it is used in C#." },
+            { q: "What does the 'final' keyword signify when applied to a variable?", a: ["It cannot be changed after initialization", "It is static", "It is private"], correct: 0, exp: "Final variables are constants; their value cannot be reassigned." },
+            { q: "Where does a local variable live in memory?", a: ["The Stack", "The Heap", "The Method Area"], correct: 0, exp: "Local variables are stored on the stack and exist only during method execution." },
+            { q: "What is a 'mutator' method?", a: ["A method that returns a value", "A method that changes an object's state", "A static helper method"], correct: 1, exp: "Mutators (setters) are designed to modify the values of an object's fields." },
+            { q: "How are packages typically named to avoid collisions?", a: ["Using reverse domain name notation", "Using underscores only", "They must start with a capital letter"], correct: 0, exp: "Reverse domain names (e.g., com.example) are the standard convention." }
+        ];
+
+        const container = document.getElementById('quiz-container');
+
+        questions.forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-6 rounded-xl shadow-sm border border-slate-200";
+            card.innerHTML = `
+                <h2 class="text-lg font-semibold mb-4">${index + 1}. ${item.q}</h2>
+                <div class="grid gap-2">
+                    ${item.a.map((opt, i) => `<button class="option-btn text-left p-3 rounded-lg border border-slate-200 hover:bg-slate-50" onclick="check(this, ${i}, ${item.correct}, ${index})">${opt}</button>`).join('')}
+                </div>
+                <div id="exp-${index}" class="hidden mt-4 p-3 rounded-lg bg-slate-100 text-sm font-medium"></div>
+            `;
+            container.appendChild(card);
+        });
+
+        function check(btn, selected, correct, qIndex) {
+            const container = btn.parentElement;
+            const btns = container.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            const expDiv = document.getElementById(`exp-${qIndex}`);
+            expDiv.classList.remove('hidden');
+            expDiv.textContent = questions[qIndex].exp;
+
+            if (selected === correct) {
+                btn.classList.add('correct');
+                expDiv.classList.add('bg-green-100', 'text-green-800');
+            } else {
+                btn.classList.add('wrong');
+                btns[correct].classList.add('correct');
+                expDiv.classList.add('bg-red-100', 'text-red-800');
+            }
+        }
+    </script>
+</body>
+</html>
