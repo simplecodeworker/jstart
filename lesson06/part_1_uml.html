@@ -43,7 +43,7 @@
 <body class="bg-gray-50 text-gray-900">
 
     <!-- Hero Section -->
-    <header class="min-h-screen flex flex-center items-center justify-center gradient-bg px-6">
+    <header class="min-h-screen flex flex-col items-center justify-center gradient-bg px-6">
         <div class="max-w-4xl text-center">
             <h1 class="text-5xl md:text-7xl font-bold text-teal-900 mb-6">Visualizing Java</h1>
             <p class="text-xl md:text-2xl text-teal-700 mb-8">A Beginner's Guide to reading and creating UML Class Diagrams.</p>
@@ -71,12 +71,12 @@
                     <p class="italic text-teal-800">"Think of UML as the architectural blueprint for a house before the builders start laying the bricks (writing the code)."</p>
                 </div>
             </div>
-            <div class="flex-1 bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+            <div class="flex-1 bg-white p-8 rounded-2xl shadow-xl border border-gray-100 w-full">
                  <!-- Flowchart Representation -->
                  <div class="flex flex-col items-center gap-4">
                     <div class="bg-teal-100 p-4 rounded-lg border-2 border-teal-500 text-center w-40 font-bold">Idea / Concept</div>
                     <i class="fas fa-arrow-down text-teal-500 text-2xl"></i>
-                    <div class="bg-amber-100 p-4 rounded-lg border-2 border-amber-500 text-center w-48 font-bold shadow-md">UML Design (The Blueprint)</div>
+                    <div class="bg-amber-100 p-4 rounded-lg border-2 border-amber-500 text-center w-48 font-bold shadow-md">UML Design<br><span class="text-sm font-normal">(The Blueprint)</span></div>
                     <i class="fas fa-arrow-down text-teal-500 text-2xl"></i>
                     <div class="bg-blue-100 p-4 rounded-lg border-2 border-blue-500 text-center w-40 font-bold">Java Code</div>
                  </div>
@@ -92,7 +92,7 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <!-- Visual Component -->
                 <div class="flex justify-center">
-                    <div class="uml-box bg-white rounded-lg shadow-2xl overflow-hidden scale-125">
+                    <div class="uml-box bg-white rounded-lg shadow-2xl overflow-hidden scale-110 md:scale-125">
                         <div class="uml-header">BankAC</div>
                         <div class="uml-section text-blue-600">
                             <div>acNo</div>
@@ -142,8 +142,7 @@
         <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-gray-900 rounded-xl p-6 shadow-xl">
                 <h4 class="text-teal-400 font-mono mb-4 border-b border-gray-700 pb-2">// BankAC.java</h4>
-                <pre class="code-font text-sm text-gray-300 leading-relaxed">
-<span class="text-purple-400">public class</span> <span class="text-teal-300">BankAC</span> {
+                <pre class="code-font text-sm sm:text-base text-gray-300 leading-relaxed"><span class="text-purple-400">public class</span> <span class="text-teal-300">BankAC</span> {
     <span class="text-gray-500">// Attributes (Section 2)</span>
     <span class="text-purple-400">String</span> acNo;
     <span class="text-purple-400">String</span> name;
@@ -161,61 +160,145 @@
             </div>
             <div class="flex flex-col justify-center gap-4">
                 <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
-                    <h5 class="font-bold text-teal-700">Takeaway: Visibility Modifiers</h5>
-                    <p class="text-sm text-gray-600">In advanced UML, you might see <span class="font-mono">+</span> (public) or <span class="font-mono">-</span> (private) before names. For now, focus on the structure!</p>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
                     <h5 class="font-bold text-teal-700">Takeaway: Types</h5>
                     <p class="text-sm text-gray-600">UML often shows types like <code>balance: double</code>. In Java, the type comes first: <code>double balance;</code>.</p>
+                </div>
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200">
+                    <h5 class="font-bold text-teal-700">Takeaway: Visibility Modifiers</h5>
+                    <p class="text-sm text-gray-600">In advanced UML, you will see symbols like <span class="font-mono text-lg text-black font-bold">+</span> or <span class="font-mono text-lg text-black font-bold">-</span> before names to dictate who can access them. We will dive into this next!</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section 4: Relationships & Associations (NEW) -->
-    <section id="relationships" class="py-20 bg-gray-50 px-6">
+    <!-- Section 4: Visibility Modifiers (NEW) -->
+    <section id="visibility" class="py-20 bg-teal-50 px-6 border-y border-teal-100">
         <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl font-bold mb-6 text-teal-800">4. Relationships: Connecting Classes</h2>
+            <h2 class="text-3xl font-bold mb-6 text-teal-800">4. Visibility Modifiers: Who Can See What?</h2>
+            <p class="text-lg text-gray-700 mb-10">In Object-Oriented Programming, we use access modifiers to protect our data (a concept called Encapsulation). UML uses simple symbols in front of attributes and methods to represent these modifiers.</p>
+
+            <div class="grid md:grid-cols-2 gap-12 items-start">
+                <!-- Modifiers Table -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-4 p-4 bg-green-100 rounded-lg border border-green-300">
+                        <div class="text-3xl font-mono font-bold text-green-700 w-8 text-center">+</div>
+                        <div>
+                            <h4 class="font-bold text-green-900">Public</h4>
+                            <p class="text-sm text-green-800">Accessible from anywhere. Visible to everyone.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-red-100 rounded-lg border border-red-300">
+                        <div class="text-3xl font-mono font-bold text-red-700 w-8 text-center">-</div>
+                        <div>
+                            <h4 class="font-bold text-red-900">Private</h4>
+                            <p class="text-sm text-red-800">Accessible ONLY inside the class itself. Highly restricted.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-yellow-100 rounded-lg border border-yellow-300">
+                        <div class="text-3xl font-mono font-bold text-yellow-700 w-8 text-center">#</div>
+                        <div>
+                            <h4 class="font-bold text-yellow-900">Protected</h4>
+                            <p class="text-sm text-yellow-800">Accessible to subclasses and classes in the same package.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 p-4 bg-gray-200 rounded-lg border border-gray-300">
+                        <div class="text-3xl font-mono font-bold text-gray-700 w-8 text-center">~</div>
+                        <div>
+                            <h4 class="font-bold text-gray-900">Package (Default)</h4>
+                            <p class="text-sm text-gray-700">Accessible only to classes in the same package.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Example Component -->
+                <div class="flex flex-col gap-6 items-center">
+                    <div class="uml-box bg-white rounded-lg shadow-xl overflow-hidden w-full max-w-sm">
+                        <div class="uml-header bg-teal-600 text-white border-b border-gray-800">BankAccount</div>
+                        <div class="uml-section text-sm font-mono leading-loose bg-gray-50 border-b border-gray-800">
+                            <div class="text-red-700 font-semibold"><span class="mr-2">-</span>balance: double</div>
+                            <div class="text-red-700 font-semibold"><span class="mr-2">-</span>accountNumber: String</div>
+                            <div class="text-yellow-700 font-semibold"><span class="mr-2">#</span>branchCode: String</div>
+                            <div class="text-gray-700 font-semibold"><span class="mr-2">~</span>status: int</div>
+                            <div class="text-green-700 font-semibold"><span class="mr-2">+</span>ownerName: String</div>
+                        </div>
+                        <div class="uml-section text-sm font-mono leading-loose bg-gray-50">
+                            <div class="text-green-700 font-semibold"><span class="mr-2">+</span>deposit(amt: double): void</div>
+                            <div class="text-green-700 font-semibold"><span class="mr-2">+</span>withdraw(amt: double): bool</div>
+                            <div class="text-red-700 font-semibold"><span class="mr-2">-</span>checkFraud(): void</div>
+                        </div>
+                    </div>
+
+                    <!-- Java Equivalent Snippet -->
+                    <div class="w-full bg-gray-900 rounded-xl p-5 shadow-lg overflow-x-auto">
+                        <pre class="code-font text-gray-300 text-sm leading-relaxed"><span class="text-purple-400">public class</span> <span class="text-teal-300">BankAccount</span> {
+    <span class="text-red-400">private</span> <span class="text-purple-400">double</span> balance;
+    <span class="text-red-400">private</span> <span class="text-purple-400">String</span> accountNumber;
+    <span class="text-yellow-400">protected</span> <span class="text-purple-400">String</span> branchCode;
+    <span class="text-purple-400">int</span> status; <span class="text-gray-500">// Package default</span>
+    <span class="text-green-400">public</span> <span class="text-purple-400">String</span> ownerName;
+    
+    <span class="text-green-400">public</span> <span class="text-purple-400">void</span> deposit(<span class="text-purple-400">double</span> amt) { ... }
+    <span class="text-red-400">private</span> <span class="text-purple-400">void</span> checkFraud() { ... }
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Relationships & Associations -->
+    <section id="relationships" class="py-20 bg-white px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6 text-teal-800">5. Relationships: Connecting Classes</h2>
             <p class="text-lg text-gray-700 mb-12">Software isn't just a list of separate classes; they need to talk to each other. We use <span class="font-bold">Associations</span> to show these links.</p>
 
-            <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-200 mb-12">
+            <div class="bg-gray-50 p-8 rounded-2xl shadow-lg border border-gray-200 mb-12">
                 <h3 class="text-xl font-bold text-center mb-10 text-gray-800 uppercase tracking-wide">Example: Student & School</h3>
                 
                 <div class="flex flex-col md:flex-row items-center justify-around gap-4 mb-10">
                     <!-- School Class -->
                     <div class="uml-box bg-white rounded shadow-md overflow-hidden">
-                        <div class="uml-header bg-teal-200">School</div>
-                        <div class="uml-section text-sm italic">name: String</div>
-                        <div class="uml-section text-sm">enroll()</div>
+                        <div class="uml-header bg-teal-200 text-teal-900 border-b border-gray-800">School</div>
+                        <div class="uml-section text-sm border-b border-gray-800">
+                            <span class="text-green-600">+</span> name: String
+                        </div>
+                        <div class="uml-section text-sm">
+                            <span class="text-green-600">+</span> enroll()
+                        </div>
                     </div>
 
                     <!-- Association Line -->
-                    <div class="flex flex-col items-center">
-                        <span class="text-xs font-bold text-gray-400 mb-1">"belongs to"</span>
-                        <div class="h-0.5 w-32 bg-gray-800 relative flex items-center justify-end">
-                            <div class="w-2 h-2 border-t-2 border-r-2 border-gray-800 rotate-45 transform translate-x-1"></div>
+                    <div class="flex flex-col items-center my-4 md:my-0">
+                        <span class="text-xs font-bold text-gray-500 mb-1 bg-white px-2 rounded-full border">"belongs to"</span>
+                        <div class="h-0.5 w-16 md:w-32 bg-gray-800 relative flex items-center justify-end">
+                            <div class="w-3 h-3 border-t-2 border-r-2 border-gray-800 rotate-45 transform translate-x-1"></div>
                         </div>
                     </div>
 
                     <!-- Student Class -->
                     <div class="uml-box bg-white rounded shadow-md overflow-hidden">
-                        <div class="uml-header bg-teal-200">Student</div>
-                        <div class="uml-section text-sm italic">name: String<br>id: int</div>
-                        <div class="uml-section text-sm">study()</div>
+                        <div class="uml-header bg-teal-200 text-teal-900 border-b border-gray-800">Student</div>
+                        <div class="uml-section text-sm border-b border-gray-800">
+                            <span class="text-red-600">-</span> id: int<br>
+                            <span class="text-green-600">+</span> name: String
+                        </div>
+                        <div class="uml-section text-sm">
+                            <span class="text-green-600">+</span> study()
+                        </div>
                     </div>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-8 mt-12 border-t pt-8">
                     <div>
                         <h4 class="font-bold text-teal-700 mb-3"><i class="fas fa-project-diagram mr-2"></i>In UML</h4>
-                        <p class="text-gray-600">A simple line connects the two classes. It often has a label (like "belongs to") or an arrow to show which class "knows" about the other.</p>
+                        <p class="text-gray-600">A simple line connects the two classes. It often has a label (like "belongs to") or an open arrow to show which class "knows" about the other.</p>
                     </div>
                     <div>
                         <h4 class="font-bold text-teal-700 mb-3"><i class="fas fa-code mr-2"></i>In Java</h4>
                         <p class="text-gray-600 mb-2">The relationship is represented as a <span class="font-semibold text-teal-600">Reference Variable</span> inside one of the classes.</p>
-                        <div class="bg-gray-100 p-3 rounded font-mono text-xs">
-                            <span class="text-purple-600">public class</span> Student {<br>
-                            &nbsp;&nbsp;<span class="text-teal-600">School</span> mySchool; <span class="text-gray-500">// The Association!</span><br>
+                        <div class="bg-gray-800 p-4 rounded-lg shadow-inner font-mono text-sm overflow-x-auto">
+                            <span class="text-purple-400">public class</span> <span class="text-teal-300">Student</span> {<br>
+                            &nbsp;&nbsp;<span class="text-teal-400">School</span> mySchool; <span class="text-gray-500">// The Association!</span><br>
                             }
                         </div>
                     </div>
@@ -229,83 +312,81 @@
         </div>
     </section>
 
-    <!-- Section 5: Interactive Simulator -->
+    <!-- Section 6: Interactive Simulator -->
     <section id="simulator" class="py-20 bg-teal-900 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-white mb-4">5. Interactive UML Builder</h2>
-                <p class="text-teal-300">Create your own UML class and see the Java code generated instantly.</p>
+                <h2 class="text-4xl font-bold text-white mb-4">6. Interactive UML Builder</h2>
+                <p class="text-teal-200 mb-2">Create your own UML class and see the Java code generated instantly.</p>
+                <p class="text-teal-400 text-sm"><i class="fas fa-lightbulb text-yellow-300 mr-1"></i> Try typing <code>- id: int</code> or <code>+ login()</code> to see the new visibility modifiers in action!</p>
             </div>
 
-            <div class="grid lg:grid-cols-3 gap-8">
+            <div class="grid lg:grid-cols-3 gap-8 items-start">
                 <!-- Controls -->
                 <div class="bg-white p-6 rounded-2xl shadow-lg">
                     <h3 class="text-lg font-bold mb-4 border-b pb-2">Class Settings</h3>
                     
                     <div class="mb-4">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Class Name</label>
-                        <input type="text" id="inputClassName" value="Student" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none">
+                        <input type="text" id="inputClassName" value="UserAccount" class="w-full p-3 border rounded focus:ring-2 focus:ring-teal-500 outline-none font-mono">
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Attributes (One per line)</label>
-                        <textarea id="inputAttributes" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none" placeholder="id&#10;fullName&#10;gpa"></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Attributes (Modifiers & Types supported!)</label>
+                        <textarea id="inputAttributes" rows="4" class="w-full p-3 border rounded focus:ring-2 focus:ring-teal-500 outline-none font-mono text-sm" placeholder="- id: int&#10;+ username: String&#10;# email: String"></textarea>
                     </div>
 
                     <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Methods (One per line)</label>
-                        <textarea id="inputMethods" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-teal-500 outline-none" placeholder="study()&#10;takeExam()"></textarea>
+                        <textarea id="inputMethods" rows="4" class="w-full p-3 border rounded focus:ring-2 focus:ring-teal-500 outline-none font-mono text-sm" placeholder="+ login(): boolean&#10;- resetPassword()"></textarea>
                     </div>
 
-                    <button id="updateBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700 transition">Update Diagram</button>
+                    <button id="updateBtn" class="w-full bg-teal-600 text-white py-3 rounded-lg font-bold hover:bg-teal-700 transition">Regenerate Code</button>
                 </div>
 
                 <!-- UML Output -->
-                <div class="flex flex-center items-center justify-center bg-teal-800 rounded-2xl p-8 border border-teal-700 relative">
+                <div class="flex flex-col items-center justify-center bg-teal-800 rounded-2xl p-8 border border-teal-700 relative min-h-[400px]">
                     <span class="absolute top-4 left-4 text-teal-400 text-xs font-bold uppercase tracking-widest">UML Preview</span>
-                    <div class="uml-box bg-white rounded shadow-2xl w-full max-w-[250px]">
-                        <div id="umlDispName" class="uml-header">Student</div>
-                        <div id="umlDispAttrs" class="uml-section text-blue-700 text-sm min-h-[60px]">
-                            <div>id</div>
-                            <div>fullName</div>
-                            <div>gpa</div>
+                    <div class="uml-box bg-white rounded shadow-2xl w-full max-w-[280px]">
+                        <div id="umlDispName" class="uml-header border-b border-gray-800">UserAccount</div>
+                        <div id="umlDispAttrs" class="uml-section text-sm font-mono min-h-[80px] border-b border-gray-800">
+                            <!-- Injected via JS -->
                         </div>
-                        <div id="umlDispMethods" class="uml-section text-pink-700 text-sm min-h-[60px]">
-                            <div>study()</div>
-                            <div>takeExam()</div>
+                        <div id="umlDispMethods" class="uml-section text-sm font-mono min-h-[80px]">
+                            <!-- Injected via JS -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Code Output -->
-                <div class="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-700 relative">
-                    <span class="absolute top-4 left-4 text-gray-500 text-xs font-bold uppercase tracking-widest">Generated Java Code</span>
-                    <button id="copyCode" class="absolute top-4 right-4 text-gray-400 hover:text-white transition">
+                <div class="bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-700 relative h-full min-h-[400px]">
+                    <span class="absolute top-4 left-4 text-gray-400 text-xs font-bold uppercase tracking-widest">Generated Java Code</span>
+                    <button id="copyCode" class="absolute top-4 right-4 text-gray-400 hover:text-white transition" title="Copy Code">
                         <i class="fas fa-copy"></i>
                     </button>
-                    <pre id="codeOutput" class="code-font text-teal-300 text-sm mt-8 whitespace-pre-wrap"></pre>
+                    <pre id="codeOutput" class="code-font text-teal-300 text-sm mt-8 whitespace-pre-wrap overflow-x-auto"></pre>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer / Recap -->
-    <footer class="py-12 bg-gray-100 text-center">
+    <footer class="py-12 bg-gray-100 text-center border-t border-gray-200">
         <div class="max-w-2xl mx-auto px-6">
-            <h3 class="text-xl font-bold mb-4">Summary Checklist</h3>
-            <div class="text-left space-y-2 inline-block mx-auto">
-                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> UML helps visualize systems before coding.</div>
-                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> Class diagrams have 3 parts: Name, Attributes, Methods.</div>
-                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> Relationships (Associations) link classes together.</div>
-                <div class="flex items-center gap-2"><i class="fas fa-check-circle text-teal-500"></i> In Java, an association is a reference variable.</div>
+            <h3 class="text-xl font-bold mb-6 text-gray-800">Summary Checklist</h3>
+            <div class="text-left space-y-3 inline-block mx-auto bg-white p-6 rounded-xl shadow-sm border">
+                <div class="flex items-start gap-3"><i class="fas fa-check-circle text-teal-500 mt-1"></i> <span>UML helps visualize systems before coding.</span></div>
+                <div class="flex items-start gap-3"><i class="fas fa-check-circle text-teal-500 mt-1"></i> <span>Class diagrams have 3 parts: Name, Attributes, Methods.</span></div>
+                <div class="flex items-start gap-3"><i class="fas fa-check-circle text-teal-500 mt-1"></i> <span>Visibility: <b class="font-mono bg-gray-100 px-1 rounded">+</b> (public), <b class="font-mono bg-gray-100 px-1 rounded">-</b> (private), <b class="font-mono bg-gray-100 px-1 rounded">#</b> (protected), <b class="font-mono bg-gray-100 px-1 rounded">~</b> (package).</span></div>
+                <div class="flex items-start gap-3"><i class="fas fa-check-circle text-teal-500 mt-1"></i> <span>Relationships (Associations) link classes together using lines, represented as reference variables in Java.</span></div>
             </div>
             <p class="mt-8 text-gray-500 text-sm">Designed for Java Programming 101 Lessons.</p>
         </div>
     </footer>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-8 right-8 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-24 transition-transform duration-300 opacity-0">
-        Code copied to clipboard!
+    <div id="toast" class="fixed bottom-8 right-8 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-2xl transform translate-y-24 transition-transform duration-300 opacity-0 z-50">
+        <i class="fas fa-check-circle text-green-400 mr-2"></i> Code copied to clipboard!
     </div>
 
     <script>
@@ -322,45 +403,107 @@
         const copyBtn = document.getElementById('copyCode');
         const toast = document.getElementById('toast');
 
+        // Setup Initial Content for Simulation
+        inputAttributes.value = "- id: int\n+ username: String\n# email: String";
+        inputMethods.value = "+ login(): boolean\n- resetPassword()";
+
+        // Helper function to parse UML syntax into Java syntax
+        function parseUMLString(line) {
+            let str = line.trim();
+            if (!str) return null;
+
+            let visibilityUML = '';
+            let visibilityJava = '';
+            let colorClass = 'text-gray-700';
+
+            // Extract Visibility Modifier
+            if (str.startsWith('+')) { visibilityUML = '+'; visibilityJava = 'public '; colorClass = 'text-green-600'; str = str.substring(1).trim(); }
+            else if (str.startsWith('-')) { visibilityUML = '-'; visibilityJava = 'private '; colorClass = 'text-red-600'; str = str.substring(1).trim(); }
+            else if (str.startsWith('#')) { visibilityUML = '#'; visibilityJava = 'protected '; colorClass = 'text-yellow-600'; str = str.substring(1).trim(); }
+            else if (str.startsWith('~')) { visibilityUML = '~'; visibilityJava = ''; colorClass = 'text-gray-500'; str = str.substring(1).trim(); }
+
+            // Extract Type if provided (e.g. name: String)
+            let name = str;
+            let type = 'Object'; // Default fallback type
+            let returnType = 'void'; // Default for methods
+            
+            if (str.includes(':')) {
+                const parts = str.split(':');
+                name = parts[0].trim();
+                let declaredType = parts[1].trim();
+                type = declaredType;
+                returnType = declaredType;
+            }
+
+            return {
+                original: line.trim(),
+                visibilityUML,
+                visibilityJava,
+                colorClass,
+                name,
+                type,
+                returnType
+            };
+        }
+
         // Logic
         function updateAll() {
-            const className = inputClassName.value.trim() || "MyClass";
-            const attrs = inputAttributes.value.split('\n').filter(line => line.trim() !== "");
-            const methods = inputMethods.value.split('\n').filter(line => line.trim() !== "");
+            const className = inputClassName.value.trim().replace(/\s+/g, '') || "MyClass";
+            const rawAttrs = inputAttributes.value.split('\n');
+            const rawMethods = inputMethods.value.split('\n');
 
-            // Update UML
+            // Parse lines
+            const attrs = rawAttrs.map(parseUMLString).filter(Boolean);
+            const methods = rawMethods.map(parseUMLString).filter(Boolean);
+
+            // Update UML UI
             umlDispName.textContent = className;
             
             umlDispAttrs.innerHTML = '';
             attrs.forEach(attr => {
                 const div = document.createElement('div');
-                div.textContent = attr;
+                div.className = attr.colorClass + ' mb-1';
+                div.innerHTML = (attr.visibilityUML ? `<span class="mr-2 font-bold">${attr.visibilityUML}</span>` : '') + attr.name + (attr.original.includes(':') ? `: ${attr.type}` : '');
                 umlDispAttrs.appendChild(div);
             });
 
             umlDispMethods.innerHTML = '';
             methods.forEach(method => {
                 const div = document.createElement('div');
-                div.textContent = method.includes('()') ? method : method + '()';
+                div.className = method.colorClass + ' mb-1';
+                // ensure it has parens to look like a method in UML
+                let displayName = method.name;
+                if (!displayName.includes('(')) displayName += '()';
+                
+                div.innerHTML = (method.visibilityUML ? `<span class="mr-2 font-bold">${method.visibilityUML}</span>` : '') + displayName + (method.original.includes(':') ? `: ${method.returnType}` : '');
                 umlDispMethods.appendChild(div);
             });
 
-            // Update Code
+            // Update Code Output
             let javaCode = `public class ${className} {\n`;
             
             if (attrs.length > 0) {
-                javaCode += `    // Attributes\n`;
+                javaCode += `\n    // Attributes\n`;
                 attrs.forEach(attr => {
-                    javaCode += `    Object ${attr}; \n`;
+                    javaCode += `    ${attr.visibilityJava}${attr.type} ${attr.name.replace(/\W/g, '')}; \n`;
                 });
-                javaCode += `\n`;
             }
 
             if (methods.length > 0) {
-                javaCode += `    // Methods\n`;
+                javaCode += `\n    // Methods\n`;
                 methods.forEach(method => {
-                    const cleanMethod = method.replace('()', '');
-                    javaCode += `    public void ${cleanMethod}() {\n        // Your code here\n    }\n\n`;
+                    let methodName = method.name.replace(/\(.*$/, ''); // strip out existing parens/args
+                    methodName = methodName.replace(/\W/g, ''); // strip out weird characters
+                    
+                    // Simple logic to provide a dummy return statement if return type isn't void
+                    let dummyReturn = '';
+                    if (method.returnType !== 'void' && method.returnType !== 'Object') {
+                         if (method.returnType.toLowerCase() === 'int' || method.returnType.toLowerCase() === 'double') dummyReturn = 'return 0;';
+                         else if (method.returnType.toLowerCase() === 'boolean' || method.returnType.toLowerCase() === 'bool') dummyReturn = 'return false;';
+                         else dummyReturn = 'return null;';
+                    }
+
+                    javaCode += `    ${method.visibilityJava}${method.returnType} ${methodName}() {\n        // TODO: implement logic\n        ${dummyReturn}\n    }\n\n`;
                 });
             }
             
@@ -378,24 +521,33 @@
 
         copyBtn.addEventListener('click', () => {
             const text = codeOutput.textContent;
-            const textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast();
-            } catch (err) {
-                console.error('Fallback copy failed', err);
+            
+            // Clipboard API fallback support for older browsers / iframe restrictions
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(showToast);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    console.error('Fallback copy failed', err);
+                }
+                textArea.remove();
             }
-            document.body.removeChild(textArea);
         });
 
         function showToast() {
             toast.classList.remove('translate-y-24', 'opacity-0');
             setTimeout(() => {
                 toast.classList.add('translate-y-24', 'opacity-0');
-            }, 2000);
+            }, 2500);
         }
 
         // Initial Run
