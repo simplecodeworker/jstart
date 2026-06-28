@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Inheritance Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        code, pre { font-family: 'Fira Code', monospace; }
+        
+        /* Custom styles for UML/Flowcharts */
+        .uml-box {
+            @apply border-2 border-indigo-200 bg-white rounded-lg p-4 shadow-sm flex flex-col items-center text-center w-64;
+        }
+        .uml-header { @apply font-bold text-indigo-900 border-b-2 border-indigo-100 w-full pb-2 mb-2; }
+        .uml-text { @apply text-sm text-gray-600 text-left w-full; }
+        
+        .arrow-up {
+            width: 0; height: 0; 
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #818cf8;
+            margin: 0 auto;
+        }
+        .line-vertical {
+            width: 4px; height: 30px; background-color: #818cf8; margin: 0 auto;
+        }
+        .line-horizontal {
+            height: 4px; background-color: #818cf8; width: 100%;
+        }
+
+        /* Smooth reveal for quiz */
+        .quiz-reveal {
+            transition: all 0.3s ease-in-out;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .quiz-reveal.show {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="antialiased pb-24">
+
+    <!-- Hero Section -->
+    <div class="bg-indigo-900 text-white py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Java Inheritance Masterclass</h1>
+            <p class="text-indigo-200 text-lg md:text-xl max-w-2xl">Scroll down to navigate through the curriculum. Explore interactive code snippets, conceptual diagrams, and test your knowledge at the end of each section.</p>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-4xl mx-auto px-6 mt-8 space-y-12">
+
+        <!-- SECTION 1 -->
+        <section id="sec-1" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 1: Introduction and Lesson Agenda</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Welcome to the introductory lesson on Java Inheritance. Here is our agenda for this module:</p>
+                <ul class="list-disc pl-6 space-y-2">
+                    <li>Inheritance by a Real Life Example</li>
+                    <li>Java Implementation of Inheritance</li>
+                    <li>Another example of Inheritance</li>
+                    <li>Method Overriding</li>
+                    <li>The <code>super</code> keyword</li>
+                </ul>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> You will learn both the theoretical concept of inheritance and its practical application in Java, moving from real-world analogies to technical implementation.
+                </div>
+            </div>
+            <!-- <div id="quiz-1"></div> -->
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="sec-2" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 2: Identifying Code Redundancy in Object Design</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Imagine a scenario for a School Library serving two types of members: <strong>Students</strong> and <strong>Staff</strong>. Let's look at how we might initially design their classes:</p>
+                
+                <div class="grid md:grid-cols-2 gap-6 mt-4">
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                        <h3 class="font-bold text-red-800 border-b border-red-200 pb-2 mb-2">Class: Student</h3>
+                        <p class="text-sm font-semibold mt-2">Attributes:</p>
+                        <ul class="text-sm list-disc pl-5 mb-2 text-red-900">
+                            <li>name, ID, department, quota</li>
+                            <li class="font-bold text-red-600">studentClass</li>
+                        </ul>
+                        <p class="text-sm font-semibold">Methods:</p>
+                        <ul class="text-sm list-disc pl-5 text-red-900">
+                            <li>setBasics(), setQuota(), getQuota()</li>
+                        </ul>
+                    </div>
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                        <h3 class="font-bold text-red-800 border-b border-red-200 pb-2 mb-2">Class: Staff</h3>
+                        <p class="text-sm font-semibold mt-2">Attributes:</p>
+                        <ul class="text-sm list-disc pl-5 mb-2 text-red-900">
+                            <li>name, ID, department, quota</li>
+                            <li class="font-bold text-red-600">designation</li>
+                        </ul>
+                        <p class="text-sm font-semibold">Methods:</p>
+                        <ul class="text-sm list-disc pl-5 text-red-900">
+                            <li>setBasics(), setQuota(), getQuota()</li>
+                        </ul>
+                    </div>
+                </div>
+				
+				<img src='./uml01.png'>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> Notice the redundancy! When different entities share many common characteristics (like name, ID, and department), duplicating class definitions leads to redundant, hard-to-maintain code.
+                </div>
+            </div>
+            <div id="quiz-2"></div>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section id="sec-3" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 3: Designing a Superclass for Code Reuse</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>We can propose an improved design using inheritance. A parent class <strong>"Member"</strong> holds common characteristics, while "Student" and "Staff" become subclasses.</p>
+                
+                <!-- UML Diagram Simulator -->
+                <div class="flex flex-col items-center bg-gray-50 py-8 rounded-lg border border-gray-200">
+                    <div class="uml-box bg-indigo-50 border-indigo-400">
+                        <div class="uml-header">Member (Superclass)</div>
+                        <div class="uml-text">
+                            <strong>Attributes:</strong> name, ID, department, quota<br>
+                            <strong>Methods:</strong> setBasics(), setQuota(), getQuota()
+                        </div>
+                    </div>
+                    
+                    <div class="flex w-full justify-center my-2">
+                        <div class="flex flex-col items-center mx-4">
+                            <div class="arrow-up"></div>
+                            <div class="line-vertical"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex w-full max-w-md justify-between px-8 relative">
+                        <div class="absolute top-0 left-1/4 right-1/4 line-horizontal transform -translate-y-full"></div>
+                        
+                        <div class="uml-box w-40">
+                            <div class="uml-header">Student (Subclass)</div>
+                            <div class="uml-text"><strong>Added:</strong> studentClass</div>
+                        </div>
+                        <div class="uml-box w-40">
+                            <div class="uml-header">Staff (Subclass)</div>
+                            <div class="uml-text"><strong>Added:</strong> designation</div>
+                        </div>
+                    </div>
+                </div>
+
+				<img src='./uml02.png'>
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> Inheritance allows for code reuse and better organization. By defining common attributes and methods in a "superclass," subclasses can inherit them automatically. Arrows in UML point from Subclass to Superclass.
+                </div>
+            </div>
+            <div id="quiz-3"></div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section id="sec-4" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 4: Establishing the Is-A Relationship</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Once defined as subclasses, Student and Staff automatically inherit the characteristics of Member without re-specifying them. They can also define their own unique characteristics.</p>
+                
+                <div class="flex items-center space-x-4 bg-green-50 p-4 rounded-lg border border-green-200">
+                    <div class="text-4xl text-green-500">🧬</div>
+                    <div>
+                        <h4 class="font-bold text-green-900 m-0">Inherited Traits:</h4>
+                        <ul class="list-disc pl-5 text-green-800 text-sm m-0">
+                            <li><strong>Attributes:</strong> name, ID, department, quota</li>
+                            <li><strong>Methods:</strong> setBasics(), setQuota(), getQuota()</li>
+                        </ul>
+                    </div>
+                </div>
+				
+				<img src='./uml03.png'>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> Inheritance enables <strong>"is-a"</strong> relationships (e.g., A Student "is-a" Member), where a subclass is a specialized version of the superclass. This promotes cleaner code maintenance.
+                </div>
+            </div>
+            <div id="quiz-4"></div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section id="sec-5" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 5: Implementing Inheritance in Java with the Extends Keyword</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Let's look at the actual code implementation of the concept using Java.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">class</span> Member {
+    String name;
+    String ID;
+    String department;
+    <span class="text-pink-400">private</span> <span class="text-indigo-400">int</span> quota;
+
+    <span class="text-indigo-400">void</span> <span class="text-green-400">setBasic</span>(String n, String i, String d) {
+        name = n;
+        ID = i;
+        department = d;
+    }
+    <span class="text-indigo-400">void</span> <span class="text-green-400">setQuota</span>(<span class="text-indigo-400">int</span> q) { quota = q; }
+    <span class="text-indigo-400">int</span> <span class="text-green-400">getQuota</span>() { <span class="text-pink-400">return</span> quota; }
+}
+
+<span class="text-pink-400">class</span> Student <span class="text-pink-400 font-bold">extends</span> Member {
+    String studentClass;
+}
+
+<span class="text-pink-400">class</span> Staff <span class="text-pink-400 font-bold">extends</span> Member {
+    String designation;
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> The keyword <code>extends</code> is the core mechanism in Java to create a subclass. The subclass automatically gains access to the <strong>non-private</strong> members of the superclass.
+                </div>
+            </div>
+            <div id="quiz-5"></div>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section id="sec-6" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 6: Instantiating and Using Subclass Objects</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Here is how we demonstrate the use of the classes we just created.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">import</span> java.util.Scanner;
+
+<span class="text-pink-400">public class</span> testInheritance {
+    <span class="text-pink-400">public static void</span> <span class="text-green-400">main</span>(String[] args) {
+        Student s1 = <span class="text-pink-400">new</span> Student();
+        
+        <span class="text-gray-500">// Calling inherited method</span>
+        s1.<span class="text-green-400">setBasic</span>(<span class="text-yellow-300">"Koko"</span>, <span class="text-yellow-300">"p1234567"</span>, <span class="text-yellow-300">"EEE"</span>);
+        System.out.println(s1.name);
+        
+        <span class="text-gray-500">// Calling another inherited method</span>
+        s1.<span class="text-green-400">setQuota</span>(<span class="text-purple-400">20</span>);
+        System.out.println(s1.<span class="text-green-400">getQuota</span>());
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded border border-gray-300 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-sm text-gray-600 block mb-1">Console Output:</span>
+                        <pre id="output-6" class="text-gray-800 m-0 opacity-50">Click run to execute...</pre>
+                    </div>
+                    <button onclick="document.getElementById('output-6').innerText = 'Koko\n20'; document.getElementById('output-6').classList.remove('opacity-50')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition">Run Code</button>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> Even though <code>setBasic()</code> and <code>getQuota()</code> are defined in Member, they are accessible through an object of the Student class (<code>s1</code>) because of inheritance.
+                </div>
+            </div>
+            <div id="quiz-6"></div>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section id="sec-7" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 7: Inheritance in Constructors and Field Access</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Let's look at another scenario with <code>Father</code> and <code>Son</code> classes to understand constructors and attribute access.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">class</span> Father {
+    <span class="text-pink-400">private double</span> salary; <span class="text-gray-500">// Private!</span>
+    String surName = <span class="text-yellow-300">"Chee"</span>;
+    String givenName;
+
+    <span class="text-pink-400">public</span> <span class="text-green-400">Father</span>() { <span class="text-gray-500">// Constructor</span>
+        givenName = <span class="text-yellow-300">"Senior George"</span>;
+        salary = <span class="text-purple-400">2000</span>;
+    }
+    
+    <span class="text-pink-400">public double</span> <span class="text-green-400">getSalary</span>() {
+        <span class="text-pink-400">return</span> salary;
+    }
+}
+
+<span class="text-pink-400">class</span> Son <span class="text-pink-400 font-bold">extends</span> Father {
+    <span class="text-pink-400">private int</span> score;
+
+    <span class="text-pink-400">public</span> <span class="text-green-400">Son</span>() { <span class="text-gray-500">// Constructor</span>
+        score = <span class="text-purple-400">80</span>;
+        givenName = <span class="text-yellow-300">"Little George"</span>; <span class="text-gray-500">// Accessing parent's non-private variable</span>
+    }
+    
+    <span class="text-pink-400">public int</span> <span class="text-green-400">getScore</span>() {
+        <span class="text-pink-400">return</span> score;
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> A subclass can access parent attributes directly <strong>only if they are not private</strong>. (e.g., <code>givenName</code> is accessible, but <code>salary</code> is private to Father).
+                </div>
+            </div>
+            <div id="quiz-7"></div>
+        </section>
+
+        <!-- SECTION 8 -->
+        <section id="sec-8" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 8: Verifying Inherited Fields and Methods</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Code to test the Father/Son inheritance we just created.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">import</span> java.util.Scanner;
+
+<span class="text-pink-400">public class</span> testInheritance {
+    <span class="text-pink-400">public static void</span> <span class="text-green-400">main</span>(String[] args) {
+        Son boy = <span class="text-pink-400">new</span> Son();
+        
+        System.out.println(<span class="text-yellow-300">"Boy's surname: "</span> + boy.surName);
+        System.out.println(<span class="text-yellow-300">"His family income: "</span> + boy.<span class="text-green-400">getSalary</span>());
+        System.out.println(<span class="text-yellow-300">"His score: "</span> + boy.<span class="text-green-400">getScore</span>());
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded border border-gray-300 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-sm text-gray-600 block mb-1">Console Output:</span>
+                        <pre id="output-8" class="text-gray-800 m-0 opacity-50">Click run to execute...</pre>
+                    </div>
+                    <button onclick="document.getElementById('output-8').innerText = 'Boy\'s surname: Chee\nHis family income: 2000.0\nHis score: 80'; document.getElementById('output-8').classList.remove('opacity-50')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition">Run Code</button>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaway:</strong> Demonstrates how a Son object can successfully call methods (<code>getSalary</code>) and access variables (<code>surName</code>) inherited from the Father class.
+                </div>
+            </div>
+            <div id="quiz-8"></div>
+        </section>
+
+        <!-- SECTION 9 -->
+        <section id="sec-9" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 9: Introduction to Method Overriding</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>A subclass inherits all member variables and methods from its superclass. <strong>Overriding</strong> happens when a subclass provides its own specific version of an inherited method by using the <em>exact same method name</em>.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">class</span> Father {
+    <span class="text-pink-400">public void</span> <span class="text-green-400">printSalary</span>() {
+        System.out.println(<span class="text-yellow-300">"My salary is "</span> + salary);
+    }
+}
+
+<span class="text-pink-400">class</span> Son <span class="text-pink-400 font-bold">extends</span> Father {
+    <span class="text-gray-500">// Overriding the parent's method!</span>
+    <span class="text-indigo-400">void</span> <span class="text-green-400">printSalary</span>() {
+        System.out.println(<span class="text-yellow-300">"I wish to earn 100k."</span>);
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaways:</strong> 
+                    <ul class="list-disc pl-5 mt-2">
+                        <li><strong>Definition:</strong> Method overriding occurs when a subclass provides a specific implementation of a method already provided by its superclass.</li>
+                        <li><strong>Rule:</strong> To override, the method name must be exactly the same as the one in the superclass.</li>
+                        <li><strong>Purpose:</strong> It allows a subclass to provide specific behavior tailored to its needs, replacing inherited behavior.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="quiz-9"></div>
+        </section>
+
+        <!-- SECTION 10 -->
+        <section id="sec-10" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 10: Execution and Behavior of Overridden Methods</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Let's demonstrate the execution of method overriding. We'll call the method on an object of the subclass.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">public class</span> testOverriding {
+    <span class="text-pink-400">public static void</span> <span class="text-green-400">main</span>(String[] args) {
+        Son boy = <span class="text-pink-400">new</span> Son();
+        boy.<span class="text-green-400">printSalary</span>(); <span class="text-gray-500">// Which one gets called?</span>
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded border border-gray-300 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-sm text-gray-600 block mb-1">Console Output:</span>
+                        <pre id="output-10" class="text-gray-800 m-0 opacity-50">Click run to execute...</pre>
+                    </div>
+                    <button onclick="document.getElementById('output-10').innerText = 'I wish to earn 100k.'; document.getElementById('output-10').classList.remove('opacity-50')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition">Run Code</button>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaways:</strong> 
+                    <ul class="list-disc pl-5 mt-2">
+                        <li><strong>Execution:</strong> When a method is overridden, the JVM calls the version of the method defined in the subclass.</li>
+                        <li><strong>Output:</strong> Even though the object is a type of 'Son' which extends 'Father', the output reflects the 'Son' implementation.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="quiz-10"></div>
+        </section>
+
+        <!-- SECTION 11 -->
+        <section id="sec-11" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 11: Refining Superclass Logic in Subclasses</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Here is a practical example using a <code>Circle</code> superclass and a <code>Cylinder</code> subclass to calculate areas (and volumes).</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">class</span> Circle {
+    <span class="text-pink-400">double</span> radius;
+    <span class="text-pink-400">double</span> <span class="text-green-400">getArea</span>() {
+        <span class="text-pink-400">return</span> (radius * radius * <span class="text-purple-400">22</span>/<span class="text-purple-400">7</span>); 
+    }
+}
+
+<span class="text-pink-400">class</span> Cylinder <span class="text-pink-400 font-bold">extends</span> Circle {
+    <span class="text-pink-400">double</span> height;
+    
+    <span class="text-gray-500">// Overriding to calculate Cylinder volume</span>
+    <span class="text-pink-400">double</span> <span class="text-green-400">getArea</span>() {
+        <span class="text-pink-400">return</span> (radius * radius * <span class="text-purple-400">22</span>/<span class="text-purple-400">7</span> * height);
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaways:</strong> 
+                    <ul class="list-disc pl-5 mt-2">
+                        <li><strong>Practical Application:</strong> Inheritance is useful for modeling hierarchical relationships where subclasses refine the logic of superclasses.</li>
+                        <li><strong>Overriding:</strong> The <code>Cylinder</code> class overrides <code>getArea()</code> to include the height calculation, completely replacing the simple circle formula.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="quiz-11"></div>
+        </section>
+
+        <!-- SECTION 12 -->
+        <section id="sec-12" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 12: Invoking Parent Methods via the Super Keyword</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Instead of rewriting the entire logic in the overridden method (like repeating <code>radius * radius * 22/7</code>), we can access the original superclass method using the <code>super</code> keyword.</p>
+                
+                <div class="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm">
+<pre><code><span class="text-pink-400">class</span> Cylinder <span class="text-pink-400 font-bold">extends</span> Circle {
+    <span class="text-pink-400">double</span> height;
+    
+    <span class="text-pink-400">double</span> <span class="text-green-400">getArea</span>() {
+        <span class="text-gray-500">// super.getArea() calls the Circle's getArea() method!</span>
+        <span class="text-pink-400">return</span> (<span class="text-yellow-400 font-bold">super</span>.<span class="text-green-400">getArea</span>() * height);
+    }
+}</code></pre>
+                </div>
+
+                <div class="bg-gray-100 p-4 rounded border border-gray-300 flex items-center justify-between">
+                    <div>
+                        <span class="font-bold text-sm text-gray-600 block mb-1">Execution code:</span>
+                        <pre class="text-gray-800 m-0 text-xs">Cylinder c1 = new Cylinder();
+c1.radius = 10; c1.height = 100;
+System.out.println(c1.getArea());</pre>
+                        <pre id="output-12" class="text-gray-800 m-0 mt-2 font-bold opacity-50">Output...</pre>
+                    </div>
+                    <button onclick="document.getElementById('output-12').innerText = '31428.571428571428'; document.getElementById('output-12').classList.remove('opacity-50')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded text-sm transition">Run Code</button>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaways:</strong> 
+                    <ul class="list-disc pl-5 mt-2">
+                        <li>The <code>super</code> keyword allows a subclass to invoke methods or constructors from its immediate parent class.</li>
+                        <li><strong>Use Case:</strong> This is essential when you want to reuse the base logic from the superclass method and extend it with additional logic in the subclass, rather than replacing it entirely.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="quiz-12"></div>
+        </section>
+
+        <!-- SECTION 13 -->
+        <section id="sec-13" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 13: Hierarchical Class Taxonomy</h2>
+            <div class="prose max-w-none text-gray-700 space-y-4 mb-6">
+                <p>Inheritance mimics real-world taxonomy. General categories branch into more specific sub-categories.</p>
+                
+                <div class="flex justify-center p-6 bg-white border rounded-xl overflow-hidden">
+                    <div class="text-center">
+                        <div class="inline-block bg-indigo-600 text-white font-bold py-2 px-6 rounded shadow">Animal</div>
+                        <div class="flex justify-center mt-4 space-x-16 relative">
+                            <div class="absolute top-0 w-32 h-4 border-t-2 border-indigo-300 left-1/2 transform -translate-x-1/2 -mt-4"></div>
+                            <div class="absolute top-0 w-2 h-4 border-l-2 border-indigo-300 left-1/2 transform -translate-x-1/2 -mt-8"></div>
+                            
+                            <div class="flex flex-col items-center relative">
+                                <div class="absolute top-0 w-2 h-4 border-l-2 border-indigo-300 -mt-4"></div>
+                                <div class="bg-indigo-400 text-white py-1 px-4 rounded">Reptile</div>
+                            </div>
+                            <div class="flex flex-col items-center relative">
+                                <div class="absolute top-0 w-2 h-4 border-l-2 border-indigo-300 -mt-4"></div>
+                                <div class="bg-indigo-400 text-white py-1 px-4 rounded">Mammal</div>
+                                <div class="h-4 border-l-2 border-indigo-300 mt-2"></div>
+                                <div class="bg-indigo-200 text-indigo-900 py-1 px-4 rounded mt-2">Dog</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded text-blue-900 mt-4">
+                    <strong>Key Takeaways:</strong> 
+                    <ul class="list-disc pl-5 mt-2">
+                        <li><strong>Concept:</strong> Inheritance organizes data into a hierarchy from general to specific.</li>
+                        <li><strong>Real-world mapping:</strong> Just as a Mammal is a type of Animal, in programming, a 'Manager' might be a type of 'Employee'.</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="quiz-13"></div>
+        </section>
+
+        <!-- SECTION 14 -->
+        <section id="sec-14" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
+            <h2 class="text-2xl font-bold text-indigo-700 mb-4">Section 14: Core Benefits of Object-Oriented Inheritance</h2>
+            <div class="prose max-w-none text-gray-700 space-y-6 mb-6">
+                <p>To summarize, why do we use inheritance in software design?</p>
+                
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-teal-50 p-4 rounded-xl border border-teal-200 text-center">
+                        <div class="text-3xl mb-2">♻️</div>
+                        <h4 class="font-bold text-teal-900 mb-2">Reusability</h4>
+                        <p class="text-sm text-teal-800">You do not need to create classes from scratch every time; you can leverage existing code.</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-xl border border-purple-200 text-center">
+                        <div class="text-3xl mb-2">⚡</div>
+                        <h4 class="font-bold text-purple-900 mb-2">Efficiency</h4>
+                        <p class="text-sm text-purple-800">By finding existing classes with similar attributes and behaviors, you can simply extend them.</p>
+                    </div>
+                    <div class="bg-orange-50 p-4 rounded-xl border border-orange-200 text-center">
+                        <div class="text-3xl mb-2">🚀</div>
+                        <h4 class="font-bold text-orange-900 mb-2">Extensibility</h4>
+                        <p class="text-sm text-orange-800">Inherit functionality and add new attributes or behaviors, promoting organized structure.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="quiz-14"></div>
+        </section>
+
+    </div>
+
+    <!-- Javascript for MCQ logic -->
+    <script>
+        const quizzes = {
+            1: [
+                { q: "What is the main focus of this lesson?", options: ["Only theoretical concepts of inheritance", "Only Java syntax", "Theoretical concepts and practical application in Java"], correct: 2, exp: "Correct! We will cover both real-world analogies and Java implementations." },
+                { q: "Which keyword will be covered in this lesson?", options: ["this", "super", "static"], correct: 1, exp: "Correct! The 'super' keyword is on the agenda." }
+            ],
+            2: [
+                { q: "What happens when different entities share common characteristics but are coded separately?", options: ["Code becomes redundant", "Execution is faster", "Memory usage drops"], correct: 0, exp: "Correct! Duplicating class definitions leads to redundant code." },
+                { q: "In the Library scenario, which attribute is shared by both Student and Staff?", options: ["studentClass", "designation", "name"], correct: 2, exp: "Correct! Both classes share the 'name' attribute." }
+            ],
+            3: [
+                { q: "What is a parent class called in OOP?", options: ["Superclass", "Subclass", "Derived class"], correct: 0, exp: "Correct! The parent class is known as the superclass." },
+                { q: "In a UML diagram, where do the inheritance arrows point?", options: ["Superclass to Subclass", "Subclass to Superclass", "They point both ways"], correct: 1, exp: "Correct! Arrows point from the Subclass up to the Superclass." }
+            ],
+            4: [
+                { q: "Inheritance enables what kind of relationship?", options: ["Has-a", "Is-a", "Uses-a"], correct: 1, exp: "Correct! Inheritance forms an 'Is-a' relationship." },
+                { q: "Does a subclass need to re-specify inherited methods?", options: ["Yes", "No"], correct: 1, exp: "Correct! Inherited methods do not need to be written again." }
+            ],
+            5: [
+                { q: "What Java keyword is used to create a subclass?", options: ["inherits", "extends", "implements"], correct: 1, exp: "Correct! 'extends' is used for inheritance in Java." },
+                { q: "Can a subclass automatically access private members of a superclass?", options: ["Yes", "No"], correct: 1, exp: "Correct! Subclasses only gain direct access to non-private members." }
+            ],
+            6: [
+                { q: "If Student extends Member, can a Student object use setBasic()?", options: ["Yes", "No"], correct: 0, exp: "Correct! It inherits the method from Member." },
+                { q: "Where is the getQuota() logic actually written in the given example?", options: ["In the Student class", "In the Member class", "In the main method"], correct: 1, exp: "Correct! It is defined in the Member class but used by Student." }
+            ],
+            7: [
+                { q: "In the Father-Son example, can Son access Father's 'salary' directly?", options: ["Yes", "No"], correct: 1, exp: "Correct! 'salary' is private, so it cannot be accessed directly." },
+                { q: "Can Son access Father's 'givenName' directly?", options: ["Yes", "No"], correct: 0, exp: "Correct! 'givenName' is not private." }
+            ],
+            8: [
+                { q: "What happens when boy.getSalary() is called?", options: ["It crashes", "It executes the Father class's getSalary method", "It returns 0"], correct: 1, exp: "Correct! It uses the inherited method to safely access the private salary variable." },
+                { q: "Where is 'surName' defined?", options: ["Son class", "Father class", "Main method"], correct: 1, exp: "Correct! It is defined in Father and inherited by Son." }
+            ],
+            9: [
+                { q: "What is method overriding?", options: ["Having two methods with different names", "A subclass providing its own version of an inherited method", "Deleting a parent method"], correct: 1, exp: "Correct! The subclass replaces the inherited behavior." },
+                { q: "What is the rule for method names when overriding?", options: ["Must be different", "Must be exactly the same", "Must start with 'super'"], correct: 1, exp: "Correct! The method name and parameters must match the superclass." }
+            ],
+            10: [
+                { q: "Which method is executed when an overridden method is called on a subclass object?", options: ["The superclass version", "The subclass version", "Both"], correct: 1, exp: "Correct! The JVM executes the subclass's version." },
+                { q: "Even though Son extends Father, whose printSalary() logic was used?", options: ["Father's", "Son's"], correct: 1, exp: "Correct! Because Son overrode the method." }
+            ],
+            11: [
+                { q: "Why did Cylinder override getArea()?", options: ["Because Circle's method had an error", "To include height in calculating the cylinder's volume/area", "To change the return type to int"], correct: 1, exp: "Correct! It refines the logic to suit a 3D shape." },
+                { q: "Is Cylinder refining Circle's logic?", options: ["Yes", "No"], correct: 0, exp: "Correct! Inheritance allows subclasses to refine logic." }
+            ],
+            12: [
+                { q: "What does the 'super' keyword do?", options: ["Deletes the parent class", "Accesses the immediate parent class", "Calls the main method"], correct: 1, exp: "Correct! It refers to the immediate superclass." },
+                { q: "Why use 'super' inside an overridden method?", options: ["To reuse base logic from the superclass", "To cause an infinite loop", "To change private variables"], correct: 0, exp: "Correct! It lets you build upon the parent's logic instead of completely replacing it." }
+            ],
+            13: [
+                { q: "In OOP, inheritance hierarchy flows from:", options: ["Specific to general", "General to specific", "Bottom to top"], correct: 1, exp: "Correct! It goes from a general class to more specific subclasses." },
+                { q: "If 'Manager' extends 'Employee', Manager is a type of Employee. True or false?", options: ["True", "False"], correct: 0, exp: "Correct! This is the 'is-a' relationship." }
+            ],
+            14: [
+                { q: "Which is a core benefit of inheritance?", options: ["Makes code run 10x faster", "Code Reusability", "Increases file size"], correct: 1, exp: "Correct! You can leverage existing code without rewriting it." },
+                { q: "What does 'Extensibility' mean in this context?", options: ["Making variable names longer", "Adding new specific attributes/behaviors to inherited functionality", "Deleting old code"], correct: 1, exp: "Correct! You can extend base classes to create specialized ones." }
+            ]
+        };
+
+        function renderQuizzes() {
+            for (const [section, questions] of Object.entries(quizzes)) {
+                const container = document.getElementById(`quiz-${section}`);
+                if (!container) continue;
+
+                let html = `<div class="mt-8 border-t border-gray-100 pt-6">
+                    <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center"><svg class="w-5 h-5 mr-2 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg> Quick Check</h3>
+                    <div class="space-y-6">`;
+
+                questions.forEach((q, qIndex) => {
+                    html += `<div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                        <p class="font-semibold text-gray-800 mb-3">${qIndex + 1}. ${q.q}</p>
+                        <div class="space-y-2">`;
+                    
+                    q.options.forEach((opt, optIndex) => {
+                        const btnId = `btn-${section}-${qIndex}-${optIndex}`;
+                        const revealId = `reveal-${section}-${qIndex}`;
+                        html += `<button id="${btnId}" onclick="handleQuizClick(${section}, ${qIndex}, ${optIndex}, ${q.correct}, '${revealId}')" 
+                                class="w-full text-left px-4 py-2 rounded border border-gray-300 hover:bg-indigo-50 hover:border-indigo-300 transition text-sm text-gray-700 bg-white">
+                                ${opt}
+                            </button>`;
+                    });
+
+                    html += `</div>
+                        <div id="reveal-${section}-${qIndex}" class="quiz-reveal text-sm mt-0 p-3 rounded font-medium"></div>
+                    </div>`;
+                });
+
+                html += `</div></div>`;
+                container.innerHTML = html;
+            }
+        }
+
+        function handleQuizClick(section, qIndex, selectedOpt, correctOpt, revealId) {
+            // Disable buttons for this question
+            const qData = quizzes[section][qIndex];
+            qData.options.forEach((_, optIndex) => {
+                const btn = document.getElementById(`btn-${section}-${qIndex}-${optIndex}`);
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-indigo-50', 'hover:border-indigo-300');
+                
+                if (optIndex === correctOpt) {
+                    btn.classList.add('bg-green-100', 'border-green-400', 'text-green-800');
+                } else if (optIndex === selectedOpt && selectedOpt !== correctOpt) {
+                    btn.classList.add('bg-red-100', 'border-red-400', 'text-red-800', 'line-through');
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            // Show explanation
+            const revealBox = document.getElementById(revealId);
+            const isCorrect = selectedOpt === correctOpt;
+            
+            revealBox.innerHTML = isCorrect 
+                ? `✅ <strong>Correct!</strong> ${qData.exp}` 
+                : `❌ <strong>Incorrect.</strong> ${qData.exp}`;
+            
+            revealBox.classList.add(isCorrect ? 'bg-green-50' : 'bg-red-50');
+            revealBox.classList.add(isCorrect ? 'text-green-900' : 'text-red-900');
+            revealBox.classList.add('show');
+        }
+
+        // Initialize quizzes on load
+        document.addEventListener('DOMContentLoaded', renderQuizzes);
+    </script>
+</body>
+</html>
