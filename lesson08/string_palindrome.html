@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Palindrome Checker Explained</title>
+    
+    <!-- Tailwind CSS for styling and layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Prism.js CSS for beautiful code syntax highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <style>
+        /* Custom tweaks to make Prism.js fit nicely inside Tailwind cards */
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0.5rem;
+            height: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans antialiased pb-16">
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto pt-12 pb-8 px-6">
+        <h1 class="text-4xl font-extrabold text-gray-900 tracking-tight">Understanding CheckPalindrome.java</h1>
+        <p class="mt-4 text-lg text-gray-600">
+            A beginner-friendly breakdown of how to check if a string reads the same forwards and backwards in Java.
+        </p>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-6 space-y-6">
+
+        <!-- Full Code Overview -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Example</h2>
+            <div class="bg-[#2d2d2d] rounded-xl shadow-lg overflow-hidden">
+                <div class="p-6 overflow-x-auto text-sm">
+<pre><code class="language-java">import java.util.Scanner;
+
+// CheckPalindrome.java: Check whether a string is a palindrome
+public class CheckPalindrome {
+  /** Main method */
+  public static void main(String[] args) {
+    // Prompt the user to enter a string
+    System.out.println("Please enter a string:"); 
+    Scanner sc=  new Scanner(System.in);
+    String s = sc.nextLine();
+    // Declare and initialize output string
+    String output = "";
+
+    if (isPalindrome(s)) 
+      output += s + " is a palindrome.";
+    else 
+      output += s + " is not a palindrome.";
+    
+    // Display the result
+    System.out.println(output); 
+    sc.close();
+  }
+
+  /** Check if a string is a palindrome */
+  public static boolean isPalindrome(String s) {
+    // The index of the first character in the string
+    int low = 0;
+
+    // The index of the last character in the string
+    int high = s.length() - 1;
+
+   /*String s1 = String.valueOf(3.4);
+    System.out.println(s1);*/	
+    while (low < high) {
+      if (s.charAt(low) != s.charAt(high))
+        return false; // Not a palindrome, return to main method, 
+                       //skipping the rest statements in this method
+        low++;//previous pair equals, continue to compare next pair 
+        high--;
+    }
+	
+    return true; // The string is a palindrome
+  }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-4">Step-by-Step Breakdown</h2>
+
+        <!-- Section 1: Setup and Imports -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+            <div class="p-4 bg-[#2d2d2d]">
+<pre><code class="language-java">import java.util.Scanner;
+
+// CheckPalindrome.java: Check whether a string is a palindrome
+public class CheckPalindrome {
+</code></pre>
+            </div>
+            <div class="p-8 flex flex-col justify-center bg-blue-50">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">1. The Setup</h3>
+                <p class="text-blue-800 leading-relaxed">
+                    We start by importing the <strong>Scanner</strong> class, which allows our program to read input from the user's keyboard. Then, we declare our main application class named <code>CheckPalindrome</code>.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 2: The Main Method and User Input -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+            <div class="p-4 bg-[#2d2d2d]">
+<pre><code class="language-java">  /** Main method */
+  public static void main(String[] args) {
+    // Prompt the user to enter a string
+    System.out.println("Please enter a string:"); 
+    Scanner sc = new Scanner(System.in);
+    String s = sc.nextLine();
+    
+    // Declare and initialize output string
+    String output = "";
+</code></pre>
+            </div>
+            <div class="p-8 flex flex-col justify-center bg-blue-50">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">2. Gathering Input</h3>
+                <p class="text-blue-800 leading-relaxed">
+                    The <code>main</code> method is the starting point of any Java program. Here, we print a prompt to the console. We then use our <code>Scanner</code> to capture the exact line of text the user types and store it in a String variable named <code>s</code>. We also set up an empty <code>output</code> string to hold our final answer.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 3: Calling the Logic and Displaying Output -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+            <div class="p-4 bg-[#2d2d2d]">
+<pre><code class="language-java">    if (isPalindrome(s)) 
+      output += s + " is a palindrome.";
+    else 
+      output += s + " is not a palindrome.";
+    
+    // Display the result
+    System.out.println(output); 
+    sc.close();
+  }
+</code></pre>
+            </div>
+            <div class="p-8 flex flex-col justify-center bg-blue-50">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">3. Making the Decision</h3>
+                <p class="text-blue-800 leading-relaxed">
+                    We pass the user's string (<code>s</code>) to a custom method called <code>isPalindrome</code>. Depending on whether it returns <em>true</em> or <em>false</em>, we build the appropriate message. Finally, we print the result to the screen and close the Scanner to prevent memory leaks.
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 4: The Palindrome Method Setup -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+            <div class="p-4 bg-[#2d2d2d]">
+<pre><code class="language-java">  /** Check if a string is a palindrome */
+  public static boolean isPalindrome(String s) {
+    // The index of the first character in the string
+    int low = 0;
+
+    // The index of the last character in the string
+    int high = s.length() - 1;
+</code></pre>
+            </div>
+            <div class="p-8 flex flex-col justify-center bg-blue-50">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">4. Setting Up the Pointers</h3>
+                <p class="text-blue-800 leading-relaxed">
+                    This is where the actual logic happens. To check for a palindrome, we use a "two-pointer" approach. We create a <code>low</code> index pointing to the very first character (position 0), and a <code>high</code> index pointing to the very last character (length of string minus 1).
+                </p>
+            </div>
+        </div>
+
+        <!-- Section 5: The Loop and Return -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+            <div class="p-4 bg-[#2d2d2d]">
+<pre><code class="language-java">    while (low < high) {
+      if (s.charAt(low) != s.charAt(high))
+        return false; // Not a palindrome, return immediately
+        
+      low++;  // previous pair equals, move forward
+      high--; // previous pair equals, move backward
+    }
+    
+    return true; // The string is a palindrome
+  }
+}
+</code></pre>
+            </div>
+            <div class="p-8 flex flex-col justify-center bg-blue-50">
+                <h3 class="text-xl font-bold text-blue-900 mb-2">5. The Comparison Loop</h3>
+                <p class="text-blue-800 leading-relaxed">
+                    A <code>while</code> loop runs as long as the <code>low</code> pointer hasn't crossed the <code>high</code> pointer. It checks if the characters at those two spots match. <br><br>
+                    <strong>If they don't match:</strong> It's definitely not a palindrome, so we immediately return <code>false</code>.<br>
+                    <strong>If they do match:</strong> We move the pointers closer to the middle (<code>low++</code> and <code>high--</code>) and check the next pair.<br><br>
+                    If the loop finishes checking the whole string without failing, it returns <code>true</code>.
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>
