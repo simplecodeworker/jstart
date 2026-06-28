@@ -1,0 +1,136 @@
+Building a clean, accessible layout is a fantastic way to break down complex concepts like Java memory management for beginners!
+
+To achieve your exact specifications—a side-by-side, split-screen layout where explanations statically align with their specific code blocks, without needing separate scrollbars, clicks, or hovers—I've designed a responsive grid using **Tailwind CSS**. On desktop, it splits the screen evenly; on mobile, it gracefully stacks the code and explanation for readability.
+
+Here is the complete, single-file application code. You can save this as an `.html` file and open it directly in any browser.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java String Comparison Explained</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for horizontal overflow in code blocks if needed */
+        .code-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .code-container::-webkit-scrollbar-thumb {
+            background-color: #4b5563; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased pb-16">
+
+    <header class="max-w-7xl mx-auto pt-12 pb-8 px-4 text-center">
+        <h1 class="text-4xl font-extrabold text-indigo-900 mb-3">Java String Comparison Explained</h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+            Understanding how Java handles Strings in memory is a crucial step for beginners. Let's break down the difference between <code class="bg-slate-200 px-1 rounded text-pink-600">==</code> and <code class="bg-slate-200 px-1 rounded text-pink-600">.equals()</code> step-by-step.
+        </p>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 flex flex-col gap-8">
+
+        <div class="flex flex-col lg:flex-row bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="lg:w-1/2 bg-slate-900 text-indigo-300 p-6 font-mono text-sm md:text-base overflow-x-auto code-container">
+<pre><code>/**
+ *
+ * @author s37893
+ */
+<span class="text-pink-400">public class</span> <span class="text-green-400">CompareString</span> {
+  <span class="text-pink-400">public static void</span> <span class="text-blue-400">main</span>(String[] a){
+     String s1 = <span class="text-pink-400">new</span> String(<span class="text-amber-300">"Welcome"</span>);
+     String s2 = <span class="text-pink-400">new</span> String(<span class="text-amber-300">"welcome"</span>);
+     String s3 = <span class="text-pink-400">new</span> String(<span class="text-amber-300">"welcome"</span>);
+     
+     String s4 = <span class="text-amber-300">"welcome"</span>;
+     String s5 = <span class="text-amber-300">"welcome"</span>;</code></pre>
+            </div>
+            <div class="lg:w-1/2 p-6 md:p-8 bg-indigo-50/50 flex flex-col justify-center">
+                <h2 class="text-xl font-bold text-indigo-900 mb-4">1. The String Pool vs. The Heap</h2>
+                <p class="text-slate-700 mb-4">
+                    In Java, there are two ways to create a String. When you use the <code class="font-semibold text-pink-600">new</code> keyword (like <code class="font-mono">s1, s2, s3</code>), you are forcing Java to create a brand new object in the <strong>Heap memory</strong> every single time, even if the text is identical.
+                </p>
+                <p class="text-slate-700">
+                    When you use double quotes directly (like <code class="font-mono">s4, s5</code>), Java checks a special area called the <strong>String Pool</strong>. If "welcome" already exists there, it just points the new variable to the existing word. This saves memory! Therefore, <code class="font-mono">s4</code> and <code class="font-mono">s5</code> point to the exact same location.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="lg:w-1/2 bg-slate-900 text-indigo-300 p-6 font-mono text-sm md:text-base overflow-x-auto code-container">
+<pre><code>    System.out.println(s1.equals(s2)); 
+    <span class="text-slate-500">// false, s1 and s2 have different contents</span>
+    
+    System.out.println(s2.equals(s3)); 
+    <span class="text-slate-500">// true, s2 and s3 have the same contents</span>
+    
+    System.out.println(s2==s3); 
+    <span class="text-slate-500">// false, s2 and s3 must have the same reference</span></code></pre>
+            </div>
+            <div class="lg:w-1/2 p-6 md:p-8 bg-indigo-50/50 flex flex-col justify-center">
+                <h2 class="text-xl font-bold text-indigo-900 mb-4">2. Value vs. Memory Address</h2>
+                <ul class="list-disc pl-5 space-y-3 text-slate-700">
+                    <li><code class="font-semibold text-indigo-700">.equals()</code> asks: <em>"Do these strings contain the exact same characters, in the exact same case?"</em> <br> <code class="font-mono">s1</code> ("Welcome" with a capital W) and <code class="font-mono">s2</code> ("welcome") do not match. But <code class="font-mono">s2</code> and <code class="font-mono">s3</code> do!</li>
+                    <li><code class="font-semibold text-pink-600">==</code> asks: <em>"Do these variables point to the exact same physical memory address?"</em> <br>Because we used the <code class="font-semibold">new</code> keyword for both <code class="font-mono">s2</code> and <code class="font-mono">s3</code>, they are two separate objects living in different houses. So, <code class="font-mono">==</code> is false.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="lg:w-1/2 bg-slate-900 text-indigo-300 p-6 font-mono text-sm md:text-base overflow-x-auto code-container">
+<pre><code>    System.out.println(s4==s5);
+    <span class="text-slate-500">// true, s4 and s5 have same reference and contents</span>
+    
+    System.out.println(s4==s3);
+    <span class="text-slate-500">// false, s4 and s3 have different reference</span>
+    
+    System.out.println(s4.equals(s3));
+    <span class="text-slate-500">// true, s4 and s3 have same content</span>
+    
+    System.out.println(s1.equalsIgnoreCase(s5));
+    <span class="text-slate-500">// true</span></code></pre>
+            </div>
+            <div class="lg:w-1/2 p-6 md:p-8 bg-indigo-50/50 flex flex-col justify-center">
+                <h2 class="text-xl font-bold text-indigo-900 mb-4">3. Proving the String Pool</h2>
+                <p class="text-slate-700 mb-4">
+                    Remember how <code class="font-mono">s4</code> and <code class="font-mono">s5</code> were created without the <code class="font-semibold">new</code> keyword? Because they share the same spot in the String Pool, <code class="font-mono">s4 == s5</code> is <strong>true</strong>!
+                </p>
+                <p class="text-slate-700">
+                    However, <code class="font-mono">s4</code> (in the pool) and <code class="font-mono">s3</code> (in the heap) live in different places, making <code class="font-mono">s4 == s3</code> false. They do still have the exact same text, which is why <code class="font-mono">.equals()</code> works perfectly between them.
+                </p>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="lg:w-1/2 bg-slate-900 text-indigo-300 p-6 font-mono text-sm md:text-base overflow-x-auto code-container">
+<pre><code>    s4=<span class="text-amber-300">"bye"</span>;
+    System.out.println(<span class="text-amber-300">"s4="</span>+s4+<span class="text-amber-300">" s5="</span>+s5);
+    
+    s5=s4;
+    <span class="text-slate-500">// s4 and s5 do share the same memory location</span>
+    
+    System.out.println(s4==s5);
+    <span class="text-slate-500">// now s4 and s5 share the same memory location</span>
+  }
+}</code></pre>
+            </div>
+            <div class="lg:w-1/2 p-6 md:p-8 bg-indigo-50/50 flex flex-col justify-center">
+                <h2 class="text-xl font-bold text-indigo-900 mb-4">4. Reassignment & Memory Sharing</h2>
+                <p class="text-slate-700 mb-4">
+                    When we say <code class="font-mono">s4 = "bye"</code>, Java doesn't change the word "welcome" into "bye" (Strings are immutable, meaning they cannot be changed). Instead, it creates a new "bye" in the pool and points <code class="font-mono">s4</code> to it. <code class="font-mono">s5</code> remains untouched, pointing at "welcome".
+                </p>
+                <p class="text-slate-700">
+                    Finally, <code class="font-mono">s5 = s4</code> literally tells Java: <em>"Make s5 point to exactly the same memory address that s4 is pointing to."</em> Because they now share an address again, <code class="font-mono">s4 == s5</code> becomes <strong>true</strong>.
+                </p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
+
+```
