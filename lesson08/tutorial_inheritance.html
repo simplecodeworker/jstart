@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="dark h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial 7: Inheritance</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        code, pre {
+            font-family: 'Fira Code', monospace;
+        }
+        /* Custom animations for unlocking answers */
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-slide-down {
+            animation: slideDown 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- Header Section -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-tight text-white">Tutorial 7</h1>
+                    <p class="text-xs text-slate-400">Inheritance and Interfaces</p>
+                </div>
+            </div>
+            
+            <!-- Quick Global Instructions Badge -->
+            <div class="text-xs text-slate-400 bg-slate-800/40 px-3 py-1.5 rounded-lg border border-slate-700/50 flex items-center gap-2">
+                <span class="inline-block w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                Enter password below each question to unlock solutions
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-4xl w-full mx-auto px-4 py-8">
+        <div class="space-y-6">
+
+            <!-- Question 1 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-1">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        1
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-base text-slate-200 font-medium">What is the difference between a subclass and a superclass?</p>
+                        
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-1">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-1" onkeydown="handleKeyPress(event, 1)">
+                            </div>
+                            <button onclick="unlockAnswer(1)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box (will slide down on successful unlock) -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-1">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <div class="text-slate-300 text-sm leading-relaxed space-y-2">
+                                <p><strong>Superclass (Parent/Base Class):</strong> The class whose properties and behaviors are inherited by another class. It is more generic and abstract.</p>
+                                <p><strong>Subclass (Child/Derived Class):</strong> The class that inherits from the superclass. It can add its own specific fields and methods, and modify (override) existing ones inherited from the parent.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-2">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        2
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-base text-slate-200 font-medium font-medium">OOP allows you to derive new classes from existing classes. What is this called?</p>
+                        
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-2">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-2" onkeydown="handleKeyPress(event, 2)">
+                            </div>
+                            <button onclick="unlockAnswer(2)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-2">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                <strong>Inheritance</strong> (allowing the reusability of fields and methods of an existing class).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-3">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        3
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-base text-slate-200 font-medium">The statement super() or super (parameters) must appear in which line of the subclass constructor?</p>
+                        
+                        <!-- Options list matching original presentation style -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2">
+                            <div class="p-3 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300">
+                                <strong class="text-indigo-400 mr-2">a.</strong> any line
+                            </div>
+                            <div class="p-3 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300">
+                                <strong class="text-indigo-400 mr-2">b.</strong> 2nd line
+                            </div>
+                            <div class="p-3 rounded-xl border border-slate-800 bg-indigo-950/20 border-indigo-800/40 text-sm text-indigo-200">
+                                <strong class="text-indigo-400 mr-2">c.</strong> 1st line
+                            </div>
+                            <div class="p-3 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300">
+                                <strong class="text-indigo-400 mr-2">d.</strong> last line
+                            </div>
+                        </div>
+
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-3">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-3" onkeydown="handleKeyPress(event, 3)">
+                            </div>
+                            <button onclick="unlockAnswer(3)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-3">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                <strong>c. 1st line</strong><br>
+                                In Java, if you explicitly call a superclass constructor with <code class="text-amber-400">super()</code>, it must be the very first statement inside the subclass constructor block.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-4">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        4
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-base text-slate-200 font-medium">What is it called when the subclass modifies the methods defined in the superclass?</p>
+                        
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-4">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-4" onkeydown="handleKeyPress(event, 4)">
+                            </div>
+                            <button onclick="unlockAnswer(4)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-4">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                <strong>Method Overriding</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-5">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        5
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <p class="text-base text-slate-200 font-medium">Which of the following is NOT true?</p>
+                        
+                        <!-- Options layout exactly corresponding to description text layout -->
+                        <div class="space-y-3 mt-2">
+                            <div class="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300 leading-relaxed">
+                                <strong class="text-indigo-400 mr-1">a.</strong> Every object is automatically an instance of Object class.
+                            </div>
+                            <div class="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300 leading-relaxed">
+                                <strong class="text-indigo-400 mr-1">b.</strong> Every class in Java is descended from the Object class.
+                            </div>
+                            <div class="p-3.5 rounded-xl border border-slate-800 bg-slate-950/40 text-sm text-slate-300 leading-relaxed">
+                                <strong class="text-indigo-400 mr-1">c.</strong> Object class is the root class of all Java class.
+                            </div>
+                            <div class="p-3.5 rounded-xl border border-slate-800 bg-indigo-950/20 border-indigo-800/40 text-sm text-indigo-200 leading-relaxed">
+                                <strong class="text-indigo-400 mr-1">d.</strong> object strHello in statement String strHello = "Hello"; is an instance of String class, not Object class.
+                            </div>
+                        </div>
+
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-5">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-5" onkeydown="handleKeyPress(event, 5)">
+                            </div>
+                            <button onclick="unlockAnswer(5)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-5">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <p class="text-slate-300 text-sm leading-relaxed">
+                                <strong>d. object strHello in statement String strHello = "Hello"; is an instance of String class, not Object class.</strong><br>
+                                This statement is <span class="text-red-400 underline font-medium">NOT true</span> because String is a subclass of Object. Therefore, any instance of String is implicitly also an instance of Object.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 7 Card -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 transition-all duration-300 hover:border-slate-700 shadow-xl" id="card-7">
+                <div class="flex items-start gap-4">
+                    <div class="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-950 text-indigo-400 border border-indigo-800 font-semibold text-sm">
+                        7
+                    </div>
+                    <div class="flex-1 space-y-4">
+                        <div class="space-y-1">
+                            <p class="text-base text-slate-200 font-medium">Analyze the following 2 classes:</p>
+                        </div>
+                        
+                        <!-- Neatly formatted Code Boxes (Beautiful Code Editors Theme) -->
+                        <div class="space-y-4">
+                            <!-- ParentClass Box -->
+                            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950/70 shadow-inner">
+                                <div class="bg-slate-900/80 px-4 py-1.5 flex items-center justify-between border-b border-slate-800/80">
+                                    <span class="text-xs font-semibold text-slate-400">ParentClass.java</span>
+                                    <span class="w-2 h-2 rounded-full bg-slate-700"></span>
+                                </div>
+                                <pre class="p-4 overflow-x-auto text-xs text-indigo-200 leading-relaxed"><code><span class="text-pink-400">public class</span> <span class="text-blue-400">ParentClass</span> {
+    <span class="text-pink-400">public double</span> <span class="text-emerald-400">getResult</span>(<span class="text-pink-400">double</span> i, <span class="text-pink-400">double</span> j) {
+        <span class="text-pink-400">return</span> i * j;
+    }
+}</code></pre>
+                            </div>
+
+                            <!-- ChildClass Box -->
+                            <div class="rounded-xl overflow-hidden border border-slate-800 bg-slate-950/70 shadow-inner">
+                                <div class="bg-slate-900/80 px-4 py-1.5 flex items-center justify-between border-b border-slate-800/80">
+                                    <span class="text-xs font-semibold text-slate-400">ChildClass.java</span>
+                                    <span class="w-2 h-2 rounded-full bg-slate-700"></span>
+                                </div>
+                                <pre class="p-4 overflow-x-auto text-xs text-indigo-200 leading-relaxed"><code><span class="text-pink-400">public class</span> <span class="text-blue-400">ChildClass</span> <span class="text-pink-400">extends</span> <span class="text-blue-400">ParentClass</span> {
+    <span class="text-pink-400">public double</span> <span class="text-emerald-400">getResult</span>(<span class="text-pink-400">double</span> m, <span class="text-pink-400">double</span> n) {
+        <span class="text-pink-400">return</span> Math.pow(m, n);
+    }
+
+    <span class="text-pink-400">public double</span> <span class="text-emerald-400">doMutiplication</span>(<span class="text-pink-400">double</span> i, <span class="text-pink-400">double</span> j) {
+        <span class="text-pink-400">return</span> i * j;
+    }
+
+    <span class="text-pink-400">public double</span> <span class="text-emerald-400">getResult</span>(<span class="text-pink-400">double</span> i, <span class="text-pink-400">double</span> j, <span class="text-pink-400">double</span> k) {
+        <span class="text-pink-400">return</span> i * j * k;
+    }
+
+    <span class="text-pink-400">public double</span> <span class="text-emerald-400">getResult</span>(<span class="text-pink-400">int</span> i, <span class="text-pink-400">int</span> j) {
+        <span class="text-pink-400">return</span> i * j;
+    }
+}</code></pre>
+                            </div>
+                        </div>
+
+                        <p class="text-base text-slate-200 font-medium pt-2">In ChildClass, which method overrides following ParentClass method?</p>
+
+                        <!-- Unlock Control Section -->
+                        <div class="pt-4 border-t border-slate-800/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4" id="unlock-container-7">
+                            <div class="relative w-full sm:w-auto">
+                                <input type="password" placeholder="Enter password to unlock" 
+                                    class="w-full sm:w-64 bg-slate-950 border border-slate-800 text-slate-200 placeholder-slate-500 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition-all"
+                                    id="input-7" onkeydown="handleKeyPress(event, 7)">
+                            </div>
+                            <button onclick="unlockAnswer(7)" 
+                                class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-sm px-5 py-2.5 rounded-xl border border-indigo-500/30 shadow-lg shadow-indigo-600/15 transition-all flex items-center justify-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                </svg>
+                                Unlock Answer
+                            </button>
+                        </div>
+
+                        <!-- Hidden Answer Box -->
+                        <div class="hidden animate-slide-down border-l-4 border-emerald-500 bg-emerald-950/20 rounded-r-xl p-5" id="answer-7">
+                            <h4 class="text-emerald-400 text-sm font-semibold mb-2 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                Correct Answer
+                            </h4>
+                            <div class="text-slate-300 text-sm leading-relaxed space-y-3">
+                                <p>The following method overrides the ParentClass method:</p>
+                                <pre class="bg-slate-950/90 text-amber-400 px-3.5 py-2.5 rounded-lg border border-slate-800 text-xs overflow-x-auto"><code>public double getResult(double m, double n)</code></pre>
+                                <p class="text-slate-400 text-xs">
+                                    <strong>Explanation:</strong> Overriding requires the exact same method signature (name, parameter types, and count). In Java, parameter names (like <code class="text-slate-200">i, j</code> vs <code class="text-slate-200">m, n</code>) do not matter for overriding. The other <code class="text-slate-200">getResult</code> methods in the child class are overload variants (different signatures due to differing argument lists or primitive types).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer Area -->
+    <footer class="border-t border-slate-900 bg-slate-950/80 py-6 text-center text-xs text-slate-500">
+        <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>© 2026 Interactive Code Tutorials. Java Advanced Paradigm Practice.</p>
+            <p class="text-slate-600 hover:text-slate-500 transition-colors cursor-pointer">Built with Tailwind & Vanilla JS</p>
+        </div>
+    </footer>
+
+    <!-- Verification & Interactivity Logic -->
+    <script>
+        /**
+         * Verifies the password using an ASCII-based check.
+         * The password is "aaa".
+         * "a" has an ASCII code value of 97.
+         * We verify that the input's length is 3 and that all elements match character code 97.
+         * This hides the raw password string from view when reviewing the document source.
+         */
+        function verifyPasscode(inputString) {
+            const expectedCodes = [97, 97, 97]; // ASCII for 'aaa'
+            
+            if (inputString.length !== expectedCodes.length) {
+                return false;
+            }
+            
+            for (let i = 0; i < inputString.length; i++) {
+                if (inputString.charCodeAt(i) !== expectedCodes[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /**
+         * Key listener to trigger unlock on pressing 'Enter'
+         */
+        function handleKeyPress(event, id) {
+            if (event.key === 'Enter') {
+                unlockAnswer(id);
+            }
+        }
+
+        /**
+         * Handles individual card solution unlocking
+         */
+        function unlockAnswer(id) {
+            const inputField = document.getElementById(`input-${id}`);
+            const errorContainerId = `input-${id}`;
+            const container = document.getElementById(`unlock-container-${id}`);
+            const answerBox = document.getElementById(`answer-${id}`);
+            
+            const enteredVal = inputField.value;
+
+            if (verifyPasscode(enteredVal)) {
+                // Success actions: Remove error states, hide the unlock panel, display the solution block
+                inputField.classList.remove('border-red-500', 'focus:ring-red-500/30', 'focus:border-red-500');
+                inputField.classList.add('border-emerald-500', 'focus:ring-emerald-500/30', 'focus:border-emerald-500');
+                
+                // Add elegant structural transition
+                setTimeout(() => {
+                    container.classList.add('hidden');
+                    answerBox.classList.remove('hidden');
+                }, 200);
+            } else {
+                // Error actions: Dynamic visual shake/red alert borders
+                inputField.classList.add('border-red-500', 'focus:ring-red-500/30', 'focus:border-red-500');
+                inputField.classList.remove('focus:ring-indigo-500/40', 'focus:border-indigo-500');
+                
+                // Temporary error notification
+                inputField.placeholder = "Incorrect passcode!";
+                inputField.value = "";
+                
+                // Shake effect on the input card
+                const card = document.getElementById(`card-${id}`);
+                card.classList.add('animate-shake');
+                
+                // Reset card animation frame after shaking
+                setTimeout(() => {
+                    card.classList.remove('animate-shake');
+                }, 500);
+            }
+        }
+    </script>
+
+    <!-- Custom CSS keyframes injected for shaking alert effects on password errors -->
+    <style>
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-4px); }
+            75% { transform: translateX(4px); }
+        }
+        .animate-shake {
+            animation: shake 0.2s ease-in-out 2;
+        }
+    </style>
+</body>
+</html>
