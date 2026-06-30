@@ -220,7 +220,7 @@
                             Key Learnings & Takeaways
                         </h3>
                         <p class="text-slate-600 leading-relaxed">
-                            Java handles strings using a special optimization memory called the <strong>String Constant Pool (SCP)</strong> inside the Heap.
+                            Java handles strings using a special optimization memory called the <strong>String Pool</strong> inside the Heap.
                         </p>
                         <div class="bg-indigo-50/50 border border-indigo-100 rounded-xl p-4 space-y-2">
                             <div class="font-semibold text-indigo-900 text-sm">💡 Memory Pool Principle:</div>
@@ -234,7 +234,7 @@
 
                     <!-- Flowchart/Diagram Card -->
                     <div class="space-y-3">
-                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">String Constant Pool vs Heap Memory Layout</h3>
+                        <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider">String Pool vs Heap Memory Layout</h3>
                         <div class="bg-slate-100 rounded-2xl p-4 border border-slate-200 flex flex-col justify-center items-center space-y-4 min-h-[220px]">
                             <!-- Visual flow -->
                             <div class="w-full space-y-2 text-xs">
@@ -328,7 +328,7 @@
                             <p class="font-semibold text-sm text-slate-800 mb-3">1. Where does Java cache literals to minimize overhead?</p>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
                                 <button onclick="checkAnswer('s2q1', 1, 'Wrong. The Stack mainly stores temporary execution frames and primitive local variables.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">A. Main Runtime Execution Stack</button>
-                                <button onclick="checkAnswer('s2q1', 2, 'Correct! The String Constant Pool is explicitly dedicated to this optimization.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. String Constant Pool (SCP)</button>
+                                <button onclick="checkAnswer('s2q1', 2, 'Correct! The String Pool is explicitly dedicated to this optimization.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">B. String Pool</button>
                                 <button onclick="checkAnswer('s2q1', 3, 'Wrong. Method Area contains metadata and class structures, not the string cache.', this)" class="text-left text-xs bg-white border border-slate-300 hover:border-slate-400 p-2.5 rounded-lg transition-all font-medium text-slate-700">C. Class Static Method Area</button>
                             </div>
                             <div id="s2q1-explanation" class="hidden mt-3 text-xs p-2 rounded-lg"></div>
