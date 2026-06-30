@@ -176,11 +176,17 @@
                         </div>
 
                         <!-- Actions -->
-                        <div class="flex items-center justify-between pt-2" style="display:none">
-                            <button id="show-solution-btn" class="text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors flex items-center gap-1">
-                                <i data-lucide="eye" class="w-4 h-4"></i> View Solution
-                            </button>
-                            <button id="submit-btn" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-lg font-medium shadow-sm transition-colors flex items-center gap-2">
+                        <div class="flex items-center justify-between pt-2">
+                            <div class="flex items-center gap-3">
+                                <div id="password-container" class="flex items-center gap-2">
+                                    <input type="password" id="solution-password" placeholder="Password to unlock..." class="px-3 py-1.5 w-40 text-sm bg-slate-50 border border-slate-300 rounded-md focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition-colors">
+                                    <button id="check-password-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium transition-colors">Unlock</button>
+                                </div>
+                                <button id="show-solution-btn" class="hidden text-sm text-brand-600 hover:text-brand-800 font-medium transition-colors flex items-center gap-1">
+                                    <i data-lucide="eye" class="w-4 h-4"></i> View Solution
+                                </button>
+                            </div>
+                            <button id="submit-btn" class="hidden bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-lg font-medium shadow-sm transition-colors flex items-center gap-2">
                                 <i data-lucide="play" class="w-4 h-4"></i> Submit Code
                             </button>
                         </div>
@@ -281,6 +287,10 @@ class BoxFanApp {
         const feedbackText = document.getElementById('feedback-text');
         const feedbackIcon = document.getElementById('feedback-icon');
         
+        const passwordContainer = document.getElementById('password-container');
+        const passwordInput = document.getElementById('solution-password');
+        const checkPasswordBtn = document.getElementById('check-password-btn');
+
         const showSolutionBtn = document.getElementById('show-solution-btn');
         const closeSolutionBtn = document.getElementById('close-solution-btn');
         const copySolutionBtn = document.getElementById('copy-solution-btn');
@@ -337,6 +347,31 @@ class BoxFanApp {
             
             // Re-render icons dynamically injected
             lucide.createIcons();
+        });
+
+        // Solution Password Authentication Logic
+        checkPasswordBtn.addEventListener('click', () => {
+            if (passwordInput.value === 'ccc') {
+                passwordContainer.classList.add('hidden');
+                showSolutionBtn.classList.remove('hidden');
+            } else {
+                // Show brief error state
+                passwordInput.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                passwordInput.classList.remove('border-slate-300', 'focus:border-brand-500', 'focus:ring-brand-500');
+                
+                setTimeout(() => {
+                    passwordInput.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                    passwordInput.classList.add('border-slate-300', 'focus:border-brand-500', 'focus:ring-brand-500');
+                }, 1000);
+                
+                passwordInput.value = '';
+            }
+        });
+
+        passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                checkPasswordBtn.click();
+            }
         });
 
         // Modal Logic
