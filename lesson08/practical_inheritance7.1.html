@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Inheritance Exercise</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Highlight.js for Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for text area */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #1e1e1e; 
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #4b5563; 
+            border-radius: 4px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #6b7280; 
+        }
+        .code-container pre {
+            margin: 0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-brand-100 p-2 rounded-lg text-brand-600">
+                    <i data-lucide="code-2" class="w-6 h-6"></i>
+                </div>
+                <h1 class="text-xl font-bold text-slate-900">Java Inheritance Lab</h1>
+            </div>
+            <div class="text-sm font-medium text-slate-500 flex items-center space-x-2">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Module 7: Subclasses</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full items-start">
+            
+            <!-- LEFT COLUMN: REFERENCE -->
+            <div class="space-y-6">
+                <!-- Reference Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="info" class="w-5 h-5 text-blue-500"></i>
+                            Reference: Q6.2.1 Solution
+                        </h2>
+                        <span class="text-xs font-semibold uppercase tracking-wider bg-blue-100 text-blue-700 px-2 py-1 rounded">Parent Class</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-slate-600 mb-4">
+                            You previously created the <code class="bg-slate-100 px-1.5 py-0.5 rounded text-pink-600 font-mono text-sm">Fan</code> class. 
+                            Use this completed code as a reference when building your subclass. Note that the properties <code class="font-mono text-sm">radius</code> and <code class="font-mono text-sm">color</code> are private and must be accessed via their getter methods.
+                        </p>
+                        
+                        <div class="code-container shadow-sm border border-slate-700 rounded-lg overflow-hidden bg-[#282c34]">
+                            <div class="bg-slate-800 px-4 py-2 text-xs text-slate-400 font-mono border-b border-slate-700 flex items-center gap-2">
+                                <i data-lucide="file-code" class="w-4 h-4"></i> Fan.java
+                            </div>
+<pre><code class="language-java">public class Fan {
+  
+  private double radius = 5;
+  private String color = "white";
+
+  public Fan() { }
+
+  public double getRadius() {
+    return radius;
+  }
+
+  public void setRadius(double dbRadius) {
+    radius = dbRadius;
+  }
+
+  public String getColor() {
+    return color; 
+  }
+
+  public void setColor(String strColor) {
+    color = strColor; 
+  }
+
+  public String toString() {
+    return "Fan [radius=" + radius + ", color=" + color + "]";
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT COLUMN: EXERCISE -->
+            <div class="space-y-6">
+                <!-- Question Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col" style="min-height: 80vh;">
+                    <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                            <i data-lucide="edit-3" class="w-5 h-5 text-brand-600"></i>
+                            Q7.1: Create BoxFan Subclass
+                        </h2>
+                        <span class="text-xs font-semibold uppercase tracking-wider bg-orange-100 text-orange-700 px-2 py-1 rounded">Exercise</span>
+                    </div>
+                    
+                    <div class="p-6 flex-grow flex flex-col space-y-4">
+                        <div class="text-sm text-slate-700 space-y-2">
+                            <p>Create a subclass <strong>BoxFan</strong> of the <strong>Fan</strong> class. Your BoxFan must have:</p>
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>Its own private property: <code class="font-mono bg-slate-100 px-1 rounded">int timing</code></li>
+                                <li>2 methods: <code class="font-mono bg-slate-100 px-1 rounded">setTiming(int time)</code> and <code class="font-mono bg-slate-100 px-1 rounded">getTiming()</code></li>
+                                <li>One method to <strong>override</strong> the parent's method <code class="font-mono bg-slate-100 px-1 rounded">public String toString()</code> to print out all properties including timing.</li>
+                            </ul>
+                            <p>Finally, write a <strong>Java Application class</strong> with a main method to create a BoxFan object, change its color, set its timing, and print its properties.</p>
+                        </div>
+
+                        <!-- Editor -->
+                        <div class="relative flex-grow flex flex-col rounded-lg overflow-hidden border border-slate-300 focus-within:border-brand-500 focus-within:ring-1 focus-within:ring-brand-500 transition-shadow">
+                            <div class="bg-slate-800 px-4 py-2 text-xs text-slate-300 font-mono flex items-center justify-between">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="terminal" class="w-4 h-4"></i> Workspace
+                                </div>
+                                <button id="reset-btn" class="hover:text-white transition-colors" title="Reset Code">
+                                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+                            <textarea id="code-editor" class="flex-grow w-full bg-[#1e1e1e] text-slate-200 font-mono p-4 text-sm resize-none focus:outline-none" spellcheck="false" placeholder="// Write your BoxFan class and Application class here..."></textarea>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex items-center justify-between pt-2" style="display:none">
+                            <button id="show-solution-btn" class="text-sm text-slate-500 hover:text-slate-800 font-medium transition-colors flex items-center gap-1">
+                                <i data-lucide="eye" class="w-4 h-4"></i> View Solution
+                            </button>
+                            <button id="submit-btn" class="bg-brand-600 hover:bg-brand-700 text-white px-6 py-2 rounded-lg font-medium shadow-sm transition-colors flex items-center gap-2">
+                                <i data-lucide="play" class="w-4 h-4"></i> Submit Code
+                            </button>
+                        </div>
+
+                        <!-- Feedback Area (Hidden by default) -->
+                        <div id="feedback-area" class="hidden rounded-lg p-4 text-sm mt-4">
+                            <div id="feedback-content" class="flex items-start gap-3">
+                                <!-- Icon injected via JS -->
+                                <div id="feedback-icon" class="mt-0.5"></div>
+                                <div>
+                                    <h4 id="feedback-title" class="font-semibold mb-1"></h4>
+                                    <p id="feedback-text"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Solution Modal (Hidden) -->
+    <div id="solution-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-3xl overflow-hidden transform scale-95 transition-transform duration-300" id="solution-card">
+            <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <h3 class="text-lg font-semibold text-slate-800 flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-brand-600"></i>
+                    Suggested Solution
+                </h3>
+                <button id="close-solution-btn" class="text-slate-400 hover:text-slate-600 transition-colors">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+            <div class="p-6 max-h-[70vh] overflow-y-auto">
+                <div class="code-container bg-[#282c34] rounded-lg border border-slate-700">
+<pre><code class="language-java">// 1. The BoxFan subclass
+public class BoxFan extends Fan {
+    
+    // Its own private property
+    private int timing;
+
+    // Method to set timing value
+    public void setTiming(int time) {
+        timing = time;
+    }
+
+    // Method to get timing value
+    public int getTiming() {
+        return timing;
+    }
+
+    // Override parent's toString method
+    @Override
+    public String toString() {
+        // Notice we must use getRadius() and getColor() because 
+        // radius and color are private in the Fan class.
+        return "BoxFan [radius=" + getRadius() + 
+               ", color=" + getColor() + 
+               ", timing=" + timing + "]";
+    }
+}
+
+// 2. The Application class
+class BoxFanApp {
+    public static void main(String[] args) {
+        BoxFan myBoxFan = new BoxFan();
+        
+        myBoxFan.setColor("Blue");
+        myBoxFan.setTiming(120);
+        
+        System.out.println("Fan Details: " + myBoxFan.toString());
+    }
+}</code></pre>
+                </div>
+            </div>
+            <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex justify-end">
+                <button id="copy-solution-btn" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                    <i data-lucide="copy" class="w-4 h-4"></i> Copy to Editor
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Initialization Script -->
+    <script>
+        // Initialize Highlight.js
+        hljs.highlightAll();
+        
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // DOM Elements
+        const editor = document.getElementById('code-editor');
+        const submitBtn = document.getElementById('submit-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const feedbackArea = document.getElementById('feedback-area');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        
+        const showSolutionBtn = document.getElementById('show-solution-btn');
+        const closeSolutionBtn = document.getElementById('close-solution-btn');
+        const copySolutionBtn = document.getElementById('copy-solution-btn');
+        const solutionModal = document.getElementById('solution-modal');
+        const solutionCard = document.getElementById('solution-card');
+
+        // Initial Editor Content
+        const initialCode = `public class BoxFan extends Fan {\n    // Write your properties and methods here\n    \n}\n\npublic class BoxFanApp {\n    public static void main(String[] args) {\n        // Test your BoxFan object here\n        \n    }\n}`;
+        editor.value = initialCode;
+
+        // Reset button
+        resetBtn.addEventListener('click', () => {
+            if(confirm('Are you sure you want to reset your code? This cannot be undone.')) {
+                editor.value = initialCode;
+                feedbackArea.classList.add('hidden');
+            }
+        });
+
+        // Submit and Validate Code (Basic Heuristics)
+        submitBtn.addEventListener('click', () => {
+            const code = editor.value;
+            
+            // Basic validation criteria
+            const hasClass = code.includes('class BoxFan');
+            const hasExtends = code.includes('extends Fan');
+            const hasTiming = code.includes('int timing');
+            const hasOverride = code.includes('toString') && code.includes('String');
+            const hasGetters = code.includes('getRadius()') || code.includes('getColor()');
+            const hasMain = code.includes('main(String');
+
+            feedbackArea.classList.remove('hidden', 'bg-red-50', 'text-red-800', 'bg-green-50', 'text-green-800');
+            
+            if (hasClass && hasExtends && hasTiming && hasOverride && hasGetters && hasMain) {
+                // Success
+                feedbackArea.classList.add('bg-green-50', 'text-green-800', 'border', 'border-green-200');
+                feedbackIcon.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>`;
+                feedbackTitle.innerText = "Great Job!";
+                feedbackText.innerText = "Your code contains all the required elements (subclass, properties, overridden toString using parent getters, and a test application).";
+            } else {
+                // Needs improvement
+                feedbackArea.classList.add('bg-red-50', 'text-red-800', 'border', 'border-red-200');
+                feedbackIcon.innerHTML = `<i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i>`;
+                feedbackTitle.innerText = "Keep Trying";
+                
+                let missing = [];
+                if (!hasExtends) missing.push("extends Fan keyword");
+                if (!hasTiming) missing.push("timing property");
+                if (!hasOverride) missing.push("toString() method");
+                if (!hasGetters) missing.push("parent's getter methods (e.g., getRadius()) in toString()");
+                if (!hasMain) missing.push("main method for testing");
+
+                feedbackText.innerText = `Your code is missing or has typos in some requirements: ${missing.join(', ')}.`;
+            }
+            
+            // Re-render icons dynamically injected
+            lucide.createIcons();
+        });
+
+        // Modal Logic
+        const openModal = () => {
+            solutionModal.classList.remove('hidden');
+            // Small delay to allow display block to apply before transitioning opacity
+            setTimeout(() => {
+                solutionModal.classList.remove('opacity-0');
+                solutionCard.classList.remove('scale-95');
+            }, 10);
+        };
+
+        const closeModal = () => {
+            solutionModal.classList.add('opacity-0');
+            solutionCard.classList.add('scale-95');
+            setTimeout(() => {
+                solutionModal.classList.add('hidden');
+            }, 300);
+        };
+
+        showSolutionBtn.addEventListener('click', openModal);
+        closeSolutionBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside
+        solutionModal.addEventListener('click', (e) => {
+            if (e.target === solutionModal) closeModal();
+        });
+
+        // Copy solution to editor
+        copySolutionBtn.addEventListener('click', () => {
+            const solutionText = `public class BoxFan extends Fan {
+    
+    private int timing;
+
+    public void setTiming(int time) {
+        timing = time;
+    }
+
+    public int getTiming() {
+        return timing;
+    }
+
+    @Override
+    public String toString() {
+        return "BoxFan [radius=" + getRadius() + 
+               ", color=" + getColor() + 
+               ", timing=" + timing + "]";
+    }
+}
+
+class BoxFanApp {
+    public static void main(String[] args) {
+        BoxFan myBoxFan = new BoxFan();
+        myBoxFan.setColor("Blue");
+        myBoxFan.setTiming(120);
+        System.out.println("Fan Details: " + myBoxFan.toString());
+    }
+}`;
+            editor.value = solutionText;
+            closeModal();
+            feedbackArea.classList.add('hidden');
+        });
+
+    </script>
+</body>
+</html>
