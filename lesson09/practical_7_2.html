@@ -13,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     
-    <!-- PrismJS Theme (Dark Theme for Code) -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <!-- PrismJS Theme (Light Theme for Code) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
     
     <script>
         tailwind.config = {
@@ -31,35 +31,40 @@
     
     <style>
         body {
-            background-color: #0f172a; /* Slate 900 */
-            color: #e2e8f0; /* Slate 200 */
+            background-color: #f8fafc; /* Slate 50 */
+            color: #334155; /* Slate 700 */
         }
         
-        /* Custom Scrollbar */
+        /* Custom Scrollbar (Light) */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1e293b; 
+            background: #f1f5f9; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #475569; 
+            background: #cbd5e1; 
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #64748b; 
+            background: #94a3b8; 
         }
 
         /* Prism override for better integration */
         pre[class*="language-"] {
             margin: 0;
-            border-radius: 0.5rem;
-            background: #1e293b !important; /* Slate 800 */
+            border-radius: 0;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            background: #f8fafc !important; /* Slate 50 */
             font-size: 0.9rem;
+            border: 1px solid #e2e8f0;
+            border-top: none;
         }
         code[class*="language-"] {
             font-family: 'Fira Code', monospace !important;
+            text-shadow: none !important; /* Remove prism text shadow for cleaner look */
         }
         
         .watchout-icon {
@@ -77,31 +82,31 @@
 
     <main class="max-w-4xl mx-auto">
         <header class="mb-10 text-center md:text-left">
-            <div class="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold mb-4 border border-blue-500/30">
+            <div class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold mb-4 border border-blue-200">
                 Tutorial Exercise 7.2
             </div>
-            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Java Inheritance & Polymorphism</h1>
-            <p class="text-slate-400 text-lg">Solution guide for the Employee and SalesMan class implementation.</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-3">Java Inheritance & Polymorphism</h1>
+            <p class="text-slate-600 text-lg">Solution guide for the Employee and SalesMan class implementation.</p>
         </header>
 
         <div class="space-y-10">
             
             <!-- Original Question Section -->
-            <section class="bg-indigo-900/20 border border-indigo-700/40 rounded-xl shadow-lg overflow-hidden">
-                <div class="bg-indigo-800/40 border-b border-indigo-700/50 p-5 md:px-8">
-                    <h2 class="text-xl font-bold text-indigo-300 flex items-center gap-2">
+            <section class="bg-white border border-indigo-100 rounded-xl shadow-sm overflow-hidden">
+                <div class="bg-indigo-50 border-b border-indigo-100 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-indigo-700 flex items-center gap-2">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         Original Problem Context
                     </h2>
                 </div>
                 
-                <div class="p-5 md:p-8 space-y-6 text-slate-300 text-sm md:text-base">
+                <div class="p-5 md:p-8 space-y-6 text-slate-700 text-sm md:text-base">
                     <p><strong>7.2</strong> The following is an <code>Employee</code> class. All employees have a name and a serial number, and each employee earns a weekly salary. But the weekly salary varies with the types of the employee.</p>
                     
-                    <div class="relative group rounded-lg overflow-hidden border border-slate-700">
-                        <div class="bg-slate-800 text-xs text-slate-400 px-4 py-2 border-b border-slate-700 flex justify-between items-center">
-                            <span>File: Employee.java (Provided)</span>
-                            <button class="copy-btn hover:text-white transition-colors" data-code="code-employee">Copy</button>
+                    <div class="relative group rounded-lg overflow-hidden border-none shadow-sm">
+                        <div class="bg-slate-100 text-xs text-slate-600 px-4 py-2 border border-slate-200 border-b-0 rounded-t-lg flex justify-between items-center">
+                            <span class="font-medium">File: Employee.java (Provided)</span>
+                            <button class="copy-btn hover:text-slate-900 transition-colors font-medium" data-code="code-employee">Copy</button>
                         </div>
 <pre><code id="code-employee" class="language-java">//The Employee class is a base class. It is intended to be
 //extended and each of its subclasses need to override the
@@ -137,12 +142,12 @@ public class Employee {
 }</code></pre>
                     </div>
 
-                    <p>For salesmen, they are paid a flat weekly rate plus a commission based on their total sales for the week: <code>weeklySalary = baseWkPay + totalWkSales*commission</code>. The following <code>SalesMan</code> class is a child class of <code>Employee</code> class, please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman.</p>
+                    <p>For salesmen, they are paid a flat weekly rate plus a commission based on their total sales for the week: <code class="bg-slate-100 px-1 py-0.5 rounded text-slate-800">weeklySalary = baseWkPay + totalWkSales*commission</code>. The following <code>SalesMan</code> class is a child class of <code>Employee</code> class, please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman.</p>
 
-                    <div class="relative group rounded-lg overflow-hidden border border-slate-700">
-                        <div class="bg-slate-800 text-xs text-slate-400 px-4 py-2 border-b border-slate-700 flex justify-between items-center">
-                            <span>File: SalesMan.java (Skeleton Provided)</span>
-                            <button class="copy-btn hover:text-white transition-colors" data-code="code-salesman-skeleton">Copy</button>
+                    <div class="relative group rounded-lg overflow-hidden border-none shadow-sm">
+                        <div class="bg-slate-100 text-xs text-slate-600 px-4 py-2 border border-slate-200 border-b-0 rounded-t-lg flex justify-between items-center">
+                            <span class="font-medium">File: SalesMan.java (Skeleton Provided)</span>
+                            <button class="copy-btn hover:text-slate-900 transition-colors font-medium" data-code="code-salesman-skeleton">Copy</button>
                         </div>
 <pre><code id="code-salesman-skeleton" class="language-java">//A sales person's weekly salary is based on a flat weekly
 //rate plus a commission from the total sales.
@@ -172,9 +177,9 @@ public class SalesMan extends Employee{
 }</code></pre>
                     </div>
 
-                    <div class="bg-slate-900/50 border border-slate-700 rounded-lg p-5 mt-4">
-                        <h3 class="font-semibold text-white mb-2">Assignment Tasks:</h3>
-                        <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                    <div class="bg-slate-50 border border-slate-200 rounded-lg p-5 mt-4">
+                        <h3 class="font-semibold text-slate-900 mb-2">Assignment Tasks:</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-700">
                             <li>Please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman.</li>
                             <li>Write a Java Application to create 2 <code>SalesMan</code> objects using different constructors, calculate and print out their weekly salary.</li>
                         </ul>
@@ -183,10 +188,10 @@ public class SalesMan extends Employee{
             </section>
 
             <!-- Part (a) Section -->
-            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden mt-10">
-                <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">1</span>
+            <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden mt-10">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-sm">1</span>
                         Overriding the Calculation Method
                     </h2>
                 </div>
@@ -194,12 +199,12 @@ public class SalesMan extends Employee{
                 <div class="p-5 md:p-8">
                     <!-- Code Solution -->
                     <div class="mb-6 relative group">
-                        <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                             Correct Answer (Inside SalesMan.java)
                         </h3>
-                        <div class="relative rounded-lg overflow-hidden border border-slate-700 group">
-                            <button class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-slate-600 text-xs text-white px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-a-code">Copy</button>
+                        <div class="relative rounded-lg overflow-hidden border-none shadow-sm group">
+                            <button class="copy-btn absolute top-3 right-3 bg-slate-200 hover:bg-slate-300 text-xs text-slate-700 font-medium px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-a-code">Copy</button>
 <pre><code id="part-a-code" class="language-java">    @Override
     public void calcWeeklySalary() {
         // weeklySalary is inherited from the Employee class.
@@ -210,13 +215,13 @@ public class SalesMan extends Employee{
                     </div>
 
                     <!-- Beginner Watch-outs -->
-                    <div class="bg-amber-900/20 border border-amber-700/40 rounded-lg p-5 relative overflow-hidden">
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
-                        <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2">
-                            <svg class="w-5 h-5 watchout-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <h4 class="text-amber-800 font-bold mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 watchout-icon text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             Beginner Watch-outs
                         </h4>
-                        <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
+                        <ul class="space-y-3 text-sm text-amber-900/90 list-disc pl-5">
                             <li><strong>The <code>@Override</code> annotation:</strong> While not strictly mandatory, it is highly recommended. It tells the compiler you intend to override a method. If you make a typo (e.g., <code>calcWeeklySalry()</code>), the compiler will catch it and throw an error.</li>
                             <li><strong>Inherited Variables:</strong> Notice how we can use <code>weeklySalary</code> directly without declaring it? That's because it was declared as a package-private variable (<code>float weeklySalary;</code>) in the parent <code>Employee</code> class.</li>
                             <li><strong>Return Type:</strong> The parent class defined this method as <code>public void calcWeeklySalary()</code>. You cannot change the return type to <code>float</code> in the child class; it must match exactly.</li>
@@ -226,10 +231,10 @@ public class SalesMan extends Employee{
             </section>
 
             <!-- Part (b) Section -->
-            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden">
-                <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">2</span>
+            <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="bg-slate-50 border-b border-slate-200 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm shadow-sm">2</span>
                         Writing the Java Application
                     </h2>
                 </div>
@@ -237,12 +242,12 @@ public class SalesMan extends Employee{
                 <div class="p-5 md:p-8">
                     <!-- Code Solution -->
                     <div class="mb-6 relative group">
-                        <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                             Correct Answer (SalesApp.java)
                         </h3>
-                        <div class="relative rounded-lg overflow-hidden border border-slate-700 group">
-                            <button class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-slate-600 text-xs text-white px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-b-code">Copy</button>
+                        <div class="relative rounded-lg overflow-hidden border-none shadow-sm group">
+                            <button class="copy-btn absolute top-3 right-3 bg-slate-200 hover:bg-slate-300 text-xs text-slate-700 font-medium px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-b-code">Copy</button>
 <pre><code id="part-b-code" class="language-java">public class SalesApp {
     public static void main(String[] args) {
         
@@ -267,13 +272,13 @@ public class SalesMan extends Employee{
                     </div>
 
                     <!-- Beginner Watch-outs -->
-                    <div class="bg-amber-900/20 border border-amber-700/40 rounded-lg p-5 relative overflow-hidden">
+                    <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 relative overflow-hidden">
                         <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
-                        <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2">
-                            <svg class="w-5 h-5 watchout-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        <h4 class="text-amber-800 font-bold mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 watchout-icon text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             Beginner Watch-outs
                         </h4>
-                        <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
+                        <ul class="space-y-3 text-sm text-amber-900/90 list-disc pl-5">
                             <li><strong>Order of Execution Matters:</strong> You <em>must</em> call <code>calcWeeklySalary()</code> before you call <code>getWeeklySalary()</code>. If you forget to calculate it first, the inherited <code>weeklySalary</code> float variable will default to <code>0.0</code>!</li>
                             <li><strong>The <code>f</code> suffix for Floats:</strong> Notice the numbers passed into the constructor (e.g., <code>300.0f</code>). In Java, a decimal number like <code>300.0</code> is treated as a <code>double</code> by default. Leaving off the 'f' will cause a compile-time error.</li>
                             <li><strong>Constructors & <code>super()</code>:</strong> When <code>new SalesMan(...)</code> is called, it calls <code>super(name, sSN);</code>. This runs the <code>Employee</code> class constructor to handle the name and SSN setup automatically.</li>
@@ -333,11 +338,11 @@ public class SalesMan extends Employee{
                         // Visual feedback
                         const originalText = button.innerText;
                         button.innerText = 'Copied!';
-                        button.classList.add('text-emerald-400');
+                        button.classList.add('text-emerald-600');
                         
                         setTimeout(() => {
                             button.innerText = originalText;
-                            button.classList.remove('text-emerald-400');
+                            button.classList.remove('text-emerald-600');
                         }, 2000);
                     }
                 });
