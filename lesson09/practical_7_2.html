@@ -86,30 +86,117 @@
 
         <div class="space-y-10">
             
+            <!-- Original Question Section -->
+            <section class="bg-indigo-900/20 border border-indigo-700/40 rounded-xl shadow-lg overflow-hidden">
+                <div class="bg-indigo-800/40 border-b border-indigo-700/50 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-indigo-300 flex items-center gap-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Original Problem Context
+                    </h2>
+                </div>
+                
+                <div class="p-5 md:p-8 space-y-6 text-slate-300 text-sm md:text-base">
+                    <p><strong>7.2</strong> The following is an <code>Employee</code> class. All employees have a name and a serial number, and each employee earns a weekly salary. But the weekly salary varies with the types of the employee.</p>
+                    
+                    <div class="relative group rounded-lg overflow-hidden border border-slate-700">
+                        <div class="bg-slate-800 text-xs text-slate-400 px-4 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span>File: Employee.java (Provided)</span>
+                            <button class="copy-btn hover:text-white transition-colors" data-code="code-employee">Copy</button>
+                        </div>
+<pre><code id="code-employee" class="language-java">//The Employee class is a base class. It is intended to be
+//extended and each of its subclasses need to override the
+//calcWeeklySalary() method based of the type of employee.
+ 
+public class Employee {
+    String name, sSN;
+    float weeklySalary;
+ 
+    public Employee(){
+        name = "";
+        sSN = "";
+    }
+ 
+    public Employee(String name, String sSN){
+        this.name = name;
+        this.sSN = sSN;
+    }
+ 
+    public String getName(){
+        return name;
+    }
+ 
+    public float getWeeklySalary() { 
+        return weeklySalary; 
+    }
+ 
+    //The salary calculation is different for each type of employee
+    //Here is a basic weeklySalary.
+    public void calcWeeklySalary(){
+        weeklySalary = 15 * 5; //take ITP student as an example
+    }
+}</code></pre>
+                    </div>
+
+                    <p>For salesmen, they are paid a flat weekly rate plus a commission based on their total sales for the week: <code>weeklySalary = baseWkPay + totalWkSales*commission</code>. The following <code>SalesMan</code> class is a child class of <code>Employee</code> class, please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman.</p>
+
+                    <div class="relative group rounded-lg overflow-hidden border border-slate-700">
+                        <div class="bg-slate-800 text-xs text-slate-400 px-4 py-2 border-b border-slate-700 flex justify-between items-center">
+                            <span>File: SalesMan.java (Skeleton Provided)</span>
+                            <button class="copy-btn hover:text-white transition-colors" data-code="code-salesman-skeleton">Copy</button>
+                        </div>
+<pre><code id="code-salesman-skeleton" class="language-java">//A sales person's weekly salary is based on a flat weekly
+//rate plus a commission from the total sales.
+ 
+public class SalesMan extends Employee{
+    String region;
+    private float baseWkPay, totalWkSales, commission;
+ 
+    public SalesMan(){ //no arg constructor to initialize basic info
+        totalWkSales = 0.0f;
+        commission = 0.10f;           //base rate is 10%
+        baseWkPay = 250.0f;           //base pay is $250/week
+    }
+ 
+    public SalesMan(String name, String sSN, String reg, float basePay, float salesTotal, float comm){
+        /*another constructor takes in parameters to initialize more variables*/
+        super(name, sSN);
+        region = reg;
+        totalWkSales = salesTotal;
+        commission = comm;
+        baseWkPay = basePay;
+    }
+ 
+    public void calcWeeklySalary(){
+        /*Add your own codes here to override employee’s calcweeklySalary here*/
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="bg-slate-900/50 border border-slate-700 rounded-lg p-5 mt-4">
+                        <h3 class="font-semibold text-white mb-2">Assignment Tasks:</h3>
+                        <ul class="list-disc pl-5 space-y-2 text-slate-300">
+                            <li>Please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman.</li>
+                            <li>Write a Java Application to create 2 <code>SalesMan</code> objects using different constructors, calculate and print out their weekly salary.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             <!-- Part (a) Section -->
-            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden">
+            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden mt-10">
                 <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
                     <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">A</span>
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">1</span>
                         Overriding the Calculation Method
                     </h2>
                 </div>
                 
                 <div class="p-5 md:p-8">
-                    <!-- Question Text -->
-                    <div class="bg-slate-900/50 border border-slate-700/50 rounded-lg p-5 mb-6">
-                        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2">Question Text:</h3>
-                        <p class="text-slate-300 italic">
-                            "For salesmen, they are paid a flat weekly rate plus a commission based on their total sales for the week: <code>weeklySalary = baseWkPay + totalWkSales*commission</code>.<br><br>
-                            Please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman."
-                        </p>
-                    </div>
-
                     <!-- Code Solution -->
                     <div class="mb-6 relative group">
                         <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
                             <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-                            Correct Answer (SalesMan.java)
+                            Correct Answer (Inside SalesMan.java)
                         </h3>
                         <div class="relative rounded-lg overflow-hidden border border-slate-700 group">
                             <button class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-slate-600 text-xs text-white px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-a-code">Copy</button>
@@ -131,8 +218,8 @@
                         </h4>
                         <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
                             <li><strong>The <code>@Override</code> annotation:</strong> While not strictly mandatory, it is highly recommended. It tells the compiler you intend to override a method. If you make a typo (e.g., <code>calcWeeklySalry()</code>), the compiler will catch it and throw an error.</li>
-                            <li><strong>Inherited Variables:</strong> Notice how we can use <code>weeklySalary</code> directly without declaring it? That's because it was declared as a package-private variable (<code>float weeklySalary;</code>) in the parent <code>Employee</code> class. If it were <code>private</code>, we would need to use a setter method like <code>setWeeklySalary(...)</code>.</li>
-                            <li><strong>Return Type:</strong> The parent class defined this method as <code>public void calcWeeklySalary()</code>. You cannot change the return type to <code>float</code> in the child class; it must match exactly. We are modifying the class's state, not returning a value.</li>
+                            <li><strong>Inherited Variables:</strong> Notice how we can use <code>weeklySalary</code> directly without declaring it? That's because it was declared as a package-private variable (<code>float weeklySalary;</code>) in the parent <code>Employee</code> class.</li>
+                            <li><strong>Return Type:</strong> The parent class defined this method as <code>public void calcWeeklySalary()</code>. You cannot change the return type to <code>float</code> in the child class; it must match exactly.</li>
                         </ul>
                     </div>
                 </div>
@@ -142,20 +229,12 @@
             <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden">
                 <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
                     <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">B</span>
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">2</span>
                         Writing the Java Application
                     </h2>
                 </div>
                 
                 <div class="p-5 md:p-8">
-                    <!-- Question Text -->
-                    <div class="bg-slate-900/50 border border-slate-700/50 rounded-lg p-5 mb-6">
-                        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2">Question Text:</h3>
-                        <p class="text-slate-300 italic">
-                            "Write a Java Application to create 2 SalesMan objects using different constructors, calculate and print out their weekly salary."
-                        </p>
-                    </div>
-
                     <!-- Code Solution -->
                     <div class="mb-6 relative group">
                         <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
@@ -196,8 +275,8 @@
                         </h4>
                         <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
                             <li><strong>Order of Execution Matters:</strong> You <em>must</em> call <code>calcWeeklySalary()</code> before you call <code>getWeeklySalary()</code>. If you forget to calculate it first, the inherited <code>weeklySalary</code> float variable will default to <code>0.0</code>!</li>
-                            <li><strong>The <code>f</code> suffix for Floats:</strong> Notice the numbers passed into the constructor (e.g., <code>300.0f</code>). In Java, a decimal number like <code>300.0</code> is treated as a <code>double</code> by default. Since the constructor expects a <code>float</code>, leaving off the 'f' will cause a compile-time "possible loss of precision" error.</li>
-                            <li><strong>Constructors & <code>super()</code>:</strong> When <code>new SalesMan(...)</code> is called, look back at the original class code. It calls <code>super(name, sSN);</code>. This automatically runs the <code>Employee</code> class constructor to handle the name and SSN setup, while the <code>SalesMan</code> class handles its specific variables.</li>
+                            <li><strong>The <code>f</code> suffix for Floats:</strong> Notice the numbers passed into the constructor (e.g., <code>300.0f</code>). In Java, a decimal number like <code>300.0</code> is treated as a <code>double</code> by default. Leaving off the 'f' will cause a compile-time error.</li>
+                            <li><strong>Constructors & <code>super()</code>:</strong> When <code>new SalesMan(...)</code> is called, it calls <code>super(name, sSN);</code>. This runs the <code>Employee</code> class constructor to handle the name and SSN setup automatically.</li>
                         </ul>
                     </div>
                 </div>
@@ -254,13 +333,11 @@
                         // Visual feedback
                         const originalText = button.innerText;
                         button.innerText = 'Copied!';
-                        button.classList.add('bg-emerald-600');
-                        button.classList.remove('bg-slate-700');
+                        button.classList.add('text-emerald-400');
                         
                         setTimeout(() => {
                             button.innerText = originalText;
-                            button.classList.remove('bg-emerald-600');
-                            button.classList.add('bg-slate-700');
+                            button.classList.remove('text-emerald-400');
                         }, 2000);
                     }
                 });
