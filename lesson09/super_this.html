@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Constructor Chaining Masterclass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Smooth scrolling for anchor links */
+        html { scroll-behavior: smooth; }
+
+        /* Code Syntax Highlighting basics */
+        .kw { color: #c678dd; font-weight: 500; } /* keyword */
+        .cl { color: #e5c07b; } /* class */
+        .fn { color: #61afef; } /* function */
+        .str { color: #98c379; } /* string */
+        .cmt { color: #5c6370; font-style: italic; } /* comment */
+        .op { color: #56b6c2; } /* operator */
+        
+        pre {
+            scrollbar-width: thin;
+            scrollbar-color: #4b5563 #1f2937;
+        }
+        
+        .active-line {
+            background-color: rgba(97, 175, 239, 0.2);
+            border-left: 4px solid #61afef;
+        }
+        
+        .transition-all { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+    <header class="bg-slate-900 text-white py-20 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block p-4 rounded-full bg-blue-900/50 mb-6">
+                <svg class="w-12 h-12 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19.33 10.292c0-1.896-.708-3.417-1.916-4.625-1.167-1.167-2.709-1.75-4.5-1.75-1.792 0-3.334.583-4.5 1.75-1.167 1.167-1.833 2.709-1.833 4.542 0 1.791.666 3.333 1.833 4.5 1.166 1.167 2.708 1.75 4.5 1.75 1.791 0 3.333-.583 4.5-1.75 1.208-1.208 1.916-2.75 1.916-4.417zm-11.458 5.75c-1.417-1.458-2.125-3.291-2.125-5.375 0-2.083.708-3.916 2.125-5.333C9.25 3.917 11.042 3.25 13.042 3.25c2 0 3.791.667 5.166 2.084 1.417 1.417 2.125 3.25 2.125 5.333 0 2.084-.708 3.917-2.125 5.375-1.375 1.417-3.166 2.125-5.166 2.125-2 0-3.792-.708-5.17-2.125z"/></svg>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">Java Constructor Chaining Masterclass</h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto">Master the execution flow of constructors in Java inheritance, including automatic super() calls, chaining effects, and explicit invocations.</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12 space-y-16">
+        
+        <!-- SECTION 1: Lesson Objectives -->
+        <section id="section-1" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-blue-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 1: Lesson Objectives</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <p class="text-slate-600 mb-6 text-lg">This module sets the foundational agenda for understanding constructor chaining and invocation within an inheritance hierarchy in Java.</p>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg mb-8">
+                    <h3 class="text-blue-900 font-bold text-lg mb-3">Key Learning Points and Takeaways</h3>
+                    <ul class="space-y-3 text-blue-800">
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-blue-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Constructors have a specific execution order in inheritance.
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-blue-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Java provides automatic mechanisms for constructor execution.
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="h-6 w-6 mr-2 text-blue-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Developers can manually control constructor execution using specific keywords like <code>super()</code> and <code>this()</code>.
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-1" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: The Automatic super() Call and its Execution Sequence -->
+        <section id="section-2" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-indigo-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 2: The Automatic super() Call and its Execution Sequence</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <h3 class="text-2xl font-semibold text-slate-800 mb-4">The <span class="text-red-500 font-mono bg-red-50 px-2 py-1 rounded">super()</span> Call in Subclass</h3>
+                <p class="text-slate-600 mb-6">A subclass must interact with its parent's constructor to fully initialize an object.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <ul class="space-y-4 text-slate-700">
+                            <li class="flex items-start">
+                                <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">1</span>
+                                The <code>super()</code> keyword is specifically used for calling a parent class's constructor.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">2</span>
+                                If a programmer does not write a <code>super()</code> call, Java will <strong>automatically insert an invisible one</strong> that calls the parent's no-argument constructor.
+                            </li>
+                            <li class="flex items-start">
+                                <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">3</span>
+                                The hidden <code>super()</code> call is <strong>always placed as the very first line</strong> of the subclass constructor.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300 shadow-inner">
+                        <div class="mb-2"><span class="kw">class</span> <span class="cl">Person</span> {</div>
+                        <div class="ml-4 mb-2">
+                            <span class="fn">Person</span>() { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's no-arg constructor"</span>); }
+                        </div>
+                        <div class="mb-4">}</div>
+                        
+                        <div class="mb-2"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                        <div class="ml-4">
+                            <span class="fn">Employee</span>() {
+                            <div class="ml-4 border-2 border-dashed border-green-500 p-2 my-2 rounded text-green-400 bg-green-900/20 relative">
+                                <span class="cmt">// (hidden auto super() call)</span>
+                                <div class="absolute -right-3 top-1/2 transform -translate-y-1/2 hidden md:block">
+                                    <span class="bg-green-500 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">Activates Person()</span>
+                                </div>
+                            </div>
+                            <div class="ml-4"><span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's no-arg constructor"</span>);</div>
+                            }
+                        </div>
+                        <div>}</div>
+                    </div>
+                </div>
+
+                <!-- Interactive Execution Simulator -->
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-6 mb-8 shadow-sm">
+                    <h4 class="font-bold text-slate-800 mb-2 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Execution Sequence Simulator
+                    </h4>
+                    <p class="text-sm text-slate-500 mb-4">Click "Step Forward" to watch how the Java compiler executes the constructor chain top-down.</p>
+                    
+                    <div class="flex flex-col lg:flex-row gap-4">
+                        <div class="flex-1 bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300">
+                            <div id="sim1-line1" class="px-2 py-1 rounded"><span class="kw">public class</span> <span class="cl">testSuperChain</span> {</div>
+                            <div id="sim1-line2" class="px-2 py-1 rounded ml-4"><span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) {</div>
+                            <div id="sim1-line3" class="px-2 py-1 rounded ml-8"><span class="cl">Employee</span> e1 = <span class="kw">new</span> <span class="cl">Employee</span>();</div>
+                            <div id="sim1-line4" class="px-2 py-1 rounded ml-4">}</div>
+                            <div id="sim1-line5" class="px-2 py-1 rounded">}</div>
+                            <div class="h-2"></div>
+                            <div id="sim1-line6" class="px-2 py-1 rounded"><span class="kw">class</span> <span class="cl">Person</span> {</div>
+                            <div id="sim1-line7" class="px-2 py-1 rounded ml-4"><span class="fn">Person</span>() { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's..."</span>); }</div>
+                            <div id="sim1-line8" class="px-2 py-1 rounded">}</div>
+                            <div class="h-2"></div>
+                            <div id="sim1-line9" class="px-2 py-1 rounded"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                            <div id="sim1-line10" class="px-2 py-1 rounded ml-4"><span class="fn">Employee</span>() {</div>
+                            <div id="sim1-line11" class="px-2 py-1 rounded ml-8 text-green-400 font-bold border border-transparent border-dashed">  <span class="cmt">// hidden super();</span></div>
+                            <div id="sim1-line12" class="px-2 py-1 rounded ml-8">  <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's..."</span>);</div>
+                            <div id="sim1-line13" class="px-2 py-1 rounded ml-4">}</div>
+                            <div id="sim1-line14" class="px-2 py-1 rounded">}</div>
+                        </div>
+                        
+                        <div class="w-full lg:w-64 flex flex-col gap-4">
+                            <div class="bg-black rounded-lg p-4 font-mono text-sm border-2 border-slate-700 flex-1">
+                                <div class="text-slate-400 mb-2 border-b border-slate-700 pb-1">Console Output</div>
+                                <div id="sim1-console" class="text-green-400 min-h-[4rem]"></div>
+                            </div>
+                            
+                            <div class="flex justify-between items-center bg-white border border-slate-200 p-3 rounded-lg">
+                                <button id="btn-sim1-reset" class="px-3 py-1.5 text-sm text-slate-600 hover:text-slate-900 border border-slate-300 rounded hover:bg-slate-50 transition-colors">Reset</button>
+                                <button id="btn-sim1-step" class="px-4 py-1.5 text-sm font-medium text-white bg-indigo-600 rounded hover:bg-indigo-700 transition-colors shadow-sm">Step Forward</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-indigo-50 border-l-4 border-indigo-500 p-4 rounded-r-lg">
+                    <p class="text-indigo-900"><strong>Takeaway:</strong> The output order is strictly top-down through the inheritance hierarchy. An object of a subclass cannot be fully created until the parent class constructor has executed to initialize the inherited traits.</p>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-2" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Behavior of Auto super() with Overloaded Constructors -->
+        <section id="section-3" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-teal-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 3: Behavior of Auto super() with Overloaded Constructors</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <p class="text-slate-600 mb-6">A common point of confusion is what happens when you call an <em>overloaded</em> constructor in the subclass.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
+                    <div class="md:col-span-3 bg-slate-900 rounded-lg p-5 font-mono text-sm text-slate-300 shadow-inner overflow-x-auto">
+                        <div class="mb-2"><span class="kw">public class</span> <span class="cl">testSuperChain</span> {</div>
+                        <div class="ml-4 mb-2">
+                            <span class="kw">public static void</span> <span class="fn">main</span>(<span class="cl">String</span>[] args) {<br>
+                            &nbsp;&nbsp;<span class="cmt">// Calling overloaded constructor</span><br>
+                            &nbsp;&nbsp;<span class="cl">Employee</span> e2 = <span class="kw">new</span> <span class="cl">Employee</span>(<span class="op">100</span>);<br>
+                            }
+                        </div>
+                        <div class="mb-4">}</div>
+                        
+                        <div class="mb-2"><span class="kw">class</span> <span class="cl">Person</span> {</div>
+                        <div class="ml-4 mb-2"><span class="fn">Person</span>() { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's no-arg constructor"</span>); }</div>
+                        <div class="mb-4">}</div>
+                        
+                        <div class="mb-2"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                        <div class="ml-4 mb-2">
+                            <span class="fn">Employee</span>() { ... } <span class="cmt">// Default</span>
+                        </div>
+                        <div class="ml-4">
+                            <span class="fn">Employee</span>(<span class="kw">int</span> a) {
+                            <div class="ml-4 border-2 border-dashed border-teal-500/50 p-1 my-1 rounded text-teal-400 bg-teal-900/20 w-fit">
+                                <span class="cmt">// Auto super() call still goes to Person()</span>
+                            </div>
+                            <div class="ml-4"><span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's 2nd constructor"</span>);</div>
+                            }
+                        </div>
+                        <div>}</div>
+                    </div>
+                    
+                    <div class="md:col-span-2 flex flex-col justify-center">
+                        <div class="bg-slate-100 p-5 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-slate-800 mb-3 border-b border-slate-300 pb-2">Output Sequence</h4>
+                            <ol class="list-decimal list-inside space-y-2 font-mono text-sm text-slate-700">
+                                <li>Person's no-arg constructor</li>
+                                <li>Employee's 2nd constructor</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-teal-50 border-l-4 border-teal-500 p-5 rounded-r-lg">
+                    <h3 class="text-teal-900 font-bold text-lg mb-2">Key Learning Points</h3>
+                    <ul class="space-y-2 text-teal-800 list-disc list-inside">
+                        <li>Passing an argument to a subclass constructor <strong>does not</strong> mean those arguments are automatically passed up to the parent constructor.</li>
+                        <li>Unless explicitly told otherwise, Java will <strong>always</strong> trigger the parent's no-arg constructor, regardless of which overloaded subclass constructor is executing.</li>
+                    </ul>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-3" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: The Chain Effect in Multi-Level Inheritance -->
+        <section id="section-4" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-orange-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 4: The Chain Effect in Multi-Level Inheritance</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <p class="text-slate-600 mb-6">The rule of automatic constructor calling applies all the way up the inheritance tree. This creates a powerful <strong>Chain Effect</strong>.</p>
+                
+                <div class="flex flex-col md:flex-row items-stretch gap-8 mb-8">
+                    <!-- Flowchart Graphic -->
+                    <div class="md:w-1/3 flex flex-col items-center justify-center bg-slate-50 p-6 rounded-xl border border-slate-200">
+                        <div class="w-full text-center p-3 bg-blue-100 border-2 border-blue-300 rounded-lg shadow-sm font-semibold text-blue-900 mb-2">
+                            Class Object (Base)
+                        </div>
+                        <svg class="w-6 h-6 text-slate-400 my-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        
+                        <div class="w-full text-center p-3 bg-indigo-100 border-2 border-indigo-300 rounded-lg shadow-sm font-semibold text-indigo-900 mb-2 relative">
+                            Class Person
+                            <div class="absolute -right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full animate-ping"></div>
+                            <div class="absolute -right-2 top-1/2 transform -translate-y-1/2 w-4 h-4 bg-orange-500 rounded-full"></div>
+                        </div>
+                        <svg class="w-6 h-6 text-slate-400 my-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        
+                        <div class="w-full text-center p-3 bg-teal-100 border-2 border-teal-300 rounded-lg shadow-sm font-semibold text-teal-900 mb-2">
+                            Class Employee
+                        </div>
+                        <svg class="w-6 h-6 text-slate-400 my-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        
+                        <div class="w-full text-center p-3 bg-emerald-100 border-2 border-emerald-300 rounded-lg shadow-sm font-semibold text-emerald-900 mb-2">
+                            Class Faculty
+                        </div>
+                        
+                        <div class="mt-4 text-sm text-center text-slate-500 italic">Execution resolves strictly top-down (Base first, Faculty last).</div>
+                    </div>
+
+                    <div class="md:w-2/3 bg-slate-900 rounded-xl p-5 font-mono text-sm text-slate-300 shadow-inner">
+                        <div class="text-emerald-400 mb-3 border-b border-slate-700 pb-2">Instantiating Faculty: <span class="text-white">new Faculty()</span></div>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <span class="kw">class</span> <span class="cl">Faculty</span> <span class="kw">extends</span> <span class="cl">Employee</span> {<br>
+                                &nbsp;&nbsp;<span class="fn">Faculty</span>() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt text-orange-400">// 1. Hidden super() goes to Employee</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Faculty's..."</span>);<br>
+                                &nbsp;&nbsp;}
+                            </div>
+                            <div>
+                                <span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {<br>
+                                &nbsp;&nbsp;<span class="fn">Employee</span>() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt text-orange-400">// 2. Hidden super() goes to Person</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's..."</span>);<br>
+                                &nbsp;&nbsp;}
+                            </div>
+                            <div>
+                                <span class="kw">class</span> <span class="cl">Person</span> {<br>
+                                &nbsp;&nbsp;<span class="fn">Person</span>() {<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cmt text-orange-400">// 3. Hidden super() goes to Object!</span><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's..."</span>);<br>
+                                &nbsp;&nbsp;}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-5 rounded-r-lg">
+                    <p class="text-orange-900"><strong>Takeaway:</strong> Instantiating a subclass at the bottom of an inheritance hierarchy triggers a cascading chain of constructor calls all the way up to the highest superclass. The execution resolves from the top of the hierarchy downwards.</p>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-4" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Controlling Initialization with Explicit super() Calls -->
+        <section id="section-5" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-rose-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 5: Controlling Initialization with Explicit super() Calls</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <p class="text-slate-600 mb-6">You can explicitly pass data to a parent class during initialization by overriding the hidden default call. This is done by writing an explicit <code class="bg-slate-100 px-1 rounded text-rose-600">super(...)</code> statement.</p>
+                
+                <h4 class="font-bold text-slate-800 mb-3">Matching Signatures Table</h4>
+                <div class="overflow-x-auto mb-8 rounded-lg border border-slate-200">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700">
+                                <th class="p-3 border-b border-slate-200 font-semibold">Call from Subclass</th>
+                                <th class="p-3 border-b border-slate-200 font-semibold">Matching Constructor in Superclass</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm font-mono text-slate-600">
+                            <tr class="border-b border-slate-100">
+                                <td class="p-3">super()</td>
+                                <td class="p-3">Person()</td>
+                            </tr>
+                            <tr class="border-b border-slate-100 bg-rose-50/30">
+                                <td class="p-3">super(<span class="text-rose-500 font-bold">int</span>)</td>
+                                <td class="p-3">Person(<span class="text-rose-500 font-bold">int</span>)</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">super(<span class="text-blue-500 font-bold">int</span>, <span class="text-green-500 font-bold">String</span>)</td>
+                                <td class="p-3">Person(<span class="text-blue-500 font-bold">int</span>, <span class="text-green-500 font-bold">String</span>)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="bg-slate-900 rounded-xl p-5 font-mono text-sm text-slate-300 shadow-inner mb-6 relative overflow-hidden">
+                    <div class="absolute right-0 top-0 bg-rose-600 text-white px-3 py-1 rounded-bl-lg font-sans font-bold text-xs">Example</div>
+                    <div class="mb-2"><span class="kw">class</span> <span class="cl">Person</span> {</div>
+                    <div class="ml-4 mb-1"><span class="fn">Person</span>() { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's no-arg"</span>); }</div>
+                    <div class="ml-4 mb-2"><span class="fn">Person</span>(<span class="kw">int</span> a) { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's 2nd constructor"</span>); }</div>
+                    <div class="mb-4">}</div>
+                    
+                    <div class="mb-2"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                    <div class="ml-4">
+                        <span class="fn">Employee</span>() {<br>
+                        &nbsp;&nbsp;<span class="kw text-rose-400 border border-rose-400/50 p-1 rounded bg-rose-900/30 inline-block my-1">super(<span class="op">10</span>);</span> <span class="cmt ml-2">// Triggers matching Person(int a)</span><br>
+                        &nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's no-arg constructor"</span>);<br>
+                        }
+                    </div>
+                    <div>}</div>
+                </div>
+
+                <div class="bg-rose-50 border-l-4 border-rose-500 p-5 rounded-r-lg">
+                    <h3 class="text-rose-900 font-bold text-lg mb-2">Crucial Rules for explicit super()</h3>
+                    <ul class="space-y-2 text-rose-800 list-disc list-inside">
+                        <li>Writing an explicit <code>super()</code> call <strong>overrides and disables</strong> the compiler's hidden automatic <code>super()</code> call.</li>
+                        <li>An explicit <code>super()</code> call <strong>must always be the very first statement</strong> inside the subclass constructor.</li>
+                    </ul>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-5" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: Resolving the Missing Implicit super() Constructor Error -->
+        <section id="section-6" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div class="bg-red-600 px-6 py-4 flex items-center">
+                <svg class="w-6 h-6 text-white mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <h2 class="text-xl font-bold text-white">SECTION 6: Missing Implicit super() Constructor Error</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <p class="text-slate-600 mb-6">This is one of the most common compilation errors beginners face in Java inheritance.</p>
+                
+                <div class="bg-slate-900 rounded-xl p-5 font-mono text-sm text-slate-300 shadow-inner mb-6 relative">
+                    <div class="mb-2"><span class="kw">class</span> <span class="cl">Person</span> {</div>
+                    <div class="ml-4 mb-2">
+                        <span class="cmt">// Only a parameterized constructor exists. Default no-arg is GONE.</span><br>
+                        <span class="fn">Person</span>(<span class="kw">int</span> a) { <span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Person's only constructor"</span>); }
+                    </div>
+                    <div class="mb-4">}</div>
+                    
+                    <div class="mb-2"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                    <div class="ml-4">
+                        <span class="fn">Employee</span>() {<br>
+                        <div class="my-2 p-2 border-2 border-dashed border-red-500 bg-red-900/30 rounded text-red-300">
+                            <span class="cmt">// (hidden super() attempts to call Person() which doesn't exist!)</span><br>
+                            <span class="font-bold text-red-400">ERROR: Implicit super constructor Person() is undefined for default constructor.</span>
+                        </div>
+                        &nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's no-arg constructor"</span>);<br>
+                        }
+                    </div>
+                    <div>}</div>
+                </div>
+
+                <div class="bg-red-50 border-l-4 border-red-500 p-5 rounded-r-lg">
+                    <h3 class="text-red-900 font-bold text-lg mb-2">The Cause and The Fix</h3>
+                    <p class="text-red-800 mb-2">If a parent class defines <em>at least one</em> constructor with arguments, Java <strong>does not provide a default no-argument constructor</strong> for it.</p>
+                    <p class="text-red-800 font-semibold mt-4">How to fix it?</p>
+                    <p class="text-red-800">The subclass must explicitly call the existing parameterized parent constructor using <code>super(arguments);</code> on the first line.</p>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-6" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: Internal Constructor Chaining Using the this() Keyword -->
+        <section id="section-7" class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-12">
+            <div class="bg-purple-600 px-6 py-4">
+                <h2 class="text-xl font-bold text-white">SECTION 7: Internal Chaining Using the this() Keyword</h2>
+            </div>
+            <div class="p-6 sm:p-8">
+                <div class="flex flex-col md:flex-row gap-8 mb-8">
+                    <div class="md:w-1/2">
+                        <h3 class="text-2xl font-semibold text-slate-800 mb-4">The <span class="text-purple-600 font-mono bg-purple-50 px-2 py-1 rounded">this()</span> Call</h3>
+                        <p class="text-slate-600 mb-4">While <code>super()</code> talks to the parent class, <code>this()</code> talks to other constructors within the <strong>exact same class</strong>.</p>
+                        <ul class="space-y-3 text-slate-700 list-disc list-inside bg-slate-50 p-4 rounded-lg border border-slate-200">
+                            <li>Used to call another constructor of its own class.</li>
+                            <li>Like super(), it <strong>must be the 1st statement</strong>.</li>
+                            <li>Using this() prevents the automatic super() call from being inserted into that <em>specific</em> constructor (the target constructor will handle the super call instead).</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="md:w-1/2 bg-slate-900 rounded-xl p-5 font-mono text-sm text-slate-300 shadow-inner overflow-x-auto">
+                        <div class="text-purple-400 mb-3 border-b border-slate-700 pb-2">new Employee(4);</div>
+                        <div class="mb-2"><span class="kw">class</span> <span class="cl">Employee</span> <span class="kw">extends</span> <span class="cl">Person</span> {</div>
+                        <div class="ml-4 mb-3">
+                            <span class="cmt">// Target Constructor</span><br>
+                            <span class="fn">Employee</span>() {<br>
+                            &nbsp;&nbsp;<span class="cmt text-green-400">// (Hidden auto super() runs here!)</span><br>
+                            &nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's no-arg"</span>);<br>
+                            }
+                        </div>
+                        <div class="ml-4 mb-2">
+                            <span class="cmt">// Original Constructor</span><br>
+                            <span class="fn">Employee</span>(<span class="kw">int</span> a) {<br>
+                            &nbsp;&nbsp;<span class="kw text-purple-400 border border-purple-400/50 p-1 rounded bg-purple-900/30 inline-block my-1">this();</span> <span class="cmt ml-2">// Jumps up to Employee()</span><br>
+                            &nbsp;&nbsp;<span class="cl">System</span>.<span class="cl">out</span>.<span class="fn">println</span>(<span class="str">"Employee's 2nd"</span>);<br>
+                            }
+                        </div>
+                        <div>}</div>
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-5 rounded-r-lg">
+                    <p class="text-purple-900 mb-2"><strong>Execution Flow:</strong> When <code>this()</code> is called, the current constructor pauses, and the target constructor begins. The target constructor contains the implicit <code>super()</code> call to initialize the parent class first. The original constructor that invoked <code>this()</code> finishes its remaining statements last.</p>
+                </div>
+                
+                <!-- Quiz Container -->
+                <div id="quiz-sec-7" class="mt-8 border-t border-slate-100 pt-8"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- SIMULATOR FOR SECTION 2 ---
+            const sim1Steps = [
+                { id: 'sim1-line3', log: '', note: 'Starting in main() block.' },
+                { id: 'sim1-line10', log: '', note: 'Entering Employee constructor.' },
+                { id: 'sim1-line11', log: '', note: 'Compiler inserted hidden super() here.' },
+                { id: 'sim1-line7', log: 'Person\'s no-arg constructor', note: 'Jumps to Parent constructor.' },
+                { id: 'sim1-line12', log: 'Employee\'s no-arg constructor', note: 'Returns to Child to finish.' },
+                { id: null, log: '', note: 'Execution Complete.' }
+            ];
+            
+            let sim1CurrentStep = 0;
+            const btnStep = document.getElementById('btn-sim1-step');
+            const btnReset = document.getElementById('btn-sim1-reset');
+            const consoleOutput = document.getElementById('sim1-console');
+
+            function clearSim1Highlighting() {
+                const lines = document.querySelectorAll('[id^="sim1-line"]');
+                lines.forEach(line => {
+                    line.classList.remove('active-line');
+                    if(line.id === 'sim1-line11') {
+                        line.classList.remove('bg-green-900/30', 'border-green-500');
+                        line.classList.add('border-transparent');
+                    }
+                });
+            }
+
+            function updateSim1() {
+                if (sim1CurrentStep >= sim1Steps.length) return;
+                
+                clearSim1Highlighting();
+                const step = sim1Steps[sim1CurrentStep];
+                
+                if (step.id) {
+                    const el = document.getElementById(step.id);
+                    el.classList.add('active-line');
+                    
+                    if(step.id === 'sim1-line11') {
+                         el.classList.add('bg-green-900/30', 'border-green-500');
+                         el.classList.remove('border-transparent');
+                    }
+                }
+                
+                if (step.log) {
+                    const logEntry = document.createElement('div');
+                    logEntry.textContent = '> ' + step.log;
+                    consoleOutput.appendChild(logEntry);
+                }
+                
+                if (sim1CurrentStep === sim1Steps.length - 1) {
+                    btnStep.disabled = true;
+                    btnStep.classList.replace('bg-indigo-600', 'bg-slate-400');
+                    btnStep.classList.replace('hover:bg-indigo-700', 'cursor-not-allowed');
+                }
+                
+                sim1CurrentStep++;
+            }
+
+            btnStep.addEventListener('click', updateSim1);
+            
+            btnReset.addEventListener('click', () => {
+                sim1CurrentStep = 0;
+                clearSim1Highlighting();
+                consoleOutput.innerHTML = '';
+                btnStep.disabled = false;
+                btnStep.classList.replace('bg-slate-400', 'bg-indigo-600');
+                btnStep.classList.replace('cursor-not-allowed', 'hover:bg-indigo-700');
+            });
+
+
+            // --- QUIZ DATA & RENDERER ---
+            const quizData = {
+                1: [
+                    { 
+                        q: "What is the primary topic of this lesson?", 
+                        options: ["Variable scope in loops", "Constructor chaining and invocation", "Garbage collection in Java"], 
+                        answer: 1, 
+                        exp: "Correct! The module prepares students for constructor chaining within inheritance hierarchies." 
+                    },
+                    { 
+                        q: "Can developers manually control the constructor execution order?", 
+                        options: ["Yes, using specific keywords", "No, Java strictly handles it automatically", "Only in the Object base class"], 
+                        answer: 0, 
+                        exp: "Correct! Keywords like super() and this() give manual control over the execution order." 
+                    }
+                ],
+                2: [
+                    { 
+                        q: "What does the super() keyword specifically call?", 
+                        options: ["A method in the child class", "The parent class's constructor", "A static variable in the parent"], 
+                        answer: 1, 
+                        exp: "Correct! super() specifically invokes a constructor from the parent class." 
+                    },
+                    { 
+                        q: "Where is the hidden automatic super() call placed by the compiler?", 
+                        options: ["At the very end of the subclass constructor", "As the very first line of the subclass constructor", "Inside the main method"], 
+                        answer: 1, 
+                        exp: "Correct! It is always placed as the very first line to ensure the parent is initialized first." 
+                    },
+                    { 
+                        q: "Which constructor executes first when instantiating a subclass?", 
+                        options: ["The Parent constructor", "The Child constructor", "They execute simultaneously"], 
+                        answer: 0, 
+                        exp: "Correct! Output order is strictly top-down (Parent first, then Child)." 
+                    }
+                ],
+                3: [
+                    { 
+                        q: "If you call a subclass constructor with arguments (e.g., Employee(100)), which parent constructor runs by default?", 
+                        options: ["The parent's no-argument constructor", "The matching parent constructor with an integer", "It causes a compilation error"], 
+                        answer: 0, 
+                        exp: "Correct! Unless explicit, the implicit super() ALWAYS calls the parent's no-arg constructor." 
+                    },
+                    { 
+                        q: "Do arguments passed to a subclass automatically pass to the parent?", 
+                        options: ["Yes, the compiler matches them", "No, you must pass them explicitly"], 
+                        answer: 1, 
+                        exp: "Correct! Passing args to a subclass doesn't automatically propagate them upward." 
+                    }
+                ],
+                4: [
+                    { 
+                        q: "In a multi-level inheritance tree, which class finishes initialization first?", 
+                        options: ["The class at the very bottom (the one instantiated)", "The most base parent class at the top", "The class in the middle"], 
+                        answer: 1, 
+                        exp: "Correct! The chain effect resolves top-down, meaning the most base parent finishes first." 
+                    },
+                    { 
+                        q: "Does the chain effect reach the Java Object class?", 
+                        options: ["Yes, it cascades upward until it reaches the Object class", "No, it stops at the highest user-defined class"], 
+                        answer: 0, 
+                        exp: "Correct! The Object class is the ultimate superclass in Java and is part of the chain." 
+                    }
+                ],
+                5: [
+                    { 
+                        q: "How does Java determine which overloaded parent constructor to call with explicit super(...)?", 
+                        options: ["By the name of the method", "By the number and data types of the arguments passed", "By the return type"], 
+                        answer: 1, 
+                        exp: "Correct! The match is strictly determined by the signature (number/type of arguments)." 
+                    },
+                    { 
+                        q: "What happens to the hidden automatic super() if you write an explicit super(10)?", 
+                        options: ["Both will execute", "The automatic super() is disabled/overridden", "It throws an error"], 
+                        answer: 1, 
+                        exp: "Correct! Writing an explicit super() disables the compiler's automatic hidden call." 
+                    }
+                ],
+                6: [
+                    { 
+                        q: "Why might a 'Implicit super constructor () is undefined' error occur?", 
+                        options: ["The parent class has no constructors at all", "The parent class defines a parameterized constructor, removing the default no-arg one", "The subclass has too many constructors"], 
+                        answer: 1, 
+                        exp: "Correct! Defining any constructor removes the default no-arg one, breaking the automatic super() call." 
+                    },
+                    { 
+                        q: "How do you fix this missing implicit constructor error?", 
+                        options: ["Explicitly call the existing parameterized parent constructor using super(args)", "Delete the child class constructor", "Create a new subclass"], 
+                        answer: 0, 
+                        exp: "Correct! Provide the required data to the parent using an explicit super(...) call." 
+                    }
+                ],
+                7: [
+                    { 
+                        q: "What is the primary difference between this() and super()?", 
+                        options: ["this() calls a method, super() calls a variable", "this() targets a constructor in the same class, super() targets the parent", "this() can be placed anywhere, super() must be first"], 
+                        answer: 1, 
+                        exp: "Correct! this() is for internal chaining within the exact same class." 
+                    },
+                    { 
+                        q: "Can you place this() on the second line of a constructor?", 
+                        options: ["Yes", "No, it must be the 1st statement"], 
+                        answer: 1, 
+                        exp: "Correct! Just like super(), this() must be the very first statement." 
+                    },
+                    { 
+                        q: "If a constructor contains this(), does the compiler insert an auto super() in that same constructor?", 
+                        options: ["Yes", "No, the automatic super() is disabled for this specific constructor"], 
+                        answer: 1, 
+                        exp: "Correct! The compiler relies on the target constructor (invoked by this()) to handle the parent initialization." 
+                    }
+                ]
+            };
+
+            // Function to render quizzes
+            function renderQuizzes() {
+                for (const sectionId in quizData) {
+                    const container = document.getElementById(`quiz-sec-${sectionId}`);
+                    if (!container) continue;
+
+                    const title = document.createElement('h4');
+                    title.className = "text-lg font-bold text-slate-800 mb-4 flex items-center";
+                    title.innerHTML = `<svg class="w-5 h-5 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg> Quick Knowledge Check`;
+                    container.appendChild(title);
+
+                    const questions = quizData[sectionId];
+                    questions.forEach((qObj, index) => {
+                        const qCard = document.createElement('div');
+                        qCard.className = "bg-white border border-slate-200 p-4 rounded-lg mb-4 shadow-sm";
+                        
+                        const qText = document.createElement('p');
+                        qText.className = "font-medium text-slate-800 mb-3";
+                        qText.textContent = `${index + 1}. ${qObj.q}`;
+                        qCard.appendChild(qText);
+
+                        const optsContainer = document.createElement('div');
+                        optsContainer.className = "space-y-2";
+                        
+                        const feedbackDiv = document.createElement('div');
+                        feedbackDiv.className = "mt-3 text-sm font-medium hidden p-3 rounded-md";
+
+                        qObj.options.forEach((optText, optIdx) => {
+                            const btn = document.createElement('button');
+                            btn.className = "w-full text-left p-3 text-sm border border-slate-200 rounded-md hover:bg-slate-50 transition-colors text-slate-700";
+                            btn.textContent = optText;
+                            
+                            btn.addEventListener('click', function() {
+                                // Disable all buttons in this group
+                                const allBtns = optsContainer.querySelectorAll('button');
+                                allBtns.forEach(b => {
+                                    b.disabled = true;
+                                    b.classList.remove('hover:bg-slate-50');
+                                });
+
+                                // Check answer
+                                if (optIdx === qObj.answer) {
+                                    btn.classList.add('bg-green-100', 'border-green-400', 'text-green-800', 'font-semibold');
+                                    feedbackDiv.classList.add('bg-green-50', 'text-green-800');
+                                    feedbackDiv.innerHTML = `<span class="mr-2">✅</span>${qObj.exp}`;
+                                } else {
+                                    btn.classList.add('bg-red-100', 'border-red-400', 'text-red-800');
+                                    // Highlight correct answer
+                                    allBtns[qObj.answer].classList.add('bg-green-100', 'border-green-400', 'text-green-800');
+                                    
+                                    feedbackDiv.classList.add('bg-red-50', 'text-red-800');
+                                    feedbackDiv.innerHTML = `<span class="mr-2">❌</span>Incorrect. ${qObj.exp}`;
+                                }
+                                feedbackDiv.classList.remove('hidden');
+                            });
+                            
+                            optsContainer.appendChild(btn);
+                        });
+
+                        qCard.appendChild(optsContainer);
+                        qCard.appendChild(feedbackDiv);
+                        container.appendChild(qCard);
+                    });
+                }
+            }
+
+            renderQuizzes();
+        });
+    </script>
+</body>
+</html>
