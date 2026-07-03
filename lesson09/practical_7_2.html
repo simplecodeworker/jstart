@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java OOP Solution Guide: Employee & SalesMan</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- PrismJS Theme (Dark Theme for Code) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0f172a; /* Slate 900 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; 
+        }
+
+        /* Prism override for better integration */
+        pre[class*="language-"] {
+            margin: 0;
+            border-radius: 0.5rem;
+            background: #1e293b !important; /* Slate 800 */
+            font-size: 0.9rem;
+        }
+        code[class*="language-"] {
+            font-family: 'Fira Code', monospace !important;
+        }
+        
+        .watchout-icon {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen p-4 md:p-8">
+
+    <main class="max-w-4xl mx-auto">
+        <header class="mb-10 text-center md:text-left">
+            <div class="inline-block bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold mb-4 border border-blue-500/30">
+                Tutorial Exercise 7.2
+            </div>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-3">Java Inheritance & Polymorphism</h1>
+            <p class="text-slate-400 text-lg">Solution guide for the Employee and SalesMan class implementation.</p>
+        </header>
+
+        <div class="space-y-10">
+            
+            <!-- Part (a) Section -->
+            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden">
+                <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">A</span>
+                        Overriding the Calculation Method
+                    </h2>
+                </div>
+                
+                <div class="p-5 md:p-8">
+                    <!-- Question Text -->
+                    <div class="bg-slate-900/50 border border-slate-700/50 rounded-lg p-5 mb-6">
+                        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2">Question Text:</h3>
+                        <p class="text-slate-300 italic">
+                            "For salesmen, they are paid a flat weekly rate plus a commission based on their total sales for the week: <code>weeklySalary = baseWkPay + totalWkSales*commission</code>.<br><br>
+                            Please override method <code>calcWeeklySalary()</code> to calculate the weekly salary for a salesman."
+                        </p>
+                    </div>
+
+                    <!-- Code Solution -->
+                    <div class="mb-6 relative group">
+                        <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            Correct Answer (SalesMan.java)
+                        </h3>
+                        <div class="relative rounded-lg overflow-hidden border border-slate-700 group">
+                            <button class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-slate-600 text-xs text-white px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-a-code">Copy</button>
+<pre><code id="part-a-code" class="language-java">    @Override
+    public void calcWeeklySalary() {
+        // weeklySalary is inherited from the Employee class.
+        // We override the parent method to apply the SalesMan specific formula.
+        weeklySalary = baseWkPay + (totalWkSales * commission);
+    }</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Beginner Watch-outs -->
+                    <div class="bg-amber-900/20 border border-amber-700/40 rounded-lg p-5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+                        <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 watchout-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Beginner Watch-outs
+                        </h4>
+                        <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
+                            <li><strong>The <code>@Override</code> annotation:</strong> While not strictly mandatory, it is highly recommended. It tells the compiler you intend to override a method. If you make a typo (e.g., <code>calcWeeklySalry()</code>), the compiler will catch it and throw an error.</li>
+                            <li><strong>Inherited Variables:</strong> Notice how we can use <code>weeklySalary</code> directly without declaring it? That's because it was declared as a package-private variable (<code>float weeklySalary;</code>) in the parent <code>Employee</code> class. If it were <code>private</code>, we would need to use a setter method like <code>setWeeklySalary(...)</code>.</li>
+                            <li><strong>Return Type:</strong> The parent class defined this method as <code>public void calcWeeklySalary()</code>. You cannot change the return type to <code>float</code> in the child class; it must match exactly. We are modifying the class's state, not returning a value.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Part (b) Section -->
+            <section class="bg-slate-800 rounded-xl border border-slate-700 shadow-2xl overflow-hidden">
+                <div class="bg-slate-700/50 border-b border-slate-600 p-5 md:px-8">
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <span class="bg-blue-600 text-white w-8 h-8 flex items-center justify-center rounded-lg text-sm">B</span>
+                        Writing the Java Application
+                    </h2>
+                </div>
+                
+                <div class="p-5 md:p-8">
+                    <!-- Question Text -->
+                    <div class="bg-slate-900/50 border border-slate-700/50 rounded-lg p-5 mb-6">
+                        <h3 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2">Question Text:</h3>
+                        <p class="text-slate-300 italic">
+                            "Write a Java Application to create 2 SalesMan objects using different constructors, calculate and print out their weekly salary."
+                        </p>
+                    </div>
+
+                    <!-- Code Solution -->
+                    <div class="mb-6 relative group">
+                        <h3 class="text-sm font-semibold text-white mb-3 flex items-center gap-2">
+                            <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            Correct Answer (SalesApp.java)
+                        </h3>
+                        <div class="relative rounded-lg overflow-hidden border border-slate-700 group">
+                            <button class="copy-btn absolute top-3 right-3 bg-slate-700 hover:bg-slate-600 text-xs text-white px-2 py-1 rounded transition-colors z-10 opacity-0 group-hover:opacity-100 focus:opacity-100" data-code="part-b-code">Copy</button>
+<pre><code id="part-b-code" class="language-java">public class SalesApp {
+    public static void main(String[] args) {
+        
+        // 1. Using the no-argument constructor
+        // Default values: basePay=250.0f, sales=0.0f, comm=0.10f
+        SalesMan sm1 = new SalesMan();
+        
+        // IMPORTANT: Calculate the salary before trying to print it!
+        sm1.calcWeeklySalary();
+        System.out.println("Default SalesMan Salary: $" + sm1.getWeeklySalary());
+
+        // 2. Using the parameterized constructor
+        // Parameters: (String name, String sSN, String reg, float basePay, float salesTotal, float comm)
+        SalesMan sm2 = new SalesMan("Alice Smith", "987654321", "East", 300.0f, 5000.0f, 0.15f);
+        
+        // Calculate the salary for the second object
+        sm2.calcWeeklySalary();
+        System.out.println(sm2.getName() + "'s Salary: $" + sm2.getWeeklySalary());
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Beginner Watch-outs -->
+                    <div class="bg-amber-900/20 border border-amber-700/40 rounded-lg p-5 relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-amber-500"></div>
+                        <h4 class="text-amber-400 font-bold mb-3 flex items-center gap-2">
+                            <svg class="w-5 h-5 watchout-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            Beginner Watch-outs
+                        </h4>
+                        <ul class="space-y-3 text-sm text-amber-100/80 list-disc pl-5">
+                            <li><strong>Order of Execution Matters:</strong> You <em>must</em> call <code>calcWeeklySalary()</code> before you call <code>getWeeklySalary()</code>. If you forget to calculate it first, the inherited <code>weeklySalary</code> float variable will default to <code>0.0</code>!</li>
+                            <li><strong>The <code>f</code> suffix for Floats:</strong> Notice the numbers passed into the constructor (e.g., <code>300.0f</code>). In Java, a decimal number like <code>300.0</code> is treated as a <code>double</code> by default. Since the constructor expects a <code>float</code>, leaving off the 'f' will cause a compile-time "possible loss of precision" error.</li>
+                            <li><strong>Constructors & <code>super()</code>:</strong> When <code>new SalesMan(...)</code> is called, look back at the original class code. It calls <code>super(name, sSN);</code>. This automatically runs the <code>Employee</code> class constructor to handle the name and SSN setup, while the <code>SalesMan</code> class handles its specific variables.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer class="mt-12 mb-8 text-center text-slate-500 text-sm">
+            <p>Code snippets are formatted for Java SE 8 and above.</p>
+        </footer>
+    </main>
+
+    <!-- PrismJS (Syntax Highlighting) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    
+    <script>
+        // Setup copy to clipboard functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const copyButtons = document.querySelectorAll('.copy-btn');
+            
+            copyButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-code');
+                    const codeElement = document.getElementById(targetId);
+                    
+                    if (codeElement) {
+                        // Extract text content, stripping HTML tags injected by Prism
+                        const textToCopy = codeElement.innerText || codeElement.textContent;
+                        
+                        // Fallback function for copying text across different environments
+                        const fallbackCopy = (text) => {
+                            const textArea = document.createElement("textarea");
+                            textArea.value = text;
+                            textArea.style.position = "fixed"; // Prevent scrolling to bottom
+                            document.body.appendChild(textArea);
+                            textArea.focus();
+                            textArea.select();
+                            
+                            try {
+                                document.execCommand('copy');
+                            } catch (err) {
+                                console.error('Fallback copy failed', err);
+                            }
+                            document.body.removeChild(textArea);
+                        };
+
+                        // Try modern clipboard API first
+                        if (navigator.clipboard && window.isSecureContext) {
+                            navigator.clipboard.writeText(textToCopy).catch(() => fallbackCopy(textToCopy));
+                        } else {
+                            fallbackCopy(textToCopy);
+                        }
+                        
+                        // Visual feedback
+                        const originalText = button.innerText;
+                        button.innerText = 'Copied!';
+                        button.classList.add('bg-emerald-600');
+                        button.classList.remove('bg-slate-700');
+                        
+                        setTimeout(() => {
+                            button.innerText = originalText;
+                            button.classList.remove('bg-emerald-600');
+                            button.classList.add('bg-slate-700');
+                        }, 2000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
