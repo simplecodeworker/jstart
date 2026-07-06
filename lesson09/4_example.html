@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Polymorphism: Animal Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom scrollbar for aesthetic appeal */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+        
+        /* Syntax highlighting basic setup */
+        .keyword { color: #c678dd; }
+        .type { color: #e5c07b; }
+        .string { color: #98c379; }
+        .comment { color: #7f848e; font-style: italic; }
+        .method { color: #61afef; }
+        
+        /* Highlight connection animation */
+        .code-block { transition: all 0.3s ease; }
+        .explanation-card { transition: all 0.3s ease; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased selection:bg-brand-100 selection:text-brand-900">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
+                        <i class="fa-brands fa-java text-brand-600 text-4xl"></i>
+                        Understanding Java Polymorphism
+                    </h1>
+                    <p class="mt-2 text-sm text-gray-600">A visual guide to object-oriented magic for beginners.</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <!-- Intro Section -->
+        <section class="mb-12 bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800"><i class="fa-solid fa-lightbulb text-amber-400 mr-2"></i>What is Polymorphism?</h2>
+            <p class="text-gray-600 leading-relaxed text-lg mb-4">
+                The word "polymorphism" means "many forms". In Java, it allows us to perform a single action in different ways. 
+                Think of it like a remote control: the "Play" button does one thing for a TV, but something different for a DVD player.
+            </p>
+            <p class="text-gray-600 leading-relaxed text-lg">
+                In this example, we'll see how a single <code class="bg-gray-100 text-brand-700 px-2 py-1 rounded font-mono text-sm">Animal</code> variable can take the form of a <code class="bg-gray-100 text-brand-700 px-2 py-1 rounded font-mono text-sm">Cow</code>, a <code class="bg-gray-100 text-brand-700 px-2 py-1 rounded font-mono text-sm">Cat</code>, or a <code class="bg-gray-100 text-brand-700 px-2 py-1 rounded font-mono text-sm">Snake</code>, and how each responds differently when asked to <code class="bg-gray-100 text-brand-700 px-2 py-1 rounded font-mono text-sm">talk()</code>.
+            </p>
+        </section>
+
+        <!-- Unified View: Interleaved Code and Explanations -->
+        <div class="space-y-16">
+
+            <!-- Pair 1: Animal Superclass -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start relative group">
+                <!-- Code Side -->
+                <div class="w-full lg:w-1/2 bg-[#282c34] rounded-xl overflow-hidden shadow-lg border border-gray-800 transform transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <div class="bg-gray-800 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="ml-4 text-gray-400 font-mono text-sm">Animal.java</span>
+                    </div>
+                    <pre class="p-6 text-sm font-mono text-gray-300 overflow-x-auto"><code><span class="comment">// Animal is superclass of Cow, Cat and Snake subclasses</span>
+<span class="keyword">package</span> oop7TestAnimalPolymorphsim;
+
+<span class="keyword">class</span> <span class="type">Animal</span> {
+    <span class="keyword">private int</span> legs = <span class="string">4</span>;
+    
+    <span class="keyword">public void</span> <span class="method">talk</span>() {
+        <span class="comment">// If subclass doesn't have talk() method, this method is called.</span>
+        System.out.println(<span class="string">"Animals can't talk"</span>);
+    }
+}</code></pre>
+                </div>
+                
+                <!-- Explanation Side -->
+                <div class="w-full lg:w-1/2 pt-4 lg:pt-0">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-brand-100 relative h-full flex flex-col justify-center">
+                        <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:flex items-center text-brand-400">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                        <span class="bg-brand-100 text-brand-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block w-max">The Blueprint</span>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3">The Base Class</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Think of <code class="text-brand-600 font-bold">Animal</code> as a generic category. It provides the basic features that all animals share.
+                        </p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>It defines a default <code class="font-mono bg-gray-100 px-1 rounded text-sm">talk()</code> behavior. If a specific animal doesn't know how to talk, it will fall back to saying "Animals can't talk".</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-500 mt-1 mr-3"></i>
+                                <span>This is our <strong>Superclass</strong> (or parent class). Others will inherit from it.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pair 2: Cat Subclass -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start relative group">
+                <div class="w-full lg:w-1/2 bg-[#282c34] rounded-xl overflow-hidden shadow-lg border border-gray-800 transform transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <div class="bg-gray-800 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                        </div>
+                        <span class="ml-4 text-gray-400 font-mono text-sm">Cat.java</span>
+                    </div>
+                    <pre class="p-6 text-sm font-mono text-gray-300 overflow-x-auto"><code><span class="comment">// Cat is subclass with own talk() method</span>
+<span class="keyword">package</span> oop7TestAnimalPolymorphsim;
+
+<span class="keyword">class</span> <span class="type">Cat</span> <span class="keyword">extends</span> <span class="type">Animal</span> {
+    <span class="keyword">public void</span> <span class="method">talk</span>() {
+        System.out.println(<span class="string">"Meow!"</span>);
+    }
+}</code></pre>
+                </div>
+                
+                <div class="w-full lg:w-1/2 pt-4 lg:pt-0">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-orange-100 relative h-full flex flex-col justify-center">
+                        <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:flex items-center text-orange-300">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                         <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block w-max">The Override</span>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fa-solid fa-cat mr-2 text-orange-500"></i>The Cat Class</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            The <code class="text-orange-600 font-bold">Cat</code> class <code class="bg-gray-100 px-1 rounded text-sm">extends Animal</code>. This means a Cat <em>is an</em> Animal.
+                        </p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-arrow-right-arrow-left text-orange-500 mt-1 mr-3"></i>
+                                <span>Instead of using the generic Animal talk, the Cat provides its own specific version of the <code class="font-mono bg-gray-100 px-1 rounded text-sm">talk()</code> method.</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fa-solid fa-pen-to-square text-orange-500 mt-1 mr-3"></i>
+                                <span>This is called <strong>Method Overriding</strong>. The Cat is changing the behavior it inherited from its parent.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pair 3: Cow Subclass -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start relative group">
+                <div class="w-full lg:w-1/2 bg-[#282c34] rounded-xl overflow-hidden shadow-lg border border-gray-800 transform transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <div class="bg-gray-800 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                        </div>
+                        <span class="ml-4 text-gray-400 font-mono text-sm">Cow.java</span>
+                    </div>
+                    <pre class="p-6 text-sm font-mono text-gray-300 overflow-x-auto"><code><span class="comment">// Cow is subclass with own talk() method</span>
+<span class="keyword">package</span> oop7TestAnimalPolymorphsim;
+
+<span class="keyword">class</span> <span class="type">Cow</span> <span class="keyword">extends</span> <span class="type">Animal</span> {
+    <span class="keyword">public void</span> <span class="method">talk</span>() {
+        System.out.println(<span class="string">"Moo"</span>);
+    }
+}</code></pre>
+                </div>
+                
+                <div class="w-full lg:w-1/2 pt-4 lg:pt-0">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-stone-200 relative h-full flex flex-col justify-center">
+                         <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:flex items-center text-stone-300">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                        <span class="bg-stone-100 text-stone-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block w-max">Another Variation</span>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fa-solid fa-cow mr-2 text-stone-600"></i>The Cow Class</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            Similar to the Cat, the <code class="text-stone-700 font-bold">Cow</code> class also <code class="bg-gray-100 px-1 rounded text-sm">extends Animal</code>.
+                        </p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-volume-high text-stone-500 mt-1 mr-3"></i>
+                                <span>It defines its own unique response when asked to <code class="font-mono bg-gray-100 px-1 rounded text-sm">talk()</code>: "Moo".</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fa-solid fa-shapes text-stone-500 mt-1 mr-3"></i>
+                                <span>We now have two distinct shapes (forms) an Animal can take, each with custom behavior.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pair 4: Snake Subclass -->
+            <div class="flex flex-col lg:flex-row gap-8 items-start relative group">
+                <div class="w-full lg:w-1/2 bg-[#282c34] rounded-xl overflow-hidden shadow-lg border border-gray-800 transform transition duration-300 group-hover:-translate-y-1 group-hover:shadow-xl">
+                    <div class="bg-gray-800 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-gray-500"></div>
+                        </div>
+                        <span class="ml-4 text-gray-400 font-mono text-sm">Snake.java</span>
+                    </div>
+                    <pre class="p-6 text-sm font-mono text-gray-300 overflow-x-auto"><code><span class="comment">// Snake is subclass with no talk() method, </span>
+<span class="comment">// hence uses Animal superclass talk() method</span>
+<span class="keyword">package</span> oop7TestAnimalPolymorphsim;
+
+<span class="keyword">class</span> <span class="type">Snake</span> <span class="keyword">extends</span> <span class="type">Animal</span> {
+    <span class="comment">// only have its own data, will inherit </span>
+    <span class="comment">// parent class talk() method</span>
+    <span class="keyword">private int</span> legs = <span class="string">0</span>;
+}</code></pre>
+                </div>
+                
+                <div class="w-full lg:w-1/2 pt-4 lg:pt-0">
+                    <div class="bg-white p-8 rounded-xl shadow-sm border border-emerald-100 relative h-full flex flex-col justify-center">
+                         <div class="absolute -left-4 top-1/2 transform -translate-y-1/2 hidden lg:flex items-center text-emerald-300">
+                            <i class="fa-solid fa-arrow-right text-2xl"></i>
+                        </div>
+                        <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4 inline-block w-max">Inheritance</span>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-3"><i class="fa-brands fa-python mr-2 text-emerald-600"></i>The Snake Class</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">
+                            The <code class="text-emerald-700 font-bold">Snake</code> class is interesting. It extends Animal to redefine its specific attributes (like having 0 legs).
+                        </p>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-ban text-emerald-500 mt-1 mr-3"></i>
+                                <span>Notice it does <strong>not</strong> have a <code class="font-mono bg-gray-100 px-1 rounded text-sm">talk()</code> method of its own.</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="fa-solid fa-backward-step text-emerald-500 mt-1 mr-3"></i>
+                                <span>Because it didn't override the method, it automatically inherits the default behavior from the <code class="font-mono bg-gray-100 px-1 rounded text-sm">Animal</code> class.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pair 5: Main Test Class -->
+            <div class="flex flex-col lg:flex-row gap-8 items-stretch relative">
+                <!-- Large Code Block -->
+                <div class="w-full lg:w-1/2 bg-[#282c34] rounded-xl overflow-hidden shadow-xl border-2 border-indigo-500/30 flex flex-col">
+                    <div class="bg-gray-800 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-indigo-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-indigo-400"></div>
+                            <div class="w-3 h-3 rounded-full bg-indigo-300"></div>
+                        </div>
+                        <span class="ml-4 text-white font-mono text-sm font-bold">TestAnimals.java</span>
+                        <span class="ml-auto text-xs text-indigo-300 bg-indigo-900/50 px-2 py-1 rounded">The Magic Happens Here</span>
+                    </div>
+                    <div class="p-6 text-sm font-mono text-gray-300 overflow-x-auto flex-grow relative">
+                        <!-- Connecting lines visual aid within code block -->
+                        <div class="absolute left-4 top-14 bottom-10 w-0.5 bg-gray-700"></div>
+
+<pre class="relative z-10"><code class="block mb-2"><span class="keyword">package</span> oop7TestAnimalPolymorphsim;
+
+<span class="keyword">public class</span> <span class="type">TestAnimals</span> {
+  <span class="keyword">public static void</span> <span class="method">main</span>(String[] args) {</code>
+
+<code class="block pl-4 mb-4 border-l-2 border-transparent hover:border-orange-500 hover:bg-white/5 transition-colors duration-200">      <span class="comment">// 1. Create specific subclass objects</span>
+      <span class="type">Cat</span> babe = <span class="keyword">new</span> <span class="type">Cat</span>();
+      <span class="type">Cow</span> cutie = <span class="keyword">new</span> <span class="type">Cow</span>();
+      <span class="type">Snake</span> glass = <span class="keyword">new</span> <span class="type">Snake</span>();</code>
+
+<code class="block pl-4 mb-4 border-l-2 border-transparent hover:border-brand-500 hover:bg-white/5 transition-colors duration-200">      <span class="comment">// 2. Create a superclass reference</span>
+      <span class="type">Animal</span> wild = <span class="keyword">new</span> <span class="type">Animal</span>();</code>
+
+<code class="block pl-4 mb-4 border-l-2 border-stone-500 bg-stone-900/30 py-2 transition-colors duration-200 rounded-r">      <span class="comment">// 3. Polymorphism in action: Cow</span>
+      wild = cutie; <span class="comment">// Animal behaving like Cow</span>
+      wild.<span class="method">talk</span>();  <span class="comment">// Prints: "Moo"</span></code>
+
+<code class="block pl-4 mb-4 border-l-2 border-orange-500 bg-orange-900/30 py-2 transition-colors duration-200 rounded-r">      <span class="comment">// 4. Polymorphism in action: Cat</span>
+      wild = babe;  <span class="comment">// Animal behaving like Cat</span>
+      wild.<span class="method">talk</span>();  <span class="comment">// Prints: "Meow!"</span></code>
+
+<code class="block pl-4 mb-2 border-l-2 border-emerald-500 bg-emerald-900/30 py-2 transition-colors duration-200 rounded-r">      <span class="comment">// 5. Polymorphism with Inheritance: Snake</span>
+      wild = glass; <span class="comment">// Animal behaving like Snake</span>
+      wild.<span class="method">talk</span>();  <span class="comment">// Prints: "Animals can't talk"</span></code>
+
+<code class="block">  }
+}</code></pre>
+                    </div>
+                </div>
+                
+                <!-- Detailed Explanation Side -->
+                <div class="w-full lg:w-1/2 flex flex-col gap-4">
+                    <div class="bg-indigo-50 p-6 rounded-xl shadow-sm border border-indigo-100 flex-grow">
+                        <h3 class="text-2xl font-bold text-indigo-900 mb-4"><i class="fa-solid fa-wand-magic-sparkles mr-2 text-indigo-600"></i>Putting it all together</h3>
+                        <p class="text-indigo-800/80 mb-6 text-lg">
+                            This is where polymorphism shines. We use a <strong>single reference variable</strong> (<code class="bg-indigo-100 px-1 rounded text-sm font-mono text-indigo-900">wild</code>) to hold different types of objects and execute their specific behaviors.
+                        </p>
+                        
+                        <div class="space-y-4">
+                            <!-- Step Explanations matching code blocks visually -->
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-stone-500 shadow-sm">
+                                <h4 class="font-bold text-gray-800 text-sm uppercase tracking-wide mb-1">Step 3: The Cow Form</h4>
+                                <p class="text-gray-600 text-sm">We point the generic <code class="font-mono bg-gray-100 px-1">wild</code> reference to the <code class="font-mono bg-gray-100 px-1">cutie</code> Cow object. When we call <code class="font-mono bg-gray-100 px-1">wild.talk()</code>, Java knows it's currently pointing to a Cow, so it uses the Cow's overridden method.</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-orange-500 shadow-sm">
+                                <h4 class="font-bold text-gray-800 text-sm uppercase tracking-wide mb-1">Step 4: The Cat Form</h4>
+                                <p class="text-gray-600 text-sm">We reassign the <em>same</em> generic <code class="font-mono bg-gray-100 px-1">wild</code> reference to the <code class="font-mono bg-gray-100 px-1">babe</code> Cat object. Now, calling the exact same command <code class="font-mono bg-gray-100 px-1">wild.talk()</code> produces a different result ("Meow!") because the underlying object shape has changed.</p>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border-l-4 border-emerald-500 shadow-sm">
+                                <h4 class="font-bold text-gray-800 text-sm uppercase tracking-wide mb-1">Step 5: The Snake Form</h4>
+                                <p class="text-gray-600 text-sm">Finally, we point it to the <code class="font-mono bg-gray-100 px-1">glass</code> Snake object. We call <code class="font-mono bg-gray-100 px-1">wild.talk()</code> again. Since Snake didn't provide its own specific talk method, Java climbs up the family tree and executes the default method found in the <code class="font-mono bg-gray-100 px-1">Animal</code> class.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 bg-indigo-900 text-white p-4 rounded-lg flex items-start gap-4">
+                            <i class="fa-solid fa-graduation-cap text-3xl text-indigo-300"></i>
+                            <div>
+                                <h4 class="font-bold text-lg">The Core Lesson</h4>
+                                <p class="text-sm text-indigo-200 mt-1">The method that gets executed is determined by the <strong>actual object type</strong> (Cat, Cow, Snake) created in memory using `new`, not by the <strong>reference type</strong> (Animal) holding it. This is Dynamic Method Dispatch in action!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center mt-12">
+        <p class="text-sm">Java Polymorphism Tutorial Layout. Built with Tailwind CSS.</p>
+    </footer>
+
+</body>
+</html>
