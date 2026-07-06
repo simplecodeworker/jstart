@@ -241,11 +241,9 @@ public class BoxFan extends Fan {
     // Override parent's toString method
     @Override
     public String toString() {
-        // Notice we must use getRadius() and getColor() because 
-        // radius and color are private in the Fan class.
-        return "BoxFan [radius=" + getRadius() + 
-               ", color=" + getColor() + 
-               ", timing=" + timing + "]";
+       // Calls the toString() method from the parent 'Fan' class 
+        // and appends the new BoxFan properties to it.
+        return super.toString() + " - BoxFan [Timing=" + getTiming() + "]"; 
     }
 }
 
