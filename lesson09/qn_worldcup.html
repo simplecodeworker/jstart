@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Inheritance Lab - World Cup Tournament Tracker</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Sports/Code Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pitch: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            950: '#022c22',
+                        },
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            font-size: 100%; /* Increases base font size proportionally by 15% */
+        }
+        /* Custom scrollbar styling adapted for light theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .code-font {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-full flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-950">
+
+    <!-- Top Navigation Header -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-trophy text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 tracking-tight">Java Inheritance Question</h1>
+                </div>
+            </div>
+            
+
+        </div>
+    </header>
+
+    <!-- App Container (All single column, max-w-4xl for comfortable readability) -->
+    <main class="max-w-4xl mx-auto px-4 py-6 flex-grow w-full flex flex-col space-y-6">
+
+        <!-- Custom Notification Toast -->
+        <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-12 opacity-0 transition-all duration-300 bg-white border border-emerald-200 text-slate-800 px-4 py-3 rounded-lg shadow-xl flex items-center space-x-3 max-w-sm pointer-events-none">
+            <div class="p-1.5 bg-emerald-100 text-emerald-600 rounded-md">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <p id="toastMessage" class="text-xs font-medium"></p>
+        </div>
+
+        <!-- Context Card -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl"></div>
+            <h2 class="text-lg font-bold text-slate-900 mt-2 mb-2 flex items-center">
+                <i class="fa-solid fa-earth-americas text-emerald-500 mr-2"></i> Inheritance Question: World Cup Tracker
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                You are building a tournament tracking application. The system manages general information about a sports team and adds specific tournament-tracking data for national teams participating in the ongoing FIFA World Cup.
+            </p>
+			<p class="text-slate-600 leading-relaxed">
+				Create a new project with 3 Java source files: a superclass file, a subclass file, and a test file using the specifications and names below.
+			</p>
+        </div>
+
+        <!-- UML Diagram Card -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 flex items-center justify-between">
+                <span>UML Diagram Specification</span>
+            </h3>
+            
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-4 overflow-x-auto">
+                <div class="flex flex-col items-center min-w-[280px] py-2">
+                    
+                    <!-- Superclass: Team -->
+                    <div class="w-full max-w-[360px] bg-white border border-emerald-500 rounded-lg shadow-sm overflow-hidden">
+                        <div class="bg-emerald-50 px-3 py-2 border-b border-emerald-100 text-center">
+                            <div class="text-[9px] font-bold text-emerald-700 tracking-wider">SUPERCLASS</div>
+                            <span class="font-bold text-slate-900 code-font">Team</span>
+                        </div>
+                        <div class="px-3 py-1.5 border-b border-slate-100 text-[16px] text-slate-700 code-font">
+                            - countryName: String
+                        </div>
+                        <div class="px-3 py-1.5 text-[16px] text-slate-700 space-y-0.5 code-font">
+                            + Team()<br>
+                            + Team(String)<br>
+                            + getCountryName(): String<br>
+                            + setCountryName(String): void<br>
+                            + describe(): void
+                        </div>
+                    </div>
+
+                    <!-- Inheritance Arrow -->
+                    <div class="my-3 flex flex-col items-center">
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-slate-400"></div>
+                        <div class="w-0.5 h-4 bg-slate-400"></div>
+                        <span class="text-[8px] text-slate-500 tracking-widest uppercase mt-0.5 font-bold">Extends</span>
+                    </div>
+
+                    <!-- Subclass: WorldCupTeam -->
+                    <div class="w-full max-w-[360px] bg-white border border-teal-500 rounded-lg shadow-sm overflow-hidden">
+                        <div class="bg-teal-50 px-3 py-2 border-b border-teal-100 text-center">
+                            <div class="text-[9px] font-bold text-teal-700 tracking-wider">SUBCLASS</div>
+                            <span class="font-bold text-slate-900 code-font">WorldCupTeam</span>
+                        </div>
+                        <div class="px-3 py-1.5 border-b border-slate-100 text-[16px] text-slate-700 code-font">
+                            - tournamentStage: String
+                        </div>
+                        <div class="px-3 py-1.5 text-[16px] text-slate-700 space-y-0.5 code-font">
+                            + WorldCupTeam()<br>
+                            + WorldCupTeam(String, String)<br>
+                            + getTournamentStage(): String<br>
+                            + setTournamentStage(String): void<br>
+                            + describe(): void
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Checklist (Single column flow) -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-sm font-bold text-slate-950 flex items-center">
+                    <i class="fa-solid fa-list-check text-emerald-500 mr-2"></i> Task Checklist
+                </h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Task 1 -->
+                <div class="task-card p-3.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white transition-all">
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="check-task1" onchange="updateProgress()" class="mt-1 w-4 h-4 text-emerald-600 bg-white border-slate-300 rounded focus:ring-emerald-500 cursor-pointer">
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between flex-wrap gap-1">
+                                <label for="check-task1" class="font-bold text-slate-800 cursor-pointer">
+                                    Task 1: Create Superclass (<span class="code-font text-emerald-600 text-[16px]">Team.java</span>)
+                                </label>
+                                <span class="text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-mono font-bold">Superclass</span>
+                            </div>
+                            <ul class="mt-2 space-y-1 text-[16px] text-slate-600 pl-4 list-disc">
+                                <li>Private string <code class="code-font bg-white px-1 py-0.5 rounded border text-emerald-700">countryName</code>.</li>
+                                <li>No-argument constructor defaults to <code class="code-font text-slate-500">"Unassigned Country"</code>.</li>
+                                <li>Parameterized constructor accepts a String.</li>
+                                <li>Getters and setters implemented.</li>
+                                <li>Method <code class="code-font bg-white px-1 py-0.5 rounded border text-emerald-700">describe()</code> displays country.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 2 -->
+                <div class="task-card p-3.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white transition-all">
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="check-task2" onchange="updateProgress()" class="mt-1 w-4 h-4 text-emerald-600 bg-white border-slate-300 rounded focus:ring-emerald-500 cursor-pointer">
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between flex-wrap gap-1">
+                                <label for="check-task2" class="font-bold text-slate-800 cursor-pointer">
+                                    Task 2: Create Subclass (<span class="code-font text-teal-600 text-[16px]">WorldCupTeam.java</span>)
+                                </label>
+                                <span class="text-[9px] bg-teal-100 text-teal-800 border border-teal-200 px-1.5 py-0.5 rounded font-mono font-bold">Subclass</span>
+                            </div>
+                            <ul class="mt-2 space-y-1 text-[16px] text-slate-600 pl-4 list-disc">
+                                <li>Private string <code class="code-font bg-white px-1 py-0.5 rounded border text-teal-700">tournamentStage</code>.</li>
+                                <li>No-arg constructor chains to super and defaults to <code class="code-font text-slate-500">"Not Started"</code>.</li>
+                                <li>Parameterized constructor chains to super using <code class="code-font bg-white px-1 py-0.5 rounded border text-teal-700">super(countryName)</code>.</li>
+                                <li>Getters and setters for stage.</li>
+                                <li>Overridden <code class="code-font text-teal-700">describe()</code> runs <code class="code-font text-emerald-700">super.describe()</code> first, then appends stage details.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Task 3 -->
+                <div class="task-card p-3.5 rounded-lg border border-slate-200 bg-slate-50 hover:bg-white transition-all">
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" id="check-task3" onchange="updateProgress()" class="mt-1 w-4 h-4 text-emerald-600 bg-white border-slate-300 rounded focus:ring-emerald-500 cursor-pointer">
+                        <div class="flex-grow">
+                            <div class="flex items-center justify-between flex-wrap gap-1">
+                                <label for="check-task3" class="font-bold text-slate-800 cursor-pointer">
+                                    Task 3: Create Test Driver (<span class="code-font text-cyan-600 text-[16px] ">TestTournament.java</span>)
+                                </label>
+                                <span class="text-[9px] bg-cyan-100 text-cyan-800 border border-cyan-200 px-1.5 py-0.5 rounded font-mono font-bold">Driver</span>
+                            </div>
+                            <ul class="mt-2 space-y-1 text-[16px] text-slate-600 pl-4 list-disc">
+                                <li>Instantiate two <code class="code-font text-teal-700">WorldCupTeam</code> objects (one default, one parameterized).</li>
+                                <li>Print initial properties of default object using <code class="code-font text-teal-700">describe()</code>.</li>
+                                <li>Modify properties using setter mutator methods.</li>
+                                <li>Describe the object once more to confirm updates are active.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	
+        </div>
+
+    </main>
+	<p style="margin-bottom: 80px; text-align:center">END OF QUESTION</p>
+    <!-- Vanilla Javascript Logic -->
+    <script>
+        // State variables
+        let currentProgress = 0;
+
+        // On Page Load
+        window.onload = function() {
+            // Restore progress state if stored locally
+            try {
+                const storedProgress = localStorage.getItem('javaLabProgress_2026_light_simplified');
+                if (storedProgress) {
+                    const progressObj = JSON.parse(storedProgress);
+                    document.getElementById('check-task1').checked = progressObj.task1;
+                    document.getElementById('check-task2').checked = progressObj.task2;
+                    document.getElementById('check-task3').checked = progressObj.task3;
+                }
+            } catch(e) {}
+            
+            updateProgress();
+        };
+
+        // Checklist Progress Handler
+        function updateProgress() {
+            const task1 = document.getElementById('check-task1').checked;
+            const task2 = document.getElementById('check-task2').checked;
+            const task3 = document.getElementById('check-task3').checked;
+
+            let checkedCount = 0;
+            if (task1) checkedCount++;
+            if (task2) checkedCount++;
+            if (task3) checkedCount++;
+
+            currentProgress = Math.round((checkedCount / 3) * 100);
+
+            // Update DOM progress
+            document.getElementById('progressBar').style.width = currentProgress + '%';
+            document.getElementById('progressText').innerText = currentProgress + '%';
+
+            // Store progress state
+            try {
+                localStorage.setItem('javaLabProgress_2026_light_simplified', JSON.stringify({ task1, task2, task3 }));
+            } catch (e) {}
+        }
+
+        // Reset Lab Tasks Progress
+        function resetLab() {
+            document.getElementById('check-task1').checked = false;
+            document.getElementById('check-task2').checked = false;
+            document.getElementById('check-task3').checked = false;
+            updateProgress();
+            showToast("Laboratory progress has been reset.");
+        }
+
+        // Custom Notification Controller
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.innerText = message;
+
+            // Animate In
+            toast.classList.remove('translate-y-12', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Timeout Out
+            setTimeout(() => {
+                toast.classList.add('translate-y-12', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
