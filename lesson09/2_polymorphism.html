@@ -448,16 +448,16 @@
 <pre><span class="kw">class</span> <span class="typ">Vehicle</span> <span class="pnc">{</span>
   <span class="kw">private</span> <span class="typ">int</span> speed<span class="pnc">;</span>
   
-  <span class="typ">Vehicle</span> <span class="pnc">() {</span> speed=<span class="str">50</span><span class="pnc">; }</span>
+  <span class="typ">public Vehicle</span> <span class="pnc">() {</span> speed=<span class="str">50</span><span class="pnc">; }</span>
   
-  <span class="typ">void</span> <span class="mth">setSpeed</span> <span class="pnc">(</span><span class="typ">int</span> s<span class="pnc">) {</span> speed = s<span class="pnc">; }</span>
-  <span class="typ">int</span> <span class="mth">getSpeed</span> <span class="pnc">() {</span> <span class="kw">return</span> <span class="pnc">(</span>speed<span class="pnc">); }</span>
+  <span class="typ">public void</span> <span class="mth">setSpeed</span> <span class="pnc">(</span><span class="typ">int</span> s<span class="pnc">) {</span> speed = s<span class="pnc">; }</span>
+  <span class="typ">public int</span> <span class="mth">getSpeed</span> <span class="pnc">() {</span> <span class="kw">return</span> <span class="pnc">(</span>speed<span class="pnc">); }</span>
 <span class="pnc">}</span>
 
 <span class="kw">class</span> <span class="typ">SportsCar</span> <span class="kw">extends</span> <span class="typ">Vehicle</span> <span class="pnc">{</span>
-  <span class="typ">String</span> brand<span class="pnc">;</span>
+  <span class="typ">public String</span> brand<span class="pnc">;</span>
   
-  <span class="typ">SportsCar</span><span class="pnc">(</span><span class="typ">String</span> b<span class="pnc">){</span> 
+  <span class="typ">public SportsCar</span><span class="pnc">(</span><span class="typ">String</span> b<span class="pnc">){</span> 
     brand = b<span class="pnc">;</span> 
     <span class="mth">setSpeed</span><span class="pnc">(</span><span class="str">100</span><span class="pnc">);</span> 
   <span class="pnc">}</span>
