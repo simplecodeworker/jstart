@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Interfaces & ISP Curriculum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        pre, code { font-family: 'Fira Code', monospace; }
+        .code-block { background: #1e293b; color: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; overflow-x: auto; font-size: 0.875rem; line-height: 1.5; }
+        .keyword { color: #c678dd; }
+        .type { color: #e5c07b; }
+        .string { color: #98c379; }
+        .comment { color: #7f848e; font-style: italic; }
+        .method { color: #61afef; }
+        
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- Header (Non-sticky as requested) -->
+    <header class="bg-white border-b border-slate-200 py-16 text-center shadow-sm">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold tracking-wide mb-4">Module 4</div>
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-4">Java Interfaces & Interface Segregation</h1>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto">A comprehensive guide to understanding contracts, multiple behaviors, and clean architecture in Java.</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12 space-y-16">
+
+        <!-- Section 1: Objectives (Slide 2) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">1. Learning Objectives</h2>
+            <p class="text-slate-600 mb-6">Before we dive into the code, let's establish what we aim to achieve in this lesson. By the end of this module, you should be able to master the following concepts.</p>
+            
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start"><svg class="w-6 h-6 text-blue-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Explain what an interface is in the context of Java.</li>
+                    <li class="flex items-start"><svg class="w-6 h-6 text-blue-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Design a class that properly implements an interface.</li>
+                    <li class="flex items-start"><svg class="w-6 h-6 text-blue-500 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Understand and apply the Interface Segregation Principle (ISP) in OOP designs.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 1 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. Which of the following is a primary goal of this lesson?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! ISP is a core design principle covered in this module.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Apply the Interface Segregation Principle</button>
+                    <button onclick="handleMCQ(this, false, 'We are focusing on Interfaces, not database design.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Learn how to create SQL databases</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. What does an interface generally represent in Java?</p>
+                    <button onclick="handleMCQ(this, false, 'An interface defines behavior, not state.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Variables and memory allocation</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! An interface is a contract that defines what a class can do.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) A blueprint or a contract of behavior</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interface (Slide 3) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">2. What is an Interface?</h2>
+            <p class="text-slate-600 mb-6">An interface is like a blueprint or a strict contract. It defines <strong>what</strong> a behavior is, but not <strong>how</strong> it is done. Let's compare it to a standard Java class.</p>
+            
+            <!-- Flowchart / Diagram -->
+            <div class="flex flex-col md:flex-row gap-6 mb-8 justify-center items-stretch text-center">
+                <div class="flex-1 bg-slate-50 border-2 border-slate-300 rounded-lg p-6 flex flex-col justify-between">
+                    <h4 class="font-bold text-slate-700 text-lg mb-2">Standard Class</h4>
+                    <p class="text-sm text-slate-500 mb-4">Has variables (state) and concrete methods (behavior with logic inside <code>{}</code>).</p>
+                    <div class="bg-white border border-slate-200 rounded p-2 text-xs font-mono text-left text-slate-600">void play() {<br>&nbsp;&nbsp;System.out.println("Playing");<br>}</div>
+                </div>
+                <div class="flex items-center justify-center text-slate-400 font-bold">VS</div>
+                <div class="flex-1 bg-blue-50 border-2 border-blue-300 rounded-lg p-6 flex flex-col justify-between">
+                    <h4 class="font-bold text-blue-800 text-lg mb-2">Interface</h4>
+                    <p class="text-sm text-blue-600 mb-4">Has abstract methods by default (method signature with no body, ends with <code>;</code>).</p>
+                    <div class="bg-white border border-blue-200 rounded p-2 text-xs font-mono text-left text-blue-800">void play();</div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>Abstract methods define <em>what</em> needs to be done, not <em>how</em>.</li>
+                    <li>While traditionally interfaces only held abstract methods, <strong>modern Java</strong> allows for <code>default</code> and <code>static</code> methods to provide fallback logic without breaking existing implementations.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 2 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. In traditional Java, what type of methods do interfaces contain by default?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Traditional interface methods are public and abstract by default.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Abstract methods (no body)</button>
+                    <button onclick="handleMCQ(this, false, 'Concrete methods have bodies. Traditional interfaces do not allow this.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Concrete methods (with logic)</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. Can modern Java interfaces contain methods with actual logic inside them?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Modern Java introduced default and static methods in interfaces.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes, using default or static keywords</button>
+                    <button onclick="handleMCQ(this, false, 'Modern Java (Java 8+) allows default and static methods.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No, it is strictly forbidden</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Why Are Interfaces Relevant? -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">3. Why Are Interfaces Relevant?</h2>
+            <p class="text-slate-600 mb-6">A common question from beginners is: <em>"Why do I need an interface? I can just code the <code>sendSOS()</code> method directly inside the <code>Phone</code> class!"</em></p>
+            <p class="text-slate-600 mb-6">While true for a solo programmer making a tiny app, real-world software is built by <strong>teams</strong>. Interfaces act as a binding contract between different developers to prevent integrated code from breaking.</p>
+
+            <!-- Scenario Visualization -->
+            <div class="flex flex-col md:flex-row gap-4 mb-8">
+                <div class="flex-1 bg-red-50 p-5 rounded-lg border border-red-200">
+                    <h4 class="font-bold text-red-700 mb-2">Without Interface (Chaos)</h4>
+                    <p class="text-sm text-red-600 mb-3">Alice writes the Main program. Bob writes the Phone class.</p>
+                    <ul class="text-sm text-red-600 list-disc list-inside space-y-1">
+                        <li>Alice <em>guesses</em> Bob will name his method <code>sendEmergency()</code>.</li>
+                        <li>Bob names it <code>sendSOS()</code> instead.</li>
+                        <li><strong>Result:</strong> The code breaks when they combine it. Alice also had to wait for Bob to finish to know the final method names.</li>
+                    </ul>
+                </div>
+                <div class="flex-1 bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h4 class="font-bold text-green-700 mb-2">With Interface (Harmony)</h4>
+                    <p class="text-sm text-green-600 mb-3">They agree on an <code>SMS</code> interface first.</p>
+                    <ul class="text-sm text-green-600 list-disc list-inside space-y-1">
+                        <li>Alice writes her Main code using the agreed <code>SMS</code> interface rules.</li>
+                        <li>Bob implements <code>SMS</code>, which <em>forces</em> him to use <code>sendSOS()</code>.</li>
+                        <li><strong>Result:</strong> They work in parallel. The compiler guarantees Bob's code will perfectly match Alice's expectations.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li><strong>Contracts:</strong> Interfaces guarantee that a class will have specific methods, eliminating guesswork between programmers.</li>
+                    <li><strong>Parallel Development:</strong> Teams can work independently on different parts of a program simultaneously.</li>
+                    <li><strong>Plug and Play:</strong> You can easily swap one implementing class for another (e.g., swapping an OldPhone for a SmartPhone) without breaking the rest of the program, as long as they share the same interface.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ for new section -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. Why are interfaces especially useful in team software development?</p>
+                    <button onclick="handleMCQ(this, false, 'Interfaces actually add a tiny bit of compilation time, but they save massive amounts of developer time.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) They make the code compile faster for the team.</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! They create a reliable contract so developers can work independently without breaking each other\'s code.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) They act as a contract, allowing developers to work in parallel safely.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. Can a programmer just code methods directly into a class without an interface?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! You can, but using an interface is a design choice for better structure, scalability, and teamwork.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes, but interfaces are used for better architecture and team coordination.</button>
+                    <button onclick="handleMCQ(this, false, 'Java does not force you to use interfaces for standard class methods.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No, Java strictly requires an interface for every class.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Define, Use, Test (Slide 4) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">4. Define, Use and Test Interface</h2>
+            <p class="text-slate-600 mb-6">Let's look at the practical application. We define an interface, use a class to connect to it via the <code class="bg-slate-100 px-1 rounded text-red-600 font-bold">implements</code> keyword, and write the actual logic.</p>
+
+            <div class="code-block mb-6 relative">
+                <div class="absolute top-2 right-4 text-slate-500 text-xs">Java</div>
+<pre>
+<span class="keyword">public interface</span> <span class="type">SMS</span> {
+    <span class="keyword">public void</span> <span class="method">sendSOS</span>(<span class="type">String</span> msg) ; <span class="comment">// No details, ends with semicolon</span>
+}
+
+<span class="keyword">public class</span> <span class="type">Phone</span> <span class="keyword text-red-400 font-bold">implements</span> <span class="type">SMS</span> {
+    <span class="type">String</span> phoneNumber;
+    <span class="type">String</span> dialNumber;
+    
+    <span class="keyword">public void</span> <span class="method">sendSOS</span>(<span class="type">String</span> msg) { <span class="comment">// Details of method provided here</span>
+        <span class="type">System.out</span>.println(<span class="string">"Sent "</span> + msg + <span class="string">" to "</span> + dialNumber);
+    }
+}
+
+<span class="keyword">public class</span> <span class="type">testInterface</span> {
+    <span class="keyword">public static void</span> <span class="method">main</span>(<span class="type">String</span>[] args) {
+        <span class="type">Phone</span> p1 = <span class="keyword">new</span> <span class="type">Phone</span>();
+        p1.dialNumber = <span class="string">"88888888"</span>;
+        p1.sendSOS(<span class="string">"Hello"</span>);
+    }
+}
+</pre>
+            </div>
+            <div class="bg-slate-900 text-green-400 p-3 rounded font-mono text-sm mb-8">
+                Output: Sent Hello to 88888888
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>Create interfaces using the <code>interface</code> keyword.</li>
+                    <li>A class connects to an interface using <code>implements</code>.</li>
+                    <li>The implementing class <strong>must</strong> provide the actual logic (method body) inside <code>{}</code>.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 3 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. Which keyword is used by a class to inherit from an interface?</p>
+                    <button onclick="handleMCQ(this, false, 'extends is used for class-to-class inheritance.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) extends</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! A class implements an interface.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) implements</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. How do you terminate an abstract method declaration inside an interface?</p>
+                    <button onclick="handleMCQ(this, false, 'Curly braces are used to define a method body. Abstract methods have no body.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) With empty curly braces {}</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! You end it immediately with a semicolon.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) With a semicolon ;</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Error Handling (Slide 5) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">5. Error Handling and Consistency</h2>
+            <p class="text-slate-600 mb-6">Implementing an interface is a <strong>strict contract</strong>. If you sign the contract (use <code>implements</code>), you must fulfill it by writing the logic for <em>every</em> abstract method. Let's see what happens if you forget.</p>
+
+            <div class="code-block mb-4">
+<pre>
+<span class="keyword">public interface</span> <span class="type">SMS</span> {
+    <span class="keyword">public void</span> <span class="method">sendSOS</span>(<span class="type">String</span> msg) ;
+}
+
+<span class="keyword">public class</span> <span class="type">Phone</span> <span class="keyword">implements</span> <span class="type">SMS</span> {
+    <span class="type">String</span> phoneNumber;
+    <span class="type">String</span> dialNumber;
+    
+    <span class="comment">// Oops! We forgot to write the sendSOS() method here!</span>
+}
+</pre>
+            </div>
+
+            <!-- Compiler Simulator -->
+            <div class="bg-slate-100 p-6 rounded-lg mb-8 border border-slate-300 flex flex-col items-center">
+                <p class="text-slate-600 mb-4 font-semibold">Try compiling the code above:</p>
+                <button onclick="document.getElementById('compiler-error').classList.remove('hidden')" class="bg-slate-800 text-white px-6 py-2 rounded shadow hover:bg-slate-700 transition flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> Compile Code
+                </button>
+                <div id="compiler-error" class="hidden w-full mt-4 bg-red-900 text-red-200 p-4 rounded font-mono text-sm fade-in shadow-inner border border-red-700">
+                    > javac Phone.java<br>
+                    <span class="text-red-400 font-bold">Error:</span> Phone is not abstract and does not override abstract method sendSOS(String) in SMS<br>
+                    1 error
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>The Java compiler enforces consistency. Missing a method throws a compilation error.</li>
+                    <li>This ensures any object claiming a specific behavior actually possesses the working logic for it.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 4 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. What happens if a standard class implements an interface but misses one of the methods?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! It fails at compilation, preventing broken code from running.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) The code will fail to compile</button>
+                    <button onclick="handleMCQ(this, false, 'It will not compile at all, so it can never run.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) The code compiles, but crashes at runtime</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Implements Multiple Interfaces (Slide 6) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">6. Implementing Multiple Interfaces</h2>
+            <p class="text-slate-600 mb-6">Java classes can only <code>extend</code> <strong>one</strong> parent class. However, they can <code>implement</code> <strong>multiple</strong> interfaces simultaneously, separated by a comma. This is how Java allows multiple inheritance of behavior.</p>
+
+            <div class="flex justify-center mb-8">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-center relative inline-block">
+                    <div class="flex gap-12 justify-center mb-6">
+                        <div class="bg-blue-100 text-blue-800 font-bold p-3 rounded shadow-sm border border-blue-200 z-10 relative">Interface SMS</div>
+                        <div class="bg-blue-100 text-blue-800 font-bold p-3 rounded shadow-sm border border-blue-200 z-10 relative">Interface Call</div>
+                    </div>
+                    <!-- Connector lines -->
+                    <svg class="absolute top-12 left-0 w-full h-12" style="z-index: 0;" pointer-events="none">
+                        <path d="M 100 0 L 150 40 L 200 40 L 220 50" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="4" />
+                        <path d="M 280 0 L 230 40 L 200 40 L 220 50" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="4" />
+                    </svg>
+                    <div class="bg-green-100 text-green-800 font-bold p-4 rounded-lg shadow border border-green-300 z-10 relative mx-auto w-48">Class Phone</div>
+                </div>
+            </div>
+
+            <div class="code-block mb-8">
+<pre>
+<span class="keyword">interface</span> <span class="type">SMS</span> { <span class="keyword">public void</span> <span class="method">sendSOS</span>(<span class="type">String</span> msg) ; }
+<span class="keyword">interface</span> <span class="type">Call</span> { <span class="keyword">public void</span> <span class="method">makeCall</span>(<span class="type">int</span> countryCode, <span class="type">String</span> number) ; }
+
+<span class="comment">// Separated by a comma</span>
+<span class="keyword">class</span> <span class="type">Phone</span> <span class="keyword">implements</span> <span class="type">SMS</span>, <span class="type">Call</span> {
+    <span class="type">String</span> dialNumber;
+    
+    <span class="keyword">public void</span> <span class="method">sendSOS</span>(<span class="type">String</span> msg) {
+        <span class="type">System.out</span>.println (<span class="string">"Sent "</span> + msg + <span class="string">" to "</span> + dialNumber );
+    }
+    
+    <span class="keyword">public void</span> <span class="method">makeCall</span>(<span class="type">int</span> cc, <span class="type">String</span> n) {
+        <span class="type">System.out</span>.println (<span class="string">"Calling +"</span> + cc + <span class="string">"-"</span> + n );
+    }
+}
+</pre>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>Java restricts multiple inheritance of <em>state</em> (classes) to prevent ambiguity.</li>
+                    <li>Java allows multiple inheritance of <em>type/behavior</em> (interfaces).</li>
+                    <li>A single class can fulfill multiple distinct roles.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 5 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. Can a Java class extend two parent classes at the same time?</p>
+                    <button onclick="handleMCQ(this, false, 'Java prevents multiple inheritance of classes (the Diamond Problem).')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! Java classes can only have one direct superclass.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. What is the correct syntax for implementing multiple interfaces?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Just separate them with a comma.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) implements Interface1, Interface2</button>
+                    <button onclick="handleMCQ(this, false, 'You only use the implements keyword once.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) implements Interface1 implements Interface2</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Inheritance + Interfaces (Slide 7 & 8) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">7. Combining Inheritance and Interfaces</h2>
+            <p class="text-slate-600 mb-6">A class can <code>extend</code> a parent class AND <code>implement</code> an interface at the same time. Interfaces allow completely unrelated objects (like an animal and a plant) to share a common behavior.</p>
+
+            <div class="code-block mb-8">
+<pre>
+<span class="keyword">interface</span> <span class="type">Edible</span> { <span class="keyword">public</span> <span class="type">String</span> <span class="method">howToCook</span>() ; }
+
+<span class="keyword">class</span> <span class="type">Animal</span> { <span class="keyword">public</span> <span class="type">String</span> <span class="method">toString</span>() { <span class="keyword">return</span> (<span class="string">"Animal"</span>); } }
+
+<span class="comment">// Extends MUST come before implements</span>
+<span class="keyword">class</span> <span class="type">Chicken</span> <span class="keyword">extends</span> <span class="type">Animal</span> <span class="keyword">implements</span> <span class="type">Edible</span> {
+    <span class="keyword">public</span> <span class="type">String</span> <span class="method">howToCook</span>() {
+        <span class="keyword">return</span> (<span class="string">" - Steam it with herbs."</span>);
+    }
+    <span class="keyword">public</span> <span class="type">String</span> <span class="method">toString</span>() { <span class="keyword">return</span> (<span class="string">"chicken"</span>); }
+}
+
+<span class="comment">// A plant, unrelated to Animal, but still Edible</span>
+<span class="keyword">class</span> <span class="type">WinterMelon</span> <span class="keyword">implements</span> <span class="type">Edible</span> {
+    <span class="keyword">public</span> <span class="type">String</span> <span class="method">howToCook</span>() {
+        <span class="keyword">return</span> (<span class="string">" - Boil it with chicken feet."</span>);
+    }
+    <span class="keyword">public</span> <span class="type">String</span> <span class="method">toString</span>() { <span class="keyword">return</span> (<span class="string">"winter melon"</span>); }
+}
+</pre>
+            </div>
+
+            <div class="bg-slate-900 text-green-400 p-3 rounded font-mono text-sm mb-8">
+                Output:<br>
+                chicken - Steam it with herbs.<br>
+                winter melon - Boil it with chicken feet.
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>When combining them, the <code>extends</code> keyword <strong>must</strong> come before <code>implements</code>.</li>
+                    <li>This demonstrates <strong>Polymorphism</strong>: An unrelated <code>Chicken</code> and <code>WinterMelon</code> can both be treated as <code>Edible</code>.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 6 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. What is the correct order of keywords when doing both?</p>
+                    <button onclick="handleMCQ(this, false, 'Incorrect. Java requires establishing the class hierarchy before interfaces.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) class Name implements Interface extends Parent</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! extends must always precede implements.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) class Name extends Parent implements Interface</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. Can completely unrelated classes share the same interface?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Interfaces group behaviors across different branches of the class tree.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes, this is a major benefit of interfaces</button>
+                    <button onclick="handleMCQ(this, false, 'False. Unlike class inheritance, interfaces do not require the objects to be related.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No, they must share a parent class</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 8: Interface Design Principle (ISP) (Slide 9 & 10) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">8. Interface Segregation Principle (ISP)</h2>
+            <p class="text-slate-600 mb-6">Interfaces are foundational architectural tools in enterprise applications. Writing an interface is easy, but <em>designing</em> a good one takes forethought.</p>
+            
+            <blockquote class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6 italic text-slate-700 font-serif">
+                "No client should be forced to depend on methods it does not use."
+            </blockquote>
+
+            <p class="text-slate-600 mb-6">This is the core definition of ISP. "Clients" refers to the implementing classes. We want to avoid <strong>interface bloat</strong>—where an interface has too many unrelated methods.</p>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>ISP is a standard OOP best practice.</li>
+                    <li>Don't force a class to implement behaviors it doesn't need.</li>
+                    <li>Highly relevant in professional industry frameworks (e.g., Spring Framework).</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 7 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. What does the Interface Segregation Principle state?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! Classes shouldn\'t carry the burden of irrelevant methods.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) No client should be forced to depend on methods it does not use.</button>
+                    <button onclick="handleMCQ(this, false, 'This describes Single Responsibility Principle, not ISP.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) A class should have only one reason to change.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. What is "Interface Bloat"?</p>
+                    <button onclick="handleMCQ(this, false, 'Having many small interfaces is actually avoiding bloat.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Having too many small interfaces in a project.</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! A fat, bloated interface forces implementations to write dummy code.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Having too many unrelated methods inside a single interface.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 9: Bad Example (Slide 11) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">9. A Bad Example (Violating ISP)</h2>
+            <p class="text-slate-600 mb-6">Let's look at a bloated <code>Toy</code> interface. A toy house cannot move or fly, but because it implements the bloated interface, the programmer is forced to create empty "dummy" methods.</p>
+
+            <div class="code-block mb-8 relative">
+                <div class="absolute top-2 right-4 text-red-400 font-bold text-xs uppercase tracking-wider">Bad Design</div>
+<pre>
+<span class="keyword">interface</span> <span class="type">Toy</span> {
+    <span class="keyword">void</span> <span class="method">setPrice</span>(<span class="type">double</span> price);
+    <span class="keyword">void</span> <span class="method">setColor</span>(<span class="type">String</span> color);
+    <span class="keyword">void</span> <span class="method">move</span>(); <span class="comment">// Not all toys move</span>
+    <span class="keyword">void</span> <span class="method">fly</span>();  <span class="comment">// Not all toys fly</span>
+}
+
+<span class="keyword">class</span> <span class="type">ToyHouse</span> <span class="keyword">implements</span> <span class="type">Toy</span> {
+    <span class="type">double</span> price;
+    <span class="type">String</span> color;
+
+    <span class="keyword">public void</span> <span class="method">setPrice</span>(<span class="type">double</span> price) { <span class="keyword">this</span>.price = price; }
+    <span class="keyword">public void</span> <span class="method">setColor</span>(<span class="type">String</span> color) { <span class="keyword">this</span>.color=color; }
+
+    <span class="comment bg-red-900/40 px-2 py-1 rounded">// Dummy methods! Code Smell!</span>
+    <span class="keyword">public void</span> <span class="method">move</span>(){} 
+    <span class="keyword">public void</span> <span class="method">fly</span>(){}
+}
+</pre>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li><strong>Code Smells:</strong> Empty method implementations are a huge red flag that ISP is violated.</li>
+                    <li><strong>Fragility:</strong> If we added <code>walk()</code> to the <code>Toy</code> interface for a robot, we would have to edit <code>ToyHouse</code> again to add another empty method, breaking open-closed principles.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 8 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. Why is ToyHouse forced to implement move() and fly()?</p>
+                    <button onclick="handleMCQ(this, false, 'No, the compiler doesn\'t care if it makes sense logically.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Because the compiler knows it is a physical object.</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! The contract is strict; it must implement everything in Toy.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Because it signed the contract by implementing the Toy interface.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. What is the main issue with this "fragile" design?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! A single change to the interface breaks all dependent classes.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Changing the interface breaks all existing implementing classes.</button>
+                    <button onclick="handleMCQ(this, false, 'Performance is not affected by empty methods; maintainability is.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Empty methods consume too much CPU power.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Good Example (Slide 12, 13, 14) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">10. Solution following ISP</h2>
+            <p class="text-slate-600 mb-6">To fix this, we segregate the bloated <code>Toy</code> interface into smaller <strong>"Role Interfaces"</strong>. Classes then pick and choose the specific behaviors they need.</p>
+
+            <div class="code-block mb-6 relative border-l-4 border-green-500">
+                <div class="absolute top-2 right-4 text-green-400 font-bold text-xs uppercase tracking-wider">Good Design</div>
+<pre>
+<span class="keyword">interface</span> <span class="type">Toy</span> {
+    <span class="keyword">void</span> <span class="method">setPrice</span>(<span class="type">double</span> price);
+    <span class="keyword">void</span> <span class="method">setColor</span>(<span class="type">String</span> color);
+}
+
+<span class="keyword">interface</span> <span class="type">Movable</span> { <span class="keyword">void</span> <span class="method">move</span>(); }
+<span class="keyword">interface</span> <span class="type">Flyable</span> { <span class="keyword">void</span> <span class="method">fly</span>(); }
+
+<span class="comment">// ToyHouse only implements Toy. No more dummy methods!</span>
+<span class="keyword">class</span> <span class="type">ToyHouse</span> <span class="keyword">implements</span> <span class="type">Toy</span> {
+    <span class="type">double</span> price; <span class="type">String</span> color;
+    <span class="keyword">public void</span> <span class="method">setPrice</span>(<span class="type">double</span> p) { price = p; }
+    <span class="keyword">public void</span> <span class="method">setColor</span>(<span class="type">String</span> c) { color = c; }
+}
+
+<span class="comment">// ToyPlane needs all behaviors, so it implements multiple interfaces!</span>
+<span class="keyword">class</span> <span class="type">ToyPlane</span> <span class="keyword">implements</span> <span class="type">Toy</span>, <span class="type">Movable</span>, <span class="type">Flyable</span> {
+    <span class="type">double</span> price; <span class="type">String</span> color;
+    <span class="keyword">public void</span> <span class="method">setPrice</span>(<span class="type">double</span> p) { price = p; }
+    <span class="keyword">public void</span> <span class="method">setColor</span>(<span class="type">String</span> c) { color = c; }
+    <span class="keyword">public void</span> <span class="method">move</span>(){ <span class="type">System.out</span>.println(<span class="string">"Moving"</span>); }
+    <span class="keyword">public void</span> <span class="method">fly</span>(){  <span class="type">System.out</span>.println(<span class="string">"Flying"</span>); }
+}
+</pre>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li><strong>Role Interfaces:</strong> Break down monolithic interfaces into cohesive, focused units.</li>
+                    <li><strong>Composition over rigidity:</strong> Combine interfaces (<code>implements Toy, Movable, Flyable</code>) to construct complex class behaviors cleanly.</li>
+                    <li>Code is now self-documenting and resilient to changes.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 9 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. What do we call smaller, highly cohesive interfaces like Movable or Flyable?</p>
+                    <button onclick="handleMCQ(this, true, 'Correct! They represent specific roles or capabilities.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Role Interfaces</button>
+                    <button onclick="handleMCQ(this, false, 'God interfaces are the bloated ones we want to avoid!')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) God Interfaces</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. Does ToyHouse still contain empty dummy methods in this new design?</p>
+                    <button onclick="handleMCQ(this, false, 'Look closely at the code; there are no empty move() or fly() methods anymore.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! Because it doesn\'t implement Movable, it doesn\'t need to provide move().')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 11: Conclusion (Slide 15) -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-sm border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-800 mb-4">11. Finding the Architectural Balance</h2>
+            <p class="text-slate-600 mb-6">From a coding perspective, implementing an interface is incredibly simple—you just type the keyword <code>implements</code>. The real challenge is <strong>architectural</strong>.</p>
+            
+            <div class="flex items-center justify-between bg-slate-50 p-6 rounded-lg mb-8 border border-slate-200 text-sm md:text-base font-semibold text-center">
+                <div class="w-1/3 text-red-500">
+                    <div>1 Monolithic Interface</div>
+                    <div class="text-xs font-normal text-slate-500">(Too rigid, dummy code)</div>
+                </div>
+                <div class="w-1/3 border-b-4 border-blue-500 pb-2 text-blue-700">
+                    <div>Balanced Role Interfaces</div>
+                    <div class="text-xs font-normal text-slate-500">(The Sweet Spot)</div>
+                </div>
+                <div class="w-1/3 text-orange-500">
+                    <div>100 Tiny Interfaces</div>
+                    <div class="text-xs font-normal text-slate-500">(Over-proliferation, messy)</div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-5 rounded-r-lg mb-8">
+                <h3 class="font-semibold text-blue-800 mb-2">Key Takeaways</h3>
+                <ul class="list-disc list-inside space-y-1 text-slate-700">
+                    <li>Syntax is easy; architecture is hard. Knowing <em>how</em> to write <code>implements</code> is different from knowing <em>when</em>.</li>
+                    <li>Avoid the extreme of creating single-method interfaces for every tiny thing. A pragmatic balance is required.</li>
+                </ul>
+            </div>
+
+            <!-- MCQ 10 -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <h4 class="font-bold text-slate-700 mb-4">Knowledge Check</h4>
+                <div class="mcq-container mb-6">
+                    <p class="font-semibold mb-3">Q1. What is the real challenge with interfaces according to the conclusion?</p>
+                    <button onclick="handleMCQ(this, false, 'Memorizing keywords is syntax, which is the easy part.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Memorizing the Java keywords.</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! Finding the right boundaries and responsibilities is the hard part.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) Identifying the correct architecture and distinct interfaces.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+                <div class="mcq-container">
+                    <p class="font-semibold mb-3">Q2. According to best practices, should you create single-method interfaces for every single action?</p>
+                    <button onclick="handleMCQ(this, false, 'This leads to interface over-proliferation, making code unreadable.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">A) Yes, more segregation is always better.</button>
+                    <button onclick="handleMCQ(this, true, 'Correct! You must find a pragmatic balance to avoid over-complicating the system.')" class="w-full text-left p-3 mb-2 rounded border border-slate-300 bg-white hover:bg-slate-100 transition">B) No, this causes over-proliferation of interfaces.</button>
+                    <div class="feedback hidden mt-3 p-3 rounded text-sm bg-white border"></div>
+                </div>
+            </div>
+        </section>
+        
+        <footer class="text-center text-slate-500 pb-12">
+            <p>End of Module 4. Great job completing the lesson!</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Logic for handling MCQ interactions
+        function handleMCQ(buttonElement, isCorrect, explanationText) {
+            const container = buttonElement.closest('.mcq-container');
+            const buttons = container.querySelectorAll('button');
+            const feedback = container.querySelector('.feedback');
+
+            // Disable all buttons in this question to prevent multiple guesses
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-100');
+                btn.classList.add('opacity-50', 'cursor-default');
+            });
+
+            // Highlight chosen button
+            buttonElement.classList.remove('opacity-50');
+            
+            if (isCorrect) {
+                buttonElement.classList.add('bg-green-50', 'border-green-400', 'text-green-800');
+                feedback.innerHTML = `<span class="text-green-600 font-bold">✓ Correct:</span> <span class="text-slate-700">${explanationText}</span>`;
+                feedback.classList.add('bg-green-50', 'border-green-200');
+            } else {
+                buttonElement.classList.add('bg-red-50', 'border-red-400', 'text-red-800');
+                feedback.innerHTML = `<span class="text-red-600 font-bold">✗ Incorrect:</span> <span class="text-slate-700">${explanationText}</span>`;
+                feedback.classList.add('bg-red-50', 'border-red-200');
+            }
+            
+            feedback.classList.remove('hidden');
+            feedback.classList.add('fade-in');
+        }
+    </script>
+</body>
+</html>
