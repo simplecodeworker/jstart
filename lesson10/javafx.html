@@ -139,6 +139,7 @@
 
                 <h3 class="text-xl font-semibold text-gray-800 mb-3 border-b pb-2">How to Install JavaFX into Eclipse</h3>
                 <ol class="list-decimal list-inside text-gray-600 space-y-3 leading-relaxed">
+                    <li><strong class="text-gray-800">You must use the JavaFX version</strong> that is the same as your JDK version. For example, JavaFX 26 is not compatible with JDK 23. You can open up a command prompt and type <b>javac -version</b></li>
                     <li><strong class="text-gray-800">Download the SDK:</strong> Go to the Gluon JavaFX website and download the JavaFX SDK for your operating system. Unzip it to a memorable location (e.g., <code>C:\javafx-sdk</code>).</li>
                     <li><strong class="text-gray-800">Create a User Library:</strong> In Eclipse, go to <em>Window &gt; Preferences &gt; Java &gt; Build Path &gt; User Libraries</em>. Click <strong>New</strong>, name it "JavaFX", and click <strong>Add External JARs</strong>. Select all the <code>.jar</code> files inside your unzipped JavaFX <code>lib</code> folder.</li>
                     <li><strong class="text-gray-800">Add to Project:</strong> Right-click your Eclipse project, select <em>Build Path &gt; Add Libraries &gt; User Library</em>, and check your new JavaFX library.</li>
