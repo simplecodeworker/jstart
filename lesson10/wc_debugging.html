@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Assessment: Team & WorldCupTeam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar for code blocks */
+        pre::-webkit-scrollbar {
+            height: 8px;
+        }
+        pre::-webkit-scrollbar-thumb {
+            background-color: #4b5563; 
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-8 border-b pb-4 border-slate-300">
+            <h1 class="text-3xl font-bold text-slate-900">Java OOP Practice Assessment</h1>
+            <p class="text-slate-600 mt-2 text-sm md:text-base">
+                Based on the <code>Team</code> and <code>WorldCupTeam</code> source code. Solve the compiler or runtime errors for each question. Answers are locked.
+            </p>
+        </header>
+
+        <div id="questions-container" class="space-y-8">
+            <!-- Questions will be injected here by Javascript -->
+        </div>
+    </div>
+
+    <script>
+        const questionsData = [
+            {
+                id: 1,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q1 {
+    public static void main(String[] args) {
+        WorldCupTeam t = new WorldCupTeam("Italy", "Group Stage");
+        System.out.println("Team: " + t.getCountryName);
+    }
+}`,
+                correctedLine: `System.out.println("Team: " + t.getCountryName());`,
+                printedResult: `Team: Italy`
+            },
+            {
+                id: 2,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q2 {
+    public static void main(String[] args) {
+        WorldCupTeam wct = new WorldCupTeam();
+        wct.countryName = "France";
+        wct.describe();
+    }
+}`,
+                correctedLine: `wct.setCountryName("France");`,
+                printedResult: `Country: France\nTournament Stage: Not Started`
+            },
+            {
+                id: 3,
+                prompt: "Please correct ONE runtime boundary error in the loop below, then calculate the printed output.",
+                code: `public class Q3 {
+    public static void main(String[] args) {
+        Team[] teams = new Team[2];
+        teams[0] = new Team("Germany");
+        teams[1] = new Team("Mexico");
+        
+        for (int i = 1; i <= 2; i++) {
+            teams[i].describe();
+        }
+    }
+}`,
+                correctedLine: `for (int i = 0; i < 2; i++) {  // or i < teams.length`,
+                printedResult: `Country: Germany\nCountry: Mexico`
+            },
+            {
+                id: 4,
+                prompt: "Please correct ONE compiler error below, and write the printed output of running the corrected code.",
+                code: `public class Q4 {
+    public static void main(String[] args) {
+        WorldCupTeam team;
+        team.setCountryName("Argentina");
+        team.describe();
+    }
+}`,
+                correctedLine: `WorldCupTeam team = new WorldCupTeam();`,
+                printedResult: `Country: Argentina\nTournament Stage: Not Started`
+            },
+            {
+                id: 5,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q5 {
+    public static void main(String[] args) {
+        WorldCupTeam t = new WorldCupTeam("England", "Semi Finals");
+        t.describ();
+    }
+}`,
+                correctedLine: `t.describe();`,
+                printedResult: `Country: England\nTournament Stage: Semi Finals`
+            },
+            {
+                id: 6,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q6 {
+    public static void main(String[] args) {
+        WorldCupTeam t = new WorldCupTeam("USA");
+        t.describe();
+    }
+}`,
+                correctedLine: `Team t = new Team("USA"); // OR WorldCupTeam t = new WorldCupTeam("USA", "Some Stage");`,
+                printedResult: `Country: USA`
+            },
+            {
+                id: 7,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q7 {
+    public static void main(String[] args) {
+        Team t1 = new Team("South Korea");
+        System.out.println(T1.getCountryName());
+    }
+}`,
+                correctedLine: `System.out.println(t1.getCountryName());`,
+                printedResult: `South Korea`
+            },
+            {
+                id: 8,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q8 {
+    public static void main(String[] args) {
+        Team t = Team("Portugal");
+        t.describe();
+    }
+}`,
+                correctedLine: `Team t = new Team("Portugal");`,
+                printedResult: `Country: Portugal`
+            },
+            {
+                id: 9,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q9 {
+    public static void main(String[] args) {
+        WorldCupTeam w = new WorldCupTeam();
+        String stage = w.getTournamentStage();
+        System.out.println("Stage: " + Stage);
+    }
+}`,
+                correctedLine: `System.out.println("Stage: " + stage);`,
+                printedResult: `Stage: Not Started`
+            },
+            {
+                id: 10,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q10 {
+    public static void main(String[] args) {
+        Team t = new WorldCupTeam("Morocco", "Semi Finals");
+        t.setTournamentStage("Finals");
+        t.describe();
+    }
+}`,
+                correctedLine: `WorldCupTeam t = new WorldCupTeam("Morocco", "Semi Finals");`,
+                printedResult: `Country: Morocco\nTournament Stage: Finals`
+            },
+            {
+                id: 11,
+                prompt: "Please correct ONE compiler error in the class below, then write down the printed outcome of running the corrected code.",
+                code: `public class Q11 {
+    public static void main(String[] args) {
+        WorldCupTeam w1 = new WorldCupTeam();
+        w1.setCountryName("Spain");
+        System.out.println(w1.getcountryName());
+    }
+}`,
+                correctedLine: `System.out.println(w1.getCountryName());`,
+                printedResult: `Spain`
+            }
+        ];
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            let htmlContent = '';
+
+            questionsData.forEach((q, index) => {
+                const questionNumber = index + 1;
+                htmlContent += `
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="p-6">
+                            <h2 class="text-lg font-semibold text-slate-800 mb-3">${questionNumber}. ${q.prompt}</h2>
+                            
+                            <div class="bg-slate-900 rounded-md p-4 mb-5 overflow-x-auto">
+                                <pre class="text-green-400 font-mono text-sm leading-relaxed whitespace-pre"><code>${q.code}</code></pre>
+                            </div>
+
+                            <div class="space-y-3 mb-6">
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                    <span class="font-medium text-slate-700 whitespace-nowrap">Corrected line of code:</span>
+                                    <div class="border-b border-slate-400 flex-grow min-w-[200px] h-6"></div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row sm:items-center gap-2">
+                                    <span class="font-medium text-slate-700 whitespace-nowrap">The printed result will be:</span>
+                                    <div class="border-b border-slate-400 flex-grow min-w-[200px] h-6"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Answer Section -->
+                        <div class="bg-slate-50 border-t border-slate-200 p-6">
+                            <div id="lock-screen-${q.id}" class="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                                <label for="pwd-${q.id}" class="text-sm font-medium text-slate-600">Enter passcode to unlock answer:</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="password" id="pwd-${q.id}" class="border border-slate-300 rounded px-3 py-1.5 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors w-32" placeholder="Passcode">
+                                    <button onclick="unlockAnswer(${q.id})" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1.5 rounded text-sm font-medium transition-colors">
+                                        Unlock
+                                    </button>
+                                </div>
+                                <span id="error-${q.id}" class="text-red-500 text-sm hidden font-medium">Incorrect passcode</span>
+                            </div>
+
+                            <div id="answer-screen-${q.id}" class="hidden">
+                                <h3 class="text-sm font-bold text-green-700 uppercase tracking-wider mb-3">Answer Key</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-semibold uppercase mb-1">Corrected Line</p>
+                                        <code class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">${q.correctedLine.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</code>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-slate-500 font-semibold uppercase mb-1">Printed Result</p>
+                                        <pre class="bg-slate-200 text-slate-800 p-3 rounded text-sm font-mono whitespace-pre-wrap">${q.printedResult}</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', renderQuestions);
+
+        // Unlock logic validating password via ASCII check
+        function unlockAnswer(questionId) {
+            const inputEl = document.getElementById(`pwd-${questionId}`);
+            const errorEl = document.getElementById(`error-${questionId}`);
+            const val = inputEl.value;
+            
+            errorEl.classList.add('hidden');
+
+            // Secure validation check using ASCII values 
+            // Avoids storing plain text string "xx1" in code
+            // ASCII Reference: 'x' = 120, '1' = 49
+            if (val.length === 3 &&
+                val.charCodeAt(0) === 120 &&
+                val.charCodeAt(1) === 120 &&
+                val.charCodeAt(2) === 49) {
+                
+                // Unlocked successfully
+                document.getElementById(`lock-screen-${questionId}`).classList.add('hidden');
+                document.getElementById(`answer-screen-${questionId}`).classList.remove('hidden');
+            } else {
+                // Failed unlock
+                errorEl.classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
