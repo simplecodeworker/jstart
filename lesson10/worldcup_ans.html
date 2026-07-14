@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java Inheritance Lab - Solutions</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Sports/Code Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pitch: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            950: '#022c22',
+                        },
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            font-size: 100%;
+        }
+        /* Custom scrollbar styling adapted for light theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .code-font {
+            font-family: 'Courier New', Courier, monospace;
+        }
+        
+        /* Custom styles for code blocks */
+        pre {
+            tab-size: 4;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-full flex flex-col font-sans selection:bg-emerald-200 selection:text-emerald-950">
+
+    <!-- Top Navigation Header -->
+    <header class="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-sm">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center shadow-md">
+                    <i class="fa-solid fa-check-double text-white text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-slate-900 tracking-tight">Java Inheritance Lab - Solutions</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- App Container -->
+    <main class="max-w-4xl mx-auto px-4 py-6 flex-grow w-full flex flex-col space-y-8">
+
+        <!-- Custom Notification Toast -->
+        <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-12 opacity-0 transition-all duration-300 bg-white border border-emerald-200 text-slate-800 px-4 py-3 rounded-lg shadow-xl flex items-center space-x-3 max-w-sm pointer-events-none">
+            <div class="p-1.5 bg-emerald-100 text-emerald-600 rounded-md">
+                <i class="fa-solid fa-clipboard-check"></i>
+            </div>
+            <p id="toastMessage" class="text-xs font-medium"></p>
+        </div>
+
+        <!-- Context Card -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl"></div>
+            <h2 class="text-lg font-bold text-slate-900 mt-2 mb-2 flex items-center">
+                <i class="fa-solid fa-lightbulb text-emerald-500 mr-2"></i> Lab Solutions Guide
+            </h2>
+            <p class="text-slate-600 leading-relaxed">
+                Below are the step-by-step solutions for the World Cup Tournament Tracker assignment. Each section contains the original question requirements, the correct Java implementation, and a highlighted <strong>Beginner's Watch-Out</strong> tip to help you avoid common pitfalls.
+            </p>
+        </div>
+
+        <!-- UML Diagram Card -->
+        <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-4 flex items-center justify-between">
+                <span>UML Diagram Specification</span>
+            </h3>
+            
+            <div class="bg-slate-50 rounded-lg border border-slate-200 p-4 overflow-x-auto">
+                <div class="flex flex-col items-center min-w-[280px] py-2">
+                    
+                    <!-- Superclass: Team -->
+                    <div class="w-full max-w-[360px] bg-white border border-emerald-500 rounded-lg shadow-sm overflow-hidden">
+                        <div class="bg-emerald-50 px-3 py-2 border-b border-emerald-100 text-center">
+                            <div class="text-[9px] font-bold text-emerald-700 tracking-wider">SUPERCLASS</div>
+                            <span class="font-bold text-slate-900 code-font">Team</span>
+                        </div>
+                        <div class="px-3 py-1.5 border-b border-slate-100 text-[16px] text-slate-700 code-font">
+                            - countryName: String
+                        </div>
+                        <div class="px-3 py-1.5 text-[16px] text-slate-700 space-y-0.5 code-font">
+                            + Team()<br>
+                            + Team(String)<br>
+                            + getCountryName(): String<br>
+                            + setCountryName(String): void<br>
+                            + describe(): void
+                        </div>
+                    </div>
+
+                    <!-- Inheritance Arrow -->
+                    <div class="my-3 flex flex-col items-center">
+                        <div class="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-b-[10px] border-b-slate-400"></div>
+                        <div class="w-0.5 h-4 bg-slate-400"></div>
+                        <span class="text-[8px] text-slate-500 tracking-widest uppercase mt-0.5 font-bold">Extends</span>
+                    </div>
+
+                    <!-- Subclass: WorldCupTeam -->
+                    <div class="w-full max-w-[360px] bg-white border border-teal-500 rounded-lg shadow-sm overflow-hidden">
+                        <div class="bg-teal-50 px-3 py-2 border-b border-teal-100 text-center">
+                            <div class="text-[9px] font-bold text-teal-700 tracking-wider">SUBCLASS</div>
+                            <span class="font-bold text-slate-900 code-font">WorldCupTeam</span>
+                        </div>
+                        <div class="px-3 py-1.5 border-b border-slate-100 text-[16px] text-slate-700 code-font">
+                            - tournamentStage: String
+                        </div>
+                        <div class="px-3 py-1.5 text-[16px] text-slate-700 space-y-0.5 code-font">
+                            + WorldCupTeam()<br>
+                            + WorldCupTeam(String, String)<br>
+                            + getTournamentStage(): String<br>
+                            + setTournamentStage(String): void<br>
+                            + describe(): void
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Part (a) Solution -->
+        <div class="bg-white border-t-4 border-t-emerald-500 border-l border-r border-b border-slate-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center">
+                    <span class="bg-emerald-100 text-emerald-800 text-sm py-1 px-3 rounded-full mr-3 border border-emerald-200">Part (a)</span>
+                    Create Superclass (<span class="code-font text-emerald-600 ml-2">Team.java</span>)
+                </h2>
+            </div>
+            
+            <!-- Question Text -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-5">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center">
+                    <i class="fa-solid fa-clipboard-question mr-2 text-slate-400"></i> Question Requirements
+                </h3>
+                <ul class="space-y-1 text-sm text-slate-600 pl-4 list-disc">
+                    <li>Private string <code class="code-font bg-white px-1 py-0.5 rounded border text-emerald-700">countryName</code>.</li>
+                    <li>No-argument constructor defaults to <code class="code-font text-slate-500">"Unassigned Country"</code>.</li>
+                    <li>Parameterized constructor accepts a String.</li>
+                    <li>Getters and setters implemented.</li>
+                    <li>Method <code class="code-font bg-white px-1 py-0.5 rounded border text-emerald-700">describe()</code> displays country.</li>
+                </ul>
+            </div>
+
+            <!-- Code Answer -->
+            <div class="relative group">
+                <div class="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="copyCode('code-part-a')" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1 px-2 rounded shadow transition-colors">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy
+                    </button>
+                </div>
+                <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm code-font border border-slate-800 shadow-inner" id="code-part-a">
+// File: Team.java
+
+public class Team 
+{
+    // 1. Private string countryName.
+    private String countryName;
+
+    // 2. No-argument constructor defaults to "Unassigned Country".
+    public Team() 
+    {
+        countryName = "Unassigned Country";
+    }
+
+    // 3. Parameterized constructor accepts a String.
+    public Team(String countryName) 
+    {
+        this.countryName = countryName;
+    }
+
+    // 4. Getters and setters implemented.
+    public String getCountryName() 
+    {
+        return countryName;
+    }
+
+    public void setCountryName(String countryName) 
+    {
+        this.countryName = countryName;
+    }
+
+    // 5. Method describe() displays country.
+    public void describe() 
+    {
+        System.out.println("Country: " + countryName);
+    }
+}</pre>
+            </div>
+
+            <!-- Beginner Tip -->
+            <div class="mt-5 bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start space-x-3">
+                <div class="p-1.5 bg-amber-100 text-amber-600 rounded-md shrink-0 mt-0.5">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-900">Beginner's Watch-Out</h4>
+                    <p class="text-sm text-amber-800 mt-1 leading-relaxed">
+                        Notice how the constructors do <strong>not</strong> have a return type (not even <code>void</code>) and match the exact name of the class. Also, in the parameterized constructor, using the <code>this.</code> keyword (<code>this.countryName = countryName;</code>) is crucial to differentiate the instance variable from the parameter passed in.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part (b) Solution -->
+        <div class="bg-white border-t-4 border-t-teal-500 border-l border-r border-b border-slate-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center">
+                    <span class="bg-teal-100 text-teal-800 text-sm py-1 px-3 rounded-full mr-3 border border-teal-200">Part (b)</span>
+                    Create Subclass (<span class="code-font text-teal-600 ml-2">WorldCupTeam.java</span>)
+                </h2>
+            </div>
+            
+            <!-- Question Text -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-5">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center">
+                    <i class="fa-solid fa-clipboard-question mr-2 text-slate-400"></i> Question Requirements
+                </h3>
+                <ul class="space-y-1 text-sm text-slate-600 pl-4 list-disc">
+                    <li>Private string <code class="code-font bg-white px-1 py-0.5 rounded border text-teal-700">tournamentStage</code>.</li>
+                    <li>No-arg constructor chains to super and defaults to <code class="code-font text-slate-500">"Not Started"</code>.</li>
+                    <li>Parameterized constructor chains to super using <code class="code-font bg-white px-1 py-0.5 rounded border text-teal-700">super(countryName)</code>.</li>
+                    <li>Getters and setters for stage.</li>
+                    <li>Overridden <code class="code-font text-teal-700">describe()</code> runs <code class="code-font text-emerald-700">super.describe()</code> first, then appends stage details.</li>
+                </ul>
+            </div>
+
+            <!-- Code Answer -->
+            <div class="relative group">
+                <div class="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="copyCode('code-part-b')" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1 px-2 rounded shadow transition-colors">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy
+                    </button>
+                </div>
+                <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm code-font border border-slate-800 shadow-inner" id="code-part-b">
+// File: WorldCupTeam.java
+
+public class WorldCupTeam extends Team 
+{
+    // 1. Private string tournamentStage.
+    private String tournamentStage;
+
+    // 2. No-arg constructor chains to super and defaults to "Not Started".
+    public WorldCupTeam() 
+    {
+    // In WorldCupTeam default constructor, calling super() is technically optional because Java automatically calls the no-arg constructor of the superclass. 
+    // However, explicitly writing it is considered a good practice for readability and intentionality.
+        super();
+        tournamentStage = "Not Started";
+    }
+
+    // 3. Parameterized constructor chains to super using super(countryName).
+    public WorldCupTeam(String countryName, String tournamentStage) 
+    {
+        super(countryName);
+        this.tournamentStage = tournamentStage;
+    }
+
+    // 4. Getters and setters for stage.
+    public String getTournamentStage() 
+    {
+        return tournamentStage;
+    }
+
+    public void setTournamentStage(String tournamentStage) 
+    {
+        this.tournamentStage = tournamentStage;
+    }
+
+    // 5. Overridden describe() runs super.describe() first, then appends stage details.
+    @Override
+    public void describe() 
+    {
+        super.describe();
+        System.out.println("Tournament Stage: " + tournamentStage);
+    }
+}</pre>
+            </div>
+
+            <!-- Beginner Tip -->
+            <div class="mt-5 bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start space-x-3">
+                <div class="p-1.5 bg-amber-100 text-amber-600 rounded-md shrink-0 mt-0.5">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-900">Beginner's Watch-Out</h4>
+                    <p class="text-sm text-amber-800 mt-1 leading-relaxed">
+                        The call to <code>super()</code> <strong>must</strong> be the very first statement inside a constructor. You cannot write any code before it! Additionally, observe the <code>@Override</code> annotation before the <code>describe()</code> method—it asks the Java compiler to verify that you are correctly replacing a method from the parent class, preventing silent typo bugs.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Part (c) Solution -->
+        <div class="bg-white border-t-4 border-t-cyan-500 border-l border-r border-b border-slate-200 rounded-xl p-6 shadow-sm mb-12">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-slate-900 flex items-center">
+                    <span class="bg-cyan-100 text-cyan-800 text-sm py-1 px-3 rounded-full mr-3 border border-cyan-200">Part (c)</span>
+                    Create Test Driver (<span class="code-font text-cyan-600 ml-2">TestTournament.java</span>)
+                </h2>
+            </div>
+            
+            <!-- Question Text -->
+            <div class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-5">
+                <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider mb-2 flex items-center">
+                    <i class="fa-solid fa-clipboard-question mr-2 text-slate-400"></i> Question Requirements
+                </h3>
+                <ul class="space-y-1 text-sm text-slate-600 pl-4 list-disc">
+                    <li>Instantiate two <code class="code-font text-teal-700">WorldCupTeam</code> objects (one default, one parameterized).</li>
+                    <li>Print initial properties of default object using <code class="code-font text-teal-700">describe()</code>.</li>
+                    <li>Modify properties using setter mutator methods.</li>
+                    <li>Describe the object once more to confirm updates are active.</li>
+                </ul>
+            </div>
+
+            <!-- Code Answer -->
+            <div class="relative group">
+                <div class="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button onclick="copyCode('code-part-c')" class="bg-slate-700 hover:bg-slate-600 text-white text-xs py-1 px-2 rounded shadow transition-colors">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy
+                    </button>
+                </div>
+                <pre class="bg-slate-900 text-slate-50 p-4 rounded-lg overflow-x-auto text-sm code-font border border-slate-800 shadow-inner" id="code-part-c">
+// File: TestTournament.java
+
+public class TestTournament 
+{
+
+    public static void main(String[] args) 
+    {
+    // 1. Instantiate two WorldCupTeam objects (one default, one parameterized).
+        WorldCupTeam team1 = new WorldCupTeam();
+
+        WorldCupTeam team2 = new WorldCupTeam("Brazil", "Quarter Finals");
+
+    // 2. Print initial properties of default object using describe().
+        System.out.println("=== Default Object ===");
+        team1.describe();
+
+    // 3. Modify properties using setter mutator methods.
+        team1.setCountryName("Japan");
+        team1.setTournamentStage("Round of 16");
+
+    // 4. Describe the object once more to confirm updates are active.
+        System.out.println("\n=== Updated Default Object ===");
+        team1.describe();
+
+        System.out.println("\n=== Parameterized Object ===");
+        team2.describe();
+    }
+}</pre>
+            </div>
+
+            <!-- Beginner Tip -->
+            <div class="mt-5 bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start space-x-3">
+                <div class="p-1.5 bg-amber-100 text-amber-600 rounded-md shrink-0 mt-0.5">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-amber-900">Beginner's Watch-Out</h4>
+                    <p class="text-sm text-amber-800 mt-1 leading-relaxed">
+                        Remember that you must use the <code>new</code> keyword to instantiate an object before calling methods on it. If you only type <code>WorldCupTeam team1;</code> without assigning it a <code>new WorldCupTeam()</code>, the variable is <code>null</code> and will crash with a <code>NullPointerException</code> if you try to use it! Also, the <code>main</code> method is strictly required to run your Java program.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    
+    <footer class="mt-8 pb-8 text-center text-slate-500 text-sm">
+        <p>END OF QUESTION SOLUTIONS</p>
+    </footer>
+
+    <!-- Vanilla Javascript Logic -->
+    <script>
+        // Custom Notification Controller
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMessage');
+            toastMsg.innerText = message;
+
+            // Animate In
+            toast.classList.remove('translate-y-12', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // Timeout Out
+            setTimeout(() => {
+                toast.classList.add('translate-y-12', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+
+        // Copy Code to Clipboard using execCommand fallback for iFrame constraints
+        function copyCode(elementId) {
+            const codeElement = document.getElementById(elementId);
+            if (!codeElement) return;
+
+            // Extract the text content of the code block
+            const codeText = codeElement.innerText;
+
+            // Create a temporary textarea to hold the text
+            const textarea = document.createElement('textarea');
+            textarea.value = codeText;
+            
+            // Move it off-screen
+            textarea.style.position = 'fixed';
+            textarea.style.left = '-9999px';
+            textarea.style.top = '0';
+            
+            document.body.appendChild(textarea);
+            
+            // Select and copy
+            textarea.select();
+            textarea.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                // Use execCommand as specifically requested for iframe safety
+                document.execCommand('copy');
+                showToast("Code copied to clipboard!");
+            } catch (err) {
+                console.error("Failed to copy code: ", err);
+                showToast("Failed to copy code.");
+            } finally {
+                // Cleanup
+                document.body.removeChild(textarea);
+            }
+        }
+    </script>
+</body>
+</html>
